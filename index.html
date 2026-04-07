@@ -850,19 +850,15 @@
       setupControls();
       setupInfiniteScroll();
 
-      const loadTop = async () => {
-        try {
-          const res = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/argentina?order=clickcount&reverse=true&limit=10');
-          const top10 = await res.json();
-          renderGrid(top10, 'gridTop');
-        } catch (e) { console.error("Error en carga rápida"); }
-      };
-
-      const loadAll = async () => {
+     const loadAll = async () => {
         try {
           const res = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/argentina?order=clickcount&reverse=true&limit=1000');
           allRadios = await res.json();
           document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
+          
+          // ESTA ES LA LÍNEA QUE FALTABA PARA QUE CARGUEN TODAS DE ENTRADA
+          displayedRadios = [...allRadios];
+          
           handleRouting(); // <--- Aquí se dispara el enrutador inicial
         } catch (e) { document.getElementById('radioCount').innerText = "ERROR DE CARGA"; }
       };
@@ -916,7 +912,7 @@
       
       document.getElementById('masterSearch').oninput = (e) => {
         const term = e.target.value.toLowerCase();
-        displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
+        displayedRadios = allRadios.filter(r => (r.name || '').toLowerCase().includes(term));
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
         document.getElementById('sectTop').style.display = term ? 'none' : 'block';
       };
@@ -928,7 +924,7 @@
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
-          displayedRadios = allRadios.filter(r => keywords[mood].some(term => (r.name + r.tags).toLowerCase().includes(term)));
+          displayedRadios = allRadios.filter(r => keywords[mood].some(term => ((r.name || '') + (r.tags || '')).toLowerCase().includes(term)));
           document.getElementById('sectTop').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
