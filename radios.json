@@ -1,0 +1,56 @@
+[
+  {
+    "id": "cadena3",
+    "name": "Cadena 3 Argentina",
+    "city": "Córdoba",
+    "prov": "Córdoba",
+    "url": "https://server6.stweb.tv/cadena3/live/chunks.m3u8",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/4/47/Logo_Cadena_3_Argentina.png",
+    "tags": "noticias, cordoba, deportes"
+  },
+  {
+    "id": "gambafm",
+    "name": "Gamba FM",
+    "city": "Córdoba",
+    "prov": "Córdoba",
+    "url": "https://stream.gamba.fm/radio/8000/radio.mp3",
+    "logo": "https://gamba.fm/wp-content/uploads/2021/04/Gamba-Logo-Cuadrado.png",
+    "tags": "pop, hits, joven"
+  },
+  {
+    "id": "popular",
+    "name": "Radio Popular",
+    "city": "Córdoba",
+    "prov": "Córdoba",
+    "url": "https://server6.stweb.tv/radiopopular/live/chunks.m3u8",
+    "logo": "https://cadena3.com.ar/imagenes/logo_popular.png",
+    "tags": "cuarteto, musica, popular"
+  },
+  {
+    "id": "aspen",
+    "name": "Radio Aspen 102.3",
+    "city": "Buenos Aires",
+    "prov": "Buenos Aires",
+    "url": "https://stream.aspen.com.ar/aspen.mp3",
+    "logo": "https://aspen.com.ar/img/logo-aspen.png",
+    "tags": "retro, 80s, 90s, ingles"
+  },
+  {
+    "id": "mitre_cba",
+    "name": "Radio Mitre Córdoba",
+    "city": "Córdoba",
+    "prov": "Córdoba",
+    "url": "https://stream.mitrecordoba.com.ar/mitre.mp3",
+    "logo": "https://mitrecordoba.com.ar/img/logo-mitre.png",
+    "tags": "noticias, informacion, cordoba"
+  },
+  {
+    "id": "locos_por_el_cuarteto",
+    "name": "Locos por el Cuarteto",
+    "city": "Córdoba",
+    "prov": "Córdoba",
+    "url": "https://servidor15.brlogic.com:8328/live",
+    "logo": "https://i.ibb.co/L5XqWn5/logo-cuarteto.png",
+    "tags": "cuarteto, cordoba, baile"
+  }
+]
