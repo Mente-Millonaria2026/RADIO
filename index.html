@@ -185,8 +185,8 @@
         <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </button>
-        <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web">
-          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+        <button onclick="document.getElementById('eq-menu').classList.toggle('hidden')" class="p-2 text-zinc-400 hover:text-white" title="Master EQ">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
         </button>
         <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-white" title="Radios del Mundo">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
@@ -223,7 +223,7 @@
         <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
           <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live
         </button>
-        <button onclick="shareWeb()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir Web</button>
+        <button onclick="document.getElementById('eq-menu').classList.toggle('hidden')" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg> Master EQ</button>
         <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
           <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
@@ -236,14 +236,8 @@
     </aside>
 
     <main class="main-view p-6 md:p-10" id="mainScroll">
-      <div class="mb-6">
-        <h2 id="viewLabel" class="text-3xl font-extrabold tracking-tighter">Explorar</h2>
-        <div class="flex items-center justify-between mt-1">
-            <p id="subViewLabel" class="text-xs text-zinc-400">Descubre la radio de otra manera.</p>
-            <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO...</span>
-        </div>
-      </div>
-
+      
+      <!-- NAVEGACIÓN Y ZAPPING MOVIDOS AL TOPE COMO INDICADO -->
       <div class="sticky-controls">
         <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
           <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
@@ -261,6 +255,14 @@
               <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="mb-6 mt-4">
+        <h2 id="viewLabel" class="text-3xl font-extrabold tracking-tighter">Explorar</h2>
+        <div class="flex items-center justify-between mt-1">
+            <p id="subViewLabel" class="text-xs text-zinc-400">Descubre la radio de otra manera.</p>
+            <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO...</span>
         </div>
       </div>
 
@@ -453,7 +455,7 @@
         let titleH2 = "Explorar";
         let subLabel = "Descubre la radio de otra manera.";
 
-        // Caso 1: Ruta de Provincia (ej: /radios-de-cordoba-en-vivo)
+        // Caso 1: Ruta de Provincia
         if (path.includes('/radios-de-') && path.includes('-en-vivo')) {
             const slugPart = path.split('/radios-de-')[1].split('-en-vivo')[0];
             const matchedProv = PROVS.find(p => createSlug(p) === slugPart);
@@ -476,7 +478,7 @@
                 return;
             }
         } 
-        // Caso 2: Ruta de Radio Específica (ej: /radio-mitre-en-vivo)
+        // Caso 2: Ruta de Radio Específica
         else if (path.includes('/radio-') && path.includes('-en-vivo')) {
             const slugPart = path.split('/radio-')[1].split('-en-vivo')[0];
             const matchedRadio = allRadios.find(r => createSlug(r.name) === slugPart);
@@ -500,15 +502,21 @@
             }
         }
 
-        // Caso 3: Ruta por defecto (Inicio)
+        // Caso 3: Ruta por defecto (Inicio) CORREGIDO
         document.title = "RadioAR Pro | Radios en vivo Argentina";
         document.getElementById('dynamic-h1').innerText = titleH1;
         document.getElementById('viewLabel').innerText = titleH2;
         document.getElementById('subViewLabel').innerText = subLabel;
         document.getElementById('sectTop').style.display = 'block';
+
+        // CARGA INICIAL DE LA GRILLA
+        displayedRadios = [...allRadios];
+        currentOffset = 0;
+        renderGrid([], 'gridMain', false);
+        loadMoreRadios();
     }
 
-    // Escuchar cambios en el historial (navegación con botones atrás/adelante)
+    // Escuchar cambios en el historial
     window.addEventListener('popstate', () => {
         if (allRadios.length > 0) handleRouting();
     });
@@ -714,11 +722,6 @@
       }
     }
 
-    function shareWeb() {
-        if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href});
-        else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
-    }
-
     function play(uuid) {
       if(!relaxAudio.paused) stopRelax(); 
       const r = allRadios.find(x => x.stationuuid === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
@@ -741,6 +744,7 @@
         div.className = "r-card";
         div.innerHTML = `
           <div class="card-actions">
+            <!-- Iconos de acción en las tarjetas de radio -->
             <button class="action-btn" onclick="shareRadio(event, '${safeName}')" title="Compartir radio">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
@@ -850,16 +854,20 @@
       setupControls();
       setupInfiniteScroll();
 
-     const loadAll = async () => {
+      const loadTop = async () => {
+        try {
+          const res = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/argentina?order=clickcount&reverse=true&limit=10');
+          const top10 = await res.json();
+          renderGrid(top10, 'gridTop');
+        } catch (e) { console.error("Error en carga rápida"); }
+      };
+
+      const loadAll = async () => {
         try {
           const res = await fetch('https://de1.api.radio-browser.info/json/stations/bycountry/argentina?order=clickcount&reverse=true&limit=1000');
           allRadios = await res.json();
           document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
-          
-          // ESTA ES LA LÍNEA QUE FALTABA PARA QUE CARGUEN TODAS DE ENTRADA
-          displayedRadios = [...allRadios];
-          
-          handleRouting(); // <--- Aquí se dispara el enrutador inicial
+          handleRouting(); // Acá se soluciona todo gracias a la modificación en handleRouting()
         } catch (e) { document.getElementById('radioCount').innerText = "ERROR DE CARGA"; }
       };
 
@@ -912,7 +920,7 @@
       
       document.getElementById('masterSearch').oninput = (e) => {
         const term = e.target.value.toLowerCase();
-        displayedRadios = allRadios.filter(r => (r.name || '').toLowerCase().includes(term));
+        displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
         document.getElementById('sectTop').style.display = term ? 'none' : 'block';
       };
@@ -924,7 +932,7 @@
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
-          displayedRadios = allRadios.filter(r => keywords[mood].some(term => ((r.name || '') + (r.tags || '')).toLowerCase().includes(term)));
+          displayedRadios = allRadios.filter(r => keywords[mood].some(term => (r.name + r.tags).toLowerCase().includes(term)));
           document.getElementById('sectTop').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
