@@ -34,18 +34,6 @@
     .logo-text { font-size: 20px; font-weight: 800; letter-spacing: -1px; }
     .logo-pro { color: #888; font-weight: 700; margin-left: 2px; }
     
-    /* --- ANIMACIÓN BARRAS DE SONIDO --- */
-    .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
-    .eq-bar { width: 4px; border-radius: 2px; animation: eqAnim 0.7s infinite ease-in-out alternate; transition: background-color 0.3s ease, border 0.3s ease; }
-    .eq-bar:nth-child(1) { background-color: var(--arg-blue); height: 60%; animation-delay: 0.1s; }
-    .eq-bar:nth-child(2) { background-color: white; height: 100%; animation-delay: 0.4s; }
-    .eq-bar:nth-child(3) { background-color: var(--arg-blue); height: 40%; animation-delay: 0.2s; }
-
-    @keyframes eqAnim {
-      0% { height: 20%; }
-      100% { height: 100%; }
-    }
-    
     .arg-flag-mini {
       width: 20px; height: 12px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; margin-left: 4px; transition: border 0.3s ease;
     }
@@ -147,7 +135,6 @@
     body.light-mode .chat-sidebar .bg-\[\#050505\] { background-color: #ffffff !important; border-top-color: #e4e4e7 !important; }
     body.light-mode #chatInput, body.light-mode #chatUserName { color: #18181b; background-color: #ffffff !important; border-color: #d4d4d8 !important; }
     body.light-mode .epic-logo { color: #18181b; }
-    body.light-mode .eq-icon .eq-bar:nth-child(2) { background-color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.3); }
     body.light-mode .arg-flag-mini { border: 1px solid rgba(0, 0, 0, 0.2); }
     body.light-mode .prov-arrow, body.light-mode .nav-arrow { background: rgba(255,255,255,0.9); color: black; border-color: #e4e4e7; }
 
@@ -174,9 +161,9 @@
     <div class="p-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <div class="epic-logo" onclick="navigateToHome()">
-          <div class="eq-icon">
-            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-          </div>
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px;">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
+          </svg>
           <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
         </div>
         <button onclick="navigateToHome()" class="p-2 text-zinc-400 hover:text-white" title="Inicio">
@@ -185,8 +172,8 @@
         <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </button>
-        <button onclick="document.getElementById('eq-menu').classList.toggle('hidden')" class="p-2 text-zinc-400 hover:text-white" title="Master EQ">
-          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+        <button onclick="shareApp()" class="p-2 text-zinc-400 hover:text-white" title="Compartir">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
         </button>
         <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-white" title="Radios del Mundo">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
@@ -207,9 +194,9 @@
   <div class="app-container">
     <aside class="sidebar">
       <div class="epic-logo mb-10" onclick="navigateToHome()">
-        <div class="eq-icon">
-          <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-        </div>
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px;">
+          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
+        </svg>
         <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
         <div class="arg-flag-mini">
           <div class="flag-stripe stripe-blue"></div>
@@ -223,7 +210,7 @@
         <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
           <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live
         </button>
-        <button onclick="document.getElementById('eq-menu').classList.toggle('hidden')" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg> Master EQ</button>
+        <button onclick="shareApp()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir</button>
         <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
           <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
@@ -237,7 +224,6 @@
 
     <main class="main-view p-6 md:p-10" id="mainScroll">
       
-      <!-- NAVEGACIÓN Y ZAPPING MOVIDOS AL TOPE COMO INDICADO -->
       <div class="sticky-controls">
         <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
           <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
@@ -700,12 +686,18 @@
     function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
     function resetEQ() { ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
 
-    /* --- COMPARTIR RADIO INDIVIDUAL --- */
+    /* --- COMPARTIR APLICACIÓN Y RADIO INDIVIDUAL --- */
+    function shareApp() {
+        const text = `¡Escuchá las mejores radios de Argentina en RadioAR Pro! 🇦🇷`;
+        if (navigator.share) navigator.share({ title: `RadioAR Pro`, text: text, url: window.location.origin }).catch(err => console.log('Error:', err));
+        else { navigator.clipboard.writeText(`${text} ${window.location.origin}`); alert(`Enlace de la aplicación copiado al portapapeles.`); }
+    }
+
     function shareRadio(e, name) {
         e.stopPropagation();
         const text = `¡Estoy escuchando ${name} en RadioAR Pro! 🇦🇷 Escuchala en vivo acá:`;
         if (navigator.share) navigator.share({ title: `RadioAR Pro - ${name}`, text: text, url: window.location.href }).catch(err => console.log('Error:', err));
-        else { navigator.clipboard.writeText(`${text} ${window.location.href}`); alert(`Enlace copiado.`); }
+        else { navigator.clipboard.writeText(`${text} ${window.location.href}`); alert(`Enlace de la radio copiado.`); }
     }
 
     /* --- RADIO LOGIC --- */
@@ -744,7 +736,6 @@
         div.className = "r-card";
         div.innerHTML = `
           <div class="card-actions">
-            <!-- Iconos de acción en las tarjetas de radio -->
             <button class="action-btn" onclick="shareRadio(event, '${safeName}')" title="Compartir radio">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
@@ -776,7 +767,7 @@
     function openWorldRadios() {
       document.getElementById('viewLabel').innerText = "Radios del Mundo";
       document.getElementById('subViewLabel').innerText = "Explora emisoras internacionales.";
-      document.getElementById('radioCount').innerText = "4 PAÍSES DISPONIBLES";
+      document.getElementById('radioCount').innerText = `${allRadios.length} EMISORAS ARGENTINAS`;
       document.getElementById('sectTop').style.display = 'none';
       window.history.pushState({}, '', '/radios-del-mundo');
       
