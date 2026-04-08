@@ -963,7 +963,64 @@
         if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href});
         else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
+// ==========================================
+// PANEL OCULTO DE ADMINISTRACIÓN (Shift + M)
+// ==========================================
+document.body.insertAdjacentHTML('beforeend', `
+<div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+  <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white">
+    <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
+    <div class="text-center mb-6">
+      <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Manual</h3>
+      <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá en el inicio de la grilla</p>
+    </div>
+    <form id="manualRadioForm" class="space-y-4">
+      <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+      <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+      <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+      <input type="text" id="mTags" placeholder="Tags (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Guardar en mi RadioAR</button>
+    </form>
+  </div>
+</div>
+`);
 
+const MANUAL_KEY = 'RAR_USER_RADIOS';
+
+document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const nueva = {
+    stationuuid: 'usr_' + Date.now(), // ID compatible con tu sistema
+    name: document.getElementById('mName').value,
+    url: document.getElementById('mUrl').value,
+    url_resolved: document.getElementById('mUrl').value,
+    favicon: document.getElementById('mLogo').value,
+    tags: document.getElementById('mTags').value,
+    state: 'Manual'
+  };
+  const actuales = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+  actuales.push(nueva);
+  localStorage.setItem(MANUAL_KEY, JSON.stringify(actuales));
+  alert('Radio agregada con éxito.');
+  location.reload();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.shiftKey && e.key === 'M') {
+    document.getElementById('adminPanel').classList.remove('hidden');
+  }
+});
+
+// Inyección previa al resto de la lógica
+(function() {
+  const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+  if (guardadas.length > 0 && typeof allRadios !== 'undefined') {
+    allRadios = [...guardadas, ...allRadios];
+  }
+})();
+
+/* --- RADIO LOGIC CON METADATA DINÁMICA --- */
+// ... (Aquí sigue el código que me pasaste)
     /* --- RADIO LOGIC CON METADATA DINÁMICA --- */
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
