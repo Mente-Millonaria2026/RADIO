@@ -603,17 +603,22 @@
     }
 
     function resetToHome() {
-        document.getElementById('viewLabel').innerText = "Explorar";
-        document.getElementById('viewSub').innerText = "Descubre la radio de otra manera.";
-        document.title = "RadioAR Pro | Radios en vivo Argentina y el Mundo";
-        window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
-        
-        displayedRadios = [...allRadios];
-        currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-        document.getElementById('sectTop').style.display = 'block';
-        document.getElementById('mainScroll').scrollTop = 0;
-    }
-
+  closeWorldRadios(); // Cierra el modal si está abierto
+  
+  // 1. Restaurar textos principales
+  document.getElementById('viewLabel').innerText = "Explorar";
+  document.getElementById('viewSub').innerText = "Radios de Argentina";
+  
+  // 2. MOSTRAR de nuevo las secciones que se ocultaron (IMPORTANTE)
+  // Si usaste 'display: none' para ocultar las provincias, aquí ponés 'block'
+  if(document.getElementById('sideProvs')) {
+      document.getElementById('sideProvs').style.display = 'block';
+  }
+  
+  // 3. Limpiar buscador y recargar el país por defecto (Argentina)
+  document.getElementById('masterSearch').value = "";
+  loadCountryData('argentina'); 
+}
     /* --- GESTIÓN HISTORIAL DEL NAVEGADOR --- */
     window.addEventListener('popstate', (event) => {
         if (event.state) {
