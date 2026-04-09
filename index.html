@@ -1140,6 +1140,99 @@
     function triggerZapping() { play(allRadios[Math.floor(Math.random()*allRadios.length)].stationuuid); }
 
     init();
+  </script>init();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
+      authDomain: "radioarpro.firebaseapp.com",
+      databaseURL: "https://radioarpro-default-rtdb.firebaseio.com",
+      projectId: "radioarpro",
+      storageBucket: "radioarpro.firebasestorage.app",
+      messagingSenderId: "608025447862",
+      appId: "1:608025447862:web:a9a20c36a5ca86f6ca8517",
+      measurementId: "G-051Z1FBHEK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const chatRef = ref(db, 'chat_comunidad');
+    const radioRef = ref(db, 'radios_comunidad');
+
+    // CONFIGURA TU CONTRASEÑA AQUÍ
+    const ADMIN_PASSWORD = "Moniyjere11@"; 
+
+    // --- CHAT GLOBAL ---
+    window.sendMessage = function() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (msg === "") return;
+
+      push(chatRef, {
+        text: msg,
+        timestamp: serverTimestamp()
+      });
+      input.value = "";
+    };
+
+    onValue(query(chatRef, limitToLast(30)), (snapshot) => {
+      const chatBox = document.getElementById('chatBox');
+      chatBox.innerHTML = "";
+      snapshot.forEach((child) => {
+        const data = child.val();
+        const div = document.createElement('div');
+        div.style.marginBottom = "8px";
+        div.innerHTML = `<span style="color:var(--primary); font-weight:bold;">></span> ${data.text}`;
+        chatBox.appendChild(div);
+      });
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    // --- CARGA MANUAL GLOBAL ---
+    window.saveManualRadio = function() {
+      const pass = prompt("Contraseña de Administrador:");
+      if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado");
+
+      const name = document.getElementById('mName').value;
+      const url = document.getElementById('mUrl').value;
+      const logo = document.getElementById('mLogo').value || 'https://cdn-icons-png.flaticon.com/512/197/197573.png';
+
+      if(!name || !url) return alert("Faltan datos");
+
+      push(radioRef, {
+        name, 
+        url, 
+        url_resolved: url, 
+        favicon: logo, 
+        tags: 'Comunidad',
+        votes: 0
+      }).then(() => {
+        alert("Radio agregada para todos");
+        closeAdmin();
+      });
+    };
+
+    // --- SINCRONIZAR RADIOS ---
+    onValue(radioRef, (snapshot) => {
+      let radiosComunidad = [];
+      snapshot.forEach(c => radiosComunidad.push(c.val()));
+      
+      // Combinamos con las de la API y refrescamos
+      if(typeof apiRadios !== 'undefined') {
+        allRadios = [...radiosComunidad, ...apiRadios];
+        displayedRadios = [...allRadios];
+        renderGrid([], 'gridMain', false);
+      }
+    });
+
+    // Enter para el chat
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
+      if(e.key === 'Enter') sendMessage();
+    });
   </script>
 </body>
 </html>
