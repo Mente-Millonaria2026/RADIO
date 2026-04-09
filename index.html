@@ -451,7 +451,45 @@
         <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
         <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
         <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-        <input type="text" id="mTags" placeholder="Tags (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+        
+        <div class="flex gap-2">
+            <select id="mProvincia" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+                <option value="">Provincia (Global)</option>
+                <option value="CABA">CABA</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Catamarca">Catamarca</option>
+                <option value="Chaco">Chaco</option>
+                <option value="Chubut">Chubut</option>
+                <option value="Córdoba">Córdoba</option>
+                <option value="Corrientes">Corrientes</option>
+                <option value="Entre Ríos">Entre Ríos</option>
+                <option value="Formosa">Formosa</option>
+                <option value="Jujuy">Jujuy</option>
+                <option value="La Pampa">La Pampa</option>
+                <option value="La Rioja">La Rioja</option>
+                <option value="Mendoza">Mendoza</option>
+                <option value="Misiones">Misiones</option>
+                <option value="Neuquén">Neuquén</option>
+                <option value="Río Negro">Río Negro</option>
+                <option value="Salta">Salta</option>
+                <option value="San Juan">San Juan</option>
+                <option value="San Luis">San Luis</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="Santa Fe">Santa Fe</option>
+                <option value="Santiago del Estero">Santiago del Estero</option>
+                <option value="Tierra del Fuego">Tierra del Fuego</option>
+                <option value="Tucumán">Tucumán</option>
+            </select>
+            <select id="mCategoria" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+                <option value="">Categoría (Ninguna)</option>
+                <option value="mate">🧉 Para unos Mates</option>
+                <option value="estudiar">🧠 Concentrate</option>
+                <option value="sport">⚽ Fútbol y Pasiones</option>
+                <option value="retro">📻 Retro Tour</option>
+            </select>
+        </div>
+
+        <input type="text" id="mTags" placeholder="Tags adicionales (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Subir Radio a la Comunidad</button>
       </form>
 
@@ -1080,14 +1118,20 @@
         // Auto-fix para URLs que terminan en puerto (ej. 8000/)
         if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
 
+        // Mapeo de Categoría y Provincia
+        const prov = document.getElementById('mProvincia').value;
+        const cat = document.getElementById('mCategoria').value;
+        let finalTags = document.getElementById('mTags').value;
+        if (cat) finalTags += " " + cat; // Agregamos la categoría ("mate", "retro", etc.) a los tags
+
         const nuevaRadio = {
             stationuuid: 'fb_' + Date.now(),
             name: document.getElementById('mName').value,
             url: rawUrl,
             url_resolved: rawUrl,
             favicon: document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333',
-            tags: document.getElementById('mTags').value || 'Comunidad',
-            state: 'Comunidad',
+            tags: finalTags.trim() || 'Comunidad',
+            state: prov || 'Comunidad',
             timestamp: serverTimestamp()
         };
 
