@@ -927,15 +927,24 @@
     // CONTROL DEL PANEL MANUAL MODIFICADO
     document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      let rawUrl = document.getElementById('mUrl').value.trim();
+      // Auto-fix para URLs de streaming que terminan en puerto (ej. Shoutcast/Icecast)
+      // Agrega el ";" necesario para que el reproductor HTML5 evada la página web del server y tome el audio directo.
+      if (rawUrl.match(/:\d+(\/)?$/)) {
+          rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;';
+      }
+
       const nueva = {
         stationuuid: 'usr_' + Date.now(),
         name: document.getElementById('mName').value,
-        url: document.getElementById('mUrl').value,
-        url_resolved: document.getElementById('mUrl').value,
+        url: rawUrl,
+        url_resolved: rawUrl,
         favicon: document.getElementById('mLogo').value,
         tags: document.getElementById('mTags').value,
         state: 'Manual'
       };
+      
       const actuales = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
       actuales.unshift(nueva); // Agregar al principio de la lista
       localStorage.setItem(MANUAL_KEY, JSON.stringify(actuales));
