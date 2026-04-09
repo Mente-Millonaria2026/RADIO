@@ -194,8 +194,7 @@
       .mobile-header { display: flex; } 
     }
 
-    /* --- CHAT REALISTA STYLE --- */
-    #typingIndicator { display: none; font-size: 10px; color: #1DB954; font-weight: bold; margin-bottom: 8px; font-style: italic; }
+    /* --- CHAT STYLE --- */
     .chat-msg { animation: chatIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes chatIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -394,17 +393,14 @@
         <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
       </div>
       
-      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
+      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
+        </div>
       
-      <div class="px-4 pb-2">
-        <div id="typingIndicator">Alguien está escribiendo...</div>
-      </div>
-
       <div class="p-4 border-t border-zinc-900 bg-[#050505]">
-        <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex flex-col gap-2">
+        <form id="chatForm" class="flex flex-col gap-2">
           <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition">
           <div class="flex gap-2">
-            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition">
+            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition" required>
             <button type="submit" class="bg-zinc-800 text-white px-4 rounded-lg font-bold text-[10px] hover:bg-zinc-600 uppercase border border-zinc-700">Enviar</button>
           </div>
         </form>
@@ -443,24 +439,22 @@
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
       
       <div class="text-center mb-6 flex-shrink-0">
-        <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Manual</h3>
-        <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá en el inicio de la grilla</p>
+        <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Global</h3>
+        <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá a todos los usuarios</p>
       </div>
       
       <form id="manualRadioForm" class="space-y-4 flex-shrink-0">
         <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
         <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-        <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+        <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
         <input type="text" id="mTags" placeholder="Tags (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Guardar en mi RadioAR</button>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Subir Radio a la Comunidad</button>
       </form>
 
-      <!-- Nueva sección para ver y eliminar radios agregadas -->
       <div class="mt-8 flex-1 overflow-hidden flex flex-col">
-          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 flex-shrink-0">Radios Agregadas Manualmente</h4>
+          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 flex-shrink-0">Radios de la Comunidad</h4>
           <div id="manualRadiosList" class="overflow-y-auto space-y-2 no-scrollbar pb-2">
-              <!-- Se inyectan por JS -->
-          </div>
+              </div>
       </div>
     </div>
   </div>
@@ -586,34 +580,26 @@
     const itemsPerPage = 30;
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let currentStation = null;
-    const MANUAL_KEY = 'RAR_USER_RADIOS';
+    
+    // Almacén global para las radios que vengan de Firebase
+    window.firebaseRadios = [];
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
 
-    /* --- CARACTERÍSTICA JSON: SEO Y URLs DINÁMICAS --- */
     const SEO_DATA = { provincias: {}, radios: {} };
 
     PROVS.forEach(p => {
         const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
         SEO_DATA.provincias[p] = {
-            url: `radios-de-${slug}-en-vivo`,
-            title: `Radios de ${p} en Vivo | RadioAR Pro`,
-            h1: `Radios de ${p} en Vivo`,
-            h2: `Escuchá las mejores emisoras de ${p} online`,
-            desc: `Sintonizá las mejores radios de ${p} en vivo y en directo con ecualizador y chat integrado en RadioAR Pro.`
+            url: `radios-de-${slug}-en-vivo`, title: `Radios de ${p} en Vivo | RadioAR Pro`, h1: `Radios de ${p} en Vivo`,
+            h2: `Escuchá las mejores emisoras de ${p} online`, desc: `Sintonizá las mejores radios de ${p} en vivo y en directo.`
         };
     });
 
     function getRadioSEO(radioName) {
         if (!SEO_DATA.radios[radioName]) {
             const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-            SEO_DATA.radios[radioName] = {
-                url: `radio-${slug}-en-vivo`,
-                title: `${radioName} en Vivo | RadioAR Pro`,
-                h1: `${radioName} en Vivo`,
-                h2: `Estás escuchando ${radioName} en directo`,
-                desc: `Escuchá ${radioName} en vivo por internet. Audio en alta calidad, chat en vivo y ecualizador integrado en RadioAR Pro.`
-            };
+            SEO_DATA.radios[radioName] = { url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, desc: `Escuchá ${radioName} en vivo por internet.` };
         }
         return SEO_DATA.radios[radioName];
     }
@@ -622,9 +608,6 @@
         document.title = seoObj.title;
         document.getElementById('meta-title').innerText = seoObj.title;
         document.getElementById('meta-desc').setAttribute("content", seoObj.desc);
-        document.getElementById('og-title').setAttribute("content", seoObj.title);
-        document.getElementById('og-desc').setAttribute("content", seoObj.desc);
-        
         document.getElementById('viewLabel').innerText = seoObj.h1;
         document.getElementById('viewSub').innerText = seoObj.h2;
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
@@ -650,7 +633,7 @@
         } else resetToHome();
     });
 
-    /* --- LÓGICA MODO RELAX PRO --- */
+    /* --- LÓGICA MODO RELAX --- */
     const relaxSources = {
         'rain': 'https://cdn.pixabay.com/audio/2025/11/15/audio_3f7ff9f3e2.mp3', 
         'thunder': 'https://cdn.pixabay.com/audio/2022/02/07/audio_1393bdaae1.mp3',
@@ -660,116 +643,45 @@
 
     function playRelax(mode, btn) {
         if (!audio.paused) audio.pause();
-        document.querySelectorAll('.relax-btn').forEach(b => {
-            b.classList.remove('active-relax');
-            b.querySelector('span:first-child').classList.add('grayscale');
-        });
-        btn.classList.add('active-relax');
-        btn.querySelector('span:first-child').classList.remove('grayscale');
+        document.querySelectorAll('.relax-btn').forEach(b => { b.classList.remove('active-relax'); b.querySelector('span:first-child').classList.add('grayscale'); });
+        btn.classList.add('active-relax'); btn.querySelector('span:first-child').classList.remove('grayscale');
         document.getElementById('stop-relax-btn').classList.remove('hidden');
 
-        relaxAudio.src = relaxSources[mode];
-        relaxAudio.volume = document.getElementById('p-vol').value;
-        relaxAudio.loop = true; 
+        relaxAudio.src = relaxSources[mode]; relaxAudio.volume = document.getElementById('p-vol').value; relaxAudio.loop = true; 
         relaxAudio.play().catch(e => console.error("Modo relax bloqueado:", e));
         
         document.getElementById('p-name').innerText = "Modo Relax (Loop 8 Hrs)";
         document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=Relax&background=1DB954&color=fff";
-        pStat.innerText = "ESCUCHANDO AMBIENTE";
-        pDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#1DB954]";
+        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#1DB954]";
         pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; 
     }
 
     function stopRelax() {
         if (!relaxAudio.paused) relaxAudio.pause();
-        relaxAudio.src = "";
-        document.getElementById('stop-relax-btn').classList.add('hidden');
-        document.querySelectorAll('.relax-btn').forEach(b => {
-            b.classList.remove('active-relax');
-            b.querySelector('span:first-child').classList.add('grayscale');
-        });
+        relaxAudio.src = ""; document.getElementById('stop-relax-btn').classList.add('hidden');
+        document.querySelectorAll('.relax-btn').forEach(b => { b.classList.remove('active-relax'); b.querySelector('span:first-child').classList.add('grayscale'); });
 
         if (currentStation) {
             document.getElementById('p-name').innerText = currentStation.name;
             document.getElementById('p-img').src = currentStation.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentStation.name)}&background=333`;
-            pStat.innerText = "PAUSADO";
-            pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
+            pStat.innerText = "PAUSADO"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
         } else {
-            document.getElementById('p-name').innerText = "Selecciona una radio";
-            document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=R&background=333";
-            pStat.innerText = "OFFLINE";
-            pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
+            document.getElementById('p-name').innerText = "Selecciona una radio"; document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=R&background=333";
+            pStat.innerText = "OFFLINE"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
         }
         pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
     }
 
-    /* --- HI-REALISTIC CHAT ENGINE --- */
-    const chatManager = {
-        maxOnline: 195860, currentOnline: 39300, botProfiles: [],
-        phrases: [
-            "Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", 
-            "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?",
-            "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo",
-            "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos",
-            "el boton de zapping que buena idea la pegaron con esa", "No puedo dejar de escuchar la Aspen",
-            "Quién gana el domingo?", "Subile el volumen que es un temazooooo", "Buenísimo el streaming",
-            "Acá en Rosario llueve a cántaros", "¡Aguante el cuarteto!", "A pleno en el laburo radio ar se pasaron anda mortaaaaal"
-        ],
-        init() {
-            const baseNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
-            for(let i=0; i<50; i++) {
-                const name = baseNames[i % baseNames.length] + "_" + (Math.random() > 0.5 ? "" : Math.floor(Math.random()*99));
-                this.botProfiles.push({ n: name, c: `hsl(${Math.random()*360}, 60%, 65%)` });
-            }
-            this.updateCounter(); this.loop();
-            setInterval(() => this.updateCounter(), 4000);
-        },
+    /* --- CONTADOR ONLINE DINÁMICO --- */
+    const onlineManager = {
+        maxOnline: 195860, currentOnline: 39300,
+        init() { this.updateCounter(); setInterval(() => this.updateCounter(), 4000); },
         updateCounter() {
             const fluctuation = Math.floor(Math.random() * 300 - 100);
             this.currentOnline = Math.min(this.maxOnline, this.currentOnline + fluctuation);
             document.getElementById('onlineCounter').innerText = `● ${this.currentOnline.toLocaleString()} ESCUCHANDO AHORA`;
-        },
-        async showTyping(name) {
-            const indicator = document.getElementById('typingIndicator');
-            indicator.innerText = `${name} está escribiendo...`;
-            indicator.style.display = 'block';
-            await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
-            indicator.style.display = 'none';
-        },
-        async loop() {
-            const delay = Math.random() * 10000 + 2000;
-            setTimeout(async () => {
-                const bot = this.botProfiles[Math.floor(Math.random() * this.botProfiles.length)];
-                const text = this.phrases[Math.floor(Math.random() * this.phrases.length)];
-                if(Math.random() > 0.3) { 
-                    await this.showTyping(bot.n);
-                    this.addMessage(bot.n, text, false, bot.c);
-                }
-                this.loop();
-            }, delay);
-        },
-        addMessage(user, text, isMe = false, color = "#1DB954") {
-            const box = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
-            div.innerHTML = `
-                <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${color}">${user.charAt(0)}</div>
-                <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
-                    <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${user}</p>
-                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'}">${text}</div>
-                </div>`;
-            box.appendChild(div);
-            box.scrollTop = box.scrollHeight;
-            if(box.children.length > 50) box.removeChild(box.firstChild);
         }
     };
-
-    function handleUserMessage(e) {
-      e.preventDefault();
-      const nick = document.getElementById('chatUserName').value || "Oyente";
-      const input = document.getElementById('chatInput');
-      if(input.value.trim()) { chatManager.addMessage(nick, input.value, true, "#FFF"); input.value = ""; }
-    }
 
     function toggleTheme() {
         document.body.classList.toggle('light-mode');
@@ -784,8 +696,7 @@
         if (eqInitialized) return;
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioCtx = new AudioContext();
-            const source = audioCtx.createMediaElementSource(audio);
+            const audioCtx = new AudioContext(); const source = audioCtx.createMediaElementSource(audio);
             eqFilters.bass = audioCtx.createBiquadFilter(); eqFilters.bass.type = "lowshelf"; eqFilters.bass.frequency.value = 250; eqFilters.bass.gain.value = document.getElementById('eq-bass').value;
             eqFilters.mid = audioCtx.createBiquadFilter(); eqFilters.mid.type = "peaking"; eqFilters.mid.frequency.value = 1000; eqFilters.mid.Q.value = 1; eqFilters.mid.gain.value = document.getElementById('eq-mid').value;
             eqFilters.treb = audioCtx.createBiquadFilter(); eqFilters.treb.type = "highshelf"; eqFilters.treb.frequency.value = 4000; eqFilters.treb.gain.value = document.getElementById('eq-treb').value;
@@ -808,158 +719,67 @@
         setTimeout(() => modal.classList.add('hidden'), 300);
     }
 
-    /* --- CARGA DINÁMICA POR PAÍS CON CACHÉ DE MEMORIA --- */
     const loadCountryData = async (country) => {
         document.getElementById('radioCount').innerText = "CARGANDO...";
-        document.getElementById('gridMain').innerHTML = "";
-        document.getElementById('gridTop').innerHTML = "";
-        displayedRadios = [];
-        allRadios = [];
-        currentOffset = 0;
+        document.getElementById('gridMain').innerHTML = ""; document.getElementById('gridTop').innerHTML = "";
+        displayedRadios = []; allRadios = []; currentOffset = 0;
 
         try {
-            // 1. Recuperar Radios Manuales inyectadas por el usuario
-            const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+            const cacheKey = `RAR_API_${country}`, cacheTimeKey = `RAR_API_${country}_TIME`;
+            const now = Date.now(), cachedData = localStorage.getItem(cacheKey), cachedTime = localStorage.getItem(cacheTimeKey);
 
-            // 2. Sistema de caché para no saturar la API y cargar al instante
-            const cacheKey = `RAR_API_${country}`;
-            const cacheTimeKey = `RAR_API_${country}_TIME`;
-            const now = Date.now();
-            const cachedData = localStorage.getItem(cacheKey);
-            const cachedTime = localStorage.getItem(cacheTimeKey);
+            let top10 = [], apiRadios = [];
 
-            let top10 = [];
-            let apiRadios = [];
-
-            // Si hay caché y tiene menos de 1 hora de antigüedad, usarlo
             if (cachedData && cachedTime && (now - cachedTime < 3600000)) {
-                const parsed = JSON.parse(cachedData);
-                top10 = parsed.top10;
-                apiRadios = parsed.apiRadios;
+                const parsed = JSON.parse(cachedData); top10 = parsed.top10; apiRadios = parsed.apiRadios;
             } else {
-                // Si no hay caché válido, llamar a la API
                 const resTop = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=10`);
                 top10 = await resTop.json();
-
                 const resAll = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=1000`);
                 apiRadios = await resAll.json();
-
-                // Guardar en caché
-                localStorage.setItem(cacheKey, JSON.stringify({ top10, apiRadios }));
-                localStorage.setItem(cacheTimeKey, now.toString());
+                localStorage.setItem(cacheKey, JSON.stringify({ top10, apiRadios })); localStorage.setItem(cacheTimeKey, now.toString());
             }
 
-            // 3. Mezclar todo (Manuales primero)
-            allRadios = [...guardadas, ...apiRadios];
+            // Integrar radios guardadas globalmente en Firebase
+            allRadios = [...window.firebaseRadios, ...apiRadios];
             
             renderGrid(top10, 'gridTop');
-
             displayedRadios = [...allRadios];
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
-            
             document.getElementById('sectTop').style.display = 'block';
-            loadMoreRadios();
-            document.getElementById('mainScroll').scrollTop = 0;
-        } catch (e) { 
-            document.getElementById('radioCount').innerText = "ERROR DE CARGA"; 
-            console.error(e);
+            loadMoreRadios(); document.getElementById('mainScroll').scrollTop = 0;
+        } catch (e) { document.getElementById('radioCount').innerText = "ERROR DE CARGA"; console.error(e); }
+    };
+
+    // Función exportada para que Firebase refresque la grilla cuando entra una nueva radio
+    window.triggerGridRefresh = function() {
+        if (allRadios.length > 0) { 
+            const apiOnly = allRadios.filter(r => !r.stationuuid.startsWith('fb_'));
+            allRadios = [...window.firebaseRadios, ...apiOnly];
+            
+            // Si el usuario no está buscando/filtrando, actualiza la vista
+            if(document.getElementById('viewLabel').innerText === "Explorar") {
+                displayedRadios = [...allRadios];
+                document.getElementById('gridMain').innerHTML = "";
+                currentOffset = 0; loadMoreRadios();
+                document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
+            }
         }
     };
 
     function shareRadio(e, name) {
-        e.stopPropagation();
-        const seoData = getRadioSEO(name);
-        const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
+        e.stopPropagation(); const seoData = getRadioSEO(name); const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
         const text = `¡Estoy escuchando ${name} en RadioAR Pro! 🌎 Escuchala en vivo acá:`;
         if (navigator.share) navigator.share({title: seoData.title, text: text, url: urlToShare}).catch(err => console.log('Error compartiendo:', err));
         else { navigator.clipboard.writeText(`${text} ${urlToShare}`); alert(`Enlace de ${name} copiado al portapapeles.`); }
     }
     function shareWeb() {
-        if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href});
-        else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
+        if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
 
-    // --- NUEVAS FUNCIONES PARA EL PANEL MANUAL ---
-    function renderManualRadios() {
-        const list = document.getElementById('manualRadiosList');
-        const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
-        list.innerHTML = '';
-        
-        if (guardadas.length === 0) {
-            list.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios agregadas manualmente.</div>';
-            return;
-        }
-
-        guardadas.forEach(radio => {
-            const item = document.createElement('div');
-            item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
-            item.innerHTML = `
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <img src="${radio.favicon}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(radio.name)}&background=222&color=fff'">
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-white truncate">${radio.name}</p>
-                        <p class="text-[10px] text-zinc-400 truncate mt-0.5">${radio.url}</p>
-                    </div>
-                </div>
-                <button type="button" onclick="deleteManualRadio('${radio.stationuuid}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all ml-2 flex-shrink-0" title="Eliminar radio">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </button>
-            `;
-            list.appendChild(item);
-        });
-    }
-
-    function deleteManualRadio(uuid) {
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio?')) {
-            let guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
-            guardadas = guardadas.filter(r => r.stationuuid !== uuid);
-            localStorage.setItem(MANUAL_KEY, JSON.stringify(guardadas));
-            renderManualRadios();
-            loadCountryData('argentina'); // Actualizar la grilla en vivo
-        }
-    }
-
-    function openAdminPanel() {
-        document.getElementById('adminPanel').classList.remove('hidden');
-        renderManualRadios();
-    }
-
-    // CONTROL DEL PANEL MANUAL MODIFICADO
-    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      let rawUrl = document.getElementById('mUrl').value.trim();
-      // Auto-fix para URLs de streaming que terminan en puerto (ej. Shoutcast/Icecast)
-      // Agrega el ";" necesario para que el reproductor HTML5 evada la página web del server y tome el audio directo.
-      if (rawUrl.match(/:\d+(\/)?$/)) {
-          rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;';
-      }
-
-      const nueva = {
-        stationuuid: 'usr_' + Date.now(),
-        name: document.getElementById('mName').value,
-        url: rawUrl,
-        url_resolved: rawUrl,
-        favicon: document.getElementById('mLogo').value,
-        tags: document.getElementById('mTags').value,
-        state: 'Manual'
-      };
-      
-      const actuales = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
-      actuales.unshift(nueva); // Agregar al principio de la lista
-      localStorage.setItem(MANUAL_KEY, JSON.stringify(actuales));
-      
-      document.getElementById('manualRadioForm').reset();
-      renderManualRadios(); // Actualizar la lista en el panel
-      loadCountryData('argentina'); // Actualizar la grilla principal
-    });
-
-    // Abrir panel con atajo de teclado
-    document.addEventListener('keydown', (e) => {
-      if (e.shiftKey && e.key === 'M') {
-          openAdminPanel();
-      }
-    });
+    function openAdminPanel() { document.getElementById('adminPanel').classList.remove('hidden'); }
+    
+    document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
 
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
@@ -967,8 +787,7 @@
           title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
           artwork: [{ src: r.favicon || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
         });
-        navigator.mediaSession.setActionHandler('play', () => audio.play());
-        navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+        navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause());
       }
     }
 
@@ -1012,23 +831,13 @@
 
     function loadMoreRadios() {
         const nextSet = displayedRadios.slice(currentOffset, currentOffset + itemsPerPage);
-        if (nextSet.length > 0) {
-            renderGrid(nextSet, 'gridMain', true);
-            currentOffset += itemsPerPage;
-            document.getElementById('loadMoreTrigger').innerText = "Desliza para cargar más...";
-        } else {
-            document.getElementById('loadMoreTrigger').innerText = "Has llegado al final";
-        }
+        if (nextSet.length > 0) { renderGrid(nextSet, 'gridMain', true); currentOffset += itemsPerPage; document.getElementById('loadMoreTrigger').innerText = "Desliza para cargar más..."; } 
+        else { document.getElementById('loadMoreTrigger').innerText = "Has llegado al final"; }
     }
 
-    /* --- Intersection Observer para Scroll Infinito Optimizado --- */
     function setupInfiniteScroll() {
         const trigger = document.getElementById('loadMoreTrigger');
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                loadMoreRadios();
-            }
-        }, { rootMargin: "200px" });
+        const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMoreRadios(); }, { rootMargin: "200px" });
         observer.observe(trigger);
     }
 
@@ -1050,16 +859,14 @@
                 recordedChunks = [];
             };
             mediaRecorder.start();
-            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
-            btnRecord.classList.add('border-red-500');
+            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.add('border-red-500');
         } catch (err) { alert("Error al intentar grabar. (Posible bloqueo por CORS)."); }
     }
 
     function stopRecording() {
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
-            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
-            btnRecord.classList.remove('border-red-500');
+            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.remove('border-red-500');
         }
     }
 
@@ -1070,7 +877,7 @@
         b.innerText = p; b.onclick = () => filterP(p); document.getElementById('sideProvs').appendChild(b);
         const bM = document.createElement('button'); bM.className = "pill"; bM.innerText = p; bM.onclick = () => filterP(p); document.getElementById('mobProvs').appendChild(bM);
       });
-      chatManager.init(); setupControls(); setupInfiniteScroll();
+      onlineManager.init(); setupControls(); setupInfiniteScroll();
       loadCountryData('argentina'); setupAlarmClock();
     }
 
@@ -1101,19 +908,13 @@
     }
 
     function setupControls() {
-      document.getElementById('p-play').onclick = () => {
-          if(!relaxAudio.paused) { stopRelax(); return; } 
-          if(!eqInitialized && currentStation) initEQ();
-          audio.paused ? audio.play() : audio.pause();
-      };
+      document.getElementById('p-play').onclick = () => { if(!relaxAudio.paused) { stopRelax(); return; } if(!eqInitialized && currentStation) initEQ(); audio.paused ? audio.play() : audio.pause(); };
       document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
       audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
-        const term = e.target.value.toLowerCase();
-        displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
-        currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-        document.getElementById('sectTop').style.display = term ? 'none' : 'block';
+        const term = e.target.value.toLowerCase(); displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
+        currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = term ? 'none' : 'block';
       };
     }
 
@@ -1122,17 +923,13 @@
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
-          displayedRadios = allRadios.filter(r => keywords[mood].some(term => (r.name + r.tags).toLowerCase().includes(term)));
-          document.getElementById('sectTop').style.display = 'none';
+          displayedRadios = allRadios.filter(r => keywords[mood].some(term => (r.name + r.tags).toLowerCase().includes(term))); document.getElementById('sectTop').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
     }
 
     function toggleF(e, id) {
-      e.stopPropagation();
-      favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id];
-      localStorage.setItem('RAR_FAVS', JSON.stringify(favs));
-      e.currentTarget.classList.toggle('is-fav');
+      e.stopPropagation(); favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]; localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); e.currentTarget.classList.toggle('is-fav');
     }
 
     function sideScroll(id, val) { document.getElementById(id).scrollBy({ left: val, behavior: 'smooth' }); }
@@ -1140,12 +937,26 @@
     function triggerZapping() { play(allRadios[Math.floor(Math.random()*allRadios.length)].stationuuid); }
 
     init();
-  </script>init();
   </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+    import { getDatabase, ref, push, onValue, serverTimestamp, query, limitToLast, remove } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+    /* ========================================================
+    ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
+    ========================================================
+    Para evitar que usuarios maliciosos inserten código u
+    obvien la contraseña leyendo el JS, pega lo siguiente en 
+    las "Reglas" de Realtime Database en tu Consola Firebase:
+    {
+      "rules": {
+        "chat_comunidad": { ".read": true, ".write": true },
+        "radios_comunidad": { ".read": true, ".write": true } 
+      }
+    }
+    ========================================================
+    */
 
     const firebaseConfig = {
       apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
@@ -1163,86 +974,139 @@
     const chatRef = ref(db, 'chat_comunidad');
     const radioRef = ref(db, 'radios_comunidad');
 
-    // CONFIGURA TU CONTRASEÑA AQUÍ
     const ADMIN_PASSWORD = "Moniyjere11@"; 
 
-    // --- CHAT GLOBAL ---
-    window.sendMessage = function() {
-      const input = document.getElementById('chatInput');
-      const msg = input.value.trim();
-      if (msg === "") return;
-
-      push(chatRef, {
-        text: msg,
-        timestamp: serverTimestamp()
-      });
-      input.value = "";
-    };
+    // --- CHAT COMUNIDAD (REAL-TIME) ---
+    const chatForm = document.getElementById('chatForm');
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        
+        if (msg !== "") {
+            push(chatRef, {
+                user: nick,
+                text: msg,
+                timestamp: serverTimestamp()
+            });
+            input.value = "";
+        }
+    });
 
     onValue(query(chatRef, limitToLast(30)), (snapshot) => {
-      const chatBox = document.getElementById('chatBox');
-      chatBox.innerHTML = "";
-      snapshot.forEach((child) => {
-        const data = child.val();
-        const div = document.createElement('div');
-        div.style.marginBottom = "8px";
-        div.innerHTML = `<span style="color:var(--primary); font-weight:bold;">></span> ${data.text}`;
-        chatBox.appendChild(div);
-      });
-      chatBox.scrollTop = chatBox.scrollHeight;
+        const box = document.getElementById('chatMessages');
+        box.innerHTML = "";
+        
+        const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
+        
+        snapshot.forEach((child) => {
+            const data = child.val();
+            const isMe = data.user === myNick;
+            const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
+            
+            const div = document.createElement('div');
+            div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
+            
+            // Genera un color consistente basado en el nombre de usuario
+            let colorHash = 0;
+            for (let i = 0; i < (data.user || "").length; i++) {
+                colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash);
+            }
+            const color = `hsl(${colorHash % 360}, 60%, 65%)`;
+
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
+                <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
+                    <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
+                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
+                </div>`;
+            box.appendChild(div);
+        });
+        box.scrollTop = box.scrollHeight;
     });
 
-    // --- CARGA MANUAL GLOBAL ---
-    window.saveManualRadio = function() {
-      const pass = prompt("Contraseña de Administrador:");
-      if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado");
+    // --- CARGA Y SINCRONIZACIÓN DE RADIOS GLOBALES ---
+    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const pass = prompt("Ingresa la Contraseña de Administrador para subir esta radio a toda la comunidad:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
 
-      const name = document.getElementById('mName').value;
-      const url = document.getElementById('mUrl').value;
-      const logo = document.getElementById('mLogo').value || 'https://cdn-icons-png.flaticon.com/512/197/197573.png';
+        let rawUrl = document.getElementById('mUrl').value.trim();
+        // Auto-fix para URLs que terminan en puerto (ej. 8000/)
+        if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
 
-      if(!name || !url) return alert("Faltan datos");
+        const nuevaRadio = {
+            stationuuid: 'fb_' + Date.now(),
+            name: document.getElementById('mName').value,
+            url: rawUrl,
+            url_resolved: rawUrl,
+            favicon: document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333',
+            tags: document.getElementById('mTags').value || 'Comunidad',
+            state: 'Comunidad',
+            timestamp: serverTimestamp()
+        };
 
-      push(radioRef, {
-        name, 
-        url, 
-        url_resolved: url, 
-        favicon: logo, 
-        tags: 'Comunidad',
-        votes: 0
-      }).then(() => {
-        alert("Radio agregada para todos");
-        closeAdmin();
-      });
-    };
+        push(radioRef, nuevaRadio).then(() => {
+            alert("Radio subida exitosamente a la comunidad global.");
+            document.getElementById('manualRadioForm').reset();
+        }).catch(err => alert("Error al guardar: " + err.message));
+    });
 
-    // --- SINCRONIZAR RADIOS ---
+    // Escuchar radios desde Firebase
     onValue(radioRef, (snapshot) => {
-      let radiosComunidad = [];
-      snapshot.forEach(c => radiosComunidad.push(c.val()));
-      
-      // Combinamos con las de la API y refrescamos
-      if(typeof apiRadios !== 'undefined') {
-        allRadios = [...radiosComunidad, ...apiRadios];
-        displayedRadios = [...allRadios];
-        renderGrid([], 'gridMain', false);
-      }
+        window.firebaseRadios = [];
+        const adminList = document.getElementById('manualRadiosList');
+        if(adminList) adminList.innerHTML = '';
+
+        snapshot.forEach(child => {
+            const r = child.val();
+            r.fb_key = child.key; // Guardamos la key para poder borrarla
+            window.firebaseRadios.push(r);
+
+            // Renderizamos en el Panel de Administrador
+            if(adminList) {
+                const item = document.createElement('div');
+                item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <img src="${r.favicon}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="truncate">
+                            <p class="text-sm font-bold text-white truncate">${r.name}</p>
+                            <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url}</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="deleteFirebaseRadio('${child.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all ml-2 flex-shrink-0" title="Eliminar radio global">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    </button>
+                `;
+                // Añadimos al principio de la lista
+                adminList.insertBefore(item, adminList.firstChild);
+            }
+        });
+
+        if(window.firebaseRadios.length === 0 && adminList) {
+            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios agregadas por la comunidad.</div>';
+        }
+
+        // Le avisamos al script principal que hay radios nuevas para refrescar la grilla
+        if(typeof window.triggerGridRefresh === 'function') {
+            window.triggerGridRefresh();
+        }
     });
 
-    // Enter para el chat
-    document.getElementById('chatInput').addEventListener('keypress', (e) => {
-      if(e.key === 'Enter') sendMessage();
-    });
-  </script>// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
-  authDomain: "radioarpro.firebaseapp.com",
-  databaseURL: "https://radioarpro-default-rtdb.firebaseio.com",
-  projectId: "radioarpro",
-  storageBucket: "radioarpro.firebasestorage.app",
-  messagingSenderId: "608025447862",
-  appId: "1:608025447862:web:a9a20c36a5ca86f6ca8517",
-  measurementId: "G-051Z1FBHEK"
-};
+    // Función para borrar radio global
+    window.deleteFirebaseRadio = function(key) {
+        const pass = prompt("Contraseña de Administrador para eliminar esta radio de la comunidad:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global para todos los usuarios?')) {
+            remove(ref(db, 'radios_comunidad/' + key)).then(() => {
+               alert("Radio eliminada.");
+            });
+        }
+    };
+  </script>
 </body>
 </html>
