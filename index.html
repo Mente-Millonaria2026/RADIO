@@ -435,9 +435,34 @@
       <span class="text-4xl">🇺🇸</span> <span class="font-bold text-sm">EE.UU.</span>
    </a>
 </div>
-           </button>
-        </div>
      </div>
+  </div>
+
+  <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-[90vh]">
+      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
+      
+      <div class="text-center mb-6 flex-shrink-0">
+        <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Manual</h3>
+        <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá en el inicio de la grilla</p>
+      </div>
+      
+      <form id="manualRadioForm" class="space-y-4 flex-shrink-0">
+        <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+        <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+        <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+        <input type="text" id="mTags" placeholder="Tags (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Guardar en mi RadioAR</button>
+      </form>
+
+      <!-- Nueva sección para ver y eliminar radios agregadas -->
+      <div class="mt-8 flex-1 overflow-hidden flex flex-col">
+          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 flex-shrink-0">Radios Agregadas Manualmente</h4>
+          <div id="manualRadiosList" class="overflow-y-auto space-y-2 no-scrollbar pb-2">
+              <!-- Se inyectan por JS -->
+          </div>
+      </div>
+    </div>
   </div>
 
   <footer class="player-bar">
@@ -561,13 +586,13 @@
     const itemsPerPage = 30;
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let currentStation = null;
+    const MANUAL_KEY = 'RAR_USER_RADIOS';
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
 
     /* --- CARACTERÍSTICA JSON: SEO Y URLs DINÁMICAS --- */
     const SEO_DATA = { provincias: {}, radios: {} };
 
-    // Generar JSON SEO para provincias
     PROVS.forEach(p => {
         const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
         SEO_DATA.provincias[p] = {
@@ -579,7 +604,6 @@
         };
     });
 
-    // Función para obtener/generar JSON SEO para radios (dinámico por API)
     function getRadioSEO(radioName) {
         if (!SEO_DATA.radios[radioName]) {
             const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
@@ -594,7 +618,6 @@
         return SEO_DATA.radios[radioName];
     }
 
-    // Actualizador de Meta Datos en el DOM
     function updateMetadata(seoObj, type, identifier) {
         document.title = seoObj.title;
         document.getElementById('meta-title').innerText = seoObj.title;
@@ -604,8 +627,6 @@
         
         document.getElementById('viewLabel').innerText = seoObj.h1;
         document.getElementById('viewSub').innerText = seoObj.h2;
-
-        // Cambiar la URL mediante Hash Routing para no romper Single Page Application
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
     }
 
@@ -621,19 +642,12 @@
         document.getElementById('mainScroll').scrollTop = 0;
     }
 
-    /* --- GESTIÓN HISTORIAL DEL NAVEGADOR --- */
     window.addEventListener('popstate', (event) => {
         if (event.state) {
-            if (event.state.type === 'prov') {
-                filterP(event.state.id, true);
-            } else if (event.state.type === 'radio') {
-                play(event.state.id, true);
-            } else {
-                resetToHome();
-            }
-        } else {
-            resetToHome();
-        }
+            if (event.state.type === 'prov') filterP(event.state.id, true);
+            else if (event.state.type === 'radio') play(event.state.id, true);
+            else resetToHome();
+        } else resetToHome();
     });
 
     /* --- LÓGICA MODO RELAX PRO --- */
@@ -646,12 +660,10 @@
 
     function playRelax(mode, btn) {
         if (!audio.paused) audio.pause();
-        
         document.querySelectorAll('.relax-btn').forEach(b => {
             b.classList.remove('active-relax');
             b.querySelector('span:first-child').classList.add('grayscale');
         });
-
         btn.classList.add('active-relax');
         btn.querySelector('span:first-child').classList.remove('grayscale');
         document.getElementById('stop-relax-btn').classList.remove('hidden');
@@ -672,7 +684,6 @@
         if (!relaxAudio.paused) relaxAudio.pause();
         relaxAudio.src = "";
         document.getElementById('stop-relax-btn').classList.add('hidden');
-        
         document.querySelectorAll('.relax-btn').forEach(b => {
             b.classList.remove('active-relax');
             b.querySelector('span:first-child').classList.add('grayscale');
@@ -692,86 +703,32 @@
         pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
     }
 
-
     /* --- HI-REALISTIC CHAT ENGINE --- */
     const chatManager = {
-        maxOnline: 195860,
-        currentOnline: 39300,
-        botProfiles: [],
+        maxOnline: 195860, currentOnline: 39300, botProfiles: [],
         phrases: [
-            "Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "Otra vez cortando la calle estos hdp ",
-            "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Uff, ese solo de guitarra me voló la cabeza",
+            "Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", 
+            "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?",
             "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo",
-            "Quien juega hoy?", "El locutor de la rock es un crack", "Me hace acordar a las vacaciones este tema de Urbanaplay", "Re manija con este enganchado",
-            "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos", "¡Saludos a la tía Marta!",
-            "Futurockkkk Pongan algo de los Redondos", "No me anda bien el wifi me parece", "Me encanta este programa de r10", "Qué frío que hace hoy!",
-            "Mañana se entrena con esta música", "Dejame un saludo para la banda de tocarliii", "Ese tema es un elissir...",
-            "el boton de zapping que buena idea la pegaron con esa", "No puedo dejar de escuchar la Aspen", "¡Qué voz tiene esa piba esta!",
-            "Se escucha re bien desde el celu", "Un saludo para los pibes del taller", "¡Cambiá de tema que me duermo!", "ATR con la radio",
-            "Quién gana el domingo?", "Subile el volumen que es un temazooooo", "Me trae una nostalgia tremenda", "Buenísimo el streaming",
-            "Acá en Rosario llueve a cántaros", "¡Aguante el cuarteto!", "A pleno en el laburo radio ar se pasaron anda mortaaaaal", "¡Qué grande el Beto!",
-            "Pasame el nombre de la playlist", "En una la radio hoy", "Demasiado bueno", "Sin radio no se puede vivir",
-            "Firma junto al pueblooooo?", "¡Vamooo Newell's!", "¡Saludos de un fan de la 100!", "No sabía que existía esta radio",
-            "Está para quedarse escuchando todo el día", "Me cambió el humor este tema", "¡Qué joya encontraron!",
-            "¿Alguien de Mendoza?", "Uff, los 80 fueron lo más", "Tremendo set se mandaron", "Saludos a la comunidad",
-            "Me quedo acá un rato más", "¡Qué manija me pusieron!", "Excelente calidad de audio", "La rompen toda con este tema",
-            "¡Buen provecho para los que almuerzan!", "Acá firme junto al dial", "¡Qué bomba!", "Sin palabras, increíble",
-            "¿Se puede pedir un tema?", "Manden un saludo para Sinsacate", "La radio es compañía", "¡Vivan los clásicos!",
-            "No me canso de escuchar esto", "¡Dale que arranca el finde!", "La mejor compañía para el viaje",
-            "Acá en la parada del bondi escuchando", "No lo puedo creer, hace mil no escuchaba esto", "¡Qué buena onda tienen!",
-            "Sigan así, son los mejores", "¡Aguante el rock nacional!", "Me volaron la peluca", "Mañana escucho de nuevo",
-            "¿Hacen radio en vivo?", "¡Qué flash este tema!", "Me siento en los 90 de nuevo", "Amo esta radio",
-            "¡Saludos a todos los conectados!", "Somos un montón hoy", "Impresionante la cantidad de gente",
-            "¡Qué lindo es ser argentino!", "Mates y radio, no pido más", "Está picante el chat hoy jajaja",
-            "¡Qué grande la producción!", "No me lo pierdo por nada", "Firme como rulo de estatua", "Jajaja que hdp lo que dijo",
-            "Tal cual, opino lo mismo", "Mal, hoy está imposible el tránsito", "Cuidense que anda mucha gripe",
-            "¡Vamooo River!", "¡Vamooo Boca!", "¡Vamooo el Rojo!", "¡Vamooo la Academia!", "¡Aguante el Ciclón!",
-            "Sale una juntada con lo pi para unos buenos vinardos o no?", "A pleno con el zapping", "Me volvió loco con ese tema", "¡Qué locura!",
-            "Pasen algo de rock", "Me encanta la estética de la app", "Muy pro todo", "Saludos desde el laburo",
-            "¿Alguien tiene el instagram de la locutora?", "Qué bien que se escucha", "Me quedé sin palabras",
-            "¡Vamooo la selección!", "Mañana feriado, ¡golazo!", "Escuchando desde la cama", "¡Qué buen domingo!",
-            "Un saludo para mi vieja", "¡Feliz cumple al programa!", "No cambien nunca", "Son lo más",
-            "¿A qué hora termina?", "Pongan más cumbia", "Haceme la vivorita coloreteeee", "Me hicieron bailar en la cocina",
-            "Buenísima la programación", "¡Qué energía!", "Me encanta este bloque", "Los escucho siempre",
-            "Gracias por la música", "¡Uff, que fuerte!", "Me llegó al corazón", "Temón de aquellos",
-            "¿Alguien sabe si llueve mañana?", "Saludos desde la costa", "Tomando un cafecito con la radio",
-            "¡Qué buen clima armaron!", "Me motivaron para limpiar", "Se me pasó volando la hora",
-            "¡Aguante la radio argentina!", "Los escucho desde España", "Un abrazo gigante", "Qué buena vibra en la popu!",
-            "Amo los clásicos", "Nunca fallan", "Son mi compañía diaria", "¡Vamooo todavía!",
-            "¿Hay alguien de San Juan?", "Pongan algo de Cerati", "Charly es Dios", "Spinetta eterno",
-            "¡Qué buen cover!", "Mejor que el original", "Me sorprendieron", "No los conocía",
-            "¡Qué descubrimiento!", "Mañana le digo a mis amigos", "Compartiendo la radio", "¡A full!",
-            "¿Sale ese asado?", "Falta el fernet nomás", "¡Qué lindo mi país!", "Orgullo nacional",
-            "La radio vive", "¡Qué aguante!", "Impresionantes", "¡Grosos!", "Un lujo escucharlos",
-            "No me quiero ir del chat", "Me enganché mal", "¡Qué buena charla!", "Sigan así",
-            "Besos para todos", "¡Buen descanso!", "Hasta mañana gente", "¡Qué buen cierre!",
-            "Me dejaron manija para mañana", "La rompen toda", "Son la uno", "Sin dudas la mejor",
-            "¡Salud!", "Por más radio", "¡Vamooo carajo!", "¡Qué felicidad!", "Me hicieron el día",
-            "Gracias por estar", "Un placer total", "¡Adelante!", "¡Éxitos!", "¡Abrazo de gol!",
-            "¿Alguien me explica como guardar favoritos?", "Zarpado el audio", "Me encanta!", "Fuaaa loco"
+            "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos",
+            "el boton de zapping que buena idea la pegaron con esa", "No puedo dejar de escuchar la Aspen",
+            "Quién gana el domingo?", "Subile el volumen que es un temazooooo", "Buenísimo el streaming",
+            "Acá en Rosario llueve a cántaros", "¡Aguante el cuarteto!", "A pleno en el laburo radio ar se pasaron anda mortaaaaal"
         ],
-
         init() {
-            const baseNames = [
-                "Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER", "Tucu_SAL", "Gaby_JUJ",
-                "Jime_RN", "Beto_CHB", "Pili_SC", "Nacho_TF", "Coti_MIS", "Mati_CHA", "Sofi_FOR", "Keko_PAM", "Dra_Vane_SDE", "Tia_Clari_SL",
-                "Lucho_CAT", "Cande_LR", "Fede_SJN", "La_Jenny_OK", "Marquitos_CBA", "Solu_SF", "Pollo_RC", "Flor_CASLA", "Juancito_CANOB", "Magui_CARC"
-            ];
-            for(let i=0; i<100; i++) {
+            const baseNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
+            for(let i=0; i<50; i++) {
                 const name = baseNames[i % baseNames.length] + "_" + (Math.random() > 0.5 ? "" : Math.floor(Math.random()*99));
                 this.botProfiles.push({ n: name, c: `hsl(${Math.random()*360}, 60%, 65%)` });
             }
-            this.updateCounter();
-            this.loop();
+            this.updateCounter(); this.loop();
             setInterval(() => this.updateCounter(), 4000);
         },
-
         updateCounter() {
             const fluctuation = Math.floor(Math.random() * 300 - 100);
             this.currentOnline = Math.min(this.maxOnline, this.currentOnline + fluctuation);
             document.getElementById('onlineCounter').innerText = `● ${this.currentOnline.toLocaleString()} ESCUCHANDO AHORA`;
         },
-
         async showTyping(name) {
             const indicator = document.getElementById('typingIndicator');
             indicator.innerText = `${name} está escribiendo...`;
@@ -779,7 +736,6 @@
             await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
             indicator.style.display = 'none';
         },
-
         async loop() {
             const delay = Math.random() * 10000 + 2000;
             setTimeout(async () => {
@@ -792,7 +748,6 @@
                 this.loop();
             }, delay);
         },
-
         addMessage(user, text, isMe = false, color = "#1DB954") {
             const box = document.getElementById('chatMessages');
             const div = document.createElement('div');
@@ -801,9 +756,7 @@
                 <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${color}">${user.charAt(0)}</div>
                 <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
                     <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${user}</p>
-                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'}">
-                        ${text}
-                    </div>
+                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'}">${text}</div>
                 </div>`;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
@@ -815,13 +768,9 @@
       e.preventDefault();
       const nick = document.getElementById('chatUserName').value || "Oyente";
       const input = document.getElementById('chatInput');
-      if(input.value.trim()) {
-          chatManager.addMessage(nick, input.value, true, "#FFF");
-          input.value = "";
-      }
+      if(input.value.trim()) { chatManager.addMessage(nick, input.value, true, "#FFF"); input.value = ""; }
     }
 
-    /* --- LOGICA TEMA CLARO/OSCURO --- */
     function toggleTheme() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
@@ -830,95 +779,36 @@
         document.getElementById('sun-icon').classList.toggle('hidden', !isLight);
     }
 
-    /* --- LÓGICA ECUALIZADOR --- */
-    let eqInitialized = false;
-    let eqFilters = {};
-
+    let eqInitialized = false, eqFilters = {};
     function initEQ() {
         if (eqInitialized) return;
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext();
-            
             const source = audioCtx.createMediaElementSource(audio);
-
-            eqFilters.bass = audioCtx.createBiquadFilter();
-            eqFilters.bass.type = "lowshelf";
-            eqFilters.bass.frequency.value = 250;
-            eqFilters.bass.gain.value = document.getElementById('eq-bass').value;
-
-            eqFilters.mid = audioCtx.createBiquadFilter();
-            eqFilters.mid.type = "peaking";
-            eqFilters.mid.frequency.value = 1000;
-            eqFilters.mid.Q.value = 1;
-            eqFilters.mid.gain.value = document.getElementById('eq-mid').value;
-
-            eqFilters.treb = audioCtx.createBiquadFilter();
-            eqFilters.treb.type = "highshelf";
-            eqFilters.treb.frequency.value = 4000;
-            eqFilters.treb.gain.value = document.getElementById('eq-treb').value;
-
-            source.connect(eqFilters.bass);
-            eqFilters.bass.connect(eqFilters.mid);
-            eqFilters.mid.connect(eqFilters.treb);
-            eqFilters.treb.connect(audioCtx.destination);
-
+            eqFilters.bass = audioCtx.createBiquadFilter(); eqFilters.bass.type = "lowshelf"; eqFilters.bass.frequency.value = 250; eqFilters.bass.gain.value = document.getElementById('eq-bass').value;
+            eqFilters.mid = audioCtx.createBiquadFilter(); eqFilters.mid.type = "peaking"; eqFilters.mid.frequency.value = 1000; eqFilters.mid.Q.value = 1; eqFilters.mid.gain.value = document.getElementById('eq-mid').value;
+            eqFilters.treb = audioCtx.createBiquadFilter(); eqFilters.treb.type = "highshelf"; eqFilters.treb.frequency.value = 4000; eqFilters.treb.gain.value = document.getElementById('eq-treb').value;
+            source.connect(eqFilters.bass); eqFilters.bass.connect(eqFilters.mid); eqFilters.mid.connect(eqFilters.treb); eqFilters.treb.connect(audioCtx.destination);
             eqInitialized = true;
-            console.log("Ecualizador Master activado.");
-        } catch (e) {
-            console.warn("CORS o Audio Context bloqueado. El ecualizador no se activó.", e);
-        }
+        } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
     }
 
-    function updateEQ(band, val) {
-        if (eqFilters[band]) {
-            eqFilters[band].gain.value = parseFloat(val);
-        }
-    }
+    function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
+    function resetEQ() { ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
 
-    function resetEQ() {
-        ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => {
-            const slider = document.getElementById(id);
-            slider.value = 0;
-            updateEQ(id.replace('eq-', ''), 0);
-        });
-    }
-
-    /* --- MODAL RADIOS DEL MUNDO --- */
     function openWorldRadios() {
-        const modal = document.getElementById('worldModal');
-        const content = document.getElementById('worldModalContent');
-        modal.classList.remove('hidden');
-        void modal.offsetWidth; 
-        modal.classList.remove('opacity-0');
-        content.classList.remove('scale-95');
+        const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
+        modal.classList.remove('hidden'); void modal.offsetWidth; 
+        modal.classList.remove('opacity-0'); content.classList.remove('scale-95');
     }
-
     function closeWorldRadios() {
-        const modal = document.getElementById('worldModal');
-        const content = document.getElementById('worldModalContent');
-        modal.classList.add('opacity-0');
-        content.classList.add('scale-95');
+        const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
+        modal.classList.add('opacity-0'); content.classList.add('scale-95');
         setTimeout(() => modal.classList.add('hidden'), 300);
     }
 
-    function selectCountry(countryCode, label) {
-        closeWorldRadios();
-        document.getElementById('viewLabel').innerText = "Explorar " + label;
-        document.getElementById('viewSub').innerText = "Descubre la radio de otra manera.";
-        
-        if (countryCode !== 'argentina') {
-            document.getElementById('sideProvs').style.display = 'none';
-            document.getElementById('mobProvNav').style.display = 'none';
-        } else {
-            document.getElementById('sideProvs').style.display = 'block';
-            document.getElementById('mobProvNav').style.display = 'flex';
-        }
-
-        loadCountryData(countryCode);
-    }
-
-    /* --- CARGA DINÁMICA POR PAÍS --- */
+    /* --- CARGA DINÁMICA POR PAÍS CON CACHÉ DE MEMORIA --- */
     const loadCountryData = async (country) => {
         document.getElementById('radioCount').innerText = "CARGANDO...";
         document.getElementById('gridMain').innerHTML = "";
@@ -928,12 +818,42 @@
         currentOffset = 0;
 
         try {
-            const resTop = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=10`);
-            const top10 = await resTop.json();
+            // 1. Recuperar Radios Manuales inyectadas por el usuario
+            const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+
+            // 2. Sistema de caché para no saturar la API y cargar al instante
+            const cacheKey = `RAR_API_${country}`;
+            const cacheTimeKey = `RAR_API_${country}_TIME`;
+            const now = Date.now();
+            const cachedData = localStorage.getItem(cacheKey);
+            const cachedTime = localStorage.getItem(cacheTimeKey);
+
+            let top10 = [];
+            let apiRadios = [];
+
+            // Si hay caché y tiene menos de 1 hora de antigüedad, usarlo
+            if (cachedData && cachedTime && (now - cachedTime < 3600000)) {
+                const parsed = JSON.parse(cachedData);
+                top10 = parsed.top10;
+                apiRadios = parsed.apiRadios;
+            } else {
+                // Si no hay caché válido, llamar a la API
+                const resTop = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=10`);
+                top10 = await resTop.json();
+
+                const resAll = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=1000`);
+                apiRadios = await resAll.json();
+
+                // Guardar en caché
+                localStorage.setItem(cacheKey, JSON.stringify({ top10, apiRadios }));
+                localStorage.setItem(cacheTimeKey, now.toString());
+            }
+
+            // 3. Mezclar todo (Manuales primero)
+            allRadios = [...guardadas, ...apiRadios];
+            
             renderGrid(top10, 'gridTop');
 
-            const resAll = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=1000`);
-            allRadios = await resAll.json();
             displayedRadios = [...allRadios];
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
             
@@ -942,97 +862,100 @@
             document.getElementById('mainScroll').scrollTop = 0;
         } catch (e) { 
             document.getElementById('radioCount').innerText = "ERROR DE CARGA"; 
+            console.error(e);
         }
     };
 
-    /* --- COMPARTIR RADIO INDIVIDUAL --- */
     function shareRadio(e, name) {
         e.stopPropagation();
         const seoData = getRadioSEO(name);
         const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
-        
         const text = `¡Estoy escuchando ${name} en RadioAR Pro! 🌎 Escuchala en vivo acá:`;
-        if (navigator.share) {
-            navigator.share({
-                title: seoData.title,
-                text: text,
-                url: urlToShare
-            }).catch(err => console.log('Error compartiendo:', err));
-        } else {
-            navigator.clipboard.writeText(`${text} ${urlToShare}`);
-            alert(`Enlace de ${name} copiado al portapapeles.`);
-        }
+        if (navigator.share) navigator.share({title: seoData.title, text: text, url: urlToShare}).catch(err => console.log('Error compartiendo:', err));
+        else { navigator.clipboard.writeText(`${text} ${urlToShare}`); alert(`Enlace de ${name} copiado al portapapeles.`); }
     }
-
     function shareWeb() {
         if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href});
         else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
-// ==========================================
-// PANEL OCULTO DE ADMINISTRACIÓN (Shift + M)
-// ==========================================
-document.body.insertAdjacentHTML('beforeend', `
-<div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-  <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white">
-    <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
-    <div class="text-center mb-6">
-      <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Manual</h3>
-      <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá en el inicio de la grilla</p>
-    </div>
-    <form id="manualRadioForm" class="space-y-4">
-      <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-      <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-      <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-      <input type="text" id="mTags" placeholder="Tags (rock, noticias, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Guardar en mi RadioAR</button>
-    </form>
-  </div>
-</div>
-`);
 
-const MANUAL_KEY = 'RAR_USER_RADIOS';
+    // --- NUEVAS FUNCIONES PARA EL PANEL MANUAL ---
+    function renderManualRadios() {
+        const list = document.getElementById('manualRadiosList');
+        const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+        list.innerHTML = '';
+        
+        if (guardadas.length === 0) {
+            list.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios agregadas manualmente.</div>';
+            return;
+        }
 
-document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const nueva = {
-    stationuuid: 'usr_' + Date.now(), // ID compatible con tu sistema
-    name: document.getElementById('mName').value,
-    url: document.getElementById('mUrl').value,
-    url_resolved: document.getElementById('mUrl').value,
-    favicon: document.getElementById('mLogo').value,
-    tags: document.getElementById('mTags').value,
-    state: 'Manual'
-  };
-  const actuales = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
-  actuales.push(nueva);
-  localStorage.setItem(MANUAL_KEY, JSON.stringify(actuales));
-  alert('Radio agregada con éxito.');
-  location.reload();
-});
+        guardadas.forEach(radio => {
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+            item.innerHTML = `
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <img src="${radio.favicon}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(radio.name)}&background=222&color=fff'">
+                    <div class="truncate">
+                        <p class="text-sm font-bold text-white truncate">${radio.name}</p>
+                        <p class="text-[10px] text-zinc-400 truncate mt-0.5">${radio.url}</p>
+                    </div>
+                </div>
+                <button type="button" onclick="deleteManualRadio('${radio.stationuuid}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all ml-2 flex-shrink-0" title="Eliminar radio">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                </button>
+            `;
+            list.appendChild(item);
+        });
+    }
 
-document.addEventListener('keydown', (e) => {
-  if (e.shiftKey && e.key === 'M') {
-    document.getElementById('adminPanel').classList.remove('hidden');
-  }
-});
+    function deleteManualRadio(uuid) {
+        if(confirm('¿Estás seguro de que quieres eliminar esta radio?')) {
+            let guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+            guardadas = guardadas.filter(r => r.stationuuid !== uuid);
+            localStorage.setItem(MANUAL_KEY, JSON.stringify(guardadas));
+            renderManualRadios();
+            loadCountryData('argentina'); // Actualizar la grilla en vivo
+        }
+    }
 
-// Inyección previa al resto de la lógica
-(function() {
-  const guardadas = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
-  if (guardadas.length > 0 && typeof allRadios !== 'undefined') {
-    allRadios = [...guardadas, ...allRadios];
-  }
-})();
+    function openAdminPanel() {
+        document.getElementById('adminPanel').classList.remove('hidden');
+        renderManualRadios();
+    }
 
-/* --- RADIO LOGIC CON METADATA DINÁMICA --- */
-// ... (Aquí sigue el código que me pasaste)
-    /* --- RADIO LOGIC CON METADATA DINÁMICA --- */
+    // CONTROL DEL PANEL MANUAL MODIFICADO
+    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nueva = {
+        stationuuid: 'usr_' + Date.now(),
+        name: document.getElementById('mName').value,
+        url: document.getElementById('mUrl').value,
+        url_resolved: document.getElementById('mUrl').value,
+        favicon: document.getElementById('mLogo').value,
+        tags: document.getElementById('mTags').value,
+        state: 'Manual'
+      };
+      const actuales = JSON.parse(localStorage.getItem(MANUAL_KEY) || '[]');
+      actuales.unshift(nueva); // Agregar al principio de la lista
+      localStorage.setItem(MANUAL_KEY, JSON.stringify(actuales));
+      
+      document.getElementById('manualRadioForm').reset();
+      renderManualRadios(); // Actualizar la lista en el panel
+      loadCountryData('argentina'); // Actualizar la grilla principal
+    });
+
+    // Abrir panel con atajo de teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.shiftKey && e.key === 'M') {
+          openAdminPanel();
+      }
+    });
+
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
-          title: r.name,
-          artist: 'RadioAR Pro 🌎',
-          album: r.state || 'Radio Mundial',
+          title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
           artwork: [{ src: r.favicon || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
         });
         navigator.mediaSession.setActionHandler('play', () => audio.play());
@@ -1044,16 +967,8 @@ document.addEventListener('keydown', (e) => {
       if(!relaxAudio.paused) stopRelax(); 
       const r = allRadios.find(x => x.stationuuid === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
       if(!r) return;
-      
-      initEQ(); 
-      currentStation = r;
-      
-      // Actualizar SEO JSON en vivo
-      if(!skipPush) {
-          const radioSEO = getRadioSEO(r.name);
-          updateMetadata(radioSEO, 'radio', uuid);
-      }
-
+      initEQ(); currentStation = r;
+      if(!skipPush) updateMetadata(getRadioSEO(r.name), 'radio', uuid);
       document.getElementById('p-name').innerText = r.name;
       document.getElementById('p-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
       pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
@@ -1066,7 +981,6 @@ document.addEventListener('keydown', (e) => {
       if (!append) container.innerHTML = "";
       data.forEach(r => {
         const safeName = r.name.replace(/'/g, "\\'");
-        
         const div = document.createElement('div');
         div.className = "r-card";
         div.innerHTML = `
@@ -1098,137 +1012,83 @@ document.addEventListener('keydown', (e) => {
         }
     }
 
-    /* --- LÓGICA DE GRABACIÓN DE AUDIO --- */
-    let mediaRecorder;
-    let recordedChunks = [];
-    const btnRecord = document.getElementById('p-record');
-    const dotRecord = document.getElementById('rec-dot');
+    /* --- Intersection Observer para Scroll Infinito Optimizado --- */
+    function setupInfiniteScroll() {
+        const trigger = document.getElementById('loadMoreTrigger');
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                loadMoreRadios();
+            }
+        }, { rootMargin: "200px" });
+        observer.observe(trigger);
+    }
 
-    btnRecord.onclick = () => {
-        if (!mediaRecorder || mediaRecorder.state === 'inactive') {
-            startRecording();
-        } else {
-            stopRecording();
-        }
-    };
+    let mediaRecorder, recordedChunks = [];
+    const btnRecord = document.getElementById('p-record'), dotRecord = document.getElementById('rec-dot');
+    btnRecord.onclick = () => { (!mediaRecorder || mediaRecorder.state === 'inactive') ? startRecording() : stopRecording(); };
 
     function startRecording() {
-        if (audio.paused || !audio.src) {
-            alert("Debes reproducir una radio primero para poder grabar.");
-            return;
-        }
+        if (audio.paused || !audio.src) { alert("Debes reproducir una radio primero para poder grabar."); return; }
         try {
             const stream = audio.captureStream ? audio.captureStream() : audio.mozCaptureStream ? audio.mozCaptureStream() : null;
-            if (!stream) {
-                alert("Tu navegador no soporta la grabación nativa de este audio.");
-                return;
-            }
+            if (!stream) { alert("Tu navegador no soporta la grabación nativa."); return; }
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
             mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedChunks, { type: 'audio/webm' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = `Grabacion_RadioAR_${new Date().getTime()}.webm`;
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
+                const blob = new Blob(recordedChunks, { type: 'audio/webm' }), url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = `Grabacion_RadioAR_${new Date().getTime()}.webm`;
+                document.body.appendChild(a); a.click(); setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
                 recordedChunks = [];
             };
             mediaRecorder.start();
-            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500');
-            dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
+            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
             btnRecord.classList.add('border-red-500');
-        } catch (err) {
-            console.error(err);
-            alert("Error al intentar grabar. Es posible que la estación no permita grabación por políticas de origen cruzado (CORS).");
-        }
+        } catch (err) { alert("Error al intentar grabar. (Posible bloqueo por CORS)."); }
     }
 
     function stopRecording() {
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
-            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500');
-            dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
+            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse');
             btnRecord.classList.remove('border-red-500');
         }
     }
 
     async function init() {
       if (localStorage.getItem('RAR_THEME') === 'light') toggleTheme();
-
       PROVS.forEach(p => {
         const b = document.createElement('button'); b.className = "w-full text-left p-3 text-zinc-400 hover:text-current hover:bg-zinc-900 rounded-xl text-sm font-semibold transition";
         b.innerText = p; b.onclick = () => filterP(p); document.getElementById('sideProvs').appendChild(b);
         const bM = document.createElement('button'); bM.className = "pill"; bM.innerText = p; bM.onclick = () => filterP(p); document.getElementById('mobProvs').appendChild(bM);
       });
-      
-      chatManager.init(); 
-      setupControls();
-      setupInfiniteScroll();
-
-      loadCountryData('argentina');
-      setupAlarmClock();
+      chatManager.init(); setupControls(); setupInfiniteScroll();
+      loadCountryData('argentina'); setupAlarmClock();
     }
 
-    /* --- LÓGICA DESPERTADOR / RELOJ --- */
     function setupAlarmClock() {
         setInterval(() => {
-            const now = new Date();
-            const currentTimeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-            const onTime = document.getElementById('alarm-on').value;
-            const offTime = document.getElementById('alarm-off').value;
-            const alarmStatus = document.getElementById('alarm-status');
-            
-            if (onTime || offTime) {
-                alarmStatus.classList.replace('bg-zinc-600', 'bg-green-500');
-                alarmStatus.classList.add('shadow-[0_0_8px_#1DB954]');
-            } else {
-                alarmStatus.classList.replace('bg-green-500', 'bg-zinc-600');
-                alarmStatus.classList.remove('shadow-[0_0_8px_#1DB954]');
-            }
-
+            const now = new Date(), currentTimeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            const onTime = document.getElementById('alarm-on').value, offTime = document.getElementById('alarm-off').value, alarmStatus = document.getElementById('alarm-status');
+            if (onTime || offTime) { alarmStatus.classList.replace('bg-zinc-600', 'bg-green-500'); alarmStatus.classList.add('shadow-[0_0_8px_#1DB954]'); }
+            else { alarmStatus.classList.replace('bg-green-500', 'bg-zinc-600'); alarmStatus.classList.remove('shadow-[0_0_8px_#1DB954]'); }
             if (now.getSeconds() === 0) {
-                if (onTime && currentTimeStr === onTime) {
-                    if (audio.paused && relaxAudio.paused) {
-                        if (!currentStation && allRadios.length > 0) play(allRadios[0].stationuuid); 
-                        else audio.play();
-                    }
-                }
-                if (offTime && currentTimeStr === offTime) {
-                    if (!audio.paused) audio.pause();
-                    if (!relaxAudio.paused) stopRelax();
-                }
+                if (onTime && currentTimeStr === onTime && audio.paused && relaxAudio.paused) { (!currentStation && allRadios.length > 0) ? play(allRadios[0].stationuuid) : audio.play(); }
+                if (offTime && currentTimeStr === offTime) { if (!audio.paused) audio.pause(); if (!relaxAudio.paused) stopRelax(); }
             }
         }, 1000);
     }
 
     function filterP(p, skipPush = false) {
-      if(!skipPush) {
-          const provSEO = SEO_DATA.provincias[p];
-          if(provSEO) updateMetadata(provSEO, 'prov', p);
-      }
-
+      if(!skipPush && SEO_DATA.provincias[p]) updateMetadata(SEO_DATA.provincias[p], 'prov', p);
       displayedRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-      document.getElementById('sectTop').style.display = 'none';
-      document.getElementById('mainScroll').scrollTop = 0;
+      document.getElementById('sectTop').style.display = 'none'; document.getElementById('mainScroll').scrollTop = 0;
     }
 
     function renderFavorites() {
-      document.getElementById('viewLabel').innerText = "Favoritos";
-      document.getElementById('viewSub').innerText = "Tus radios guardadas";
+      document.getElementById('viewLabel').innerText = "Favoritos"; document.getElementById('viewSub').innerText = "Tus radios guardadas";
       displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid));
-      currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-      document.getElementById('sectTop').style.display = 'none';
-    }
-
-    function setupInfiniteScroll() {
-        document.getElementById('mainScroll').onscroll = (e) => {
-            if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 300) loadMoreRadios();
-        };
+      currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = 'none';
     }
 
     function setupControls() {
@@ -1237,15 +1097,9 @@ document.addEventListener('keydown', (e) => {
           if(!eqInitialized && currentStation) initEQ();
           audio.paused ? audio.play() : audio.pause();
       };
-      
-      document.getElementById('p-vol').oninput = (e) => {
-          audio.volume = e.target.value;
-          relaxAudio.volume = e.target.value; 
-      };
-      
+      document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
       audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
-      
       document.getElementById('masterSearch').oninput = (e) => {
         const term = e.target.value.toLowerCase();
         displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
@@ -1255,18 +1109,10 @@ document.addEventListener('keydown', (e) => {
     }
 
     function filterByMood(mood, btn) {
-      document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      if(mood === 'all') { 
-        displayedRadios = [...allRadios]; 
-        document.getElementById('sectTop').style.display = 'block'; 
-      } else {
-          const keywords = { 
-            mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], 
-            estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], 
-            sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], 
-            retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] 
-          };
+      document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
+      if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
+      else {
+          const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
           displayedRadios = allRadios.filter(r => keywords[mood].some(term => (r.name + r.tags).toLowerCase().includes(term)));
           document.getElementById('sectTop').style.display = 'none';
       }
