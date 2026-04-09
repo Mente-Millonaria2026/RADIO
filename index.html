@@ -395,6 +395,10 @@
       
       <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
         </div>
+
+      <div class="px-4 pb-2">
+        <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
+      </div>
       
       <div class="p-4 border-t border-zinc-900 bg-[#050505]">
         <form id="chatForm" class="flex flex-col gap-2">
@@ -453,7 +457,7 @@
 
       <div class="mt-8 flex-1 overflow-hidden flex flex-col">
           <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 flex-shrink-0">Radios de la Comunidad</h4>
-          <div id="manualRadiosList" class="overflow-y-auto space-y-2 no-scrollbar pb-2">
+          <div id="manualRadiosList" class="overflow-y-auto space-y-2 pb-2 pr-2">
               </div>
       </div>
     </div>
@@ -941,7 +945,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue, serverTimestamp, query, limitToLast, remove } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+    import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
     /* ========================================================
     ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
@@ -976,7 +980,43 @@
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
 
-    // --- CHAT COMUNIDAD (REAL-TIME) ---
+    // --- FUNCIÓN RENDERIZAR MENSAJE (REAL O BOT) ---
+    function renderMessage(data, isReal = true) {
+        const box = document.getElementById('chatMessages');
+        const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
+        const isMe = isReal && data.user === myNick;
+        const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
+        
+        // Genera un color consistente basado en el nombre de usuario
+        let colorHash = 0;
+        for (let i = 0; i < (data.user || "").length; i++) {
+            colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash);
+        }
+        const color = `hsl(${colorHash % 360}, 60%, 65%)`;
+
+        const div = document.createElement('div');
+        div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
+        
+        div.innerHTML = `
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
+            <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
+                <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
+                <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
+            </div>`;
+        box.appendChild(div);
+        
+        // Auto-scroll y limite de historial local a 50
+        box.scrollTop = box.scrollHeight;
+        if(box.children.length > 50) box.removeChild(box.firstChild);
+    }
+
+    // --- FIREBASE CHAT COMUNIDAD (REAL-TIME LISTENER) ---
+    // Usamos onChildAdded en vez de onValue para que no borre los mensajes del bot local
+    onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => {
+        renderMessage(snapshot.val(), true);
+    });
+
+    // Envío del Formulario (Real User)
     const chatForm = document.getElementById('chatForm');
     chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -994,37 +1034,40 @@
         }
     });
 
-    onValue(query(chatRef, limitToLast(30)), (snapshot) => {
-        const box = document.getElementById('chatMessages');
-        box.innerHTML = "";
-        
-        const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
-        
-        snapshot.forEach((child) => {
-            const data = child.val();
-            const isMe = data.user === myNick;
-            const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
-            
-            const div = document.createElement('div');
-            div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
-            
-            // Genera un color consistente basado en el nombre de usuario
-            let colorHash = 0;
-            for (let i = 0; i < (data.user || "").length; i++) {
-                colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash);
-            }
-            const color = `hsl(${colorHash % 360}, 60%, 65%)`;
+    // --- LÓGICA DE BOTS LOCALES (Para que no se sienta vacío el chat) ---
+    const botPhrases = [
+        "Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", 
+        "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?",
+        "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo",
+        "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos",
+        "el boton de zapping que buena idea la pegaron con esa", "No puedo dejar de escuchar la Aspen",
+        "Quién gana el domingo?", "Subile el volumen que es un temazooooo", "Buenísimo el streaming",
+        "Acá en Rosario llueve a cántaros", "¡Aguante el cuarteto!", "A pleno en el laburo radio ar se pasaron anda mortaaaaal"
+    ];
+    const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
 
-            div.innerHTML = `
-                <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
-                <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
-                    <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
-                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
-                </div>`;
-            box.appendChild(div);
-        });
-        box.scrollTop = box.scrollHeight;
-    });
+    function botLoop() {
+        const delay = Math.random() * 12000 + 4000; // Envía cada 4 a 16 segundos
+        setTimeout(async () => {
+            const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
+            const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
+            
+            // Animación "Alguien está escribiendo"
+            const indicator = document.getElementById('typingIndicator');
+            if(indicator) {
+                indicator.innerText = `${bName} está escribiendo...`;
+                indicator.style.display = 'block';
+                await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
+                indicator.style.display = 'none';
+            }
+
+            renderMessage({user: bName, text: bText}, false); // Pasa false porque es bot
+            botLoop();
+        }, delay);
+    }
+    // Iniciar loop de los bots
+    botLoop();
+
 
     // --- CARGA Y SINCRONIZACIÓN DE RADIOS GLOBALES ---
     document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
