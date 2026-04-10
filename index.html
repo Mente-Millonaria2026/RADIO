@@ -325,61 +325,82 @@
     </aside>
 
     <main class="main-view p-6 md:p-10" id="mainScroll">
-      <div class="mb-6">
-        <h1 id="viewLabel" class="text-3xl font-extrabold tracking-tighter">Explorar</h1>
-        <div class="flex items-center justify-between mt-1">
-            <h2 id="viewSub" class="text-xs text-zinc-400 font-normal m-0">Descubre la radio de otra manera.</h2>
-            <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO TOP...</span>
-        </div>
-        <p id="viewDescription" class="text-sm text-zinc-400 mt-4 hidden max-w-3xl leading-relaxed border-l-2 border-[var(--sp-green)] pl-3 bg-zinc-900/40 p-3 rounded-r-xl"></p>
+      
+      <div id="exploreContent">
+          <div id="viewLabelWrapper" class="mb-6">
+            <h1 id="viewLabel" class="text-3xl font-extrabold tracking-tighter">Explorar</h1>
+            <div class="flex items-center justify-between mt-1">
+                <h2 id="viewSub" class="text-xs text-zinc-400 font-normal m-0">Descubre la radio de otra manera.</h2>
+                <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO TOP...</span>
+            </div>
+          </div>
+
+          <div id="exploreHeader" class="sticky-controls">
+            <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
+              <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 9.42l-1.41 1.41L17.96 19 20 16.96V22h-5.04l2.04-2.04-4.17-4.17z"/></svg>
+                Zapping Aleatorio
+              </button>
+              
+              <div class="flex items-center gap-2 w-full max-w-[450px]">
+                <div class="search-wrapper flex-1">
+                  <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                  <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
+                </div>
+                <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
+                  <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                  <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="moodFiltersWrapper" class="mb-10">
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="moodFilters">
+              <button onclick="filterByMood('all', this)" class="pill active">Todo</button>
+              <button onclick="filterByMood('mate', this)" class="pill">🧉 Para unos Mates</button>
+              <button onclick="filterByMood('estudiar', this)" class="pill">🧠 Concentrate</button>
+              <button onclick="filterByMood('sport', this)" class="pill">⚽ Fútbol y Pasiones</button>
+              <button onclick="filterByMood('retro', this)" class="pill">📻 Retro Tour</button>
+            </div>
+          </div>
+
+          <section id="sectTop" class="mb-14" style="display: none;">
+            <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 Más Escuchados</h3></div>
+            <div class="carousel-wrapper">
+              <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">❮</button>
+              <div class="h-scroll no-scrollbar" id="gridTop"></div>
+              <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">❯</button>
+            </div>
+          </section>
+
+          <section id="sectGrid">
+            <div class="flex items-center gap-3 mb-8"><span class="section-bar bar-orange"></span><h3 id="gridTitle" class="text-xl font-bold">Dial en Vivo</h3></div>
+            <div id="gridMain" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
+            <div id="loadMoreTrigger" class="h-20 flex items-center justify-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
+                Desliza para cargar más...
+            </div>
+          </section>
       </div>
 
-      <div class="sticky-controls">
-        <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
-          <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 9.42l-1.41 1.41L17.96 19 20 16.96V22h-5.04l2.04-2.04-4.17-4.17z"/></svg>
-            Zapping Aleatorio
+      <section id="nowPlayingView" class="hidden flex flex-col items-center justify-center text-center mt-10 md:mt-20">
+          <button onclick="resetToHome()" class="mb-10 text-zinc-400 hover:text-white flex items-center gap-2 font-bold transition-colors bg-zinc-900/50 px-5 py-2 rounded-full border border-zinc-800 hover:bg-zinc-800">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              Volver a explorar
           </button>
           
-          <div class="flex items-center gap-2 w-full max-w-[450px]">
-            <div class="search-wrapper flex-1">
-              <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
-            </div>
-            <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
-              <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-              <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
-            </button>
+          <img id="np-img" src="" class="w-48 h-48 md:w-72 md:h-72 rounded-[2rem] object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)] mb-8 border border-zinc-800 transition-transform duration-500 hover:scale-105">
+          
+          <h2 id="np-name" class="text-4xl md:text-6xl font-black tracking-tighter mb-3"></h2>
+          <p id="np-location" class="text-[var(--sp-green)] font-extrabold uppercase tracking-widest text-sm mb-6"></p>
+          
+          <div class="bg-zinc-900/30 border border-zinc-800/50 p-6 rounded-3xl max-w-2xl w-full mb-8">
+              <p id="np-desc" class="text-zinc-300 text-lg leading-relaxed"></p>
           </div>
-        </div>
-      </div>
-
-      <div class="mb-10">
-        <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="moodFilters">
-          <button onclick="filterByMood('all', this)" class="pill active">Todo</button>
-          <button onclick="filterByMood('mate', this)" class="pill">🧉 Para unos Mates</button>
-          <button onclick="filterByMood('estudiar', this)" class="pill">🧠 Concentrate</button>
-          <button onclick="filterByMood('sport', this)" class="pill">⚽ Fútbol y Pasiones</button>
-          <button onclick="filterByMood('retro', this)" class="pill">📻 Retro Tour</button>
-        </div>
-      </div>
-
-      <section id="sectTop" class="mb-14" style="display: none;">
-        <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 Más Escuchados</h3></div>
-        <div class="carousel-wrapper">
-          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">❮</button>
-          <div class="h-scroll no-scrollbar" id="gridTop"></div>
-          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">❯</button>
-        </div>
+          
+          <div id="np-tags" class="flex flex-wrap justify-center gap-2 max-w-xl"></div>
       </section>
 
-      <section>
-        <div class="flex items-center gap-3 mb-8"><span class="section-bar bar-orange"></span><h3 id="gridTitle" class="text-xl font-bold">Dial en Vivo</h3></div>
-        <div id="gridMain" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
-        <div id="loadMoreTrigger" class="h-20 flex items-center justify-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
-            Desliza para cargar más...
-        </div>
-      </section>
     </main>
 
     <aside class="chat-sidebar" id="chatSidebar">
@@ -391,8 +412,7 @@
         <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
       </div>
       
-      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
-        </div>
+      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
 
       <div class="px-4 pb-2">
         <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
@@ -453,7 +473,7 @@
             <input type="text" id="mUrl" placeholder="URL Streaming (mp3/aac) sin http:// no hay problema" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
             <input type="text" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
-            <textarea id="mDescription" placeholder="Descripción de la radio (se mostrará al reproducir en la vista principal)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none h-20"></textarea>
+            <textarea id="mDescription" placeholder="Descripción (Aparece en vista gigante al reproducir)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none h-20"></textarea>
 
             <div class="flex flex-col gap-2">
                 <div class="flex gap-2 w-full">
@@ -531,9 +551,9 @@
 
   <footer class="player-bar">
     <div class="flex items-center gap-4 w-1/3">
-      <img id="p-img" src="https://ui-avatars.com/api/?name=R&background=333" class="w-14 h-14 rounded-lg object-cover">
+      <img id="p-img" src="https://ui-avatars.com/api/?name=R&background=333" class="w-14 h-14 rounded-lg object-cover cursor-pointer" title="Ver Info de Radio">
       <div class="hidden sm:block truncate">
-        <div id="p-name" class="font-bold text-sm truncate w-40">Selecciona una radio</div>
+        <div id="p-name" class="font-bold text-sm truncate w-40 cursor-pointer" title="Ver Info de Radio">Selecciona una radio</div>
         <div class="flex items-center gap-2 mt-1">
           <div id="p-dot" class="status-dot w-2 h-2 rounded-full bg-zinc-600"></div>
           <span id="p-stat" class="text-[10px] font-bold text-zinc-500 uppercase">OFFLINE</span>
@@ -679,8 +699,6 @@
         document.title = seoObj.title;
         document.getElementById('meta-title').innerText = seoObj.title;
         document.getElementById('meta-desc').setAttribute("content", seoObj.desc);
-        document.getElementById('viewLabel').innerText = seoObj.h1;
-        document.getElementById('viewSub').innerText = seoObj.h2;
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
     }
 
@@ -701,9 +719,12 @@
     }
 
     function resetToHome() {
+        // Restaurar vistas
+        document.getElementById('exploreContent').classList.remove('hidden');
+        document.getElementById('nowPlayingView').classList.add('hidden');
+        
         document.getElementById('viewLabel').innerText = "Explorar";
         document.getElementById('viewSub').innerText = "Descubre la radio de otra manera.";
-        document.getElementById('viewDescription').classList.add('hidden');
         document.title = "RadioAR Pro | Radios en vivo Argentina y el Mundo";
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
         
@@ -942,20 +963,37 @@
       
       if(!skipPush) updateMetadata(seoData, 'radio', uuid);
       
-      // Lógica de Descripción Dinámica Central
-      const descEl = document.getElementById('viewDescription');
-      const descText = r.description || seoData.desc || (r.tags ? `Estación con estilos: ${r.tags}` : "");
+      // OCULTAR GRILLA DE EXPLORACIÓN Y MOSTRAR VISTA CENTRAL
+      document.getElementById('exploreContent').classList.add('hidden');
+      const npView = document.getElementById('nowPlayingView');
+      npView.classList.remove('hidden');
       
-      if (descText) {
-          descEl.innerText = descText;
-          descEl.classList.remove('hidden');
-      } else {
-          descEl.classList.add('hidden');
+      // Llenar datos en Vista Central
+      document.getElementById('np-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
+      document.getElementById('np-name').innerText = r.name;
+      document.getElementById('np-location').innerText = r.state || "Radio en Vivo Global";
+      
+      const descText = r.description || seoData.desc || "Sintonizá esta radio en vivo y en directo desde RadioAR Pro. La mejor calidad de streaming continuo.";
+      document.getElementById('np-desc').innerText = descText;
+      
+      const tagsContainer = document.getElementById('np-tags');
+      tagsContainer.innerHTML = '';
+      if(r.tags) {
+          r.tags.split(',').forEach(tag => {
+              if(tag.trim()) {
+                  const span = document.createElement('span');
+                  span.className = "bg-zinc-800 text-zinc-300 border border-zinc-700 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase shadow-sm";
+                  span.innerText = tag.trim();
+                  tagsContainer.appendChild(span);
+              }
+          });
       }
 
+      // Actualizar Barra de Reproductor
       document.getElementById('p-name').innerText = r.name;
       document.getElementById('p-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
       pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
+      
       audio.src = r.url_resolved || r.url;
       audio.play().then(() => updateMediaSession(r)).catch(err => { pStat.innerText = "Error"; });
     }
@@ -1035,6 +1073,17 @@
       });
       onlineManager.init(); setupControls(); setupInfiniteScroll();
       loadCountryData('argentina'); setupAlarmClock();
+      
+      // Permitir hacer clic en el logo del reproductor para volver a ver la vista central
+      document.getElementById('p-img').onclick = showCurrentRadioView;
+      document.getElementById('p-name').onclick = showCurrentRadioView;
+    }
+
+    function showCurrentRadioView() {
+        if(currentStation) {
+            document.getElementById('exploreContent').classList.add('hidden');
+            document.getElementById('nowPlayingView').classList.remove('hidden');
+        }
     }
 
     function setupAlarmClock() {
@@ -1052,14 +1101,21 @@
 
     function filterP(p, skipPush = false) {
       if(!skipPush && SEO_DATA.provincias[p]) updateMetadata(SEO_DATA.provincias[p], 'prov', p);
+      
+      // Volver a modo explorador
+      document.getElementById('exploreContent').classList.remove('hidden');
+      document.getElementById('nowPlayingView').classList.add('hidden');
+      
       displayedRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
       document.getElementById('sectTop').style.display = 'none'; document.getElementById('mainScroll').scrollTop = 0;
     }
 
     function renderFavorites() {
+      document.getElementById('exploreContent').classList.remove('hidden');
+      document.getElementById('nowPlayingView').classList.add('hidden');
       document.getElementById('viewLabel').innerText = "Favoritos"; document.getElementById('viewSub').innerText = "Tus radios guardadas";
-      document.getElementById('viewDescription').classList.add('hidden');
+      
       displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = 'none';
     }
@@ -1070,6 +1126,10 @@
       audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
+        // Al escribir en el buscador, mostrar la grilla automáticamente
+        document.getElementById('exploreContent').classList.remove('hidden');
+        document.getElementById('nowPlayingView').classList.add('hidden');
+        
         const term = e.target.value.toLowerCase(); displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = term ? 'none' : 'block';
       };
@@ -1077,7 +1137,10 @@
 
     function filterByMood(mood, btn) {
       document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
-      document.getElementById('viewDescription').classList.add('hidden');
+      
+      document.getElementById('exploreContent').classList.remove('hidden');
+      document.getElementById('nowPlayingView').classList.add('hidden');
+      
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
