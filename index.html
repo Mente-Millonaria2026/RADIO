@@ -20,11 +20,6 @@
   <meta property="og:site_name" content="RadioAR Pro">
   <meta property="og:image" content="https://ui-avatars.com/api/?name=RadioAR+Pro&background=000&color=1DB954&size=512">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RadioAR Pro | Radios Argentinas en Vivo">
-  <meta name="twitter:description" content="Sintonizá el top de radios de Argentina en vivo con ecualizador, chat comunitario y sonido en alta calidad.">
-  <meta name="twitter:image" content="https://ui-avatars.com/api/?name=RadioAR+Pro&background=000&color=1DB954&size=512">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -261,7 +256,7 @@
   <header class="mobile-header">
     <div class="p-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <div class="epic-logo" onclick="resetToHome()">
+        <div class="epic-logo" onclick="handleHomeTap()">
           <div class="eq-icon">
             <div class="eq-bar"></div>
             <div class="eq-bar"></div>
@@ -269,7 +264,7 @@
           </div>
           <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
         </div>
-        <button onclick="resetToHome()" class="p-2 text-zinc-400 hover:text-white" title="Inicio">
+        <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         </button>
         <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos">
@@ -298,7 +293,7 @@
 
   <div class="app-container">
     <aside class="sidebar">
-      <div class="epic-logo mb-10" onclick="resetToHome()">
+      <div class="epic-logo mb-10" onclick="handleHomeTap()">
         <div class="eq-icon">
           <div class="eq-bar"></div>
           <div class="eq-bar"></div>
@@ -312,7 +307,7 @@
         </div>
       </div>
       <nav class="space-y-2 mb-8">
-        <button onclick="resetToHome()" class="flex items-center gap-4 w-full p-3 bg-zinc-900 rounded-xl font-bold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</button>
+        <button onclick="handleHomeTap()" class="flex items-center gap-4 w-full p-3 bg-zinc-900 rounded-xl font-bold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</button>
         <button onclick="renderFavorites()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favoritos</button>
         <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Radios del Mundo
@@ -419,22 +414,19 @@
            <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current font-bold text-xl transition">✕</button>
         </div>
         <div class="grid grid-cols-2 gap-4">
-   <button onclick="resetToHome(); closeWorldRadios()" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-      <span class="text-4xl">🇦🇷</span> <span class="font-bold text-sm">Argentina</span>
-   </button>
-
-   <a href="https://URL-DE-TU-WEB-BRASIL.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-      <span class="text-4xl">🇧🇷</span> <span class="font-bold text-sm">Brasil</span>
-   </a>
-
-   <a href="https://URL-DE-TU-WEB-MEXICO.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-      <span class="text-4xl">🇲🇽</span> <span class="font-bold text-sm">México</span>
-   </a>
-
-   <a href="https://URL-DE-TU-WEB-USA.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-      <span class="text-4xl">🇺🇸</span> <span class="font-bold text-sm">EE.UU.</span>
-   </a>
-</div>
+           <button onclick="handleHomeTap(); closeWorldRadios()" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+              <span class="text-4xl">🇦🇷</span> <span class="font-bold text-sm">Argentina</span>
+           </button>
+           <a href="https://URL-DE-TU-WEB-BRASIL.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+              <span class="text-4xl">🇧🇷</span> <span class="font-bold text-sm">Brasil</span>
+           </a>
+           <a href="https://URL-DE-TU-WEB-MEXICO.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+              <span class="text-4xl">🇲🇽</span> <span class="font-bold text-sm">México</span>
+           </a>
+           <a href="https://URL-DE-TU-WEB-USA.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+              <span class="text-4xl">🇺🇸</span> <span class="font-bold text-sm">EE.UU.</span>
+           </a>
+        </div>
      </div>
   </div>
 
@@ -442,65 +434,92 @@
     <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-[90vh]">
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
       
-      <div class="text-center mb-6 flex-shrink-0">
-        <h3 class="text-2xl font-black tracking-tighter">Añadir Radio Global</h3>
-        <p class="text-zinc-500 text-[10px] font-bold uppercase">Aparecerá a todos los usuarios</p>
+      <div class="text-center mb-4 flex-shrink-0">
+        <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
       </div>
       
-      <form id="manualRadioForm" class="space-y-4 flex-shrink-0">
-        <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-        <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-        <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-        
-        <div class="flex flex-col gap-2">
-            <div class="flex gap-2 w-full">
-                <select id="mProvincia" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-                    <option value="">Provincia (Global)</option>
-                    <option value="CABA">CABA</option>
-                    <option value="Buenos Aires">Buenos Aires</option>
-                    <option value="Catamarca">Catamarca</option>
-                    <option value="Chaco">Chaco</option>
-                    <option value="Chubut">Chubut</option>
-                    <option value="Córdoba">Córdoba</option>
-                    <option value="Corrientes">Corrientes</option>
-                    <option value="Entre Ríos">Entre Ríos</option>
-                    <option value="Formosa">Formosa</option>
-                    <option value="Jujuy">Jujuy</option>
-                    <option value="La Pampa">La Pampa</option>
-                    <option value="La Rioja">La Rioja</option>
-                    <option value="Mendoza">Mendoza</option>
-                    <option value="Misiones">Misiones</option>
-                    <option value="Neuquén">Neuquén</option>
-                    <option value="Río Negro">Río Negro</option>
-                    <option value="Salta">Salta</option>
-                    <option value="San Juan">San Juan</option>
-                    <option value="San Luis">San Luis</option>
-                    <option value="Santa Cruz">Santa Cruz</option>
-                    <option value="Santa Fe">Santa Fe</option>
-                    <option value="Santiago del Estero">Santiago del Estero</option>
-                    <option value="Tierra del Fuego">Tierra del Fuego</option>
-                    <option value="Tucumán">Tucumán</option>
-                </select>
-                <select id="mCategoria" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" onchange="toggleCustomCat()">
-                    <option value="">Categoría (Ninguna)</option>
-                    <option value="mate">🧉 Para unos Mates</option>
-                    <option value="estudiar">🧠 Concentrate</option>
-                    <option value="sport">⚽ Fútbol y Pasiones</option>
-                    <option value="retro">📻 Retro Tour</option>
-                    <option value="otra">➕ Otra Categoría...</option>
-                </select>
+      <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-1 rounded-xl">
+          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
+          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all">🏷️ Categorías</button>
+      </div>
+
+      <div id="tabRadios" class="flex flex-col flex-1 overflow-hidden">
+          <form id="manualRadioForm" class="space-y-3 flex-shrink-0 overflow-y-auto no-scrollbar pr-1 pb-1">
+            <input type="hidden" id="mEditKey" value="">
+            <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+            <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+            <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+            
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 w-full">
+                    <select id="mProvincia" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+                        <option value="">Provincia (Global)</option>
+                        <option value="CABA">CABA</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Chaco">Chaco</option>
+                        <option value="Chubut">Chubut</option>
+                        <option value="Córdoba">Córdoba</option>
+                        <option value="Corrientes">Corrientes</option>
+                        <option value="Entre Ríos">Entre Ríos</option>
+                        <option value="Formosa">Formosa</option>
+                        <option value="Jujuy">Jujuy</option>
+                        <option value="La Pampa">La Pampa</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Mendoza">Mendoza</option>
+                        <option value="Misiones">Misiones</option>
+                        <option value="Neuquén">Neuquén</option>
+                        <option value="Río Negro">Río Negro</option>
+                        <option value="Salta">Salta</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="Santiago del Estero">Santiago del Estero</option>
+                        <option value="Tierra del Fuego">Tierra del Fuego</option>
+                        <option value="Tucumán">Tucumán</option>
+                    </select>
+                    <select id="mCategoria" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" onchange="toggleCustomCat()">
+                        <option value="">Categoría (Ninguna)</option>
+                        <option value="mate">🧉 Para unos Mates</option>
+                        <option value="estudiar">🧠 Concentrate</option>
+                        <option value="sport">⚽ Fútbol y Pasiones</option>
+                        <option value="retro">📻 Retro Tour</option>
+                        <option value="otra">➕ Otra Categoría...</option>
+                    </select>
+                </div>
+                <input type="text" id="mCategoriaCustom" placeholder="Ej: noticias, cumbia, pop..." class="hidden w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             </div>
-            <input type="text" id="mCategoriaCustom" placeholder="Ej: noticias, cumbia, pop..." class="hidden w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-        </div>
 
-        <input type="text" id="mTags" placeholder="Tags adicionales (rock, 24hrs, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-lg shadow-blue-900/20">Subir Radio a la Comunidad</button>
-      </form>
+            <input type="text" id="mTags" placeholder="Tags adicionales (rock, 24hrs, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+            
+            <div class="flex gap-2">
+                <button type="submit" id="submitRadioBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Subir Radio</button>
+                <button type="button" id="cancelRadioBtn" onclick="cancelRadioEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
+            </div>
+          </form>
 
-      <div class="mt-8 flex-1 overflow-hidden flex flex-col">
-          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3 flex-shrink-0">Radios de la Comunidad</h4>
-          <div id="manualRadiosList" class="overflow-y-auto space-y-2 pb-2 pr-2">
+          <div class="mt-4 flex-1 overflow-hidden flex flex-col border-t border-zinc-800 pt-3">
+              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex-shrink-0">Radios Activas</h4>
+              <div id="manualRadiosList" class="overflow-y-auto space-y-2 pb-2 pr-1 no-scrollbar"></div>
+          </div>
+      </div>
+
+      <div id="tabCats" class="hidden flex flex-col flex-1 overflow-hidden">
+           <form id="manualCatForm" class="space-y-3 flex-shrink-0">
+              <input type="hidden" id="cEditKey" value="">
+              <input type="text" id="cName" placeholder="Nombre (ej: Rock Nacional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-purple-500" required>
+              <input type="text" id="cValue" placeholder="Valor Tag (ej: rock)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-purple-500" required>
+              <div class="flex gap-2">
+                <button type="submit" id="submitCatBtn" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Crear Categoría</button>
+                <button type="button" id="cancelCatBtn" onclick="cancelCatEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
               </div>
+           </form>
+           
+           <div class="mt-4 flex-1 overflow-hidden flex flex-col border-t border-zinc-800 pt-3">
+              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex-shrink-0">Categorías Creadas</h4>
+              <div id="manualCatsList" class="overflow-y-auto space-y-2 pb-2 pr-1 no-scrollbar"></div>
+          </div>
       </div>
     </div>
   </div>
@@ -627,8 +646,9 @@
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let currentStation = null;
     
-    // Almacén global para las radios que vengan de Firebase
+    // Almacén global para las radios y categorias de Firebase
     window.firebaseRadios = [];
+    window.firebaseCategorias = [];
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
 
@@ -657,6 +677,22 @@
         document.getElementById('viewLabel').innerText = seoObj.h1;
         document.getElementById('viewSub').innerText = seoObj.h2;
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
+    }
+
+    // --- ACCESO MÓVIL AL PANEL (5 TAPS EN INICIO) ---
+    let homeTapCount = 0;
+    let homeTapTimer = null;
+    function handleHomeTap() {
+        homeTapCount++;
+        clearTimeout(homeTapTimer);
+        
+        if (homeTapCount >= 5) {
+            openAdminPanel();
+            homeTapCount = 0;
+        } else {
+            homeTapTimer = setTimeout(() => { homeTapCount = 0; }, 2000);
+        }
+        resetToHome();
     }
 
     function resetToHome() {
@@ -784,7 +820,6 @@
 
             let top10 = [];
 
-            // 1. PRIMERA ETAPA: Carga rápida del Top 10
             if (cachedTop && cachedTime && (now - cachedTime < 3600000)) {
                 top10 = JSON.parse(cachedTop);
             } else {
@@ -793,7 +828,6 @@
                 localStorage.setItem(cacheKeyTop, JSON.stringify(top10));
             }
 
-            // Renderiza el Top 10 inmediatamente y lo inyecta temporalmente en el panel principal
             renderGrid(top10, 'gridTop');
             allRadios = [...window.firebaseRadios, ...top10];
             displayedRadios = [...allRadios];
@@ -801,7 +835,6 @@
             document.getElementById('sectTop').style.display = 'block';
             document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
 
-            // 2. SEGUNDA ETAPA: Carga en background de las 1000 radios (No bloquea la UI inicial)
             setTimeout(async () => {
                 let apiRadios = [];
                 if (cachedAll && cachedTime && (now - cachedTime < 3600000)) {
@@ -813,18 +846,16 @@
                     localStorage.setItem(cacheTimeKey, now.toString());
                 }
 
-                // Integra Firebase con el listado completo
                 allRadios = [...window.firebaseRadios, ...apiRadios];
                 
-                // Si el usuario no ha tocado filtros ni buscado nada aún, refresca la grilla principal
                 if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
                     displayedRadios = [...allRadios];
-                    document.getElementById('gridMain').innerHTML = ""; // Limpia la temporal
+                    document.getElementById('gridMain').innerHTML = ""; 
                     currentOffset = 0; 
                     loadMoreRadios(); 
                     document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
                 }
-            }, 50); // Le da un breve respiro al hilo principal para que dibuje el Top 10
+            }, 50); 
 
         } catch (e) { 
             document.getElementById('radioCount').innerText = "ERROR DE CARGA"; 
@@ -832,13 +863,11 @@
         }
     };
 
-    // Función exportada para que Firebase refresque la grilla cuando entra una nueva radio
     window.triggerGridRefresh = function() {
         if (allRadios.length > 0) { 
             const apiOnly = allRadios.filter(r => !r.stationuuid.startsWith('fb_'));
             allRadios = [...window.firebaseRadios, ...apiOnly];
             
-            // Si el usuario no está buscando/filtrando, actualiza la vista
             if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
                 displayedRadios = [...allRadios];
                 document.getElementById('gridMain').innerHTML = "";
@@ -858,23 +887,35 @@
         if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
 
-    // Toggle para mostrar la categoría manual en el panel de administrador
     function toggleCustomCat() {
         const select = document.getElementById('mCategoria');
         const customInput = document.getElementById('mCategoriaCustom');
         if (select.value === 'otra') {
-            customInput.classList.remove('hidden');
-            customInput.required = true;
+            customInput.classList.remove('hidden'); customInput.required = true;
         } else {
-            customInput.classList.add('hidden');
-            customInput.required = false;
-            customInput.value = '';
+            customInput.classList.add('hidden'); customInput.required = false; customInput.value = '';
         }
     }
 
     function openAdminPanel() { document.getElementById('adminPanel').classList.remove('hidden'); }
     
     document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
+
+    // Alternar Pestañas en el Panel Admin
+    window.switchAdminTab = function(tab) {
+        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats');
+        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats');
+
+        if(tab === 'radios') {
+            tabR.classList.remove('hidden'); tabC.classList.add('hidden');
+            btnR.className = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md";
+            btnC.className = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all";
+        } else {
+            tabR.classList.add('hidden'); tabC.classList.remove('hidden');
+            btnC.className = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md";
+            btnR.className = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all";
+        }
+    };
 
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
@@ -1018,9 +1059,11 @@
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
-          // Si el usuario añadió una categoría custom (ej: "noticias"), y hace click en un botón mood, 
-          // esto filtra por los predeterminados. Para las custom habría que añadirlas al array o dejarlas buscables por Search.
-          displayedRadios = allRadios.filter(r => keywords[mood]?.some(term => (r.name + r.tags).toLowerCase().includes(term))); document.getElementById('sectTop').style.display = 'none';
+          
+          // Soporte extra para categorias creadas dinámicamente
+          let searchTerms = keywords[mood] || [mood];
+          displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
+          document.getElementById('sectTop').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
     }
@@ -1038,18 +1081,16 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+    import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
     /* ========================================================
     ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
-    ========================================================
-    Para evitar que usuarios maliciosos inserten código u
-    obvien la contraseña leyendo el JS, pega lo siguiente en 
-    las "Reglas" de Realtime Database en tu Consola Firebase:
+    Nuevas Reglas de Base de Datos para integrar Categorias:
     {
       "rules": {
         "chat_comunidad": { ".read": true, ".write": true },
-        "radios_comunidad": { ".read": true, ".write": true } 
+        "radios_comunidad": { ".read": true, ".write": true },
+        "categorias_comunidad": { ".read": true, ".write": true }
       }
     }
     ========================================================
@@ -1070,21 +1111,19 @@
     const db = getDatabase(app);
     const chatRef = ref(db, 'chat_comunidad');
     const radioRef = ref(db, 'radios_comunidad');
+    const catRef = ref(db, 'categorias_comunidad');
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
 
-    // --- FUNCIÓN RENDERIZAR MENSAJE (REAL O BOT) ---
+    // --- FIREBASE CHAT COMUNIDAD ---
     function renderMessage(data, isReal = true) {
         const box = document.getElementById('chatMessages');
         const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
         const isMe = isReal && data.user === myNick;
         const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
         
-        // Genera un color consistente basado en el nombre de usuario
         let colorHash = 0;
-        for (let i = 0; i < (data.user || "").length; i++) {
-            colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash);
-        }
+        for (let i = 0; i < (data.user || "").length; i++) { colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash); }
         const color = `hsl(${colorHash % 360}, 60%, 65%)`;
 
         const div = document.createElement('div');
@@ -1098,95 +1137,161 @@
             </div>`;
         box.appendChild(div);
         
-        // Auto-scroll y limite de historial local a 50
         box.scrollTop = box.scrollHeight;
         if(box.children.length > 50) box.removeChild(box.firstChild);
     }
 
-    // --- FIREBASE CHAT COMUNIDAD (REAL-TIME LISTENER) ---
-    // Usamos onChildAdded en vez de onValue para que no borre los mensajes del bot local
-    onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => {
-        renderMessage(snapshot.val(), true);
-    });
+    onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
 
-    // Envío del Formulario (Real User)
-    const chatForm = document.getElementById('chatForm');
-    chatForm.addEventListener('submit', (e) => {
+    document.getElementById('chatForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
         const input = document.getElementById('chatInput');
         const msg = input.value.trim();
-        
-        if (msg !== "") {
-            push(chatRef, {
-                user: nick,
-                text: msg,
-                timestamp: serverTimestamp()
-            });
-            input.value = "";
-        }
+        if (msg !== "") { push(chatRef, { user: nick, text: msg, timestamp: serverTimestamp() }); input.value = ""; }
     });
 
-    // --- LÓGICA DE BOTS LOCALES (Para que no se sienta vacío el chat) ---
-    const botPhrases = [
-        "Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", 
-        "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?",
-        "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo",
-        "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos",
-        "el boton de zapping que buena idea la pegaron con esa", "No puedo dejar de escuchar la Aspen",
-        "Quién gana el domingo?", "Subile el volumen que es un temazooooo", "Buenísimo el streaming",
-        "Acá en Rosario llueve a cántaros", "¡Aguante el cuarteto!", "A pleno en el laburo radio ar se pasaron anda mortaaaaal"
-    ];
+    const botPhrases = ["Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos"];
     const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
 
     function botLoop() {
-        const delay = Math.random() * 12000 + 4000; // Envía cada 4 a 16 segundos
+        const delay = Math.random() * 12000 + 4000;
         setTimeout(async () => {
             const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
             const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
-            
-            // Animación "Alguien está escribiendo"
             const indicator = document.getElementById('typingIndicator');
             if(indicator) {
-                indicator.innerText = `${bName} está escribiendo...`;
-                indicator.style.display = 'block';
+                indicator.innerText = `${bName} está escribiendo...`; indicator.style.display = 'block';
                 await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
                 indicator.style.display = 'none';
             }
-
-            renderMessage({user: bName, text: bText}, false); // Pasa false porque es bot
+            renderMessage({user: bName, text: bText}, false); 
             botLoop();
         }, delay);
     }
-    // Iniciar loop de los bots
     botLoop();
 
 
-    // --- CARGA Y SINCRONIZACIÓN DE RADIOS GLOBALES ---
+    // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
+    onValue(catRef, (snapshot) => {
+        window.firebaseCategorias = [];
+        const adminList = document.getElementById('manualCatsList');
+        const selectCat = document.getElementById('mCategoria');
+        const filterContainer = document.getElementById('moodFilters');
+
+        // Restauramos Opciones Base
+        selectCat.innerHTML = `
+            <option value="">Categoría (Ninguna)</option>
+            <option value="mate">🧉 Para unos Mates</option>
+            <option value="estudiar">🧠 Concentrate</option>
+            <option value="sport">⚽ Fútbol y Pasiones</option>
+            <option value="retro">📻 Retro Tour</option>
+        `;
+
+        if(adminList) adminList.innerHTML = '';
+
+        snapshot.forEach(child => {
+            const c = child.val();
+            c.key = child.key;
+            window.firebaseCategorias.push(c);
+
+            // Agregar al Select Form
+            selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
+
+            // Agregar al Filtro Visual de Usuario (Mood Filters)
+            if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
+                const btn = document.createElement('button');
+                btn.id = `filter_${c.value}`; btn.className = "pill";
+                btn.innerText = `✨ ${c.name}`;
+                btn.onclick = function() { filterByMood(c.value, this); };
+                filterContainer.appendChild(btn);
+            }
+
+            // Render Panel de Administrador Categorías
+            if(adminList) {
+                const item = document.createElement('div');
+                item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+                item.innerHTML = `
+                    <div class="truncate">
+                        <p class="text-sm font-bold text-white truncate">${c.name}</p>
+                        <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
+                    </div>
+                    <div class="flex gap-1 ml-2">
+                        <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button type="button" onclick="deleteFirebaseCat('${c.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
+                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                `;
+                adminList.insertBefore(item, adminList.firstChild);
+            }
+        });
+
+        selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
+        if(window.firebaseCategorias.length === 0 && adminList) {
+            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
+        }
+    });
+
+    document.getElementById('manualCatForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Categorías:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+        const key = document.getElementById('cEditKey').value;
+        const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
+
+        if (key) {
+            update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
+        } else {
+            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
+        }
+    });
+
+    window.editFirebaseCat = function(key) {
+        const c = window.firebaseCategorias.find(x => x.key === key);
+        if(!c) return;
+        document.getElementById('cEditKey').value = key;
+        document.getElementById('cName').value = c.name;
+        document.getElementById('cValue').value = c.value;
+        document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
+        document.getElementById('cancelCatBtn').classList.remove('hidden');
+    };
+
+    window.cancelCatEdit = function() {
+        document.getElementById('cEditKey').value = '';
+        document.getElementById('manualCatForm').reset();
+        document.getElementById('submitCatBtn').innerText = "Crear Categoría";
+        document.getElementById('cancelCatBtn').classList.add('hidden');
+    };
+
+    window.deleteFirebaseCat = function(key) {
+        const pass = prompt("Contraseña de Administrador para eliminar:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
+    };
+
+
+    // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
     document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const pass = prompt("Ingresa la Contraseña de Administrador para subir esta radio a toda la comunidad:");
+        const pass = prompt("Ingresa la Contraseña de Administrador:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
 
         let rawUrl = document.getElementById('mUrl').value.trim();
-        // Auto-fix para URLs que terminan en puerto (ej. 8000/)
         if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
 
-        // Mapeo de Categoría y Provincia
         const prov = document.getElementById('mProvincia').value;
         let cat = document.getElementById('mCategoria').value;
-        
-        // Si el usuario eligió "Otra", tomamos el valor del input manual
-        if (cat === 'otra') {
-            cat = document.getElementById('mCategoriaCustom').value.trim();
-        }
+        if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
 
         let finalTags = document.getElementById('mTags').value;
-        if (cat) finalTags += " " + cat; // Agregamos la categoría ("mate", "retro", o la manual) a los tags
+        if (cat) finalTags += " " + cat; 
 
-        const nuevaRadio = {
-            stationuuid: 'fb_' + Date.now(),
+        const data = {
             name: document.getElementById('mName').value,
             url: rawUrl,
             url_resolved: rawUrl,
@@ -1196,14 +1301,20 @@
             timestamp: serverTimestamp()
         };
 
-        push(radioRef, nuevaRadio).then(() => {
-            alert("Radio subida exitosamente a la comunidad global.");
-            document.getElementById('manualRadioForm').reset();
-            toggleCustomCat(); // Vuelve a ocultar el campo por si acaso
-        }).catch(err => alert("Error al guardar: " + err.message));
+        const key = document.getElementById('mEditKey').value;
+
+        if (key) {
+            update(ref(db, 'radios_comunidad/' + key), data).then(() => {
+                alert("Radio actualizada con éxito."); window.cancelRadioEdit();
+            }).catch(err => alert("Error al guardar: " + err.message));
+        } else {
+            data.stationuuid = 'fb_' + Date.now();
+            push(radioRef, data).then(() => {
+                alert("Radio subida exitosamente."); window.cancelRadioEdit();
+            }).catch(err => alert("Error al guardar: " + err.message));
+        }
     });
 
-    // Escuchar radios desde Firebase
     onValue(radioRef, (snapshot) => {
         window.firebaseRadios = [];
         const adminList = document.getElementById('manualRadiosList');
@@ -1211,10 +1322,9 @@
 
         snapshot.forEach(child => {
             const r = child.val();
-            r.fb_key = child.key; // Guardamos la key para poder borrarla
+            r.fb_key = child.key; 
             window.firebaseRadios.push(r);
 
-            // Renderizamos en el Panel de Administrador
             if(adminList) {
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
@@ -1226,11 +1336,15 @@
                             <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url}</p>
                         </div>
                     </div>
-                    <button type="button" onclick="deleteFirebaseRadio('${child.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all ml-2 flex-shrink-0" title="Eliminar radio global">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                    </button>
+                    <div class="flex gap-1 ml-2">
+                        <button type="button" onclick="editFirebaseRadio('${child.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button type="button" onclick="deleteFirebaseRadio('${child.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio global">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
                 `;
-                // Añadimos al principio de la lista
                 adminList.insertBefore(item, adminList.firstChild);
             }
         });
@@ -1239,21 +1353,54 @@
             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios agregadas por la comunidad.</div>';
         }
 
-        // Le avisamos al script principal que hay radios nuevas para refrescar la grilla
-        if(typeof window.triggerGridRefresh === 'function') {
-            window.triggerGridRefresh();
-        }
+        if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
     });
 
-    // Función para borrar radio global
+    window.editFirebaseRadio = function(key) {
+        const r = window.firebaseRadios.find(x => x.fb_key === key);
+        if(!r) return;
+        document.getElementById('mEditKey').value = key;
+        document.getElementById('mName').value = r.name;
+        document.getElementById('mUrl').value = r.url;
+        document.getElementById('mLogo').value = r.favicon;
+        document.getElementById('mProvincia').value = r.state || "";
+
+        let cleanTags = r.tags || "";
+        const opts = Array.from(document.getElementById('mCategoria').options).map(o=>o.value).filter(v=>v && v!=='otra');
+        let foundCat = "";
+        
+        for(let opt of opts) {
+            if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
+                foundCat = opt;
+                const reg = new RegExp('\\b' + opt + '\\b', 'gi');
+                cleanTags = cleanTags.replace(reg, "").trim();
+                break;
+            }
+        }
+        
+        if(foundCat) { document.getElementById('mCategoria').value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
+        else { document.getElementById('mCategoria').value = ""; }
+        
+        document.getElementById('mTags').value = cleanTags;
+
+        document.getElementById('submitRadioBtn').innerText = "Actualizar Radio";
+        document.getElementById('cancelRadioBtn').classList.remove('hidden');
+    };
+
+    window.cancelRadioEdit = function() {
+        document.getElementById('mEditKey').value = '';
+        document.getElementById('manualRadioForm').reset();
+        document.getElementById('mCategoriaCustom').classList.add('hidden');
+        document.getElementById('submitRadioBtn').innerText = "Subir Radio";
+        document.getElementById('cancelRadioBtn').classList.add('hidden');
+    };
+
     window.deleteFirebaseRadio = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar esta radio de la comunidad:");
+        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global para todos los usuarios?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => {
-               alert("Radio eliminada.");
-            });
+        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
+            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada."); });
         }
     };
   </script>
