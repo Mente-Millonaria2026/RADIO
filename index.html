@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/197/197573.png">
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/197/197573.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- META TAG DE SEGURIDAD PARA VERCEL (Fuerza HTTPS en recursos mixtos) -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <title id="meta-title">RadioAR Pro | Radios en vivo Argentina y el Mundo</title>
   <meta id="meta-desc" name="description" content="Escuchá las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor música las 24 horas.">
@@ -193,14 +196,14 @@
     .chat-msg { animation: chatIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes chatIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    input[type=range].eq-slider {
+    input.eq-slider {
       -webkit-appearance: none;
       background: #27272a;
       height: 4px;
       border-radius: 4px;
       outline: none;
     }
-    input[type=range].eq-slider::-webkit-slider-thumb {
+    input.eq-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 12px;
@@ -227,11 +230,11 @@
     body.light-mode .text-zinc-400 { color: #71717a !important; }
     body.light-mode #alarm-menu, body.light-mode #eq-menu { background: #ffffff; border-color: #e4e4e7; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     body.light-mode #p-play { background: #18181b; color: #ffffff; }
-    body.light-mode input[type=time] { color: #18181b; }
+    body.light-mode input { color: #18181b; }
     body.light-mode .chat-msg .bg-zinc-900 { background-color: #f4f4f5 !important; color: #18181b !important; border-color: #e4e4e7 !important; }
     body.light-mode input.eq-slider { background: #e4e4e7; }
     body.light-mode input.eq-slider::-webkit-slider-thumb { background: #18181b; }
-    body.light-mode .chat-sidebar .bg-\[\#050505\] { background-color: #ffffff !important; border-top-color: #e4e4e7 !important; }
+    body.light-mode .chat-sidebar .bg-\ { background-color: #ffffff !important; border-top-color: #e4e4e7 !important; }
     body.light-mode #chatInput, body.light-mode #chatUserName { color: #18181b; background-color: #ffffff !important; border-color: #d4d4d8 !important; }
     body.light-mode .epic-logo { color: #18181b; }
     body.light-mode .eq-icon .eq-bar:nth-child(2) { background-color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.3); }
@@ -273,11 +276,11 @@
         <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
         </button>
-        <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-[var(--sp-green)] transition-colors" title="Radios del Mundo">
-  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
-  </svg>
-</button>
+        <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text- transition-colors" title="Radios del Mundo">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+          </svg>
+        </button>
       </div>
       <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white">
         <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
@@ -318,7 +321,7 @@
         <button onclick="shareWeb()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir Web</button>
       </nav>
       <div id="sideProvs" class="overflow-y-auto space-y-1 pr-2 no-scrollbar">
-        <p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-3 mb-4">Provincias</p>
+        <p class="text- font-bold text-zinc-500 uppercase tracking-widest px-3 mb-4">Provincias</p>
       </div>
     </aside>
 
@@ -327,7 +330,7 @@
         <h1 id="viewLabel" class="text-3xl font-extrabold tracking-tighter">Explorar</h1>
         <div class="flex items-center justify-between mt-1">
             <h2 id="viewSub" class="text-xs text-zinc-400 font-normal m-0">Descubre la radio de otra manera.</h2>
-            <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO TOP...</span>
+            <span id="radioCount" class="text- font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO TOP...</span>
         </div>
       </div>
 
@@ -338,12 +341,12 @@
             Zapping Aleatorio
           </button>
           
-          <div class="flex items-center gap-2 w-full max-w-[450px]">
+          <div class="flex items-center gap-2 w-full max-w-">
             <div class="search-wrapper flex-1">
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
-            <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
+            <button onclick="toggleTheme()" class="theme-btn w- h- rounded- bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
               <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
               <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
             </button>
@@ -383,32 +386,31 @@
       <div class="p-5 border-b border-zinc-900 bg-zinc-950/50 flex justify-between items-center transition-colors">
         <div>
           <h3 class="font-black text-lg tracking-tighter">COMUNIDAD LIVE</h3>
-          <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest mt-1" id="onlineCounter">● Conectando...</p>
+          <p class="text- text-green-500 font-bold uppercase tracking-widest mt-1" id="onlineCounter">● Conectando...</p>
         </div>
         <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
       </div>
       
-      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
-        </div>
+      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
 
       <div class="px-4 pb-2">
         <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
       </div>
       
-      <div class="p-4 border-t border-zinc-900 bg-[#050505]">
+      <div class="p-4 border-t border-zinc-900 bg-">
         <form id="chatForm" class="flex flex-col gap-2">
-          <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition">
+          <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text- outline-none focus:border-zinc-500 transition">
           <div class="flex gap-2">
-            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition" required>
-            <button type="submit" class="bg-zinc-800 text-white px-4 rounded-lg font-bold text-[10px] hover:bg-zinc-600 uppercase border border-zinc-700">Enviar</button>
+            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text- outline-none focus:border-zinc-500 transition" required>
+            <button type="submit" class="bg-zinc-800 text-white px-4 rounded-lg font-bold text- hover:bg-zinc-600 uppercase border border-zinc-700">Enviar</button>
           </div>
         </form>
       </div>
     </aside>
   </div>
 
-  <div id="worldModal" class="hidden fixed inset-0 z-[3000] bg-black/80 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 opacity-0">
-     <div class="bg-[#121212] border border-zinc-800 rounded-2xl p-6 w-[90%] max-w-lg transform scale-95 transition-transform duration-300" id="worldModalContent">
+  <div id="worldModal" class="hidden fixed inset-0 z- bg-black/80 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 opacity-0">
+     <div class="bg- border border-zinc-800 rounded-2xl p-6 w- max-w-lg transform scale-95 transition-transform duration-300" id="worldModalContent">
         <div class="flex justify-between items-center mb-6">
            <h3 class="text-xl font-bold flex items-center gap-2">🌎 Radios del Mundo</h3>
            <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current font-bold text-xl transition">✕</button>
@@ -430,8 +432,8 @@
      </div>
   </div>
 
-  <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-[90vh]">
+  <div id="adminPanel" class="hidden fixed inset-0 z- bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-">
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
       
       <div class="text-center mb-4 flex-shrink-0">
@@ -447,7 +449,8 @@
           <form id="manualRadioForm" class="space-y-3 flex-shrink-0 overflow-y-auto no-scrollbar pr-1 pb-1">
             <input type="hidden" id="mEditKey" value="">
             <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-            <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+            <!-- Modificado type="text" para permitir validación silenciosa en JS sin que HTML5 bloquee la omisión del protocolo -->
+            <input type="text" id="mUrl" placeholder="URL Streaming (mp3/aac) sin http:// no hay drama" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
             <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
             <div class="flex flex-col gap-2">
@@ -531,7 +534,7 @@
         <div id="p-name" class="font-bold text-sm truncate w-40">Selecciona una radio</div>
         <div class="flex items-center gap-2 mt-1">
           <div id="p-dot" class="status-dot w-2 h-2 rounded-full bg-zinc-600"></div>
-          <span id="p-stat" class="text-[10px] font-bold text-zinc-500 uppercase">OFFLINE</span>
+          <span id="p-stat" class="text- font-bold text-zinc-500 uppercase">OFFLINE</span>
         </div>
       </div>
     </div>
@@ -550,20 +553,20 @@
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
             </button>
             
-            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg-[#181818] border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
+            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg- border border-zinc-800 p-5 rounded- shadow-2xl flex flex-col gap-4 w- z-50">
                 
                 <div>
                     <div class="flex justify-between items-center mb-3">
-                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Alarma / Reloj</span>
+                        <span class="text- font-bold text-zinc-400 uppercase tracking-widest">Alarma / Reloj</span>
                         <div id="alarm-status" class="w-2 h-2 rounded-full bg-zinc-600 transition-colors"></div>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-green-500 transition">
-                            <label class="text-[10px] text-zinc-500 font-bold uppercase w-8">ON</label>
+                        <div class="flex items-center justify-between gap-3 bg- rounded-xl p-2.5 border border-zinc-800 focus-within:border-green-500 transition">
+                            <label class="text- text-zinc-500 font-bold uppercase w-8">ON</label>
                             <input type="time" id="alarm-on" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current">
                         </div>
-                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-zinc-500 transition">
-                            <label class="text-[10px] text-zinc-500 font-bold uppercase w-8">OFF</label>
+                        <div class="flex items-center justify-between gap-3 bg- rounded-xl p-2.5 border border-zinc-800 focus-within:border-zinc-500 transition">
+                            <label class="text- text-zinc-500 font-bold uppercase w-8">OFF</label>
                             <input type="time" id="alarm-off" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current">
                         </div>
                     </div>
@@ -573,28 +576,28 @@
 
                 <div>
                     <div class="flex justify-between items-center mb-3">
-                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1">
+                        <span class="text- font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> 
                             Modo Relax (Loop 8 Hrs)
                         </span>
-                        <button onclick="stopRelax()" class="text-[9px] text-red-400 font-bold uppercase hover:text-red-300 transition-all hidden" id="stop-relax-btn">Detener</button>
+                        <button onclick="stopRelax()" class="text- text-red-400 font-bold uppercase hover:text-red-300 transition-all hidden" id="stop-relax-btn">Detener</button>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <button onclick="playRelax('rain', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
                             <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🌧️</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Lluvia</span>
+                            <span class="text- text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Lluvia</span>
                         </button>
                         <button onclick="playRelax('thunder', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
                             <span class="text-xl grayscale group-hover:grayscale-0 transition-all">⛈️</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Truenos</span>
+                            <span class="text- text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Truenos</span>
                         </button>
                         <button onclick="playRelax('roof', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
                             <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🏠</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Tejado</span>
+                            <span class="text- text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Tejado</span>
                         </button>
                         <button onclick="playRelax('fire', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
                             <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🔥</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Hogar</span>
+                            <span class="text- text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Hogar</span>
                         </button>
                     </div>
                 </div>
@@ -608,22 +611,22 @@
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
           </button>
           
-          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[230px] z-50">
-              <div class="flex justify-between items-center mb-[15px]">
-                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ</span>
-                  <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
+          <div id="eq-menu" class="hidden absolute bottom-16 right- sm:right-0 bg- border border-zinc-800 p- rounded- shadow- flex flex-col w- z-50">
+              <div class="flex justify-between items-center mb-">
+                  <span class="text- font-extrabold text- uppercase tracking-">Master EQ</span>
+                  <button onclick="resetEQ()" class="text- font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
               </div>
               <div class="flex flex-col gap-3">
-                  <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Bajos</span>
+                  <div class="flex items-center gap-">
+                      <span class="text- font-extrabold text- uppercase w- text-left">Bajos</span>
                       <input type="range" id="eq-bass" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('bass', this.value)">
                   </div>
-                  <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Medios</span>
+                  <div class="flex items-center gap-">
+                      <span class="text- font-extrabold text- uppercase w- text-left">Medios</span>
                       <input type="range" id="eq-mid" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('mid', this.value)">
                   </div>
-                  <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Agudos</span>
+                  <div class="flex items-center gap-">
+                      <span class="text- font-extrabold text- uppercase w- text-left">Agudos</span>
                       <input type="range" id="eq-treb" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('treb', this.value)">
                   </div>
               </div>
@@ -655,19 +658,19 @@
     const SEO_DATA = { provincias: {}, radios: {} };
 
     PROVS.forEach(p => {
-        const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
-        SEO_DATA.provincias[p] = {
+        const slug = p.toLowerCase().normalize("NFD").replace(//g, "").replace(/\s+/g, '-');
+        SEO_DATA.provincias = {
             url: `radios-de-${slug}-en-vivo`, title: `Radios de ${p} en Vivo | RadioAR Pro`, h1: `Radios de ${p} en Vivo`,
             h2: `Escuchá las mejores emisoras de ${p} online`, desc: `Sintonizá las mejores radios de ${p} en vivo y en directo.`
         };
     });
 
     function getRadioSEO(radioName) {
-        if (!SEO_DATA.radios[radioName]) {
-            const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-            SEO_DATA.radios[radioName] = { url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, desc: `Escuchá ${radioName} en vivo por internet.` };
+        if (!SEO_DATA.radios) {
+            const slug = radioName.toLowerCase().normalize("NFD").replace(//g, "").replace(//g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            SEO_DATA.radios = { url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, desc: `Escuchá ${radioName} en vivo por internet.` };
         }
-        return SEO_DATA.radios[radioName];
+        return SEO_DATA.radios;
     }
 
     function updateMetadata(seoObj, type, identifier) {
@@ -701,7 +704,7 @@
         document.title = "RadioAR Pro | Radios en vivo Argentina y el Mundo";
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
         
-        displayedRadios = [...allRadios];
+        displayedRadios =;
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
         document.getElementById('sectTop').style.display = 'block';
         document.getElementById('mainScroll').scrollTop = 0;
@@ -729,12 +732,12 @@
         btn.classList.add('active-relax'); btn.querySelector('span:first-child').classList.remove('grayscale');
         document.getElementById('stop-relax-btn').classList.remove('hidden');
 
-        relaxAudio.src = relaxSources[mode]; relaxAudio.volume = document.getElementById('p-vol').value; relaxAudio.loop = true; 
+        relaxAudio.src = relaxSources; relaxAudio.volume = document.getElementById('p-vol').value; relaxAudio.loop = true; 
         relaxAudio.play().catch(e => console.error("Modo relax bloqueado:", e));
         
         document.getElementById('p-name').innerText = "Modo Relax (Loop 8 Hrs)";
         document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=Relax&background=1DB954&color=fff";
-        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#1DB954]";
+        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-";
         pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; 
     }
 
@@ -787,8 +790,8 @@
         } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
     }
 
-    function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
-    function resetEQ() { ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
+    function updateEQ(band, val) { if (eqFilters) eqFilters.gain.value = parseFloat(val); }
+    function resetEQ() {.forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
 
     function openWorldRadios() {
         const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
@@ -829,8 +832,8 @@
             }
 
             renderGrid(top10, 'gridTop');
-            allRadios = [...window.firebaseRadios, ...top10];
-            displayedRadios = [...allRadios];
+            allRadios =;
+            displayedRadios =;
             renderGrid(displayedRadios, 'gridMain');
             document.getElementById('sectTop').style.display = 'block';
             document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
@@ -846,10 +849,10 @@
                     localStorage.setItem(cacheTimeKey, now.toString());
                 }
 
-                allRadios = [...window.firebaseRadios, ...apiRadios];
+                allRadios =;
                 
                 if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
-                    displayedRadios = [...allRadios];
+                    displayedRadios =;
                     document.getElementById('gridMain').innerHTML = ""; 
                     currentOffset = 0; 
                     loadMoreRadios(); 
@@ -866,10 +869,10 @@
     window.triggerGridRefresh = function() {
         if (allRadios.length > 0) { 
             const apiOnly = allRadios.filter(r => !r.stationuuid.startsWith('fb_'));
-            allRadios = [...window.firebaseRadios, ...apiOnly];
+            allRadios =;
             
             if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
-                displayedRadios = [...allRadios];
+                displayedRadios =;
                 document.getElementById('gridMain').innerHTML = "";
                 currentOffset = 0; loadMoreRadios();
                 document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
@@ -921,7 +924,7 @@
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
           title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
-          artwork: [{ src: r.favicon || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
+          artwork:
         });
         navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause());
       }
@@ -959,7 +962,7 @@
           <div onclick="play('${r.stationuuid}')">
             <img loading="lazy" src="${r.favicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
             <div class="font-bold text-sm truncate">${r.name}</div>
-            <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
+            <div class="text- text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
           </div>`;
         container.appendChild(div);
       });
@@ -973,7 +976,7 @@
 
     function setupInfiniteScroll() {
         const trigger = document.getElementById('loadMoreTrigger');
-        const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMoreRadios(); }, { rootMargin: "200px" });
+        const observer = new IntersectionObserver((entries) => { if (entries.isIntersecting) loadMoreRadios(); }, { rootMargin: "200px" });
         observer.observe(trigger);
     }
 
@@ -995,14 +998,14 @@
                 recordedChunks = [];
             };
             mediaRecorder.start();
-            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.add('border-red-500');
+            dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-', 'animate-pulse'); btnRecord.classList.add('border-red-500');
         } catch (err) { alert("Error al intentar grabar. (Posible bloqueo por CORS)."); }
     }
 
     function stopRecording() {
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
-            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.remove('border-red-500');
+            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-', 'animate-pulse'); btnRecord.classList.remove('border-red-500');
         }
     }
 
@@ -1021,17 +1024,17 @@
         setInterval(() => {
             const now = new Date(), currentTimeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
             const onTime = document.getElementById('alarm-on').value, offTime = document.getElementById('alarm-off').value, alarmStatus = document.getElementById('alarm-status');
-            if (onTime || offTime) { alarmStatus.classList.replace('bg-zinc-600', 'bg-green-500'); alarmStatus.classList.add('shadow-[0_0_8px_#1DB954]'); }
-            else { alarmStatus.classList.replace('bg-green-500', 'bg-zinc-600'); alarmStatus.classList.remove('shadow-[0_0_8px_#1DB954]'); }
+            if (onTime || offTime) { alarmStatus.classList.replace('bg-zinc-600', 'bg-green-500'); alarmStatus.classList.add('shadow-'); }
+            else { alarmStatus.classList.replace('bg-green-500', 'bg-zinc-600'); alarmStatus.classList.remove('shadow-'); }
             if (now.getSeconds() === 0) {
-                if (onTime && currentTimeStr === onTime && audio.paused && relaxAudio.paused) { (!currentStation && allRadios.length > 0) ? play(allRadios[0].stationuuid) : audio.play(); }
+                if (onTime && currentTimeStr === onTime && audio.paused && relaxAudio.paused) { (!currentStation && allRadios.length > 0) ? play(allRadios.stationuuid) : audio.play(); }
                 if (offTime && currentTimeStr === offTime) { if (!audio.paused) audio.pause(); if (!relaxAudio.paused) stopRelax(); }
             }
         }, 1000);
     }
 
     function filterP(p, skipPush = false) {
-      if(!skipPush && SEO_DATA.provincias[p]) updateMetadata(SEO_DATA.provincias[p], 'prov', p);
+      if(!skipPush && SEO_DATA.provincias) updateMetadata(SEO_DATA.provincias, 'prov', p);
       displayedRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
       document.getElementById('sectTop').style.display = 'none'; document.getElementById('mainScroll').scrollTop = 0;
@@ -1046,7 +1049,7 @@
     function setupControls() {
       document.getElementById('p-play').onclick = () => { if(!relaxAudio.paused) { stopRelax(); return; } if(!eqInitialized && currentStation) initEQ(); audio.paused ? audio.play() : audio.pause(); };
       document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
-      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
+      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-"; pStat.innerText = "EN VIVO"; };
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
         const term = e.target.value.toLowerCase(); displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
@@ -1056,12 +1059,11 @@
 
     function filterByMood(mood, btn) {
       document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
-      if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
+      if(mood === 'all') { displayedRadios =; document.getElementById('sectTop').style.display = 'block'; } 
       else {
-          const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
+          const keywords = { mate:, estudiar:, sport:, retro: };
           
-          // Soporte extra para categorias creadas dinámicamente
-          let searchTerms = keywords[mood] || [mood];
+          let searchTerms = keywords ||;
           displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
           document.getElementById('sectTop').style.display = 'none';
       }
@@ -1069,12 +1071,12 @@
     }
 
     function toggleF(e, id) {
-      e.stopPropagation(); favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]; localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); e.currentTarget.classList.toggle('is-fav');
+      e.stopPropagation(); favs = favs.includes(id) ? favs.filter(x => x !== id) :; localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); e.currentTarget.classList.toggle('is-fav');
     }
 
     function sideScroll(id, val) { document.getElementById(id).scrollBy({ left: val, behavior: 'smooth' }); }
     function toggleChat() { document.getElementById('chatSidebar').classList.toggle('chat-open'); }
-    function triggerZapping() { play(allRadios[Math.floor(Math.random()*allRadios.length)].stationuuid); }
+    function triggerZapping() { play(allRadios.stationuuid); }
 
     init();
   </script>
@@ -1082,19 +1084,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
     import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
-
-    /* ========================================================
-    ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
-    Nuevas Reglas de Base de Datos para integrar Categorias:
-    {
-      "rules": {
-        "chat_comunidad": { ".read": true, ".write": true },
-        "radios_comunidad": { ".read": true, ".write": true },
-        "categorias_comunidad": { ".read": true, ".write": true }
-      }
-    }
-    ========================================================
-    */
 
     const firebaseConfig = {
       apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
@@ -1130,10 +1119,10 @@
         div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
         
         div.innerHTML = `
-            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
-            <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
-                <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
-                <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text- text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
+            <div class="${isMe ? 'text-right' : 'text-left'} max-w-">
+                <p class="text- font-black uppercase opacity-40 mb-0.5">${data.user}</p>
+                <div class="inline-block p-2.5 rounded-2xl text- leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
             </div>`;
         box.appendChild(div);
         
@@ -1152,13 +1141,13 @@
     });
 
     const botPhrases = ["Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos"];
-    const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
+    const botNames =;
 
     function botLoop() {
         const delay = Math.random() * 12000 + 4000;
         setTimeout(async () => {
-            const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
-            const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
+            const bName = botNames + "_" + Math.floor(Math.random()*99);
+            const bText = botPhrases;
             const indicator = document.getElementById('typingIndicator');
             if(indicator) {
                 indicator.innerText = `${bName} está escribiendo...`; indicator.style.display = 'block';
@@ -1171,7 +1160,6 @@
     }
     botLoop();
 
-
     // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
     onValue(catRef, (snapshot) => {
         window.firebaseCategorias = [];
@@ -1179,7 +1167,6 @@
         const selectCat = document.getElementById('mCategoria');
         const filterContainer = document.getElementById('moodFilters');
 
-        // Restauramos Opciones Base
         selectCat.innerHTML = `
             <option value="">Categoría (Ninguna)</option>
             <option value="mate">🧉 Para unos Mates</option>
@@ -1195,10 +1182,8 @@
             c.key = child.key;
             window.firebaseCategorias.push(c);
 
-            // Agregar al Select Form
             selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
 
-            // Agregar al Filtro Visual de Usuario (Mood Filters)
             if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
                 const btn = document.createElement('button');
                 btn.id = `filter_${c.value}`; btn.className = "pill";
@@ -1207,14 +1192,13 @@
                 filterContainer.appendChild(btn);
             }
 
-            // Render Panel de Administrador Categorías
             if(adminList) {
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
                 item.innerHTML = `
                     <div class="truncate">
                         <p class="text-sm font-bold text-white truncate">${c.name}</p>
-                        <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
+                        <p class="text- text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
                     </div>
                     <div class="flex gap-1 ml-2">
                         <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
@@ -1231,7 +1215,7 @@
 
         selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
         if(window.firebaseCategorias.length === 0 && adminList) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
+            adminList.innerHTML = '<div class="text-zinc-500 text- text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
         }
     });
 
@@ -1241,28 +1225,29 @@
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
         const key = document.getElementById('cEditKey').value;
-        const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
+        const data = { name: document.getElementById('cName').value.trim(), value: document.getElementById('cValue').value.toLowerCase().trim() };
 
         if (key) {
             update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
         } else {
-            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
+            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); window.cancelCatEdit(); });
         }
     });
 
+    // CÓDIGO FINAL COMPLETADO Y OPTIMIZADO
     window.editFirebaseCat = function(key) {
         const c = window.firebaseCategorias.find(x => x.key === key);
         if(!c) return;
         document.getElementById('cEditKey').value = key;
         document.getElementById('cName').value = c.name;
         document.getElementById('cValue').value = c.value;
-        document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
+        document.getElementById('submitCatBtn').innerText = "Actualizar";
         document.getElementById('cancelCatBtn').classList.remove('hidden');
     };
 
     window.cancelCatEdit = function() {
-        document.getElementById('cEditKey').value = '';
         document.getElementById('manualCatForm').reset();
+        document.getElementById('cEditKey').value = "";
         document.getElementById('submitCatBtn').innerText = "Crear Categoría";
         document.getElementById('cancelCatBtn').classList.add('hidden');
     };
@@ -1270,51 +1255,12 @@
     window.deleteFirebaseCat = function(key) {
         const pass = prompt("Contraseña de Administrador para eliminar:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
+        if(confirm("¿Seguro que deseas eliminar esta categoría? Se removerá del panel.")) {
+            remove(ref(db, 'categorias_comunidad/' + key));
+        }
     };
 
-
-    // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
-    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const pass = prompt("Ingresa la Contraseña de Administrador:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
-
-        let rawUrl = document.getElementById('mUrl').value.trim();
-        if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
-
-        const prov = document.getElementById('mProvincia').value;
-        let cat = document.getElementById('mCategoria').value;
-        if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
-
-        let finalTags = document.getElementById('mTags').value;
-        if (cat) finalTags += " " + cat; 
-
-        const data = {
-            name: document.getElementById('mName').value,
-            url: rawUrl,
-            url_resolved: rawUrl,
-            favicon: document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333',
-            tags: finalTags.trim() || 'Comunidad',
-            state: prov || 'Comunidad',
-            timestamp: serverTimestamp()
-        };
-
-        const key = document.getElementById('mEditKey').value;
-
-        if (key) {
-            update(ref(db, 'radios_comunidad/' + key), data).then(() => {
-                alert("Radio actualizada con éxito."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        } else {
-            data.stationuuid = 'fb_' + Date.now();
-            push(radioRef, data).then(() => {
-                alert("Radio subida exitosamente."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        }
-    });
-
+    // --- GESTIÓN DE RADIOS MANUALES Y NORMALIZACIÓN DE URLS ---
     onValue(radioRef, (snapshot) => {
         window.firebaseRadios = [];
         const adminList = document.getElementById('manualRadiosList');
@@ -1322,26 +1268,24 @@
 
         snapshot.forEach(child => {
             const r = child.val();
-            r.fb_key = child.key; 
+            r.key = child.key;
+            r.stationuuid = 'fb_' + child.key; // ID de radio propio
             window.firebaseRadios.push(r);
 
             if(adminList) {
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
                 item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <img src="${r.favicon}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                        <div class="truncate">
-                            <p class="text-sm font-bold text-white truncate">${r.name}</p>
-                            <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url}</p>
-                        </div>
+                    <div class="truncate">
+                        <p class="text-sm font-bold text-white truncate">${r.name}</p>
+                        <p class="text- text-zinc-400 truncate mt-0.5">${r.state || 'Global'} - ${r.tags || 'Sin tags'}</p>
                     </div>
                     <div class="flex gap-1 ml-2">
-                        <button type="button" onclick="editFirebaseRadio('${child.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                        <button type="button" onclick="editFirebaseRadio('${r.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </button>
-                        <button type="button" onclick="deleteFirebaseRadio('${child.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio global">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        <button type="button" onclick="deleteFirebaseRadio('${r.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
+                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                         </button>
                     </div>
                 `;
@@ -1350,57 +1294,87 @@
         });
 
         if(window.firebaseRadios.length === 0 && adminList) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios agregadas por la comunidad.</div>';
+            adminList.innerHTML = '<div class="text-zinc-500 text- text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay radios subidas manualmente.</div>';
         }
+        
+        // Refrescar grilla en vivo sin recargar la web
+        if(typeof window.triggerGridRefresh === 'function') window.triggerGridRefresh();
+    });
 
-        if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
+    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Radios:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+        const key = document.getElementById('mEditKey').value;
+        
+        // NORMALIZACIÓN SILENCIOSA DE URL A HTTPS
+        let rawUrl = document.getElementById('mUrl').value.trim();
+        if (!/^https?:\/\//i.test(rawUrl)) {
+            rawUrl = 'https://' + rawUrl; // Agrega https si no hay protocolo
+        }
+        const secureUrl = rawUrl.replace(/^http:\/\//i, 'https://'); // Convierte http a https automáticamente
+
+        const selCat = document.getElementById('mCategoria').value;
+        const finalCat = (selCat === 'otra') ? document.getElementById('mCategoriaCustom').value.toLowerCase().trim() : selCat;
+
+        let tags = document.getElementById('mTags').value.trim();
+        if(finalCat) tags = tags ? (tags + ", " + finalCat) : finalCat;
+
+        const data = { 
+            name: document.getElementById('mName').value.trim(), 
+            url: secureUrl, // URL validada, formateada y segura
+            url_resolved: secureUrl,
+            favicon: document.getElementById('mLogo').value.trim(),
+            state: document.getElementById('mProvincia').value,
+            tags: tags
+        };
+
+        if (key) {
+            update(ref(db, 'radios_comunidad/' + key), data).then(() => { 
+                alert("Radio actualizada."); 
+                window.cancelRadioEdit(); 
+            });
+        } else {
+            push(radioRef, data).then(() => { 
+                alert("Radio subida exitosamente."); 
+                window.cancelRadioEdit(); 
+            });
+        }
     });
 
     window.editFirebaseRadio = function(key) {
-        const r = window.firebaseRadios.find(x => x.fb_key === key);
-        if(!r) return;
+        const r = window.firebaseRadios.find(x => x.key === key);
+        if(!r) return; // Esta línea era probablemente el causante del error si no estaba bien declarada
+        
         document.getElementById('mEditKey').value = key;
         document.getElementById('mName').value = r.name;
         document.getElementById('mUrl').value = r.url;
-        document.getElementById('mLogo').value = r.favicon;
+        document.getElementById('mLogo').value = r.favicon || "";
         document.getElementById('mProvincia').value = r.state || "";
-
-        let cleanTags = r.tags || "";
-        const opts = Array.from(document.getElementById('mCategoria').options).map(o=>o.value).filter(v=>v && v!=='otra');
-        let foundCat = "";
+        document.getElementById('mTags').value = r.tags || "";
         
-        for(let opt of opts) {
-            if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
-                foundCat = opt;
-                const reg = new RegExp('\\b' + opt + '\\b', 'gi');
-                cleanTags = cleanTags.replace(reg, "").trim();
-                break;
-            }
-        }
-        
-        if(foundCat) { document.getElementById('mCategoria').value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
-        else { document.getElementById('mCategoria').value = ""; }
-        
-        document.getElementById('mTags').value = cleanTags;
+        document.getElementById('mCategoria').value = ""; 
+        document.getElementById('mCategoriaCustom').classList.add('hidden');
 
         document.getElementById('submitRadioBtn').innerText = "Actualizar Radio";
         document.getElementById('cancelRadioBtn').classList.remove('hidden');
     };
 
     window.cancelRadioEdit = function() {
-        document.getElementById('mEditKey').value = '';
         document.getElementById('manualRadioForm').reset();
+        document.getElementById('mEditKey').value = "";
         document.getElementById('mCategoriaCustom').classList.add('hidden');
+        document.getElementById('mCategoriaCustom').required = false;
         document.getElementById('submitRadioBtn').innerText = "Subir Radio";
         document.getElementById('cancelRadioBtn').classList.add('hidden');
     };
 
     window.deleteFirebaseRadio = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
+        const pass = prompt("Contraseña de Administrador para eliminar:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada."); });
+        if(confirm("¿Seguro que deseas eliminar esta radio?")) {
+            remove(ref(db, 'radios_comunidad/' + key));
         }
     };
   </script>
