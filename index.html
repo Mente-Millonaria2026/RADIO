@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <title id="meta-title">RadioAR Pro | Radios en vivo Argentina y el Mundo</title>
   <meta id="meta-desc" name="description" content="Escuchá las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor música las 24 horas.">
   
@@ -329,6 +331,7 @@
             <h2 id="viewSub" class="text-xs text-zinc-400 font-normal m-0">Descubre la radio de otra manera.</h2>
             <span id="radioCount" class="text-[10px] font-bold bg-zinc-800 px-2 py-1 rounded text-zinc-500">CARGANDO TOP...</span>
         </div>
+        <p id="viewDescription" class="text-sm text-zinc-400 mt-4 hidden max-w-3xl leading-relaxed border-l-2 border-[var(--sp-green)] pl-3 bg-zinc-900/40 p-3 rounded-r-xl"></p>
       </div>
 
       <div class="sticky-controls">
@@ -447,9 +450,11 @@
           <form id="manualRadioForm" class="space-y-3 flex-shrink-0 overflow-y-auto no-scrollbar pr-1 pb-1">
             <input type="hidden" id="mEditKey" value="">
             <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-            <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
-            <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+            <input type="text" id="mUrl" placeholder="URL Streaming (mp3/aac) sin http:// no hay problema" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
+            <input type="text" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
+            <textarea id="mDescription" placeholder="Descripción de la radio (se mostrará al reproducir en la vista principal)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none h-20"></textarea>
+
             <div class="flex flex-col gap-2">
                 <div class="flex gap-2 w-full">
                     <select id="mProvincia" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
@@ -698,6 +703,7 @@
     function resetToHome() {
         document.getElementById('viewLabel').innerText = "Explorar";
         document.getElementById('viewSub').innerText = "Descubre la radio de otra manera.";
+        document.getElementById('viewDescription').classList.add('hidden');
         document.title = "RadioAR Pro | Radios en vivo Argentina y el Mundo";
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
         
@@ -932,7 +938,21 @@
       const r = allRadios.find(x => x.stationuuid === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
       if(!r) return;
       initEQ(); currentStation = r;
-      if(!skipPush) updateMetadata(getRadioSEO(r.name), 'radio', uuid);
+      const seoData = getRadioSEO(r.name);
+      
+      if(!skipPush) updateMetadata(seoData, 'radio', uuid);
+      
+      // Lógica de Descripción Dinámica Central
+      const descEl = document.getElementById('viewDescription');
+      const descText = r.description || seoData.desc || (r.tags ? `Estación con estilos: ${r.tags}` : "");
+      
+      if (descText) {
+          descEl.innerText = descText;
+          descEl.classList.remove('hidden');
+      } else {
+          descEl.classList.add('hidden');
+      }
+
       document.getElementById('p-name').innerText = r.name;
       document.getElementById('p-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
       pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
@@ -1039,6 +1059,7 @@
 
     function renderFavorites() {
       document.getElementById('viewLabel').innerText = "Favoritos"; document.getElementById('viewSub').innerText = "Tus radios guardadas";
+      document.getElementById('viewDescription').classList.add('hidden');
       displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = 'none';
     }
@@ -1056,11 +1077,11 @@
 
     function filterByMood(mood, btn) {
       document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
+      document.getElementById('viewDescription').classList.add('hidden');
       if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
           
-          // Soporte extra para categorias creadas dinámicamente
           let searchTerms = keywords[mood] || [mood];
           displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
           document.getElementById('sectTop').style.display = 'none';
@@ -1082,19 +1103,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
     import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
-
-    /* ========================================================
-    ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
-    Nuevas Reglas de Base de Datos para integrar Categorias:
-    {
-      "rules": {
-        "chat_comunidad": { ".read": true, ".write": true },
-        "radios_comunidad": { ".read": true, ".write": true },
-        "categorias_comunidad": { ".read": true, ".write": true }
-      }
-    }
-    ========================================================
-    */
 
     const firebaseConfig = {
       apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
@@ -1179,7 +1187,6 @@
         const selectCat = document.getElementById('mCategoria');
         const filterContainer = document.getElementById('moodFilters');
 
-        // Restauramos Opciones Base
         selectCat.innerHTML = `
             <option value="">Categoría (Ninguna)</option>
             <option value="mate">🧉 Para unos Mates</option>
@@ -1195,10 +1202,8 @@
             c.key = child.key;
             window.firebaseCategorias.push(c);
 
-            // Agregar al Select Form
             selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
 
-            // Agregar al Filtro Visual de Usuario (Mood Filters)
             if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
                 const btn = document.createElement('button');
                 btn.id = `filter_${c.value}`; btn.className = "pill";
@@ -1207,7 +1212,6 @@
                 filterContainer.appendChild(btn);
             }
 
-            // Render Panel de Administrador Categorías
             if(adminList) {
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
@@ -1281,8 +1285,18 @@
         const pass = prompt("Ingresa la Contraseña de Administrador:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
 
+        // Normalización silenciosa obligatoria de URL
         let rawUrl = document.getElementById('mUrl').value.trim();
+        if (!/^https?:\/\//i.test(rawUrl)) { rawUrl = 'https://' + rawUrl; }
+        rawUrl = rawUrl.replace(/^http:\/\//i, 'https://');
         if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
+
+        // Normalización de logo
+        let logoUrl = document.getElementById('mLogo').value.trim() || 'https://ui-avatars.com/api/?name=R&background=333';
+        if (logoUrl !== 'https://ui-avatars.com/api/?name=R&background=333') {
+            if (!/^https?:\/\//i.test(logoUrl)) logoUrl = 'https://' + logoUrl;
+            logoUrl = logoUrl.replace(/^http:\/\//i, 'https://');
+        }
 
         const prov = document.getElementById('mProvincia').value;
         let cat = document.getElementById('mCategoria').value;
@@ -1295,7 +1309,8 @@
             name: document.getElementById('mName').value,
             url: rawUrl,
             url_resolved: rawUrl,
-            favicon: document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333',
+            favicon: logoUrl,
+            description: document.getElementById('mDescription').value.trim(),
             tags: finalTags.trim() || 'Comunidad',
             state: prov || 'Comunidad',
             timestamp: serverTimestamp()
@@ -1363,6 +1378,7 @@
         document.getElementById('mName').value = r.name;
         document.getElementById('mUrl').value = r.url;
         document.getElementById('mLogo').value = r.favicon;
+        document.getElementById('mDescription').value = r.description || "";
         document.getElementById('mProvincia').value = r.state || "";
 
         let cleanTags = r.tags || "";
