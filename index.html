@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <title id="meta-title">RadioAR Pro | Radios en vivo Argentina y el Mundo</title>
   <meta id="meta-desc" name="description" content="Escuchá las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor música las 24 horas.">
   
@@ -386,6 +388,8 @@
                   <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="detail-tags"></div>
               </div>
           </div>
+          
+          <div id="ad-container-radio" class="w-full mt-8 flex justify-center items-center overflow-hidden empty:hidden"></div>
       </section>
 
       <div class="mb-10" id="moodFiltersContainer">
@@ -425,8 +429,10 @@
         <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
       </div>
       
+      <div id="ad-container-sidebar" class="w-full bg-[#050505] border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
+      
       <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
-        </div>
+      </div>
 
       <div class="px-4 pb-2">
         <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
@@ -476,8 +482,9 @@
       </div>
       
       <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-1 rounded-xl">
-          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
-          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all">🏷️ Categorías</button>
+          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-1 bg-zinc-700 text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
+          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏷️ Categorías</button>
+          <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
       </div>
 
       <div id="tabRadios" class="flex flex-col flex-1 overflow-hidden">
@@ -488,7 +495,9 @@
             <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
             <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             <input type="url" id="mWebsite" placeholder="Sitio Web Oficial (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-            <textarea id="mDescription" placeholder="Descripción de la radio (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[60px]"></textarea>
+            
+            <textarea id="mDescription" placeholder="Descripción Personalizada (Ej: Provincia/Estado: Buenos Aires. Disfrutá de la mejor transmisión...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[80px]"></textarea>
+            
             <input type="text" id="mMetaInfo" placeholder="Meta info SEO / Keywords (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
             <div class="flex flex-col gap-2">
@@ -565,6 +574,28 @@
               <div id="manualCatsList" class="overflow-y-auto space-y-2 pb-2 pr-1 no-scrollbar"></div>
           </div>
       </div>
+
+      <div id="tabAds" class="hidden flex flex-col flex-1 overflow-hidden">
+           <form id="adminAdsForm" class="space-y-4 overflow-y-auto no-scrollbar flex-1 pb-2 pr-1">
+              <div>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">Script Head AdSense (Opcional)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pégalo aquí.</p>
+                  <textarea id="adsHead" placeholder='<script async src="https://pagead2.googlesyndication.com/..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono"></textarea>
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase text-blue-400">Anuncio 1: Vista de Radio (Responsive)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Aparece dentro del panel de la radio cuando se hace clic en una. (Usa bloques adaptables).</p>
+                  <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono"></textarea>
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase text-green-400">Anuncio 2: Sidebar Derecho (Cuadrado)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Aparece en la parte superior del chat de la comunidad. (Recomendado: Cuadrado 250x250 o 300x250).</p>
+                  <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración de Ads</button>
+           </form>
+      </div>
+
     </div>
   </div>
 
@@ -699,6 +730,12 @@
 
     const SEO_DATA = { provincias: {}, radios: {} };
 
+    // Limpiador HTTPS manual adicional de seguridad
+    function makeHttps(url) {
+        if(!url) return '';
+        return url.replace(/^http:\/\//i, 'https://');
+    }
+
     PROVS.forEach(p => {
         const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
         SEO_DATA.provincias[p] = {
@@ -709,6 +746,7 @@
 
     function getRadioSEO(r) {
         const radioName = typeof r === 'string' ? r : r.name;
+        // Al generar el SLUG siempre desde el nombre en vivo, si modificás el nombre desde el panel, la URL cambia automáticamente
         const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
         
         if (!SEO_DATA.radios[radioName]) {
@@ -774,25 +812,22 @@
 
     /* --- SPOTIFY STYLE: SINGLE RADIO VIEW LOGIC --- */
     function openRadioView(r) {
-        // Hide standard grid elements
         document.getElementById('sectTop').style.display = 'none';
         document.getElementById('gridTitleContainer').style.display = 'none';
         document.getElementById('gridMain').style.display = 'none';
         document.getElementById('loadMoreTrigger').style.display = 'none';
         document.getElementById('moodFiltersContainer').style.display = 'none';
 
-        // Show single view
         const sView = document.getElementById('singleRadioView');
         sView.classList.remove('hidden');
 
-        // Populate detail view
         document.getElementById('detail-title').innerText = r.name;
-        document.getElementById('detail-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
+        document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
+        
         document.getElementById('detail-desc').innerText = r.description || `Provincia/Estado: ${r.state || 'Desconocido'}. Disfrutá de la mejor transmisión en vivo con RadioAR Pro en máxima calidad.`;
 
-        // Website Link
         const webBtn = document.getElementById('detail-website');
-        const site = r.homepage || r.website;
+        const site = makeHttps(r.homepage || r.website);
         if (site) {
             webBtn.href = site;
             webBtn.classList.remove('hidden');
@@ -800,15 +835,29 @@
             webBtn.classList.add('hidden');
         }
 
-        // Tags
         const tagsContainer = document.getElementById('detail-tags');
         tagsContainer.innerHTML = '';
+        
+        if(r.state) {
+            const stateBtn = document.createElement('button');
+            stateBtn.className = 'px-3 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded-full text-[10px] font-bold border border-blue-500/30 uppercase tracking-wide transition-colors shadow-sm';
+            stateBtn.innerText = '📍 ' + r.state;
+            stateBtn.onclick = () => filterP(r.state);
+            tagsContainer.appendChild(stateBtn);
+        }
+
         if (r.tags) {
             r.tags.split(',').forEach(tag => {
-                if(tag.trim()) {
-                    const s = document.createElement('span');
-                    s.className = 'px-3 py-1 bg-zinc-800/80 rounded-full text-[10px] font-bold text-zinc-300 border border-zinc-700/50 uppercase tracking-wide';
-                    s.innerText = tag.trim();
+                const t = tag.trim();
+                if(t) {
+                    const s = document.createElement('button');
+                    s.className = 'px-3 py-1 bg-zinc-800/80 hover:bg-white hover:text-black rounded-full text-[10px] font-bold text-zinc-300 border border-zinc-700/50 uppercase tracking-wide transition-all shadow-sm';
+                    s.innerText = '#' + t;
+                    s.onclick = () => {
+                        const searchInput = document.getElementById('masterSearch');
+                        searchInput.value = t;
+                        searchInput.dispatchEvent(new Event('input'));
+                    };
                     tagsContainer.appendChild(s);
                 }
             });
@@ -819,13 +868,11 @@
     function closeRadioView() {
         document.getElementById('singleRadioView').classList.add('hidden');
         
-        // Restore standard grid
         document.getElementById('gridTitleContainer').style.display = 'flex';
         document.getElementById('gridMain').style.display = 'grid';
         document.getElementById('loadMoreTrigger').style.display = 'flex';
         document.getElementById('moodFiltersContainer').style.display = 'block';
 
-        // Solo restauramos el top si no hay búsqueda y no hay filtro de estado seleccionado
         if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') {
             document.getElementById('sectTop').style.display = 'block';
         }
@@ -861,7 +908,7 @@
 
         if (currentStation) {
             document.getElementById('p-name').innerText = currentStation.name;
-            document.getElementById('p-img').src = currentStation.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentStation.name)}&background=333`;
+            document.getElementById('p-img').src = makeHttps(currentStation.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentStation.name)}&background=333`;
             pStat.innerText = "PAUSADO"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
         } else {
             document.getElementById('p-name').innerText = "Selecciona una radio"; document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=R&background=333";
@@ -946,7 +993,6 @@
 
             renderGrid(top10, 'gridTop');
             
-            // Firebase over top10 not needed visually unless they are top 10 too.
             allRadios = [...window.firebaseRadios, ...top10];
             displayedRadios = [...allRadios];
             renderGrid(displayedRadios, 'gridMain');
@@ -976,13 +1022,11 @@
 
     window.triggerGridRefresh = function() {
         const fbOriginalIds = window.firebaseRadios.map(f => f.original_uuid).filter(id => id);
-        // Filtrar radios de la API que hayan sido sobreescritas desde Firebase
         const filteredApi = globalApiRadios.filter(a => !fbOriginalIds.includes(a.stationuuid));
         
         allRadios = [...window.firebaseRadios, ...filteredApi];
 
         if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
-            // Solo actualizamos el grid principal si no estamos dentro de una vista particular (single view)
             if (document.getElementById('singleRadioView').classList.contains('hidden')) {
                 displayedRadios = [...allRadios];
                 document.getElementById('gridMain').innerHTML = "";
@@ -991,7 +1035,6 @@
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
         }
         
-        // Refrescar el admin si está abierto
         if(typeof renderAdminRadiosList === 'function') {
             renderAdminRadiosList();
         }
@@ -1028,20 +1071,23 @@
     
     document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
 
-    // Alternar Pestañas en el Panel Admin
     window.switchAdminTab = function(tab) {
-        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats');
-        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats');
+        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); const tabA = document.getElementById('tabAds');
+        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); const btnA = document.getElementById('tabBtnAds');
+
+        const actClass = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
+        const inactClass = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
+
+        tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden');
+        btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass;
 
         if(tab === 'radios') {
-            tabR.classList.remove('hidden'); tabC.classList.add('hidden');
-            btnR.className = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md";
-            btnC.className = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all";
+            tabR.classList.remove('hidden'); btnR.className = actClass;
             if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList();
-        } else {
-            tabR.classList.add('hidden'); tabC.classList.remove('hidden');
-            btnC.className = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all shadow-md";
-            btnR.className = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-xs font-bold uppercase tracking-wide transition-all";
+        } else if (tab === 'cats') {
+            tabC.classList.remove('hidden'); btnC.className = actClass;
+        } else if (tab === 'ads') {
+            tabA.classList.remove('hidden'); btnA.className = actClass;
         }
     };
 
@@ -1049,7 +1095,7 @@
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
           title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
-          artwork: [{ src: r.favicon || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
+          artwork: [{ src: makeHttps(r.favicon) || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
         });
         navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause());
       }
@@ -1063,10 +1109,10 @@
       initEQ(); currentStation = r;
       if(!skipPush) updateMetadata(getRadioSEO(r), 'radio', uuid);
       
-      openRadioView(r); // Disparar la vista Single Radio al reproducir
+      openRadioView(r);
 
       document.getElementById('p-name').innerText = r.name;
-      document.getElementById('p-img').src = r.favicon || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
+      document.getElementById('p-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
       pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
       
       audio.src = r.url_resolved || r.url;
@@ -1077,6 +1123,7 @@
       const container = document.getElementById(id); 
       if (!append) container.innerHTML = "";
       data.forEach(r => {
+        const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
         div.className = "r-card";
         div.innerHTML = `
@@ -1089,7 +1136,7 @@
             </button>
           </div>
           <div onclick="play('${r.stationuuid}')">
-            <img loading="lazy" src="${r.favicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+            <img loading="lazy" src="${safeFavicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
             <div class="font-bold text-sm truncate">${r.name}</div>
             <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
           </div>`;
@@ -1184,7 +1231,8 @@
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
         closeRadioView();
-        const term = e.target.value.toLowerCase(); displayedRadios = allRadios.filter(r => r.name.toLowerCase().includes(term));
+        const term = e.target.value.toLowerCase(); 
+        displayedRadios = allRadios.filter(r => (r.name + " " + (r.tags||"") + " " + (r.state||"")).toLowerCase().includes(term));
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = term ? 'none' : 'block';
       };
     }
@@ -1238,8 +1286,68 @@
     const chatRef = ref(db, 'chat_comunidad');
     const radioRef = ref(db, 'radios_comunidad');
     const catRef = ref(db, 'categorias_comunidad');
+    const adsRef = ref(db, 'settings_comunidad/ads');
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
+
+    // --- CARGA DE ANUNCIOS (ADSENSE) ---
+    function injectAdHTML(containerId, htmlString) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        container.innerHTML = htmlString || "";
+        
+        // Extrae los scripts que pegaste y los fuerza a ejecutarse
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.text = oldScript.text;
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+    }
+
+    onValue(adsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            document.getElementById('adsHead').value = data.head || "";
+            document.getElementById('adsRadio').value = data.radio || "";
+            document.getElementById('adsSidebar').value = data.sidebar || "";
+            
+            // Inyectar Script Base Head
+            if(data.head && !document.getElementById('adsense-head-script')) {
+                const temp = document.createElement('div');
+                temp.innerHTML = data.head;
+                const scripts = temp.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.id = 'adsense-head-script';
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.text = oldScript.text;
+                    document.head.appendChild(newScript);
+                });
+            }
+            
+            // Inyectar Anuncios (Se mostrarán solo si no están vacíos gracias a empty:hidden)
+            injectAdHTML('ad-container-sidebar', data.sidebar);
+            injectAdHTML('ad-container-radio', data.radio);
+        }
+    });
+
+    document.getElementById('adminAdsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            head: document.getElementById('adsHead').value,
+            radio: document.getElementById('adsRadio').value,
+            sidebar: document.getElementById('adsSidebar').value
+        };
+        
+        update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
+            alert("Anuncios guardados. Refresca la web para ver los cambios.");
+        }).catch(err => alert("Error: " + err.message));
+    });
 
     // --- FIREBASE CHAT COMUNIDAD ---
     function renderMessage(data, isReal = true) {
@@ -1419,13 +1527,13 @@
             name: document.getElementById('mName').value,
             url: rawUrl,
             url_resolved: rawUrl,
-            favicon: document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333',
+            favicon: makeHttps(document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333'),
             homepage: document.getElementById('mWebsite').value.trim(),
             description: document.getElementById('mDescription').value.trim(),
             meta_info: document.getElementById('mMetaInfo').value.trim(),
             tags: finalTags.trim() || 'Comunidad',
             state: prov || 'Comunidad',
-            original_uuid: originalUuid || null, // Guarda si sobreescribió una de la API
+            original_uuid: originalUuid || null,
             timestamp: serverTimestamp()
         };
 
@@ -1455,7 +1563,6 @@
         if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
     });
 
-    // Función para renderizar el listado en el Admin que ahora incluye TODAS las radios (buscable)
     window.renderAdminRadiosList = function() {
         const adminList = document.getElementById('manualRadiosList');
         if(!adminList) return;
@@ -1465,7 +1572,7 @@
         const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
 
         const filtered = allRadios.filter(r => r.name.toLowerCase().includes(searchTerm));
-        const toRender = filtered.slice(0, 50); // Límite virtual para no congelar la UI
+        const toRender = filtered.slice(0, 50); 
 
         toRender.forEach(r => {
             const isFb = r.fb_key ? true : false;
@@ -1475,7 +1582,7 @@
             item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
             item.innerHTML = `
                 <div class="flex items-center gap-3 overflow-hidden">
-                    <img src="${r.favicon}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                    <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
                     <div class="truncate">
                         <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
                         <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
@@ -1505,18 +1612,17 @@
             document.getElementById('mEditKey').value = id;
             document.getElementById('mOriginalUuid').value = r.original_uuid || "";
         } else {
-            // Es una radio de la API. Se preparan los campos pero no se asigna mEditKey
-            // para que al guardar se cree una nueva entrada en FB que la sobreescribirá.
             r = allRadios.find(x => x.stationuuid === id);
             document.getElementById('mEditKey').value = ""; 
-            document.getElementById('mOriginalUuid').value = id; // Clave para la sobreescritura
+            document.getElementById('mOriginalUuid').value = id; 
         }
 
         if(!r) return;
         document.getElementById('mName').value = r.name;
         document.getElementById('mUrl').value = r.url || r.url_resolved;
-        document.getElementById('mLogo').value = r.favicon;
+        document.getElementById('mLogo').value = makeHttps(r.favicon);
         document.getElementById('mWebsite').value = r.homepage || r.website || "";
+        
         document.getElementById('mDescription').value = r.description || "";
         document.getElementById('mMetaInfo').value = r.meta_info || "";
         document.getElementById('mProvincia').value = r.state || "";
