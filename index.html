@@ -1014,10 +1014,20 @@
                                     ev.competitions[0].details.forEach(d => {
                                         if (d.scoringPlay || (d.type && d.type.text && d.type.text.toLowerCase().includes("goal"))) {
                                             let min = d.clock && d.clock.displayValue ? d.clock.displayValue + "'" : "";
-                                            let teamName = d.team && d.team.shortDisplayName ? d.team.shortDisplayName : (d.team && d.team.abbreviation ? d.team.abbreviation : "Equipo");
+                                            let teamId = d.team && d.team.id ? d.team.id : null;
+                                            
+                                            // Corrección: Mapeo exacto del ID del equipo
+                                            let teamName = "Equipo";
+                                            if (teamId === c1.team.id) {
+                                                teamName = c1.team.shortDisplayName || c1.team.abbreviation;
+                                            } else if (teamId === c2.team.id) {
+                                                teamName = c2.team.shortDisplayName || c2.team.abbreviation;
+                                            } else if (d.team && d.team.shortDisplayName) {
+                                                teamName = d.team.shortDisplayName;
+                                            }
+                                            
                                             let player = d.participants && d.participants[0] && d.participants[0].athlete ? d.participants[0].athlete.shortName : "";
                                             
-                                            // En vez de mostrar "Jugador", mostramos explicitamente qué equipo hizo el gol.
                                             if (player) {
                                                 goalsText += `• ${player} (${teamName}) ${min}&#10;`;
                                             } else {
