@@ -67,7 +67,7 @@
     /* Layout */
     .app-container { display: flex; flex: 1; overflow: hidden; }
     .sidebar { width: 260px; background: #000; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 20px; transition: background 0.3s ease, border-color 0.3s ease; }
-    .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 120px; scroll-behavior: smooth; transition: background 0.3s ease; }
+    .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 160px; scroll-behavior: smooth; transition: background 0.3s ease; }
     
     .sticky-controls { position: sticky; top: 0; z-index: 1000; background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(15px); padding: 15px 0; margin: -15px 0 25px 0; transition: background 0.3s ease; }
 
@@ -179,6 +179,14 @@
     
     body.light-mode .ticker-wrap { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
     body.light-mode .ticker-content { color: #18181b; }
+
+    /* --- ADAPTACIONES MÓVILES (TICKER) --- */
+    @media (max-width: 768px) {
+        .ticker-badge { padding: 3px 6px !important; font-size: 8px !important; left: 6px !important; }
+        .ticker-content { font-size: 11px !important; }
+        .ticker-wrap { padding: 6px 0 !important; border-radius: 12px; }
+        #radio-news-ticker { margin-top: 0 !important; margin-bottom: 0 !important; }
+    }
   </style>
 </head>
 <body>
@@ -251,7 +259,7 @@
         </div>
       </div>
 
-      <section id="singleRadioView" class="hidden animate-fade-in mb-14">
+      <section id="singleRadioView" class="hidden animate-fade-in mb-24">
           <button onclick="closeRadioView()" class="mb-4 text-zinc-400 hover:text-white flex items-center gap-2 text-sm font-bold w-max transition">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Volver al inicio
           </button>
@@ -283,6 +291,8 @@
           </div>
           
           <div id="ad-container-radio" class="w-full mt-6 flex justify-center items-center overflow-hidden empty:hidden"></div>
+          
+          <div class="h-10 w-full block"></div>
       </section>
 
       <div class="mb-10" id="moodFiltersContainer">
@@ -822,13 +832,9 @@
         const widget = document.getElementById('radio-weather-widget');
         const wrapper = document.getElementById('radio-news-wrapper');
         const tempEl = document.getElementById('radio-weather-temp');
-        const coords = provCoords[prov];
         
-        if(!coords) {
-            widget.classList.add('hidden');
-            widget.classList.remove('flex');
-            return;
-        }
+        // FIX: Si no encuentra coordenadas válidas, usa por defecto el clima de Buenos Aires/CABA para garantizar su visualización
+        const coords = provCoords[prov] || provCoords["CABA"];
         
         wrapper.classList.remove('hidden');
         wrapper.classList.add('flex');
@@ -842,12 +848,10 @@
             if(data.current_weather) {
                 tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`;
             } else {
-                widget.classList.add('hidden');
-                widget.classList.remove('flex');
+                tempEl.innerText = "--°C"; // Fallback si no llega el campo
             }
         } catch(e) {
-            widget.classList.add('hidden');
-            widget.classList.remove('flex');
+            tempEl.innerText = "--°C"; // Fallback visual si hay error
         }
     }
 
