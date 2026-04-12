@@ -10,7 +10,7 @@
   <title id="meta-title">RadioAR Pro | Radios en vivo Argentina y el Mundo</title>
   <meta id="meta-desc" name="description" content="Escuchá las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor música las 24 horas.">
   
-  <meta name="keywords" content="radio argentina, radios en vivo, escuchar radio online, radio fm, radio am, fm argentina, streaming de audio, chat en vivo, modo relax, top 10 radios argentinas, zapping aleatorio">
+  <meta id="meta-keywords" name="keywords" content="radio argentina, radios en vivo, escuchar radio online, radio fm, radio am, fm argentina, streaming de audio, chat en vivo, modo relax, top 10 radios argentinas, zapping aleatorio">
   <meta name="author" content="RadioAR Pro">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1DB954">
@@ -26,7 +26,7 @@
       color: white;
       margin: 0;
       height: 100vh;
-      height: 100dvh; /* Soporte dinámico para barras de navegación en móviles */
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -171,12 +171,13 @@
     body.light-mode .spotify-header { background: linear-gradient(180deg, rgba(29,185,84,0.1) 0%, rgba(255,255,255,0) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
     body.light-mode #detail-title { color: #18181b; }
 
-    /* --- TICKER DE NOTICIAS --- */
-    .ticker-wrap { position: relative; width: 100%; overflow: hidden; background: rgba(255,255,255,0.05); padding: 10px 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; }
-    .ticker-badge { position: absolute; left: 10px; z-index: 10; background: #e11d48; color: white; padding: 4px 10px; font-size: 10px; font-weight: 900; border-radius: 20px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .ticker-content { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; font-weight: 600; font-size: 13px; padding-left: 100%; color: #e4e4e7; }
-    .ticker-wrap:hover .ticker-content { animation-play-state: paused; cursor: default; }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    /* --- TICKER DE NOTICIAS DRAGGABLE --- */
+    .ticker-wrap { position: relative; width: 100%; overflow: hidden; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; }
+    .ticker-badge { position: absolute; left: 10px; z-index: 10; background: #e11d48; color: white; padding: 4px 10px; font-size: 10px; font-weight: 900; border-radius: 20px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none; }
+    .ticker-scroller { width: 100%; height: 100%; overflow-x: auto; white-space: nowrap; scroll-behavior: auto; display: flex; align-items: center; padding: 10px 20px 10px 135px; user-select: none; -webkit-overflow-scrolling: touch; }
+    .ticker-scroller.cursor-grab { cursor: grab; }
+    .ticker-scroller.cursor-grabbing { cursor: grabbing; }
+    .ticker-content { display: inline-block; white-space: nowrap; font-weight: 600; font-size: 13px; color: #e4e4e7; }
     
     body.light-mode .ticker-wrap { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
     body.light-mode .ticker-content { color: #18181b; }
@@ -184,8 +185,9 @@
     /* --- ADAPTACIONES MÓVILES (TICKER) --- */
     @media (max-width: 768px) {
         .ticker-badge { padding: 3px 6px !important; font-size: 8px !important; left: 6px !important; }
+        .ticker-scroller { padding: 8px 10px 8px 95px !important; }
         .ticker-content { font-size: 11px !important; }
-        .ticker-wrap { padding: 6px 0 !important; border-radius: 12px; }
+        .ticker-wrap { border-radius: 12px; }
         #radio-news-ticker { margin-top: 0 !important; margin-bottom: 0 !important; }
     }
   </style>
@@ -270,9 +272,12 @@
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
                   <span class="text-xs font-black tracking-wide" id="radio-weather-temp">--°C</span>
               </div>
-              <div id="radio-news-ticker" class="ticker-wrap hidden flex-1 !mb-0 !mt-0 !py-[8px]">
-                  <span class="ticker-badge !top-[50%] !-translate-y-1/2">ÚLTIMO MOMENTO</span>
-                  <div id="radio-news-content" class="ticker-content">Buscando noticias...</div>
+              
+              <div id="radio-news-ticker" class="ticker-wrap hidden flex-1 !mb-0 !mt-0 !py-0 relative">
+                  <span class="ticker-badge absolute left-[10px] top-[50%] -translate-y-1/2 z-10 pointer-events-none">ÚLTIMO MOMENTO</span>
+                  <div id="radio-news-ticker-scroll" class="ticker-scroller cursor-grab h-full w-full py-[8px]">
+                      <div id="radio-news-content" class="ticker-content">Buscando noticias...</div>
+                  </div>
               </div>
           </div>
 
@@ -283,7 +288,9 @@
                       <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> EN VIVO
                   </span>
                   <h2 id="detail-title" class="text-2xl md:text-4xl font-black tracking-tighter text-white drop-shadow-lg mb-1 truncate w-full"></h2>
-                  <p id="detail-desc" class="text-zinc-300 font-medium text-xs md:text-sm max-w-2xl mb-2 line-clamp-2"></p>
+                  
+                  <p id="detail-desc" class="text-zinc-300 font-medium text-xs md:text-sm max-w-2xl mb-2"></p>
+                  
                   <a id="detail-website" target="_blank" rel="noopener noreferrer" class="hidden text-[10px] md:text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors underline mb-3 w-max flex items-center gap-1">
                       <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.45 2-1v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Visitar Web Oficial
                   </a>
@@ -713,6 +720,10 @@
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let currentStation = null;
     
+    // Variables globales para el Ticker arrastrable
+    let tickerReq;
+    let isTickerDragging = false;
+    
     // Almacenes
     window.firebaseRadios = [];
     window.firebaseCategorias = [];
@@ -775,17 +786,30 @@
 
     function getRadioSEO(r) {
         const radioName = typeof r === 'string' ? r : r.name;
+        const state = (typeof r === 'object' && r.state) ? r.state : 'Argentina';
         const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
         
+        let tipo = "la mejor programación";
+        if (typeof r === 'object' && r.tags) {
+            const t = r.tags.toLowerCase();
+            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
+            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
+            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
+        }
+
         if (!SEO_DATA.radios[radioName]) {
+            const defaultDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${radioName}. Sintonizá ${tipo} de ${state} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${radioName}: donde el sonido cobra vida, estés donde estés.`;
+            const defaultKeywords = `Escuchar ${radioName} en vivo online gratis, Radio ${radioName} ${state}, Transmisión en directo ${radioName} online`;
+
             SEO_DATA.radios[radioName] = { 
                 url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, 
                 h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, 
-                desc: (typeof r === 'object' && (r.meta_info || r.description)) ? (r.meta_info || r.description) : `Escuchá ${radioName} en vivo por internet.` 
+                desc: (typeof r === 'object' && (r.description)) ? r.description : defaultDesc,
+                keywords: (typeof r === 'object' && (r.meta_info)) ? r.meta_info : defaultKeywords
             };
         } else if (typeof r === 'object') {
-            if (r.meta_info) SEO_DATA.radios[radioName].desc = r.meta_info;
-            else if (r.description) SEO_DATA.radios[radioName].desc = r.description;
+            if (r.description) SEO_DATA.radios[radioName].desc = r.description;
+            if (r.meta_info) SEO_DATA.radios[radioName].keywords = r.meta_info;
         }
         return SEO_DATA.radios[radioName];
     }
@@ -794,6 +818,12 @@
         document.title = seoObj.title;
         document.getElementById('meta-title').innerText = seoObj.title;
         document.getElementById('meta-desc').setAttribute("content", seoObj.desc);
+        
+        const metaKeywords = document.getElementById('meta-keywords');
+        if (metaKeywords && seoObj.keywords) {
+            metaKeywords.setAttribute("content", seoObj.keywords);
+        }
+
         document.getElementById('viewLabel').innerText = seoObj.h1;
         document.getElementById('viewSub').innerText = seoObj.h2;
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
@@ -834,7 +864,6 @@
         const wrapper = document.getElementById('radio-news-wrapper');
         const tempEl = document.getElementById('radio-weather-temp');
         
-        // FIX: Si no encuentra coordenadas válidas, usa por defecto el clima de Buenos Aires/CABA para garantizar su visualización
         const coords = provCoords[prov] || provCoords["CABA"];
         
         wrapper.classList.remove('hidden');
@@ -849,11 +878,75 @@
             if(data.current_weather) {
                 tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`;
             } else {
-                tempEl.innerText = "--°C"; // Fallback si no llega el campo
+                tempEl.innerText = "--°C"; 
             }
         } catch(e) {
-            tempEl.innerText = "--°C"; // Fallback visual si hay error
+            tempEl.innerText = "--°C";
         }
+    }
+
+    function startAutoScrollTicker() {
+        if(tickerReq) cancelAnimationFrame(tickerReq);
+        const scroller = document.getElementById('radio-news-ticker-scroll');
+        const content = document.getElementById('radio-news-content');
+        
+        function step() {
+            if (!isTickerDragging && scroller && content) {
+                const speedConf = parseInt(globalNewsConfig.speed) || 30;
+                let stepPx = 45 / speedConf; 
+                
+                scroller.scrollLeft += stepPx;
+                
+                if (scroller.scrollLeft >= content.scrollWidth / 2) {
+                    scroller.scrollLeft -= content.scrollWidth / 2; 
+                }
+            }
+            tickerReq = requestAnimationFrame(step);
+        }
+        tickerReq = requestAnimationFrame(step);
+    }
+
+    function setupTickerDrag() {
+        const scroller = document.getElementById('radio-news-ticker-scroll');
+        if(!scroller) return;
+        
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        const startDrag = (e) => {
+            isDown = true;
+            isTickerDragging = true;
+            scroller.classList.add('cursor-grabbing');
+            scroller.classList.remove('cursor-grab');
+            startX = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft;
+            scrollLeft = scroller.scrollLeft;
+        };
+
+        const endDrag = () => {
+            isDown = false;
+            isTickerDragging = false;
+            scroller.classList.add('cursor-grab');
+            scroller.classList.remove('cursor-grabbing');
+        };
+
+        const doDrag = (e) => {
+            if (!isDown) return;
+            const x = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft;
+            const walk = (startX - x) * 1.5; 
+            scroller.scrollLeft = scrollLeft + walk; 
+        };
+
+        scroller.addEventListener('mousedown', startDrag);
+        scroller.addEventListener('mouseleave', endDrag);
+        scroller.addEventListener('mouseup', endDrag);
+        scroller.addEventListener('mousemove', doDrag);
+
+        scroller.addEventListener('touchstart', startDrag, {passive: true});
+        scroller.addEventListener('touchend', endDrag);
+        scroller.addEventListener('touchmove', doDrag, {passive: true});
+        
+        startAutoScrollTicker();
     }
 
     function fetchRadioNews(tags, province) {
@@ -879,6 +972,7 @@
         const p = (province || "").trim();
         let isSport = t.includes('sport') || t.includes('deporte') || t.includes('futbol') || t.includes('boca') || t.includes('river') || t.includes('partido');
         let isMusic = t.includes('music') || t.includes('musica') || t.includes('pop') || t.includes('rock') || t.includes('retro');
+        let isNews = t.includes('news') || t.includes('noticias') || t.includes('informacion');
         
         let rssUrls = [];
         let promises = [];
@@ -893,8 +987,65 @@
                             try {
                                 const c1 = ev.competitions[0].competitors[0];
                                 const c2 = ev.competitions[0].competitors[1];
-                                const status = ev.status.type.shortDetail; 
-                                const scoreStr = `<span class="inline-flex items-center gap-2 mx-2 bg-black/20 px-3 py-1 rounded-lg border border-white/10"><img src="${c2.team.logo}" class="h-4 w-4 object-contain"> <span class="font-bold tracking-wide">${c2.team.shortDisplayName} ${c2.score} - ${c1.score} ${c1.team.shortDisplayName}</span> <img src="${c1.team.logo}" class="h-4 w-4 object-contain"> <span class="text-[10px] text-yellow-400 ml-1">(${status})</span></span>`;
+                                let status = ev.status.type.shortDetail || "";
+                                let isScheduled = ev.status.type.name === "STATUS_SCHEDULED";
+                                
+                                if (isScheduled && ev.date) {
+                                    const matchDate = new Date(ev.date);
+                                    status = matchDate.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' hs';
+                                } else {
+                                    const statusMap = {
+                                        "FT": "Final",
+                                        "HT": "Entretiempo",
+                                        "Postponed": "Postergado",
+                                        "Canceled": "Cancelado",
+                                        "Delayed": "Demorado"
+                                    };
+                                    for (const [en, es] of Object.entries(statusMap)) {
+                                        if (status.includes(en)) {
+                                            status = status.replace(en, es);
+                                        }
+                                    }
+                                }
+                                
+                                let goalsText = "⚽ Detalles del Partido:&#10;";
+                                let hasGoals = false;
+                                if (ev.competitions[0].details && ev.competitions[0].details.length > 0) {
+                                    ev.competitions[0].details.forEach(d => {
+                                        if (d.scoringPlay || (d.type && d.type.text && d.type.text.toLowerCase().includes("goal"))) {
+                                            let min = d.clock && d.clock.displayValue ? d.clock.displayValue + "'" : "";
+                                            let teamName = d.team && d.team.shortDisplayName ? d.team.shortDisplayName : (d.team && d.team.abbreviation ? d.team.abbreviation : "Equipo");
+                                            let player = d.participants && d.participants[0] && d.participants[0].athlete ? d.participants[0].athlete.shortName : "";
+                                            
+                                            // En vez de mostrar "Jugador", mostramos explicitamente qué equipo hizo el gol.
+                                            if (player) {
+                                                goalsText += `• ${player} (${teamName}) ${min}&#10;`;
+                                            } else {
+                                                goalsText += `• Gol de ${teamName} ${min}&#10;`;
+                                            }
+                                            hasGoals = true;
+                                        }
+                                    });
+                                }
+                                
+                                if (!hasGoals) {
+                                    if ((c1.score && c1.score !== "0") || (c2.score && c2.score !== "0")) {
+                                        goalsText += "Goles aún no procesados en el resumen.";
+                                    } else if (isScheduled) {
+                                        goalsText += "El partido aún no ha comenzado.";
+                                    } else {
+                                        goalsText += "Sin goles por el momento.";
+                                    }
+                                }
+                                
+                                const safeGoalsText = goalsText.replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+                                
+                                const scoreStr = `<span class="inline-flex items-center gap-2 mx-2 bg-black/20 hover:bg-black/50 cursor-pointer px-3 py-1 rounded-lg border border-white/10 transition-colors" title="${safeGoalsText}" onclick="alert(this.title)">
+                                    <img src="${c2.team.logo}" class="h-4 w-4 object-contain">
+                                    <span class="font-bold tracking-wide">${c2.team.shortDisplayName} ${c2.score || '0'} - ${c1.score || '0'} ${c1.team.shortDisplayName}</span>
+                                    <img src="${c1.team.logo}" class="h-4 w-4 object-contain">
+                                    <span class="text-[10px] text-yellow-400 ml-1">(${status})</span>
+                                </span>`;
                                 scoresHtml.push(scoreStr);
                             } catch(e){}
                         });
@@ -902,15 +1053,23 @@
                     return scoresHtml.join(' ');
                 }).catch(() => "");
             promises.push(espnPromise);
+            
             rssUrls.push(globalNewsConfig.sport || 'https://www.ole.com.ar/rss/ultimas-noticias/');
+            rssUrls.push(`https://news.google.com/rss/search?q=deportes+futbol+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
         } else if (isMusic) {
             rssUrls.push(globalNewsConfig.music || 'https://www.clarin.com/rss/espectaculos/');
+            rssUrls.push(`https://news.google.com/rss/search?q=musica+espectaculos+argentina+estrenos&hl=es-419&gl=AR&ceid=AR:es-419`);
         } else {
             if (p && p !== "Comunidad" && p !== "Global" && PROVS.includes(p)) {
                 rssUrls.push(`https://news.google.com/rss/search?q=noticias+provincia+${encodeURIComponent(p)}+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
             }
+            if (isNews) {
+                rssUrls.push(`https://news.google.com/rss/search?q=ultimas+noticias+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
+            }
             rssUrls.push(globalNewsConfig.general || 'https://www.clarin.com/rss/lo-ultimo/');
         }
+
+        rssUrls = [...new Set(rssUrls)].slice(0, 3);
 
         rssUrls.forEach(url => {
             promises.push(
@@ -918,7 +1077,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if(data.status === 'ok' && data.items) {
-                        return data.items.slice(0, 10).map(item => item.title);
+                        return data.items.slice(0, 15).map(item => item.title);
                     }
                     return [];
                 }).catch(() => [])
@@ -943,13 +1102,8 @@
             }
             
             if(finalHtml !== "") {
-                tickerContent.innerHTML = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ';
-                
-                const baseSpeed = parseInt(globalNewsConfig.speed) || 30;
-                const charCount = finalHtml.replace(/<[^>]*>?/gm, '').length;
-                const calcTime = Math.max(baseSpeed, (charCount / 50) * (baseSpeed / 2));
-                
-                tickerContent.style.animationDuration = calcTime + 's';
+                const fullString = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ';
+                tickerContent.innerHTML = fullString + fullString;
             } else {
                 tickerContent.innerText = "Bienvenido a RadioAR Pro. Transmitiendo en vivo...";
             }
@@ -971,7 +1125,19 @@
 
         document.getElementById('detail-title').innerText = r.name;
         document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
-        document.getElementById('detail-desc').innerText = r.description || `Provincia/Estado: ${r.state || 'Desconocido'}. Disfrutá de la mejor transmisión en vivo con RadioAR Pro en máxima calidad.`;
+        
+        let tipo = "la mejor programación";
+        if (r.tags) {
+            const t = r.tags.toLowerCase();
+            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
+            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
+            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
+        }
+        
+        const stateStr = r.state ? r.state : 'Argentina';
+        const generatedDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${r.name}. Sintonizá ${tipo} de ${stateStr} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${r.name}: donde el sonido cobra vida, estés donde estés.`;
+        
+        document.getElementById('detail-desc').innerText = r.description || generatedDesc;
 
         const webBtn = document.getElementById('detail-website');
         const site = makeHttps(r.homepage || r.website);
@@ -1361,7 +1527,7 @@
         b.innerText = p; b.onclick = () => filterP(p); document.getElementById('sideProvs').appendChild(b);
         const bM = document.createElement('button'); bM.className = "pill"; bM.innerText = p; bM.onclick = () => filterP(p); document.getElementById('mobProvs').appendChild(bM);
       });
-      onlineManager.init(); setupControls(); setupInfiniteScroll();
+      onlineManager.init(); setupControls(); setupInfiniteScroll(); setupTickerDrag();
       loadCountryData('argentina'); setupAlarmClock();
     }
 
@@ -1565,7 +1731,7 @@
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = [...globalTop10Config.pinned];
-        if(!newPinned.includes(id)) newPinned.unshift(id); // Agregar al principio
+        if(!newPinned.includes(id)) newPinned.unshift(id); 
         
         let newHidden = globalTop10Config.hidden.filter(x => x !== id);
         
