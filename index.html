@@ -26,6 +26,7 @@
       color: white;
       margin: 0;
       height: 100vh;
+      height: 100dvh; /* Soporte dinámico para barras de navegación en móviles */
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -67,7 +68,7 @@
     /* Layout */
     .app-container { display: flex; flex: 1; overflow: hidden; }
     .sidebar { width: 260px; background: #000; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 20px; transition: background 0.3s ease, border-color 0.3s ease; }
-    .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 160px; scroll-behavior: smooth; transition: background 0.3s ease; }
+    .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 220px; scroll-behavior: smooth; transition: background 0.3s ease; }
     
     .sticky-controls { position: sticky; top: 0; z-index: 1000; background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(15px); padding: 15px 0; margin: -15px 0 25px 0; transition: background 0.3s ease; }
 
@@ -292,7 +293,7 @@
           
           <div id="ad-container-radio" class="w-full mt-6 flex justify-center items-center overflow-hidden empty:hidden"></div>
           
-          <div class="h-10 w-full block"></div>
+          <div class="h-32 sm:h-24 w-full block"></div>
       </section>
 
       <div class="mb-10" id="moodFiltersContainer">
