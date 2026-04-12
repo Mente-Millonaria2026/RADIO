@@ -15,13 +15,6 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1DB954">
 
-  <meta id="og-title" property="og:title" content="RadioAR Pro | Radios Argentinas en Vivo">
-  <meta id="og-desc" property="og:description" content="Sintonizá el top de radios de Argentina en vivo con ecualizador, chat comunitario y sonido en alta calidad.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tudominio.com/"> 
-  <meta property="og:site_name" content="RadioAR Pro">
-  <meta property="og:image" content="https://ui-avatars.com/api/?name=RadioAR+Pro&background=000&color=1DB954&size=512">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -51,14 +44,9 @@
     .eq-bar:nth-child(2) { background-color: white; height: 100%; animation-delay: 0.4s; }
     .eq-bar:nth-child(3) { background-color: var(--arg-blue); height: 40%; animation-delay: 0.2s; }
 
-    @keyframes eqAnim {
-      0% { height: 20%; }
-      100% { height: 100%; }
-    }
+    @keyframes eqAnim { 0% { height: 20%; } 100% { height: 100%; } }
     
-    .arg-flag-mini {
-      width: 20px; height: 12px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; margin-left: 4px; transition: border 0.3s ease;
-    }
+    .arg-flag-mini { width: 20px; height: 12px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; margin-left: 4px; transition: border 0.3s ease; }
     .flag-stripe { flex: 1; width: 100%; }
     .stripe-blue { background-color: var(--arg-blue); }
     .stripe-white { background-color: white; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -70,6 +58,7 @@
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body.light-mode ::-webkit-scrollbar-thumb { background: #d4d4d8; }
 
     .section-bar { width: 4px; height: 20px; border-radius: 10px; flex-shrink: 0; }
     .bar-green { background: var(--sp-green); box-shadow: 0 0 12px rgba(29, 185, 84, 0.6); }
@@ -80,64 +69,27 @@
     .sidebar { width: 260px; background: #000; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 20px; transition: background 0.3s ease, border-color 0.3s ease; }
     .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 120px; scroll-behavior: smooth; transition: background 0.3s ease; }
     
-    .sticky-controls {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(18, 18, 18, 0.85);
-      backdrop-filter: blur(15px);
-      padding: 15px 0;
-      margin: -15px 0 25px 0;
-      transition: background 0.3s ease;
-    }
+    .sticky-controls { position: sticky; top: 0; z-index: 1000; background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(15px); padding: 15px 0; margin: -15px 0 25px 0; transition: background 0.3s ease; }
 
-    .chat-sidebar { 
-      width: 320px; 
-      background: #080808; 
-      border-left: 1px solid #1a1a1a; 
-      display: flex; 
-      flex-direction: column; 
-      transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-      height: calc(100vh - 90px);
-    }
+    .chat-sidebar { width: 320px; background: #080808; border-left: 1px solid #1a1a1a; display: flex; flex-direction: column; transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; height: calc(100vh - 90px); }
 
     @media (max-width: 1280px) { 
-      .chat-sidebar { 
-        position: fixed; 
-        right: 0; 
-        top: 0; 
-        bottom: 90px; 
-        z-index: 1400; 
-        transform: translateX(100%); 
-        height: auto;
-      } 
+      .chat-sidebar { position: fixed; right: 0; top: 0; bottom: 90px; z-index: 1400; transform: translateX(100%); height: auto; } 
       .chat-open { transform: translateX(0); } 
     }
 
     .search-wrapper { position: relative; width: 100%; }
-    .search-input {
-      width: 100%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px; padding: 12px 15px 12px 45px; color: inherit; font-size: 0.9rem; outline: none;
-      transition: all 0.3s ease;
-    }
+    .search-input { width: 100%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 12px 15px 12px 45px; color: inherit; font-size: 0.9rem; outline: none; transition: all 0.3s ease; }
     .search-input:focus { border-color: var(--sp-green); background: rgba(255, 255, 255, 0.15); }
 
     /* Cards & Carousel */
     .carousel-wrapper { position: relative; }
     .h-scroll { display: flex; overflow-x: auto; gap: 16px; padding: 10px 0; scroll-behavior: smooth; }
-    .nav-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.8); color: white; width: 36px; height: 36px;
-      border-radius: 50%; z-index: 50; display: flex; align-items: center; justify-content: center;
-      border: 1px solid #333; cursor: pointer; opacity: 0; transition: 0.3s;
-    }
+    .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: white; width: 36px; height: 36px; border-radius: 50%; z-index: 50; display: flex; align-items: center; justify-content: center; border: 1px solid #333; cursor: pointer; opacity: 0; transition: 0.3s; }
     .carousel-wrapper:hover .nav-arrow { opacity: 1; }
     .arrow-l { left: -10px; } .arrow-r { right: -10px; }
 
-    .r-card {
-      background: #181818; padding: 14px; border-radius: 12px; transition: 0.3s;
-      cursor: pointer; border: 1px solid transparent; position: relative; min-width: 160px;
-    }
+    .r-card { background: #181818; padding: 14px; border-radius: 12px; transition: 0.3s; cursor: pointer; border: 1px solid transparent; position: relative; min-width: 160px; }
     .r-card:hover { background: #282828; transform: translateY(-5px); border-color: #333; }
     .r-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; margin-bottom: 12px; }
     
@@ -148,13 +100,7 @@
     .is-fav { color: var(--sp-green) !important; opacity: 1 !important; }
 
     /* PLAYER BAR */
-    .player-bar {
-      position: fixed; bottom: 0; left: 0; width: 100%; height: 90px;
-      background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 2000;
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
+    .player-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 90px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 2000; transition: background 0.3s ease, border-color 0.3s ease; }
 
     .pill { padding: 6px 14px; border-radius: 20px; background: #1a1a1a; font-size: 11px; font-weight: 700; color: #b3b3b3; border: 1px solid #333; white-space: nowrap; cursor: pointer; transition: 0.2s; }
     .pill.active { background: white; color: black; border-color: white; }
@@ -163,54 +109,19 @@
 
     /* MOBILE PROVINCES */
     .mobile-header { display: none; background: #000; border-bottom: 1px solid #1a1a1a; flex-direction: column; z-index: 1001; transition: background 0.3s ease, border-color 0.3s ease; }
-    .prov-nav-wrapper { 
-        display: flex; 
-        align-items: center; 
-        background: #080808; 
-        padding: 5px; 
-        position: relative;
-        border-top: 1px solid #111;
-        transition: background 0.3s ease, border-color 0.3s ease;
-    }
-    .prov-scroll { 
-        display: flex; 
-        overflow-x: auto; 
-        gap: 8px; 
-        flex: 1; 
-        padding: 10px 40px; 
-        scroll-behavior: smooth;
-    }
-    .prov-arrow {
-        position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: rgba(0,0,0,0.8); border: 1px solid #333; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer;
-    }
-    .prov-arrow-l { left: 5px; }
-    .prov-arrow-r { right: 5px; }
+    .prov-nav-wrapper { display: flex; align-items: center; background: #080808; padding: 5px; position: relative; border-top: 1px solid #111; transition: background 0.3s ease, border-color 0.3s ease; }
+    .prov-scroll { display: flex; overflow-x: auto; gap: 8px; flex: 1; padding: 10px 40px; scroll-behavior: smooth; }
+    .prov-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: rgba(0,0,0,0.8); border: 1px solid #333; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; }
+    .prov-arrow-l { left: 5px; } .prov-arrow-r { right: 5px; }
     
-    @media (max-width: 1024px) { 
-      .sidebar { display: none; } 
-      .mobile-header { display: flex; } 
-    }
+    @media (max-width: 1024px) { .sidebar { display: none; } .mobile-header { display: flex; } }
 
     /* --- CHAT STYLE --- */
     .chat-msg { animation: chatIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes chatIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    input[type=range].eq-slider {
-      -webkit-appearance: none;
-      background: #27272a;
-      height: 4px;
-      border-radius: 4px;
-      outline: none;
-    }
-    input[type=range].eq-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffffff;
-      cursor: pointer;
-    }
+    input[type=range].eq-slider { -webkit-appearance: none; background: #27272a; height: 4px; border-radius: 4px; outline: none; }
+    input[type=range].eq-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #ffffff; cursor: pointer; }
 
     /* --- THEME TOGGLE (LIGHT MODE) --- */
     body.light-mode { background: #f4f4f5; color: #18181b; color-scheme: light; }
@@ -254,19 +165,20 @@
 
     /* --- SPOTIFY STYLE SINGLE VIEW --- */
     .animate-fade-in { animation: fadeIn 0.4s ease forwards; }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .spotify-header {
-        background: linear-gradient(180deg, rgba(29,185,84,0.15) 0%, rgba(0,0,0,0) 100%);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    body.light-mode .spotify-header {
-        background: linear-gradient(180deg, rgba(29,185,84,0.1) 0%, rgba(255,255,255,0) 100%);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .spotify-header { background: linear-gradient(180deg, rgba(29,185,84,0.15) 0%, rgba(0,0,0,0) 100%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    body.light-mode .spotify-header { background: linear-gradient(180deg, rgba(29,185,84,0.1) 0%, rgba(255,255,255,0) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
     body.light-mode #detail-title { color: #18181b; }
+
+    /* --- TICKER DE NOTICIAS --- */
+    .ticker-wrap { position: relative; width: 100%; overflow: hidden; background: rgba(255,255,255,0.05); padding: 10px 0; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; }
+    .ticker-badge { position: absolute; left: 10px; z-index: 10; background: #e11d48; color: white; padding: 4px 10px; font-size: 10px; font-weight: 900; border-radius: 20px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .ticker-content { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; font-weight: 600; font-size: 13px; padding-left: 100%; color: #e4e4e7; }
+    .ticker-wrap:hover .ticker-content { animation-play-state: paused; cursor: default; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    
+    body.light-mode .ticker-wrap { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .ticker-content { color: #18181b; }
   </style>
 </head>
 <body>
@@ -275,33 +187,16 @@
     <div class="p-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <div class="epic-logo" onclick="handleHomeTap()">
-          <div class="eq-icon">
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
-          </div>
+          <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
           <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
         </div>
-        <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio">
-          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        </button>
-        <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos">
-          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        </button>
-        <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web">
-          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-        </button>
-        <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-[var(--sp-green)] transition-colors" title="Radios del Mundo">
-  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
-  </svg>
-</button>
+        <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
+        <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg></button>
+        <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-[var(--sp-green)] transition-colors" title="Radios del Mundo"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></button>
       </div>
-      <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-      </button>
+      <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
     </div>
-    
     <div class="prov-nav-wrapper" id="mobProvNav">
       <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">❮</button>
       <div class="prov-scroll no-scrollbar" id="mobProvs"></div>
@@ -312,27 +207,15 @@
   <div class="app-container">
     <aside class="sidebar">
       <div class="epic-logo mb-10" onclick="handleHomeTap()">
-        <div class="eq-icon">
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-        </div>
+        <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
         <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
-        <div class="arg-flag-mini">
-          <div class="flag-stripe stripe-blue"></div>
-          <div class="flag-stripe stripe-white"><div class="sun-mini"></div></div>
-          <div class="flag-stripe stripe-blue"></div>
-        </div>
+        <div class="arg-flag-mini"><div class="flag-stripe stripe-blue"></div><div class="flag-stripe stripe-white"><div class="sun-mini"></div></div><div class="flag-stripe stripe-blue"></div></div>
       </div>
       <nav class="space-y-2 mb-8">
         <button onclick="handleHomeTap()" class="flex items-center gap-4 w-full p-3 bg-zinc-900 rounded-xl font-bold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</button>
         <button onclick="renderFavorites()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favoritos</button>
-        <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Radios del Mundo
-        </button>
-        <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition">
-          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live
-        </button>
+        <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Radios del Mundo</button>
+        <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live</button>
         <button onclick="shareWeb()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir Web</button>
       </nav>
       <div id="sideProvs" class="overflow-y-auto space-y-1 pr-2 no-scrollbar">
@@ -352,8 +235,7 @@
       <div class="sticky-controls">
         <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
           <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 9.42l-1.41 1.41L17.96 19 20 16.96V22h-5.04l2.04-2.04-4.17-4.17z"/></svg>
-            Zapping Aleatorio
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 9.42l-1.41 1.41L17.96 19 20 16.96V22h-5.04l2.04-2.04-4.17-4.17z"/></svg> Zapping Aleatorio
           </button>
           
           <div class="flex items-center gap-2 w-full max-w-[450px]">
@@ -370,26 +252,37 @@
       </div>
 
       <section id="singleRadioView" class="hidden animate-fade-in mb-14">
-          <button onclick="closeRadioView()" class="mb-6 text-zinc-400 hover:text-white flex items-center gap-2 text-sm font-bold w-max transition">
+          <button onclick="closeRadioView()" class="mb-4 text-zinc-400 hover:text-white flex items-center gap-2 text-sm font-bold w-max transition">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Volver al inicio
           </button>
-          <div class="spotify-header p-6 md:p-10 rounded-3xl flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8">
-              <img id="detail-img" src="" class="w-48 h-48 md:w-60 md:h-60 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] object-cover" />
-              <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1">
-                  <span class="text-xs font-black text-white bg-red-600 px-2 py-1 rounded mb-3 uppercase tracking-widest flex items-center gap-1 shadow-lg w-max">
+          
+          <div id="radio-news-wrapper" class="hidden flex-row items-center gap-2 w-full mb-4">
+              <div id="radio-weather-widget" class="hidden flex items-center justify-center gap-1.5 bg-zinc-800 text-white px-3 py-2 rounded-xl border border-zinc-700 shadow-lg flex-shrink-0">
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
+                  <span class="text-xs font-black tracking-wide" id="radio-weather-temp">--°C</span>
+              </div>
+              <div id="radio-news-ticker" class="ticker-wrap hidden flex-1 !mb-0 !mt-0 !py-[8px]">
+                  <span class="ticker-badge !top-[50%] !-translate-y-1/2">ÚLTIMO MOMENTO</span>
+                  <div id="radio-news-content" class="ticker-content">Buscando noticias...</div>
+              </div>
+          </div>
+
+          <div class="spotify-header p-4 md:p-6 rounded-3xl flex flex-row items-start gap-4 md:gap-6 mt-2 relative">
+              <img id="detail-img" src="" class="w-20 h-20 md:w-28 md:h-28 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] object-cover flex-shrink-0" />
+              <div class="flex flex-col items-start text-left flex-1 min-w-0">
+                  <span class="text-[10px] md:text-xs font-black text-white bg-red-600 px-2 py-1 rounded mb-2 uppercase tracking-widest flex items-center gap-1 shadow-lg w-max">
                       <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> EN VIVO
                   </span>
-                  <h2 id="detail-title" class="text-4xl md:text-6xl font-black tracking-tighter text-white drop-shadow-lg mb-2"></h2>
-                  <p id="detail-desc" class="text-zinc-300 font-medium text-sm md:text-base max-w-2xl mb-2"></p>
-                  <a id="detail-website" target="_blank" rel="noopener noreferrer" class="hidden text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors underline mb-4 w-max flex items-center gap-1">
-                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.45 2-1v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                      Visitar Web Oficial
+                  <h2 id="detail-title" class="text-2xl md:text-4xl font-black tracking-tighter text-white drop-shadow-lg mb-1 truncate w-full"></h2>
+                  <p id="detail-desc" class="text-zinc-300 font-medium text-xs md:text-sm max-w-2xl mb-2 line-clamp-2"></p>
+                  <a id="detail-website" target="_blank" rel="noopener noreferrer" class="hidden text-[10px] md:text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors underline mb-3 w-max flex items-center gap-1">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.45 2-1v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Visitar Web Oficial
                   </a>
-                  <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="detail-tags"></div>
+                  <div class="flex flex-wrap gap-2 justify-start" id="detail-tags"></div>
               </div>
           </div>
           
-          <div id="ad-container-radio" class="w-full mt-8 flex justify-center items-center overflow-hidden empty:hidden"></div>
+          <div id="ad-container-radio" class="w-full mt-6 flex justify-center items-center overflow-hidden empty:hidden"></div>
       </section>
 
       <div class="mb-10" id="moodFiltersContainer">
@@ -431,8 +324,7 @@
       
       <div id="ad-container-sidebar" class="w-full bg-[#050505] border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
       
-      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages">
-      </div>
+      <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
 
       <div class="px-4 pb-2">
         <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
@@ -475,20 +367,23 @@
 
   <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
     <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-[90vh]">
-      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl">✕</button>
+      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
       
       <div class="text-center mb-4 flex-shrink-0">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
       </div>
       
-      <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-1 rounded-xl">
-          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-1 bg-zinc-700 text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
-          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏷️ Categorías</button>
-          <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
+      <div class="flex gap-1 mb-4 flex-shrink-0 bg-zinc-800/50 p-1 rounded-xl overflow-x-auto no-scrollbar">
+          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
+          <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏆 Top 10</button>
+          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏷️ Cats</button>
+          <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">📰 Noticias</button>
+          <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
+          <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
       </div>
 
-      <div id="tabRadios" class="flex flex-col flex-1 overflow-hidden">
-          <form id="manualRadioForm" class="space-y-3 flex-shrink-0 overflow-y-auto no-scrollbar pr-1 pb-1">
+      <div id="tabRadios" class="flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="manualRadioForm" class="space-y-3 flex-shrink-0">
             <input type="hidden" id="mEditKey" value="">
             <input type="hidden" id="mOriginalUuid" value=""> 
             <input type="text" id="mName" placeholder="Nombre de la Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
@@ -549,16 +444,29 @@
             </div>
           </form>
 
-          <div class="mt-4 flex-1 overflow-hidden flex flex-col border-t border-zinc-800 pt-3">
-              <div class="flex justify-between items-center mb-2 flex-shrink-0">
+          <div class="mt-4 flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
+              <div class="flex justify-between items-center mb-2">
                   <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Radios (API & Manuales)</h4>
               </div>
               <input type="text" id="adminSearch" placeholder="Buscar en todas las radios..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-blue-500" oninput="renderAdminRadiosList()">
-              <div id="manualRadiosList" class="overflow-y-auto space-y-2 pb-2 pr-1 no-scrollbar flex-1"></div>
+              <div id="manualRadiosList" class="space-y-2 flex-shrink-0"></div>
+          </div>
+      </div>
+      
+      <div id="tabTop10" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <div class="mb-4 flex-shrink-0">
+              <label class="text-xs font-bold text-yellow-500 uppercase">Añadir al Top 10</label>
+              <input type="text" id="top10Search" placeholder="Buscar radio por nombre para fijar en el top..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-yellow-500 mt-1" oninput="searchForTop10()">
+              <div id="top10SearchResults" class="space-y-1 mt-1"></div>
+          </div>
+          <div class="flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
+              <h4 class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-2 flex items-center gap-2">Top 10 En Vivo</h4>
+              <p class="text-[9px] text-zinc-500 mb-2">Aquí ves las radios que salen en el carrusel principal. Puedes quitar las que no te gusten o priorizar las tuyas.</p>
+              <div id="activeTop10List" class="space-y-2 flex-shrink-0"></div>
           </div>
       </div>
 
-      <div id="tabCats" class="hidden flex flex-col flex-1 overflow-hidden">
+      <div id="tabCats" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
            <form id="manualCatForm" class="space-y-3 flex-shrink-0">
               <input type="hidden" id="cEditKey" value="">
               <input type="text" id="cName" placeholder="Nombre (ej: Rock Nacional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-purple-500" required>
@@ -569,14 +477,47 @@
               </div>
            </form>
            
-           <div class="mt-4 flex-1 overflow-hidden flex flex-col border-t border-zinc-800 pt-3">
-              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 flex-shrink-0">Categorías Creadas</h4>
-              <div id="manualCatsList" class="overflow-y-auto space-y-2 pb-2 pr-1 no-scrollbar"></div>
+           <div class="mt-4 flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
+              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Categorías Creadas</h4>
+              <div id="manualCatsList" class="space-y-2 flex-shrink-0"></div>
           </div>
       </div>
+      
+      <div id="tabNews" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminNewsForm" class="space-y-4 flex-shrink-0">
+              <div>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">Mostrar Cintillo de Noticias</label>
+                  <select id="newsEnabled" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                      <option value="true">Sí, habilitar cintillo</option>
+                      <option value="false">No, ocultar cintillo</option>
+                  </select>
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase text-yellow-400">Velocidad del Cintillo</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Tiempo base en segundos. A mayor número, más lento avanza.</p>
+                  <input type="number" id="newsSpeed" placeholder="Ej: 30" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Para radios genéricas. Por defecto usa Clarín Último Momento.</p>
+                  <input type="url" id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Resultados y Hoy)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Se activa si la radio es de deportes/fútbol. Combina este feed con los resultados del día.</p>
+                  <input type="url" id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+              </div>
+              <div class="border-t border-zinc-800 pt-4">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Se activa si la radio tiene tag de música/rock. Por defecto usa Clarín Espectáculos.</p>
+                  <input type="url" id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+              </div>
+              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración RSS</button>
+          </form>
+      </div>
 
-      <div id="tabAds" class="hidden flex flex-col flex-1 overflow-hidden">
-           <form id="adminAdsForm" class="space-y-4 overflow-y-auto no-scrollbar flex-1 pb-2 pr-1">
+      <div id="tabAds" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+           <form id="adminAdsForm" class="space-y-4 flex-shrink-0">
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">Script Head AdSense (Opcional)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pégalo aquí.</p>
@@ -584,16 +525,55 @@
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase text-blue-400">Anuncio 1: Vista de Radio (Responsive)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Aparece dentro del panel de la radio cuando se hace clic en una. (Usa bloques adaptables).</p>
+                  <p class="text-[9px] text-zinc-500 mb-2">Aparece dentro del panel de la radio cuando se hace clic en una.</p>
                   <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase text-green-400">Anuncio 2: Sidebar Derecho (Cuadrado)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Aparece en la parte superior del chat de la comunidad. (Recomendado: Cuadrado 250x250 o 300x250).</p>
+                  <p class="text-[9px] text-zinc-500 mb-2">Aparece arriba del chat de la comunidad.</p>
                   <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración de Ads</button>
            </form>
+      </div>
+      
+      <div id="tabFirebase" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminFirebaseForm" class="space-y-4 flex-shrink-0">
+             <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl mb-2 text-xs text-red-200">
+                 <b>⚠️ Zona de Riesgo:</b> Aquí puedes reemplazar la base de datos por defecto con tus propias credenciales de Firebase. Al guardar se recargará la página.
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">API Key</label>
+                 <input type="text" id="fbApiKey" placeholder="AIzaSy..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">Auth Domain</label>
+                 <input type="text" id="fbAuthDomain" placeholder="midominio.firebaseapp.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">Database URL</label>
+                 <input type="text" id="fbDatabaseURL" placeholder="https://midominio.firebaseio.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">Project ID</label>
+                 <input type="text" id="fbProjectId" placeholder="midominio-proyecto" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">Storage Bucket</label>
+                 <input type="text" id="fbStorageBucket" placeholder="midominio.appspot.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">Messaging Sender ID</label>
+                 <input type="text" id="fbMessagingSenderId" placeholder="1234567890" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             <div>
+                 <label class="text-[10px] font-bold text-zinc-500 uppercase">App ID</label>
+                 <input type="text" id="fbAppId" placeholder="1:12345:web:abcd" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+             </div>
+             
+             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar Servidor</button>
+             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
+          </form>
       </div>
 
     </div>
@@ -717,20 +697,58 @@
     const relaxAudio = document.getElementById('relaxEngine');
     const pDot = document.getElementById('p-dot'), pStat = document.getElementById('p-stat'), pIcon = document.getElementById('p-icon');
     let allRadios = [], displayedRadios = [], currentOffset = 0;
-    let globalApiRadios = []; // Para almacenar las radios nativas de la API y cruzarlas con Firebase
+    let globalApiRadios = []; 
     const itemsPerPage = 30;
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let currentStation = null;
     
-    // Almacén global para las radios y categorias de Firebase
+    // Almacenes
     window.firebaseRadios = [];
     window.firebaseCategorias = [];
+    
+    // Coordenadas aproximadas por provincia para el Clima
+    const provCoords = {
+        "CABA": {lat: -34.6037, lon: -58.3816},
+        "Buenos Aires": {lat: -34.9214, lon: -57.9545},
+        "Catamarca": {lat: -28.4696, lon: -65.7852},
+        "Chaco": {lat: -27.4606, lon: -58.9839},
+        "Chubut": {lat: -43.3002, lon: -65.1023},
+        "Córdoba": {lat: -31.4201, lon: -64.1888},
+        "Corrientes": {lat: -27.4692, lon: -58.8306},
+        "Entre Ríos": {lat: -31.7331, lon: -60.5297},
+        "Formosa": {lat: -26.1775, lon: -58.1781},
+        "Jujuy": {lat: -24.1946, lon: -65.2971},
+        "La Pampa": {lat: -36.6167, lon: -64.2833},
+        "La Rioja": {lat: -29.4135, lon: -66.8565},
+        "Mendoza": {lat: -32.8908, lon: -68.8272},
+        "Misiones": {lat: -27.3671, lon: -55.8961},
+        "Neuquén": {lat: -38.9516, lon: -68.0591},
+        "Río Negro": {lat: -40.8135, lon: -63.0022},
+        "Salta": {lat: -24.7821, lon: -65.4232},
+        "San Juan": {lat: -31.5375, lon: -68.5364},
+        "San Luis": {lat: -33.2950, lon: -66.3356},
+        "Santa Cruz": {lat: -51.6226, lon: -69.2181},
+        "Santa Fe": {lat: -31.6333, lon: -60.7000},
+        "Santiago del Estero": {lat: -27.7951, lon: -64.2615},
+        "Tierra del Fuego": {lat: -54.8019, lon: -68.3030},
+        "Tucumán": {lat: -26.8083, lon: -65.2176}
+    };
+
+    // Configuración Global de Noticias
+    let globalNewsConfig = {
+        enabled: true,
+        speed: 30, // Segundos base
+        general: 'https://www.clarin.com/rss/lo-ultimo/',
+        sport: 'https://www.ole.com.ar/rss/ultimas-noticias/',
+        music: 'https://www.clarin.com/rss/espectaculos/'
+    };
+
+    // Configuración Global del Top 10 Manual
+    let globalTop10Config = { pinned: [], hidden: [] };
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
-
     const SEO_DATA = { provincias: {}, radios: {} };
 
-    // Limpiador HTTPS manual adicional de seguridad
     function makeHttps(url) {
         if(!url) return '';
         return url.replace(/^http:\/\//i, 'https://');
@@ -746,15 +764,12 @@
 
     function getRadioSEO(r) {
         const radioName = typeof r === 'string' ? r : r.name;
-        // Al generar el SLUG siempre desde el nombre en vivo, si modificás el nombre desde el panel, la URL cambia automáticamente
         const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
         
         if (!SEO_DATA.radios[radioName]) {
             SEO_DATA.radios[radioName] = { 
-                url: `radio-${slug}-en-vivo`, 
-                title: `${radioName} en Vivo | RadioAR Pro`, 
-                h1: `${radioName} en Vivo`, 
-                h2: `Estás escuchando ${radioName} en directo`, 
+                url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, 
+                h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, 
                 desc: (typeof r === 'object' && (r.meta_info || r.description)) ? (r.meta_info || r.description) : `Escuchá ${radioName} en vivo por internet.` 
             };
         } else if (typeof r === 'object') {
@@ -773,19 +788,11 @@
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
     }
 
-    // --- ACCESO MÓVIL AL PANEL (5 TAPS EN INICIO) ---
-    let homeTapCount = 0;
-    let homeTapTimer = null;
+    let homeTapCount = 0; let homeTapTimer = null;
     function handleHomeTap() {
-        homeTapCount++;
-        clearTimeout(homeTapTimer);
-        
-        if (homeTapCount >= 5) {
-            openAdminPanel();
-            homeTapCount = 0;
-        } else {
-            homeTapTimer = setTimeout(() => { homeTapCount = 0; }, 2000);
-        }
+        homeTapCount++; clearTimeout(homeTapTimer);
+        if (homeTapCount >= 5) { openAdminPanel(); homeTapCount = 0; } 
+        else { homeTapTimer = setTimeout(() => { homeTapCount = 0; }, 2000); }
         resetToHome();
     }
 
@@ -810,7 +817,143 @@
         } else resetToHome();
     });
 
-    /* --- SPOTIFY STYLE: SINGLE RADIO VIEW LOGIC --- */
+    /* --- LÓGICA DE CLIMA Y NOTICIAS --- */
+    async function fetchWeather(prov) {
+        const widget = document.getElementById('radio-weather-widget');
+        const wrapper = document.getElementById('radio-news-wrapper');
+        const tempEl = document.getElementById('radio-weather-temp');
+        const coords = provCoords[prov];
+        
+        if(!coords) {
+            widget.classList.add('hidden');
+            widget.classList.remove('flex');
+            return;
+        }
+        
+        wrapper.classList.remove('hidden');
+        wrapper.classList.add('flex');
+        widget.classList.remove('hidden');
+        widget.classList.add('flex');
+        tempEl.innerText = "...";
+        
+        try {
+            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
+            const data = await res.json();
+            if(data.current_weather) {
+                tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`;
+            } else {
+                widget.classList.add('hidden');
+                widget.classList.remove('flex');
+            }
+        } catch(e) {
+            widget.classList.add('hidden');
+            widget.classList.remove('flex');
+        }
+    }
+
+    function fetchRadioNews(tags, province) {
+        const wrapper = document.getElementById('radio-news-wrapper');
+        const tickerWrap = document.getElementById('radio-news-ticker');
+        const tickerContent = document.getElementById('radio-news-content');
+        
+        if (globalNewsConfig.enabled === false || globalNewsConfig.enabled === "false") {
+            tickerWrap.classList.add('hidden');
+            if(document.getElementById('radio-weather-widget').classList.contains('hidden')) {
+                wrapper.classList.add('hidden');
+                wrapper.classList.remove('flex');
+            }
+            return;
+        }
+
+        wrapper.classList.remove('hidden');
+        wrapper.classList.add('flex');
+        tickerWrap.classList.remove('hidden');
+        tickerContent.innerHTML = "Cargando información en vivo...";
+        
+        const t = (tags || "").toLowerCase();
+        const p = (province || "").trim();
+        let isSport = t.includes('sport') || t.includes('deporte') || t.includes('futbol') || t.includes('boca') || t.includes('river') || t.includes('partido');
+        let isMusic = t.includes('music') || t.includes('musica') || t.includes('pop') || t.includes('rock') || t.includes('retro');
+        
+        let rssUrls = [];
+        let promises = [];
+
+        if (isSport) {
+            const espnPromise = fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/arg.1/scoreboard')
+                .then(res => res.json())
+                .then(data => {
+                    let scoresHtml = [];
+                    if(data.events && data.events.length > 0) {
+                        data.events.forEach(ev => {
+                            try {
+                                const c1 = ev.competitions[0].competitors[0];
+                                const c2 = ev.competitions[0].competitors[1];
+                                const status = ev.status.type.shortDetail; 
+                                const scoreStr = `<span class="inline-flex items-center gap-2 mx-2 bg-black/20 px-3 py-1 rounded-lg border border-white/10"><img src="${c2.team.logo}" class="h-4 w-4 object-contain"> <span class="font-bold tracking-wide">${c2.team.shortDisplayName} ${c2.score} - ${c1.score} ${c1.team.shortDisplayName}</span> <img src="${c1.team.logo}" class="h-4 w-4 object-contain"> <span class="text-[10px] text-yellow-400 ml-1">(${status})</span></span>`;
+                                scoresHtml.push(scoreStr);
+                            } catch(e){}
+                        });
+                    }
+                    return scoresHtml.join(' ');
+                }).catch(() => "");
+            promises.push(espnPromise);
+            rssUrls.push(globalNewsConfig.sport || 'https://www.ole.com.ar/rss/ultimas-noticias/');
+        } else if (isMusic) {
+            rssUrls.push(globalNewsConfig.music || 'https://www.clarin.com/rss/espectaculos/');
+        } else {
+            if (p && p !== "Comunidad" && p !== "Global" && PROVS.includes(p)) {
+                rssUrls.push(`https://news.google.com/rss/search?q=noticias+provincia+${encodeURIComponent(p)}+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
+            }
+            rssUrls.push(globalNewsConfig.general || 'https://www.clarin.com/rss/lo-ultimo/');
+        }
+
+        rssUrls.forEach(url => {
+            promises.push(
+                fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === 'ok' && data.items) {
+                        return data.items.slice(0, 10).map(item => item.title);
+                    }
+                    return [];
+                }).catch(() => [])
+            );
+        });
+
+        Promise.all(promises).then(results => {
+            let finalHtml = "";
+            let headlines = [];
+            
+            results.forEach(res => {
+                if (typeof res === 'string' && res !== "") {
+                    finalHtml += res + " &nbsp;&nbsp; ⚡ &nbsp;&nbsp; "; 
+                } else if (Array.isArray(res)) {
+                    headlines = headlines.concat(res);
+                }
+            });
+
+            if(headlines.length > 0) {
+                headlines = headlines.filter((item, index) => headlines.indexOf(item) === index); 
+                finalHtml += headlines.join(' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ');
+            }
+            
+            if(finalHtml !== "") {
+                tickerContent.innerHTML = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ';
+                
+                const baseSpeed = parseInt(globalNewsConfig.speed) || 30;
+                const charCount = finalHtml.replace(/<[^>]*>?/gm, '').length;
+                const calcTime = Math.max(baseSpeed, (charCount / 50) * (baseSpeed / 2));
+                
+                tickerContent.style.animationDuration = calcTime + 's';
+            } else {
+                tickerContent.innerText = "Bienvenido a RadioAR Pro. Transmitiendo en vivo...";
+            }
+        }).catch(() => {
+            tickerContent.innerText = "Transmitiendo en vivo desde Argentina 🌎";
+        });
+    }
+
+    /* --- VISTA DE RADIO (SINGLE VIEW) --- */
     function openRadioView(r) {
         document.getElementById('sectTop').style.display = 'none';
         document.getElementById('gridTitleContainer').style.display = 'none';
@@ -823,17 +966,12 @@
 
         document.getElementById('detail-title').innerText = r.name;
         document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
-        
         document.getElementById('detail-desc').innerText = r.description || `Provincia/Estado: ${r.state || 'Desconocido'}. Disfrutá de la mejor transmisión en vivo con RadioAR Pro en máxima calidad.`;
 
         const webBtn = document.getElementById('detail-website');
         const site = makeHttps(r.homepage || r.website);
-        if (site) {
-            webBtn.href = site;
-            webBtn.classList.remove('hidden');
-        } else {
-            webBtn.classList.add('hidden');
-        }
+        if (site) { webBtn.href = site; webBtn.classList.remove('hidden'); } 
+        else { webBtn.classList.add('hidden'); }
 
         const tagsContainer = document.getElementById('detail-tags');
         tagsContainer.innerHTML = '';
@@ -847,21 +985,21 @@
         }
 
         if (r.tags) {
-            r.tags.split(',').forEach(tag => {
-                const t = tag.trim();
-                if(t) {
-                    const s = document.createElement('button');
-                    s.className = 'px-3 py-1 bg-zinc-800/80 hover:bg-white hover:text-black rounded-full text-[10px] font-bold text-zinc-300 border border-zinc-700/50 uppercase tracking-wide transition-all shadow-sm';
-                    s.innerText = '#' + t;
-                    s.onclick = () => {
-                        const searchInput = document.getElementById('masterSearch');
-                        searchInput.value = t;
-                        searchInput.dispatchEvent(new Event('input'));
-                    };
-                    tagsContainer.appendChild(s);
-                }
+            const tagArray = r.tags.split(',').map(t => t.trim()).filter(t => t);
+            tagArray.slice(0, 5).forEach(t => {
+                const s = document.createElement('button');
+                s.className = 'px-3 py-1 bg-zinc-800/80 hover:bg-white hover:text-black rounded-full text-[10px] font-bold text-zinc-300 border border-zinc-700/50 uppercase tracking-wide transition-all shadow-sm';
+                s.innerText = '#' + t;
+                s.onclick = () => {
+                    const searchInput = document.getElementById('masterSearch');
+                    searchInput.value = t; searchInput.dispatchEvent(new Event('input'));
+                };
+                tagsContainer.appendChild(s);
             });
         }
+        
+        fetchRadioNews(r.tags, r.state);
+        fetchWeather(r.state);
         document.getElementById('mainScroll').scrollTop = 0;
     }
 
@@ -917,7 +1055,6 @@
         pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
     }
 
-    /* --- CONTADOR ONLINE DINÁMICO --- */
     const onlineManager = {
         maxOnline: 195860, currentOnline: 39300,
         init() { this.updateCounter(); setInterval(() => this.updateCounter(), 4000); },
@@ -964,7 +1101,29 @@
         setTimeout(() => modal.classList.add('hidden'), 300);
     }
 
-    /* --- CARGA FLUIDA EN DOS ETAPAS --- */
+    /* --- RENDER TOP 10 EFECTIVO (MANUAL + API) --- */
+    window.renderActualTop10 = function() {
+        if (!window.rawApiTop10 || allRadios.length === 0) return;
+        let pinnedRadios = [];
+        let hiddenIds = globalTop10Config.hidden || [];
+        let pinnedIds = globalTop10Config.pinned || [];
+        
+        pinnedIds.forEach(id => {
+            let r = allRadios.find(x => x.stationuuid === id || x.fb_key === id);
+            if(r) pinnedRadios.push(r);
+        });
+
+        let apiRadiosFiltered = window.rawApiTop10.filter(r => 
+            !hiddenIds.includes(r.stationuuid) && 
+            !pinnedIds.includes(r.stationuuid)
+        );
+
+        window.currentActiveTop10 = [...pinnedRadios, ...apiRadiosFiltered].slice(0, 10);
+        renderGrid(window.currentActiveTop10, 'gridTop');
+        
+        if(window.renderAdminTop10) window.renderAdminTop10();
+    }
+
     const loadCountryData = async (country) => {
         document.getElementById('radioCount').innerText = "CARGANDO TOP...";
         document.getElementById('gridMain').innerHTML = ""; 
@@ -991,11 +1150,14 @@
                 localStorage.setItem(cacheKeyTop, JSON.stringify(top10));
             }
 
-            renderGrid(top10, 'gridTop');
+            window.rawApiTop10 = top10;
             
             allRadios = [...window.firebaseRadios, ...top10];
             displayedRadios = [...allRadios];
             renderGrid(displayedRadios, 'gridMain');
+            
+            if(window.renderActualTop10) window.renderActualTop10();
+
             document.getElementById('sectTop').style.display = 'block';
             document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
 
@@ -1011,7 +1173,7 @@
                 }
 
                 globalApiRadios = apiRadios;
-                window.triggerGridRefresh(); // Cruza con Firebase y renderiza
+                window.triggerGridRefresh(); 
             }, 50); 
 
         } catch (e) { 
@@ -1025,6 +1187,8 @@
         const filteredApi = globalApiRadios.filter(a => !fbOriginalIds.includes(a.stationuuid));
         
         allRadios = [...window.firebaseRadios, ...filteredApi];
+        
+        if(window.renderActualTop10) window.renderActualTop10();
 
         if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
             if (document.getElementById('singleRadioView').classList.contains('hidden')) {
@@ -1035,9 +1199,7 @@
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
         }
         
-        if(typeof renderAdminRadiosList === 'function') {
-            renderAdminRadiosList();
-        }
+        if(typeof renderAdminRadiosList === 'function') { renderAdminRadiosList(); }
     };
 
     function shareRadio(e, uuid) {
@@ -1057,38 +1219,39 @@
     function toggleCustomCat() {
         const select = document.getElementById('mCategoria');
         const customInput = document.getElementById('mCategoriaCustom');
-        if (select.value === 'otra') {
-            customInput.classList.remove('hidden'); customInput.required = true;
-        } else {
-            customInput.classList.add('hidden'); customInput.required = false; customInput.value = '';
-        }
+        if (select.value === 'otra') { customInput.classList.remove('hidden'); customInput.required = true; } 
+        else { customInput.classList.add('hidden'); customInput.required = false; customInput.value = ''; }
     }
 
     function openAdminPanel() { 
         document.getElementById('adminPanel').classList.remove('hidden'); 
         if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList();
+        if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10();
     }
     
     document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
 
     window.switchAdminTab = function(tab) {
-        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); const tabA = document.getElementById('tabAds');
-        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); const btnA = document.getElementById('tabBtnAds');
+        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); 
+        const tabA = document.getElementById('tabAds'); const tabN = document.getElementById('tabNews');
+        const tabF = document.getElementById('tabFirebase'); const tabT = document.getElementById('tabTop10');
+        
+        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); 
+        const btnA = document.getElementById('tabBtnAds'); const btnN = document.getElementById('tabBtnNews');
+        const btnF = document.getElementById('tabBtnFirebase'); const btnT = document.getElementById('tabBtnTop10');
 
-        const actClass = "flex-1 bg-zinc-700 text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
-        const inactClass = "flex-1 text-zinc-400 hover:text-white rounded-lg py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
+        const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
+        const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
-        tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden');
-        btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass;
+        tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden');
+        btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass; btnN.className = inactClass; btnF.className = inactClass; btnT.className = inactClass;
 
-        if(tab === 'radios') {
-            tabR.classList.remove('hidden'); btnR.className = actClass;
-            if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList();
-        } else if (tab === 'cats') {
-            tabC.classList.remove('hidden'); btnC.className = actClass;
-        } else if (tab === 'ads') {
-            tabA.classList.remove('hidden'); btnA.className = actClass;
-        }
+        if(tab === 'radios') { tabR.classList.remove('hidden'); btnR.className = actClass; if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); } 
+        else if (tab === 'cats') { tabC.classList.remove('hidden'); btnC.className = actClass; } 
+        else if (tab === 'ads') { tabA.classList.remove('hidden'); btnA.className = actClass; }
+        else if (tab === 'news') { tabN.classList.remove('hidden'); btnN.className = actClass; }
+        else if (tab === 'firebase') { tabF.classList.remove('hidden'); btnF.className = actClass; }
+        else if (tab === 'top10') { tabT.classList.remove('hidden'); btnT.className = actClass; if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10(); }
     };
 
     function updateMediaSession(r) {
@@ -1103,7 +1266,7 @@
 
     function play(uuid, skipPush = false) {
       if(!relaxAudio.paused) stopRelax(); 
-      const r = allRadios.find(x => x.stationuuid === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
+      const r = allRadios.find(x => x.stationuuid === uuid || x.fb_key === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
       if(!r) return;
       
       initEQ(); currentStation = r;
@@ -1123,19 +1286,20 @@
       const container = document.getElementById(id); 
       if (!append) container.innerHTML = "";
       data.forEach(r => {
+        const itemId = r.fb_key || r.stationuuid;
         const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
         div.className = "r-card";
         div.innerHTML = `
           <div class="card-actions">
-            <button class="action-btn" onclick="shareRadio(event, '${r.stationuuid}')" title="Compartir radio">
+            <button class="action-btn" onclick="shareRadio(event, '${itemId}')" title="Compartir radio">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
-            <button class="action-btn ${favs.includes(r.stationuuid) ? 'is-fav' : ''}" onclick="toggleF(event, '${r.stationuuid}')" title="Agregar a Favoritos">
+            <button class="action-btn ${favs.includes(itemId) ? 'is-fav' : ''}" onclick="toggleF(event, '${itemId}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
           </div>
-          <div onclick="play('${r.stationuuid}')">
+          <div onclick="play('${itemId}')">
             <img loading="lazy" src="${safeFavicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
             <div class="font-bold text-sm truncate">${r.name}</div>
             <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
@@ -1220,7 +1384,7 @@
     function renderFavorites() {
       document.getElementById('viewLabel').innerText = "Favoritos"; document.getElementById('viewSub').innerText = "Tus radios guardadas";
       closeRadioView();
-      displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid));
+      displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid || r.fb_key));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = 'none';
     }
 
@@ -1257,7 +1421,12 @@
 
     function sideScroll(id, val) { document.getElementById(id).scrollBy({ left: val, behavior: 'smooth' }); }
     function toggleChat() { document.getElementById('chatSidebar').classList.toggle('chat-open'); }
-    function triggerZapping() { play(allRadios[Math.floor(Math.random()*allRadios.length)].stationuuid); }
+    function triggerZapping() { 
+        if(allRadios.length > 0) {
+            const randomRadio = allRadios[Math.floor(Math.random()*allRadios.length)];
+            play(randomRadio.fb_key || randomRadio.stationuuid); 
+        }
+    }
 
     init();
   </script>
@@ -1267,10 +1436,9 @@
     import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
     /* ========================================================
-    ATENCIÓN DE SEGURIDAD PARA FIREBASE (REALTIME DATABASE)
+    GESTIÓN DINÁMICA DE CREDENCIALES DE FIREBASE
     ======================================================== */
-
-    const firebaseConfig = {
+    const defaultFbConfig = {
       apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
       authDomain: "radioarpro.firebaseapp.com",
       databaseURL: "https://radioarpro-default-rtdb.firebaseio.com",
@@ -1281,14 +1449,172 @@
       measurementId: "G-051Z1FBHEK"
     };
 
+    const savedFbConfig = JSON.parse(localStorage.getItem('RAR_FIREBASE_CONFIG'));
+    const firebaseConfig = savedFbConfig || defaultFbConfig;
+
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const chatRef = ref(db, 'chat_comunidad');
     const radioRef = ref(db, 'radios_comunidad');
     const catRef = ref(db, 'categorias_comunidad');
     const adsRef = ref(db, 'settings_comunidad/ads');
+    const newsRef = ref(db, 'settings_comunidad/news');
+    const top10Ref = ref(db, 'settings_comunidad/top10');
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
+
+    document.getElementById('fbApiKey').value = firebaseConfig.apiKey || "";
+    document.getElementById('fbAuthDomain').value = firebaseConfig.authDomain || "";
+    document.getElementById('fbDatabaseURL').value = firebaseConfig.databaseURL || "";
+    document.getElementById('fbProjectId').value = firebaseConfig.projectId || "";
+    document.getElementById('fbStorageBucket').value = firebaseConfig.storageBucket || "";
+    document.getElementById('fbMessagingSenderId').value = firebaseConfig.messagingSenderId || "";
+    document.getElementById('fbAppId').value = firebaseConfig.appId || "";
+
+    document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const newConfig = {
+            apiKey: document.getElementById('fbApiKey').value.trim(),
+            authDomain: document.getElementById('fbAuthDomain').value.trim(),
+            databaseURL: document.getElementById('fbDatabaseURL').value.trim(),
+            projectId: document.getElementById('fbProjectId').value.trim(),
+            storageBucket: document.getElementById('fbStorageBucket').value.trim(),
+            messagingSenderId: document.getElementById('fbMessagingSenderId').value.trim(),
+            appId: document.getElementById('fbAppId').value.trim()
+        };
+
+        if(!newConfig.apiKey || !newConfig.projectId) { return alert("API Key y Project ID son obligatorios."); }
+
+        localStorage.setItem('RAR_FIREBASE_CONFIG', JSON.stringify(newConfig));
+        alert("Credenciales guardadas. La página se recargará para aplicar los cambios.");
+        window.location.reload();
+    });
+
+    window.resetFirebase = function() {
+        if(confirm('¿Estás seguro de que quieres volver a la base de datos por defecto?')) {
+            localStorage.removeItem('RAR_FIREBASE_CONFIG');
+            window.location.reload();
+        }
+    };
+
+
+    // --- TOP 10 MANUAL CONFIG ---
+    onValue(top10Ref, (snapshot) => {
+        globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
+        if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
+        if(!globalTop10Config.hidden) globalTop10Config.hidden = [];
+        
+        if(window.renderActualTop10) window.renderActualTop10();
+    });
+
+    window.renderAdminTop10 = function() {
+        const list = document.getElementById('activeTop10List');
+        if(!list) return;
+        list.innerHTML = '';
+        
+        if(!window.currentActiveTop10) return;
+        
+        window.currentActiveTop10.forEach((r, idx) => {
+            const id = r.fb_key || r.stationuuid;
+            const isPinned = globalTop10Config.pinned.includes(id);
+            list.innerHTML += `
+                <div class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                        <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="truncate">
+                            <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                            <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+                        </div>
+                    </div>
+                    <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors">Quitar</button>
+                </div>
+            `;
+        });
+    };
+
+    window.searchForTop10 = function() {
+        const q = document.getElementById('top10Search').value.toLowerCase();
+        const resDiv = document.getElementById('top10SearchResults');
+        if(q.length < 2) { resDiv.innerHTML = ''; return; }
+        
+        const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
+        resDiv.innerHTML = found.map(r => {
+            const id = r.fb_key || r.stationuuid;
+            return `
+            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
+                <div class="flex items-center gap-2 truncate">
+                    <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                    <span class="text-xs text-white font-bold truncate">${r.name}</span>
+                </div>
+                <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">Añadir al Top</span>
+            </div>
+        `}).join('');
+    };
+
+    window.addToTop10 = function(id) {
+        const pass = prompt("Contraseña de Administrador para fijar en el Top 10:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        let newPinned = [...globalTop10Config.pinned];
+        if(!newPinned.includes(id)) newPinned.unshift(id); // Agregar al principio
+        
+        let newHidden = globalTop10Config.hidden.filter(x => x !== id);
+        
+        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
+            document.getElementById('top10Search').value = '';
+            document.getElementById('top10SearchResults').innerHTML = '';
+        });
+    };
+
+    window.removeFromTop10 = function(id, isPinned) {
+        const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        let newPinned = globalTop10Config.pinned.filter(x => x !== id);
+        let newHidden = [...globalTop10Config.hidden];
+        
+        if(!isPinned) {
+            if(!newHidden.includes(id)) newHidden.push(id);
+        }
+        
+        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
+    };
+
+
+    // --- CARGA DE NOTICIAS (RSS) CONFIG ---
+    onValue(newsRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            globalNewsConfig = data;
+            document.getElementById('newsEnabled').value = data.enabled.toString();
+            document.getElementById('newsSpeed').value = data.speed || 30;
+            document.getElementById('rssGeneral').value = data.general || "";
+            document.getElementById('rssSport').value = data.sport || "";
+            document.getElementById('rssMusic').value = data.music || "";
+        }
+    });
+
+    document.getElementById('adminNewsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            enabled: document.getElementById('newsEnabled').value === "true",
+            speed: parseInt(document.getElementById('newsSpeed').value) || 30,
+            general: document.getElementById('rssGeneral').value,
+            sport: document.getElementById('rssSport').value,
+            music: document.getElementById('rssMusic').value
+        };
+        
+        update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
+            alert("Configuración de noticias guardada correctamente.");
+        }).catch(err => alert("Error: " + err.message));
+    });
 
     // --- CARGA DE ANUNCIOS (ADSENSE) ---
     function injectAdHTML(containerId, htmlString) {
@@ -1296,7 +1622,6 @@
         if(!container) return;
         container.innerHTML = htmlString || "";
         
-        // Extrae los scripts que pegaste y los fuerza a ejecutarse
         const scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
             const newScript = document.createElement('script');
@@ -1313,7 +1638,6 @@
             document.getElementById('adsRadio').value = data.radio || "";
             document.getElementById('adsSidebar').value = data.sidebar || "";
             
-            // Inyectar Script Base Head
             if(data.head && !document.getElementById('adsense-head-script')) {
                 const temp = document.createElement('div');
                 temp.innerHTML = data.head;
@@ -1327,7 +1651,6 @@
                 });
             }
             
-            // Inyectar Anuncios (Se mostrarán solo si no están vacíos gracias a empty:hidden)
             injectAdHTML('ad-container-sidebar', data.sidebar);
             injectAdHTML('ad-container-radio', data.radio);
         }
@@ -1488,6 +1811,7 @@
         document.getElementById('cValue').value = c.value;
         document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
         document.getElementById('cancelCatBtn').classList.remove('hidden');
+        document.getElementById('tabCats').scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.cancelCatEdit = function() {
@@ -1647,6 +1971,7 @@
 
         document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar Personalización API";
         document.getElementById('cancelRadioBtn').classList.remove('hidden');
+        document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.cancelRadioEdit = function() {
