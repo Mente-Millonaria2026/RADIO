@@ -1306,7 +1306,7 @@
         let pinnedIds = globalTop10Config.pinned || [];
         
         pinnedIds.forEach(id => {
-            let r = allRadios.find(x => x.stationuuid === id || x.fb_key === id);
+            let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
             if(r) pinnedRadios.push(r);
         });
 
@@ -1401,7 +1401,7 @@
 
     function shareRadio(e, uuid) {
         e.stopPropagation(); 
-        const r = allRadios.find(x => x.stationuuid === uuid) || { name: uuid };
+        const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || { name: uuid };
         const seoData = getRadioSEO(r); 
         const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
         const text = `¡Estoy escuchando ${r.name} en RadioAR Pro! 🌎 Escuchala en vivo acá:`;
@@ -1463,7 +1463,7 @@
 
     function play(uuid, skipPush = false) {
       if(!relaxAudio.paused) stopRelax(); 
-      const r = allRadios.find(x => x.stationuuid === uuid || x.fb_key === uuid) || displayedRadios.find(x => x.stationuuid === uuid);
+      const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || displayedRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid);
       if(!r) return;
       
       initEQ(); currentStation = r;
@@ -1483,20 +1483,23 @@
       const container = document.getElementById(id); 
       if (!append) container.innerHTML = "";
       data.forEach(r => {
-        const itemId = r.fb_key || r.stationuuid;
+        const primaryId = r.original_uuid || r.stationuuid || r.fb_key;
+        // Comprobación reforzada: verifica si en el array del localStorage está el ID actual o alguno de los antiguos.
+        const isFav = favs.includes(r.original_uuid) || favs.includes(r.stationuuid) || favs.includes(r.fb_key);
+        
         const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
         div.className = "r-card";
         div.innerHTML = `
           <div class="card-actions">
-            <button class="action-btn" onclick="shareRadio(event, '${itemId}')" title="Compartir radio">
+            <button class="action-btn" onclick="shareRadio(event, '${primaryId}')" title="Compartir radio">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
-            <button class="action-btn ${favs.includes(itemId) ? 'is-fav' : ''}" onclick="toggleF(event, '${itemId}')" title="Agregar a Favoritos">
+            <button class="action-btn ${isFav ? 'is-fav' : ''}" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
           </div>
-          <div onclick="play('${itemId}')">
+          <div onclick="play('${primaryId}')">
             <img loading="lazy" src="${safeFavicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
             <div class="font-bold text-sm truncate">${r.name}</div>
             <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
@@ -1581,7 +1584,10 @@
     function renderFavorites() {
       document.getElementById('viewLabel').innerText = "Favoritos"; document.getElementById('viewSub').innerText = "Tus radios guardadas";
       closeRadioView();
-      displayedRadios = allRadios.filter(r => favs.includes(r.stationuuid || r.fb_key));
+      
+      // Filtrado blindado: cruza todas las variaciones posibles del ID de una radio
+      displayedRadios = allRadios.filter(r => favs.includes(r.original_uuid) || favs.includes(r.stationuuid) || favs.includes(r.fb_key));
+      
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); document.getElementById('sectTop').style.display = 'none';
     }
 
@@ -1612,8 +1618,19 @@
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
     }
 
-    function toggleF(e, id) {
-      e.stopPropagation(); favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]; localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); e.currentTarget.classList.toggle('is-fav');
+    function toggleF(e, primaryId, stationUuid, fbKey) {
+      e.stopPropagation(); 
+      // Busca si algun ID asociado a esta radio ya está en el localStorage
+      const ids = [primaryId, stationUuid, fbKey].filter(Boolean);
+      const isFav = ids.some(id => favs.includes(id));
+      
+      if (isFav) {
+          favs = favs.filter(x => !ids.includes(x));
+      } else {
+          favs.push(primaryId);
+      }
+      localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); 
+      e.currentTarget.classList.toggle('is-fav', !isFav);
     }
 
     function sideScroll(id, val) { document.getElementById(id).scrollBy({ left: val, behavior: 'smooth' }); }
@@ -1738,7 +1755,7 @@
             const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
             if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
-            let currentList = window.currentActiveTop10.map(r => r.fb_key || r.stationuuid);
+            let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
             let draggedIdx = currentList.indexOf(draggedId);
             let targetIdx = currentList.indexOf(targetId);
             
@@ -1776,7 +1793,7 @@
         let html = '';
         if(window.currentActiveTop10) {
             window.currentActiveTop10.forEach((r, idx) => {
-                const id = r.fb_key || r.stationuuid;
+                const id = r.original_uuid || r.stationuuid || r.fb_key;
                 const isPinned = globalTop10Config.pinned.includes(id);
                 html += `
                     <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
@@ -1803,7 +1820,7 @@
         
         const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
         resDiv.innerHTML = found.map(r => {
-            const id = r.fb_key || r.stationuuid;
+            const id = r.original_uuid || r.stationuuid || r.fb_key;
             return `
             <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
                 <div class="flex items-center gap-2 truncate">
@@ -2162,7 +2179,7 @@
 
         toRender.forEach(r => {
             const isFb = r.fb_key ? true : false;
-            const itemId = r.fb_key || r.stationuuid;
+            const itemId = r.original_uuid || r.stationuuid || r.fb_key;
 
             const item = document.createElement('div');
             item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
@@ -2194,11 +2211,11 @@
     window.editAnyRadio = function(id, isFb) {
         let r;
         if (isFb) {
-            r = window.firebaseRadios.find(x => x.fb_key === id);
-            document.getElementById('mEditKey').value = id;
+            r = window.firebaseRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
+            document.getElementById('mEditKey').value = r.fb_key;
             document.getElementById('mOriginalUuid').value = r.original_uuid || "";
         } else {
-            r = allRadios.find(x => x.stationuuid === id);
+            r = allRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
             document.getElementById('mEditKey').value = ""; 
             document.getElementById('mOriginalUuid').value = id; 
         }
