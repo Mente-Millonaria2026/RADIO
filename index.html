@@ -190,6 +190,10 @@
         .ticker-wrap { border-radius: 12px; }
         #radio-news-ticker { margin-top: 0 !important; margin-bottom: 0 !important; }
     }
+
+    /* --- DRAG AND DROP ADMIN STATES --- */
+    .top10-drag-active { opacity: 0.5; border-color: #eab308 !important; background: rgba(234, 179, 8, 0.1) !important; }
+    .top10-drag-over { border-top: 3px solid #eab308 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
   </style>
 </head>
 <body>
@@ -479,8 +483,8 @@
           </div>
           <div class="flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
               <h4 class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-2 flex items-center gap-2">Top 10 En Vivo</h4>
-              <p class="text-[9px] text-zinc-500 mb-2">Aquí ves las radios que salen en el carrusel principal. Puedes quitar las que no te gusten o priorizar las tuyas.</p>
-              <div id="activeTop10List" class="space-y-2 flex-shrink-0"></div>
+              <p class="text-[9px] text-zinc-500 mb-2">Mantén presionado y arrastra una emisora para reordenarla a tu gusto en el Top 10.</p>
+              <div id="activeTop10List" class="flex flex-col flex-shrink-0"></div>
           </div>
       </div>
 
@@ -516,19 +520,19 @@
                   <input type="number" id="newsSpeed" placeholder="Ej: 30" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Para radios genéricas. Por defecto usa Clarín Último Momento.</p>
-                  <input type="url" id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias (Máx 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios genéricas.</p>
+                  <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/&#10;https://www.infobae.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Resultados y Hoy)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Se activa si la radio es de deportes/fútbol. Combina este feed con los resultados del día.</p>
-                  <input type="url" id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Máx 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios con tags de fútbol/deportes.</p>
+                  <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/&#10;https://www.tycsports.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Se activa si la radio tiene tag de música/rock. Por defecto usa Clarín Espectáculos.</p>
-                  <input type="url" id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos (Máx 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios musicales.</p>
+                  <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/&#10;https://tn.com.ar/rss/show/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración RSS</button>
           </form>
@@ -977,6 +981,17 @@
         let rssUrls = [];
         let promises = [];
 
+        // Helper para inyectar múltiples URLs desde el textarea config
+        const addUrls = (configField, defaultUrl) => {
+            if (Array.isArray(configField) && configField.length > 0) {
+                rssUrls.push(...configField);
+            } else if (typeof configField === 'string' && configField !== '') {
+                rssUrls.push(configField);
+            } else {
+                rssUrls.push(defaultUrl);
+            }
+        };
+
         if (isSport) {
             const espnPromise = fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/arg.1/scoreboard')
                 .then(res => res.json())
@@ -1064,10 +1079,10 @@
                 }).catch(() => "");
             promises.push(espnPromise);
             
-            rssUrls.push(globalNewsConfig.sport || 'https://www.ole.com.ar/rss/ultimas-noticias/');
+            addUrls(globalNewsConfig.sport, 'https://www.ole.com.ar/rss/ultimas-noticias/');
             rssUrls.push(`https://news.google.com/rss/search?q=deportes+futbol+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
         } else if (isMusic) {
-            rssUrls.push(globalNewsConfig.music || 'https://www.clarin.com/rss/espectaculos/');
+            addUrls(globalNewsConfig.music, 'https://www.clarin.com/rss/espectaculos/');
             rssUrls.push(`https://news.google.com/rss/search?q=musica+espectaculos+argentina+estrenos&hl=es-419&gl=AR&ceid=AR:es-419`);
         } else {
             if (p && p !== "Comunidad" && p !== "Global" && PROVS.includes(p)) {
@@ -1076,10 +1091,11 @@
             if (isNews) {
                 rssUrls.push(`https://news.google.com/rss/search?q=ultimas+noticias+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
             }
-            rssUrls.push(globalNewsConfig.general || 'https://www.clarin.com/rss/lo-ultimo/');
+            addUrls(globalNewsConfig.general, 'https://www.clarin.com/rss/lo-ultimo/');
         }
 
-        rssUrls = [...new Set(rssUrls)].slice(0, 3);
+        // Limitamos para no sobrecargar si cargan 5+ por default
+        rssUrls = [...new Set(rssUrls)].slice(0, 8);
 
         rssUrls.forEach(url => {
             promises.push(
@@ -1087,7 +1103,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if(data.status === 'ok' && data.items) {
-                        return data.items.slice(0, 15).map(item => item.title);
+                        return data.items.slice(0, 10).map(item => item.title);
                     }
                     return [];
                 }).catch(() => [])
@@ -1682,7 +1698,7 @@
     };
 
 
-    // --- TOP 10 MANUAL CONFIG ---
+    // --- TOP 10 MANUAL CONFIG (Drag & Drop Integrado) ---
     onValue(top10Ref, (snapshot) => {
         globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
         if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
@@ -1691,30 +1707,93 @@
         if(window.renderActualTop10) window.renderActualTop10();
     });
 
+    let draggedId = null;
+    
+    window.topDragStart = function(e, id) {
+        draggedId = id;
+        e.target.classList.add('top10-drag-active');
+        e.dataTransfer.effectAllowed = 'move';
+    };
+    
+    window.topDragOver = function(e) {
+        e.preventDefault(); 
+        e.dataTransfer.dropEffect = 'move';
+        const target = e.target.closest('[data-id]');
+        if(target && target.dataset.id !== draggedId) {
+            target.classList.add('top10-drag-over');
+        }
+    };
+    
+    window.topDragLeave = function(e) {
+        const target = e.target.closest('[data-id]');
+        if(target) target.classList.remove('top10-drag-over');
+    };
+    
+    window.topDrop = function(e, targetId) {
+        e.preventDefault();
+        const target = e.target.closest('[data-id]');
+        if(target) target.classList.remove('top10-drag-over');
+        
+        if (draggedId && draggedId !== targetId) {
+            const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+            let currentList = window.currentActiveTop10.map(r => r.fb_key || r.stationuuid);
+            let draggedIdx = currentList.indexOf(draggedId);
+            let targetIdx = currentList.indexOf(targetId);
+            
+            // Reordenar la vista actual
+            currentList.splice(draggedIdx, 1);
+            currentList.splice(targetIdx, 0, draggedId);
+            
+            // Mantener las fijadas globalmente sin perder ninguna oculta
+            let fullNewPinned = [];
+            currentList.forEach(id => {
+                if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
+                    fullNewPinned.push(id);
+                }
+            });
+            
+            // Agrega cualquier otra fijada que no estuviera visible en los primeros 10
+            globalTop10Config.pinned.forEach(id => {
+                if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+            });
+            
+            update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
+        }
+        draggedId = null;
+    };
+    
+    window.topDragEnd = function(e) {
+        e.target.classList.remove('top10-drag-active');
+        draggedId = null;
+    };
+
     window.renderAdminTop10 = function() {
         const list = document.getElementById('activeTop10List');
         if(!list) return;
-        list.innerHTML = '';
         
-        if(!window.currentActiveTop10) return;
-        
-        window.currentActiveTop10.forEach((r, idx) => {
-            const id = r.fb_key || r.stationuuid;
-            const isPinned = globalTop10Config.pinned.includes(id);
-            list.innerHTML += `
-                <div class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50">
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                        <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                        <div class="truncate">
-                            <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                            <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+        let html = '';
+        if(window.currentActiveTop10) {
+            window.currentActiveTop10.forEach((r, idx) => {
+                const id = r.fb_key || r.stationuuid;
+                const isPinned = globalTop10Config.pinned.includes(id);
+                html += `
+                    <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                            <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                            <div class="truncate">
+                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+                            </div>
                         </div>
+                        <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
                     </div>
-                    <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors">Quitar</button>
-                </div>
-            `;
-        });
+                `;
+            });
+        }
+        list.innerHTML = html;
     };
 
     window.searchForTop10 = function() {
@@ -1766,16 +1845,16 @@
     };
 
 
-    // --- CARGA DE NOTICIAS (RSS) CONFIG ---
+    // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
     onValue(newsRef, (snapshot) => {
         const data = snapshot.val();
         if(data) {
             globalNewsConfig = data;
             document.getElementById('newsEnabled').value = data.enabled.toString();
             document.getElementById('newsSpeed').value = data.speed || 30;
-            document.getElementById('rssGeneral').value = data.general || "";
-            document.getElementById('rssSport').value = data.sport || "";
-            document.getElementById('rssMusic').value = data.music || "";
+            document.getElementById('rssGeneral').value = Array.isArray(data.general) ? data.general.join('\n') : (data.general || "");
+            document.getElementById('rssSport').value = Array.isArray(data.sport) ? data.sport.join('\n') : (data.sport || "");
+            document.getElementById('rssMusic').value = Array.isArray(data.music) ? data.music.join('\n') : (data.music || "");
         }
     });
 
@@ -1784,16 +1863,18 @@
         const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
+        const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
+
         const data = {
             enabled: document.getElementById('newsEnabled').value === "true",
             speed: parseInt(document.getElementById('newsSpeed').value) || 30,
-            general: document.getElementById('rssGeneral').value,
-            sport: document.getElementById('rssSport').value,
-            music: document.getElementById('rssMusic').value
+            general: parseRssUrls(document.getElementById('rssGeneral').value),
+            sport: parseRssUrls(document.getElementById('rssSport').value),
+            music: parseRssUrls(document.getElementById('rssMusic').value)
         };
         
         update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
-            alert("Configuración de noticias guardada correctamente.");
+            alert("Configuración de noticias guardada correctamente (Máx 5 enlaces por sección).");
         }).catch(err => alert("Error: " + err.message));
     });
 
