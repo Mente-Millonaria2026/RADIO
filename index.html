@@ -62,7 +62,7 @@
     body.light-mode ::-webkit-scrollbar-thumb { background: #d4d4d8; }
 
     .section-bar { width: 4px; height: 20px; border-radius: 10px; flex-shrink: 0; }
-    .bar-green { background: var(--sp-green); box-shadow: 0 0 12px rgba(29, 185, 84, 0.6); }
+    .bar-green { background: var(--sp-green); box-shadow: 0 0 12px rgba(0, 36, 255, 0.6); }
     .bar-orange { background: #f97316; box-shadow: 0 0 12px rgba(249, 115, 22, 0.6); }
 
     /* Layout */
@@ -96,9 +96,12 @@
     
     .card-actions { position: absolute; top: 22px; right: 22px; display: flex; flex-direction: column; gap: 8px; z-index: 60; opacity: 0; transition: 0.2s; }
     .r-card:hover .card-actions { opacity: 1; }
-    .action-btn { background: rgba(0,0,0,0.8); padding: 7px; border-radius: 50%; color: white; transition: 0.2s; }
-    .action-btn:hover { background: white; color: black; }
-    .is-fav { color: var(--sp-green) !important; opacity: 1 !important; }
+    .action-btn { background: rgba(0,0,0,0.8); padding: 7px; border-radius: 50%; color: white; transition: all 0.2s ease; }
+    .action-btn:hover { background: white; color: black; transform: scale(1.1); }
+    
+    /* MODIFICACIÓN: Estado activo/seleccionado en color AZUL tanto para Fav como para Fuego */
+    .is-fav { color: var(--sp-green) !important; opacity: 1 !important; transform: scale(1.1); background: rgba(0, 36, 255, 0.15) !important; box-shadow: 0 0 10px rgba(0, 36, 255, 0.3); }
+    .is-fav:hover { background: var(--sp-green) !important; color: white !important; }
 
     /* PLAYER BAR */
     .player-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 90px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 2000; transition: background 0.3s ease, border-color 0.3s ease; }
@@ -156,7 +159,7 @@
     /* ESTILOS ESPECÍFICOS MODO RELAX */
     .relax-btn { background: #0a0a0a; border-color: #27272a; transition: all 0.2s ease; }
     .relax-btn:hover { border-color: #52525b; }
-    .relax-btn.active-relax { background: rgba(29, 185, 84, 0.1); border-color: var(--sp-green); }
+    .relax-btn.active-relax { background: rgba(0, 36, 255, 0.1); border-color: var(--sp-green); }
     .relax-btn.active-relax span:last-child { color: var(--sp-green); }
     
     body.light-mode .relax-btn { background: #f4f4f5; border-color: #e4e4e7; }
@@ -167,8 +170,8 @@
     /* --- SPOTIFY STYLE SINGLE VIEW --- */
     .animate-fade-in { animation: fadeIn 0.4s ease forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    .spotify-header { background: linear-gradient(180deg, rgba(29,185,84,0.15) 0%, rgba(0,0,0,0) 100%); border-bottom: 1px solid rgba(255,255,255,0.05); }
-    body.light-mode .spotify-header { background: linear-gradient(180deg, rgba(29,185,84,0.1) 0%, rgba(255,255,255,0) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .spotify-header { background: linear-gradient(180deg, rgba(0,36,255,0.15) 0%, rgba(0,0,0,0) 100%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    body.light-mode .spotify-header { background: linear-gradient(180deg, rgba(0,36,255,0.1) 0%, rgba(255,255,255,0) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
     body.light-mode #detail-title { color: #18181b; }
 
     /* --- TICKER DE NOTICIAS DRAGGABLE --- */
@@ -194,6 +197,20 @@
     /* --- DRAG AND DROP ADMIN STATES --- */
     .top10-drag-active { opacity: 0.5; border-color: #eab308 !important; background: rgba(234, 179, 8, 0.1) !important; }
     .top10-drag-over { border-top: 3px solid #eab308 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
+    
+    /* --- PARTICLES ANIMATION --- */
+    @keyframes popParticle {
+        0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+        100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.5); opacity: 0; }
+    }
+    .particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        animation: popParticle 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        font-size: 1.5rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
   </style>
 </head>
 <body>
@@ -658,7 +675,7 @@
                         <div id="alarm-status" class="w-2 h-2 rounded-full bg-zinc-600 transition-colors"></div>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-green-500 transition">
+                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-blue-500 transition">
                             <label class="text-[10px] text-zinc-500 font-bold uppercase w-8">ON</label>
                             <input type="time" id="alarm-on" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current">
                         </div>
@@ -745,6 +762,7 @@
     let globalApiRadios = []; 
     const itemsPerPage = 30;
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
+    let boosts = JSON.parse(localStorage.getItem('RAR_BOOSTS')) || [];
     let currentStation = null;
     
     // Variables globales para el Ticker arrastrable
@@ -797,6 +815,21 @@
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
     const SEO_DATA = { provincias: {}, radios: {} };
+
+    // Función global para crear partículas (corazones/fuegos)
+    function createParticles(x, y, emoji) {
+        for(let i = 0; i < 6; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.innerText = emoji;
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            p.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+            p.style.setProperty('--dy', (Math.random() * -80 - 20) + 'px');
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 800);
+        }
+    }
 
     function makeHttps(url) {
         if(!url) return '';
@@ -1261,7 +1294,7 @@
         
         document.getElementById('p-name').innerText = "Modo Relax (Loop 8 Hrs)";
         document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=Relax&background=1DB954&color=fff";
-        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#1DB954]";
+        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_#3b82f6]";
         pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; 
     }
 
@@ -1445,13 +1478,26 @@
         if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
 
-    // ACCION FUEGUITO
+    // ACCION FUEGUITO Y FAVORITOS REVISADA
     window.boostTrend = function(e, id) {
         e.stopPropagation();
-        if(window.updateTendenciasClicks) window.updateTendenciasClicks(id);
         const btn = e.currentTarget;
-        btn.classList.add('text-orange-500', 'scale-125');
-        setTimeout(() => btn.classList.remove('text-orange-500', 'scale-125'), 300);
+        let isBoosted = boosts.includes(id);
+
+        if (!isBoosted) {
+            if(window.updateTendenciasClicks) window.updateTendenciasClicks(id);
+            boosts.push(id);
+            localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts));
+            btn.classList.add('is-fav');
+            
+            const rect = btn.getBoundingClientRect();
+            // Lanza partículas de fuego
+            createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '🔥');
+        } else {
+            boosts = boosts.filter(x => x !== id);
+            localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts));
+            btn.classList.remove('is-fav');
+        }
     };
 
     function toggleCustomCat() {
@@ -1529,7 +1575,8 @@
       if (!append) container.innerHTML = "";
       data.forEach(r => {
         const primaryId = r.original_uuid || r.stationuuid || r.fb_key;
-        const isFav = favs.includes(r.original_uuid) || favs.includes(r.stationuuid) || favs.includes(r.fb_key);
+        const isFav = favs.includes(primaryId) || favs.includes(r.stationuuid) || favs.includes(r.fb_key);
+        const isBoosted = boosts.includes(primaryId) || boosts.includes(r.stationuuid) || boosts.includes(r.fb_key);
         
         const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
@@ -1542,7 +1589,7 @@
             <button class="action-btn ${isFav ? 'is-fav' : ''}" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
-            <button class="action-btn" onclick="boostTrend(event, '${primaryId}')" title="Dar fueguito (Tendencias)">
+            <button class="action-btn ${isBoosted ? 'is-fav' : ''}" onclick="boostTrend(event, '${primaryId}')" title="Dar fueguito (Tendencias)">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 23a7.5 7.5 0 0 0 7.5-7.5c0-3.32-2.14-6.19-5.12-7.14a.75.75 0 0 0-.96.91c.71 2.37-.1 4.51-1.87 5.76a.75.75 0 0 1-1.15-.8v-9.5a.75.75 0 0 0-1.42-.33c-2.4 4.88-2.67 9.87-.28 13.91a.75.75 0 0 1-1.07.95 6.51 6.51 0 0 1-2.03-3.03.75.75 0 0 0-1.41.35 9 9 0 0 0 15 6.42z"/></svg>
             </button>
           </div>
@@ -1675,8 +1722,14 @@
       const ids = [primaryId, stationUuid, fbKey].filter(Boolean);
       const isFav = ids.some(id => favs.includes(id));
       
-      if (isFav) favs = favs.filter(x => !ids.includes(x));
-      else favs.push(primaryId);
+      if (isFav) {
+          favs = favs.filter(x => !ids.includes(x));
+      } else {
+          favs.push(primaryId);
+          const rect = e.currentTarget.getBoundingClientRect();
+          // Lanza partículas de corazón azul
+          createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '💙');
+      }
       
       localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); 
       e.currentTarget.classList.toggle('is-fav', !isFav);
