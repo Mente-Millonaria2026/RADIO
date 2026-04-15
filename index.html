@@ -35,8 +35,39 @@
 
     /* --- UI COMPONENTS --- */
     .epic-logo { display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; color: white; transition: color 0.3s ease; }
-    .logo-text { font-size: 20px; font-weight: 800; letter-spacing: -1px; }
-    .logo-pro { color: #888; font-weight: 700; margin-left: 2px; }
+    .logo-text { font-size: 20px; font-weight: 800; letter-spacing: -1px; transition: all 0.3s ease; }
+    .logo-pro { color: #888; font-weight: 700; margin-left: 2px; transition: all 0.3s ease; }
+
+    /* --- ESTILO PREMIUM: ORO LÍQUIDO --- */
+    @keyframes liquidGold {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .logo-oro {
+        background: linear-gradient(270deg, #F6B40E, #fff1b0, #F6B40E, #c58e00);
+        background-size: 400% 400%;
+        animation: liquidGold 3s ease infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 4px 15px rgba(246, 180, 14, 0.4);
+    }
+    .logo-oro .logo-pro { color: inherit; -webkit-text-fill-color: transparent; }
+
+    @keyframes pulseGold {
+        0% { box-shadow: 0 0 0 0 rgba(246, 180, 14, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(246, 180, 14, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(246, 180, 14, 0); }
+    }
+    .btn-premium {
+        background: linear-gradient(135deg, #F6B40E 0%, #d49800 100%);
+        color: black;
+        animation: pulseGold 2s infinite;
+        border: none;
+        font-weight: 800;
+        transition: transform 0.2s;
+    }
+    .btn-premium:hover { transform: scale(1.02); }
     
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
@@ -99,7 +130,6 @@
     .action-btn { background: rgba(0,0,0,0.8); padding: 7px; border-radius: 50%; color: white; transition: all 0.2s ease; }
     .action-btn:hover { background: white; color: black; transform: scale(1.1); }
     
-    /* MODIFICACIÓN: Estado activo/seleccionado en color AZUL tanto para Fav como para Fuego */
     .is-fav { color: var(--sp-green) !important; opacity: 1 !important; transform: scale(1.1); background: rgba(0, 36, 255, 0.15) !important; box-shadow: 0 0 10px rgba(0, 36, 255, 0.3); }
     .is-fav:hover { background: var(--sp-green) !important; color: white !important; }
 
@@ -220,7 +250,7 @@
       <div class="flex items-center gap-3">
         <div class="epic-logo" onclick="handleHomeTap()">
           <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
-          <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
+          <div class="logo-text" id="mobLogoText">RadioAR<span class="logo-pro">Pro</span></div>
         </div>
         <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
         <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
@@ -229,6 +259,20 @@
       </div>
       <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
     </div>
+    
+    <div class="px-4 pb-2 w-full mt-1">
+      <button id="btnMobileLogin" onclick="iniciarSesion()" class="w-full text-xs bg-zinc-800 text-white font-bold py-1.5 rounded-lg flex items-center justify-center gap-2 border border-zinc-700">
+         <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar / Premium
+      </button>
+      <div id="mobileUserProfile" class="hidden items-center justify-between gap-3 bg-zinc-900 p-2 rounded-xl">
+         <div class="flex items-center gap-2">
+            <img id="mobileUserAvatar" src="" class="w-7 h-7 rounded-full">
+            <span id="mobileUserName" class="text-[10px] font-bold text-white truncate w-24"></span>
+         </div>
+         <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase">Salir</button>
+      </div>
+    </div>
+
     <div class="prov-nav-wrapper" id="mobProvNav">
       <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">❮</button>
       <div class="prov-scroll no-scrollbar" id="mobProvs"></div>
@@ -238,11 +282,31 @@
 
   <div class="app-container">
     <aside class="sidebar">
-      <div class="epic-logo mb-10" onclick="handleHomeTap()">
+      <div class="epic-logo mb-6" onclick="handleHomeTap()">
         <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
-        <div class="logo-text">RadioAR<span class="logo-pro">Pro</span></div>
+        <div class="logo-text" id="mainLogoText">RadioAR<span class="logo-pro">Pro</span></div>
         <div class="arg-flag-mini"><div class="flag-stripe stripe-blue"></div><div class="flag-stripe stripe-white"><div class="sun-mini"></div></div><div class="flag-stripe stripe-blue"></div></div>
       </div>
+      
+      <div id="authContainer" class="mb-6 flex flex-col gap-3">
+         <button id="btnLogin" onclick="iniciarSesion()" class="w-full bg-white hover:bg-zinc-200 text-black text-sm font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar con Google
+         </button>
+         
+         <div id="userProfile" class="hidden flex-col gap-3 bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+            <div class="flex items-center gap-3">
+               <img id="userAvatar" src="" class="w-10 h-10 rounded-full border border-zinc-700">
+               <div class="flex-1 overflow-hidden">
+                  <p id="userName" class="text-xs font-bold truncate text-white"></p>
+                  <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mt-1">Cerrar Sesión</button>
+               </div>
+            </div>
+            <button id="btnPremium" onclick="mostrarModalPago()" class="btn-premium hidden w-full py-2.5 rounded-lg flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
+               👑 Hazte Premium
+            </button>
+         </div>
+      </div>
+
       <nav class="space-y-2 mb-8">
         <button onclick="handleHomeTap()" class="flex items-center gap-4 w-full p-3 bg-zinc-900 rounded-xl font-bold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</button>
         <button onclick="renderFavorites()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favoritos</button>
@@ -413,15 +477,16 @@
      </div>
   </div>
 
-  <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-md shadow-2xl relative text-white flex flex-col max-h-[90vh]">
+  <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-2 md:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-2xl md:rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
       
       <div class="text-center mb-4 flex-shrink-0">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
       </div>
       
-      <div class="flex gap-1 mb-4 flex-shrink-0 bg-zinc-800/50 p-1 rounded-xl overflow-x-auto no-scrollbar">
+      <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl flex-wrap justify-center overflow-y-auto max-h-[120px] md:max-h-none no-scrollbar">
+          <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">👥 Users</button>
           <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
           <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏆 Top 10</button>
           <button onclick="switchAdminTab('tendencias')" id="tabBtnTendencias" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 Tend</button>
@@ -429,6 +494,12 @@
           <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">📰 Notas</button>
           <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
           <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
+          <button onclick="switchAdminTab('pagos')" id="tabBtnPagos" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💳 Pagos</button>
+      </div>
+
+      <div id="tabUsers" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+         <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Gestión de Usuarios Registrados</h4>
+         <div id="adminUsersList" class="space-y-2 flex-shrink-0"></div>
       </div>
 
       <div id="tabRadios" class="flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
@@ -637,6 +708,35 @@
              <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
           </form>
       </div>
+      
+      <div id="tabPagos" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminPagosForm" class="space-y-4 flex-shrink-0">
+             <div class="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl mb-2 text-xs text-blue-200">
+                 <b>💳 Pasarelas de Pago:</b> Configura tus credenciales de MercadoPago y PayPal para activar y cobrar el sistema Premium.
+             </div>
+             <div class="border-b border-zinc-800 pb-4">
+                 <h4 class="text-xs font-bold text-blue-400 uppercase mb-2">MercadoPago</h4>
+                 <div>
+                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Access Token</label>
+                     <input type="text" id="mpAccessToken" placeholder="APP_USR-..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                 </div>
+                 <div class="mt-3">
+                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Public Key</label>
+                     <input type="text" id="mpPublicKey" placeholder="APP_USR-..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                 </div>
+             </div>
+             
+             <div class="pt-2">
+                 <h4 class="text-xs font-bold text-blue-400 uppercase mb-2">PayPal</h4>
+                 <div>
+                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Client ID</label>
+                     <input type="text" id="ppClientId" placeholder="AXXX..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
+                 </div>
+             </div>
+             
+             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
+          </form>
+      </div>
 
     </div>
   </div>
@@ -772,6 +872,14 @@
     // Almacenes
     window.firebaseRadios = [];
     window.firebaseCategorias = [];
+    
+    // Funciones de pago simuladas
+    window.mostrarModalPago = function() {
+        alert("Funcionalidad de Pago: Seleccione un método (Conectado para integrar API reales)");
+        // pagarConMercadoPago(auth.currentUser.uid); // Si existiera integración real
+    };
+    window.pagarConMercadoPago = function(uid) { console.log("Procesando pago MercadoPago para:", uid); };
+    window.pagarConPayPal = function(uid) { console.log("Procesando pago PayPal para:", uid); };
     
     // Coordenadas aproximadas por provincia para el Clima
     const provCoords = {
@@ -1521,17 +1629,26 @@
         const tabA = document.getElementById('tabAds'); const tabN = document.getElementById('tabNews');
         const tabF = document.getElementById('tabFirebase'); const tabT = document.getElementById('tabTop10');
         const tabTen = document.getElementById('tabTendencias');
+        const tabU = document.getElementById('tabUsers');
+        const tabPagos = document.getElementById('tabPagos');
         
         const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); 
         const btnA = document.getElementById('tabBtnAds'); const btnN = document.getElementById('tabBtnNews');
         const btnF = document.getElementById('tabBtnFirebase'); const btnT = document.getElementById('tabBtnTop10');
         const btnTen = document.getElementById('tabBtnTendencias');
+        const btnU = document.getElementById('tabBtnUsers');
+        const btnPagos = document.getElementById('tabBtnPagos');
 
         const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
         const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
         tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden'); tabTen.classList.add('hidden');
+        if(tabU) tabU.classList.add('hidden');
+        if(tabPagos) tabPagos.classList.add('hidden');
+
         btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass; btnN.className = inactClass; btnF.className = inactClass; btnT.className = inactClass; btnTen.className = inactClass;
+        if(btnU) btnU.className = inactClass;
+        if(btnPagos) btnPagos.className = inactClass;
 
         if(tab === 'radios') { tabR.classList.remove('hidden'); btnR.className = actClass; if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); } 
         else if (tab === 'cats') { tabC.classList.remove('hidden'); btnC.className = actClass; } 
@@ -1540,6 +1657,8 @@
         else if (tab === 'firebase') { tabF.classList.remove('hidden'); btnF.className = actClass; }
         else if (tab === 'top10') { tabT.classList.remove('hidden'); btnT.className = actClass; if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10(); }
         else if (tab === 'tendencias') { tabTen.classList.remove('hidden'); btnTen.className = actClass; if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias(); }
+        else if (tab === 'users') { if(tabU) tabU.classList.remove('hidden'); if(btnU) btnU.className = actClass; }
+        else if (tab === 'pagos') { if(tabPagos) tabPagos.classList.remove('hidden'); if(btnPagos) btnPagos.className = actClass; }
     };
 
     function updateMediaSession(r) {
@@ -1749,7 +1868,8 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-    import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+    import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue, get, child, set } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
     /* ========================================================
     GESTIÓN DINÁMICA DE CREDENCIALES DE FIREBASE
@@ -1770,6 +1890,9 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    
     const chatRef = ref(db, 'chat_comunidad');
     const radioRef = ref(db, 'radios_comunidad');
     const catRef = ref(db, 'categorias_comunidad');
@@ -1777,12 +1900,178 @@
     const newsRef = ref(db, 'settings_comunidad/news');
     const top10Ref = ref(db, 'settings_comunidad/top10');
     const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
+    const pagosRef = ref(db, 'settings_comunidad/pagos'); // NUEVA RUTA PARA PAGOS
     
     // Ruta mensual para los clics en fueguitos (ej: 2026-04)
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
+    let sessionUnsubscribe = null;
+
+    /* --- SISTEMA DE AUTENTICACIÓN Y SESIÓN --- */
+    window.iniciarSesion = () => {
+        signInWithPopup(auth, provider).then((result) => {
+            const user = result.user;
+            verificarOCrearUsuario(user);
+        }).catch((error) => console.error("Error en login:", error));
+    };
+
+    window.cerrarSesion = () => { signOut(auth); };
+
+    function verificarOCrearUsuario(user) {
+        const userRef = ref(db, `users/${user.uid}`);
+        get(userRef).then((snapshot) => {
+            const sessionToken = crypto.randomUUID();
+            if (!snapshot.exists()) {
+                set(userRef, {
+                    nombre: user.displayName,
+                    email: user.email,
+                    foto: user.photoURL,
+                    isPro: true, // MODIFICADO: USUARIO FREE A PREMIUM AUTOMÁTICAMENTE
+                    fechaRegistro: new Date().toISOString(),
+                    sesion_activa: sessionToken
+                });
+            } else {
+                // Actualizamos token para sesión activa y FORZAMOS PREMIUM a cuentas existentes si así lo requieres
+                update(userRef, { sesion_activa: sessionToken, isPro: true });
+            }
+            vigilarSesionUnica(user.uid, sessionToken);
+        });
+    }
+
+    function vigilarSesionUnica(uid, miToken) {
+        if(sessionUnsubscribe) sessionUnsubscribe();
+        const sesionRef = ref(db, `users/${uid}/sesion_activa`);
+        
+        sessionUnsubscribe = onValue(sesionRef, (snapshot) => {
+            const tokenDB = snapshot.val();
+            if(tokenDB && tokenDB !== miToken) {
+                alert("Sesión cerrada: Has iniciado sesión en otro navegador o dispositivo.");
+                cerrarSesion();
+            }
+        });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        const btnLogin = document.getElementById('btnLogin');
+        const btnMobileLogin = document.getElementById('btnMobileLogin');
+        const profile = document.getElementById('userProfile');
+        const mobProfile = document.getElementById('mobileUserProfile');
+        const mainLogoText = document.getElementById('mainLogoText');
+        const mobLogoText = document.getElementById('mobLogoText');
+        
+        if (user) {
+            if(btnLogin) btnLogin.classList.add('hidden');
+            if(btnMobileLogin) btnMobileLogin.classList.add('hidden');
+            if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
+            if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
+            
+            if(document.getElementById('userName')) document.getElementById('userName').innerText = user.displayName;
+            if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = user.displayName;
+            if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
+            if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
+
+            // Revisar si es PRO
+            onValue(ref(db, `users/${user.uid}`), (snapshot) => {
+                const data = snapshot.val();
+                if(data && data.isPro) {
+                    if(mainLogoText) mainLogoText.classList.add('logo-oro');
+                    if(mobLogoText) mobLogoText.classList.add('logo-oro');
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                } else {
+                    if(mainLogoText) mainLogoText.classList.remove('logo-oro');
+                    if(mobLogoText) mobLogoText.classList.remove('logo-oro');
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                }
+            });
+
+            // Reasignar variable de pago para que use el UID
+            window.mostrarModalPago = function() { window.pagarConMercadoPago(user.uid); };
+        } else {
+            if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
+            if(btnLogin) btnLogin.classList.remove('hidden');
+            if(btnMobileLogin) btnMobileLogin.classList.remove('hidden');
+            if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
+            if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
+            if(mainLogoText) mainLogoText.classList.remove('logo-oro');
+            if(mobLogoText) mobLogoText.classList.remove('logo-oro');
+            
+            window.mostrarModalPago = function() { alert("Debes iniciar sesión para hacerte Premium."); };
+        }
+    });
+
+    // PANEL ADMIN: GESTIÓN DE USUARIOS
+    onValue(ref(db, 'users'), (snapshot) => {
+        const adminList = document.getElementById('adminUsersList');
+        if(!adminList) return;
+        adminList.innerHTML = '';
+        
+        if(snapshot.exists()){
+            snapshot.forEach(childSnapshot => {
+                const uid = childSnapshot.key;
+                const data = childSnapshot.val();
+                const isProBadge = data.isPro 
+                    ? '<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2">PRO</span>' 
+                    : '<span class="bg-zinc-600 text-white text-[9px] font-bold px-2 py-0.5 rounded ml-2">BASIC</span>';
+
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center bg-zinc-800/50 p-3 rounded-xl border border-zinc-700/50 mb-2';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${data.foto || 'https://ui-avatars.com/api/?name=U'}" class="w-8 h-8 rounded-full">
+                        <div>
+                            <p class="text-sm font-bold text-white flex items-center">${data.nombre} ${isProBadge}</p>
+                            <p class="text-[10px] text-zinc-400">${data.email}</p>
+                        </div>
+                    </div>
+                    <button class="text-[10px] font-bold px-3 py-1.5 rounded bg-zinc-700 hover:bg-zinc-600 toggle-pro-btn" data-uid="${uid}" data-status="${data.isPro}">
+                        ${data.isPro ? 'Quitar Pro' : 'Hacer Pro'}
+                    </button>
+                `;
+                adminList.appendChild(div);
+            });
+
+            document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const pass = prompt("Contraseña de Administrador para cambiar estado de usuario:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                    
+                    const uid = e.target.getAttribute('data-uid');
+                    const currentStatus = e.target.getAttribute('data-status') === 'true';
+                    update(ref(db, `users/${uid}`), { isPro: !currentStatus });
+                });
+            });
+        } else {
+             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aún.</div>';
+        }
+    });
+
+    // --- CARGA DE PAGOS MERCADOPAGO / PAYPAL ---
+    onValue(pagosRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
+            document.getElementById('mpPublicKey').value = data.mpPublicKey || "";
+            document.getElementById('ppClientId').value = data.ppClientId || "";
+        }
+    });
+
+    document.getElementById('adminPagosForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configuración de Pagos:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
+            mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
+            ppClientId: document.getElementById('ppClientId').value.trim()
+        };
+        
+        update(ref(db, 'settings_comunidad'), { pagos: data }).then(() => {
+            alert("Credenciales de pago guardadas con éxito.");
+        }).catch(err => alert("Error: " + err.message));
+    });
 
     document.getElementById('fbApiKey').value = firebaseConfig.apiKey || "";
     document.getElementById('fbAuthDomain').value = firebaseConfig.authDomain || "";
