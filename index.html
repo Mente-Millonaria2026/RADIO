@@ -260,10 +260,11 @@
       <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
     </div>
     
-    <div class="px-4 pb-2 w-full mt-1">
+    <div class="px-4 pb-2 w-full mt-1 flex flex-col gap-2">
       <button id="btnMobileLogin" onclick="iniciarSesion()" class="w-full text-xs bg-zinc-800 text-white font-bold py-1.5 rounded-lg flex items-center justify-center gap-2 border border-zinc-700">
          <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar / Premium
       </button>
+      
       <div id="mobileUserProfile" class="hidden items-center justify-between gap-3 bg-zinc-900 p-2 rounded-xl">
          <div class="flex items-center gap-2">
             <img id="mobileUserAvatar" src="" class="w-7 h-7 rounded-full">
@@ -478,14 +479,17 @@
   </div>
 
   <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-2 md:p-4">
-    <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-2xl md:rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
+    <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
       
-      <div class="text-center mb-4 flex-shrink-0">
+      <div class="text-center mb-4 flex-shrink-0 relative">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
+        <button id="btnMockLogin" onclick="loginDemoPro()" class="mt-2 mx-auto bg-zinc-800 hover:bg-zinc-700 text-yellow-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-yellow-600/30">
+          👑 Ingresar como Demo PRO
+        </button>
       </div>
       
-      <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl flex-wrap justify-center overflow-y-auto max-h-[120px] md:max-h-none no-scrollbar">
+      <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl overflow-x-auto no-scrollbar">
           <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">👥 Users</button>
           <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
           <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏆 Top 10</button>
@@ -493,8 +497,8 @@
           <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏷️ Cats</button>
           <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">📰 Notas</button>
           <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
+          <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">💳 Pagos</button>
           <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
-          <button onclick="switchAdminTab('pagos')" id="tabBtnPagos" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💳 Pagos</button>
       </div>
 
       <div id="tabUsers" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
@@ -670,6 +674,26 @@
            </form>
       </div>
       
+      <div id="tabPayments" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminPaymentsForm" class="space-y-4 flex-shrink-0">
+              <div class="border-b border-zinc-800 pb-4">
+                  <label class="text-xs font-bold text-blue-400 uppercase flex items-center gap-2 mb-2">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> MercadoPago
+                  </label>
+                  <input type="text" id="mpPublicKey" placeholder="Public Key (APP_USR-...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mb-2">
+                  <input type="password" id="mpAccessToken" placeholder="Access Token" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500">
+              </div>
+              <div class="pt-2">
+                  <label class="text-xs font-bold text-blue-600 uppercase flex items-center gap-2 mb-2">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> PayPal
+                  </label>
+                  <input type="text" id="paypalClientId" placeholder="Client ID" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600 mb-2">
+                  <input type="password" id="paypalSecret" placeholder="Secret Key" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600">
+              </div>
+              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
+          </form>
+      </div>
+
       <div id="tabFirebase" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminFirebaseForm" class="space-y-4 flex-shrink-0">
              <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl mb-2 text-xs text-red-200">
@@ -706,35 +730,6 @@
              
              <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar Servidor</button>
              <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
-          </form>
-      </div>
-      
-      <div id="tabPagos" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
-          <form id="adminPagosForm" class="space-y-4 flex-shrink-0">
-             <div class="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl mb-2 text-xs text-blue-200">
-                 <b>💳 Pasarelas de Pago:</b> Configura tus credenciales de MercadoPago y PayPal para activar y cobrar el sistema Premium.
-             </div>
-             <div class="border-b border-zinc-800 pb-4">
-                 <h4 class="text-xs font-bold text-blue-400 uppercase mb-2">MercadoPago</h4>
-                 <div>
-                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Access Token</label>
-                     <input type="text" id="mpAccessToken" placeholder="APP_USR-..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
-                 </div>
-                 <div class="mt-3">
-                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Public Key</label>
-                     <input type="text" id="mpPublicKey" placeholder="APP_USR-..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
-                 </div>
-             </div>
-             
-             <div class="pt-2">
-                 <h4 class="text-xs font-bold text-blue-400 uppercase mb-2">PayPal</h4>
-                 <div>
-                     <label class="text-[10px] font-bold text-zinc-500 uppercase">Client ID</label>
-                     <input type="text" id="ppClientId" placeholder="AXXX..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500 mt-1">
-                 </div>
-             </div>
-             
-             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
           </form>
       </div>
 
@@ -875,11 +870,46 @@
     
     // Funciones de pago simuladas
     window.mostrarModalPago = function() {
-        alert("Funcionalidad de Pago: Seleccione un método (Conectado para integrar API reales)");
+        alert("Funcionalidad de Pago: Seleccione un método");
         // pagarConMercadoPago(auth.currentUser.uid); // Si existiera integración real
     };
     window.pagarConMercadoPago = function(uid) { console.log("Procesando pago MercadoPago para:", uid); };
     window.pagarConPayPal = function(uid) { console.log("Procesando pago PayPal para:", uid); };
+
+    // --- NUEVO USUARIO DEMO PRO ---
+    window.loginDemoPro = () => {
+        const mockUser = {
+            displayName: "Usuario Demo PRO",
+            photoURL: "https://ui-avatars.com/api/?name=Pro&background=F6B40E&color=fff",
+        };
+        
+        // Ocultar botones de login de forma segura
+        if(document.getElementById('btnLogin')) document.getElementById('btnLogin').classList.add('hidden');
+        if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
+        if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
+        if(document.getElementById('btnMobileMockLogin')) document.getElementById('btnMobileMockLogin').classList.add('hidden');
+        
+        // Mostrar perfiles
+        const profile = document.getElementById('userProfile');
+        const mobProfile = document.getElementById('mobileUserProfile');
+        if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
+        if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
+        
+        if(document.getElementById('userName')) document.getElementById('userName').innerText = mockUser.displayName;
+        if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = mockUser.displayName;
+        if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = mockUser.photoURL;
+        if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = mockUser.photoURL;
+        
+        // Efectos Visuales Premium
+        if(document.getElementById('mainLogoText')) document.getElementById('mainLogoText').classList.add('logo-oro');
+        if(document.getElementById('mobLogoText')) document.getElementById('mobLogoText').classList.add('logo-oro');
+        if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        
+        alert("Has ingresado al modo Demo PRO de forma gratuita.");
+
+        // Sobreescribir cierre de sesión
+        window.cerrarSesion = () => { window.location.reload(); };
+    };
     
     // Coordenadas aproximadas por provincia para el Clima
     const provCoords = {
@@ -1630,25 +1660,25 @@
         const tabF = document.getElementById('tabFirebase'); const tabT = document.getElementById('tabTop10');
         const tabTen = document.getElementById('tabTendencias');
         const tabU = document.getElementById('tabUsers');
-        const tabPagos = document.getElementById('tabPagos');
+        const tabP = document.getElementById('tabPayments');
         
         const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); 
         const btnA = document.getElementById('tabBtnAds'); const btnN = document.getElementById('tabBtnNews');
         const btnF = document.getElementById('tabBtnFirebase'); const btnT = document.getElementById('tabBtnTop10');
         const btnTen = document.getElementById('tabBtnTendencias');
         const btnU = document.getElementById('tabBtnUsers');
-        const btnPagos = document.getElementById('tabBtnPagos');
+        const btnP = document.getElementById('tabBtnPayments');
 
         const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
         const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
         tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden'); tabTen.classList.add('hidden');
         if(tabU) tabU.classList.add('hidden');
-        if(tabPagos) tabPagos.classList.add('hidden');
+        if(tabP) tabP.classList.add('hidden');
 
         btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass; btnN.className = inactClass; btnF.className = inactClass; btnT.className = inactClass; btnTen.className = inactClass;
         if(btnU) btnU.className = inactClass;
-        if(btnPagos) btnPagos.className = inactClass;
+        if(btnP) btnP.className = inactClass;
 
         if(tab === 'radios') { tabR.classList.remove('hidden'); btnR.className = actClass; if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); } 
         else if (tab === 'cats') { tabC.classList.remove('hidden'); btnC.className = actClass; } 
@@ -1658,7 +1688,7 @@
         else if (tab === 'top10') { tabT.classList.remove('hidden'); btnT.className = actClass; if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10(); }
         else if (tab === 'tendencias') { tabTen.classList.remove('hidden'); btnTen.className = actClass; if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias(); }
         else if (tab === 'users') { if(tabU) tabU.classList.remove('hidden'); if(btnU) btnU.className = actClass; }
-        else if (tab === 'pagos') { if(tabPagos) tabPagos.classList.remove('hidden'); if(btnPagos) btnPagos.className = actClass; }
+        else if (tab === 'payments') { if(tabP) tabP.classList.remove('hidden'); if(btnP) btnP.className = actClass; }
     };
 
     function updateMediaSession(r) {
@@ -1703,7 +1733,7 @@
         div.innerHTML = `
           <div class="card-actions">
             <button class="action-btn" onclick="shareRadio(event, '${primaryId}')" title="Compartir radio">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
             <button class="action-btn ${isFav ? 'is-fav' : ''}" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -1900,7 +1930,7 @@
     const newsRef = ref(db, 'settings_comunidad/news');
     const top10Ref = ref(db, 'settings_comunidad/top10');
     const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
-    const pagosRef = ref(db, 'settings_comunidad/pagos'); // NUEVA RUTA PARA PAGOS
+    const paymentsRef = ref(db, 'settings_comunidad/payments'); // NUEVA REFERENCIA DE PAGOS
     
     // Ruta mensual para los clics en fueguitos (ej: 2026-04)
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
@@ -1928,13 +1958,12 @@
                     nombre: user.displayName,
                     email: user.email,
                     foto: user.photoURL,
-                    isPro: true, // MODIFICADO: USUARIO FREE A PREMIUM AUTOMÁTICAMENTE
+                    isPro: false,
                     fechaRegistro: new Date().toISOString(),
                     sesion_activa: sessionToken
                 });
             } else {
-                // Actualizamos token para sesión activa y FORZAMOS PREMIUM a cuentas existentes si así lo requieres
-                update(userRef, { sesion_activa: sessionToken, isPro: true });
+                update(userRef, { sesion_activa: sessionToken });
             }
             vigilarSesionUnica(user.uid, sessionToken);
         });
@@ -1955,7 +1984,9 @@
 
     onAuthStateChanged(auth, (user) => {
         const btnLogin = document.getElementById('btnLogin');
+        const btnMockLogin = document.getElementById('btnMockLogin');
         const btnMobileLogin = document.getElementById('btnMobileLogin');
+        const btnMobileMockLogin = document.getElementById('btnMobileMockLogin');
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
         const mainLogoText = document.getElementById('mainLogoText');
@@ -1963,7 +1994,10 @@
         
         if (user) {
             if(btnLogin) btnLogin.classList.add('hidden');
+            if(btnMockLogin) btnMockLogin.classList.add('hidden');
             if(btnMobileLogin) btnMobileLogin.classList.add('hidden');
+            if(btnMobileMockLogin) btnMobileMockLogin.classList.add('hidden');
+
             if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
             if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
             
@@ -1991,7 +2025,10 @@
         } else {
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
             if(btnLogin) btnLogin.classList.remove('hidden');
+            if(btnMockLogin) btnMockLogin.classList.remove('hidden');
             if(btnMobileLogin) btnMobileLogin.classList.remove('hidden');
+            if(btnMobileMockLogin) btnMobileMockLogin.classList.remove('hidden');
+
             if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
             if(mainLogoText) mainLogoText.classList.remove('logo-oro');
@@ -2047,32 +2084,6 @@
         }
     });
 
-    // --- CARGA DE PAGOS MERCADOPAGO / PAYPAL ---
-    onValue(pagosRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
-            document.getElementById('mpPublicKey').value = data.mpPublicKey || "";
-            document.getElementById('ppClientId').value = data.ppClientId || "";
-        }
-    });
-
-    document.getElementById('adminPagosForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Pagos:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const data = {
-            mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
-            mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
-            ppClientId: document.getElementById('ppClientId').value.trim()
-        };
-        
-        update(ref(db, 'settings_comunidad'), { pagos: data }).then(() => {
-            alert("Credenciales de pago guardadas con éxito.");
-        }).catch(err => alert("Error: " + err.message));
-    });
-
     document.getElementById('fbApiKey').value = firebaseConfig.apiKey || "";
     document.getElementById('fbAuthDomain').value = firebaseConfig.authDomain || "";
     document.getElementById('fbDatabaseURL').value = firebaseConfig.databaseURL || "";
@@ -2109,6 +2120,34 @@
             window.location.reload();
         }
     };
+
+    // --- CARGA Y GUARDADO DE PAGOS (PayPal / MercadoPago) ---
+    onValue(paymentsRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            document.getElementById('mpPublicKey').value = data.mpPublicKey || "";
+            document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
+            document.getElementById('paypalClientId').value = data.paypalClientId || "";
+            document.getElementById('paypalSecret').value = data.paypalSecret || "";
+        }
+    });
+
+    document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configuración de Pagos:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
+            mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
+            paypalClientId: document.getElementById('paypalClientId').value.trim(),
+            paypalSecret: document.getElementById('paypalSecret').value.trim()
+        };
+        
+        update(ref(db, 'settings_comunidad'), { payments: data }).then(() => {
+            alert("Credenciales de pago guardadas correctamente.");
+        }).catch(err => alert("Error: " + err.message));
+    });
 
     // --- TENDENCIAS MENSUALES CONFIG (Fueguitos + Drag&Drop) ---
     let globalTendenciasConfig = { pinned: [], hidden: [] };
