@@ -270,6 +270,8 @@
 </head>
 <body>
 
+  <div id="custom-premium-html-container"></div>
+
   <header class="mobile-header">
     <div class="p-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
@@ -578,6 +580,7 @@
           <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">📰 Notas</button>
           <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
           <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">💳 Pagos</button>
+          <button onclick="switchAdminTab('themes')" id="tabBtnThemes" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🎨 Themes</button>
           <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
       </div>
 
@@ -784,6 +787,24 @@
           </form>
       </div>
 
+      <div id="tabThemes" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminThemesForm" class="space-y-4 flex-shrink-0">
+             <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
+                 <b>👑 HTML/CSS Custom para Modo GOLD:</b><br>
+                 <span class="text-[9px] text-yellow-500/70">Puedes incluir etiquetas &lt;style&gt; o divs que quieras renderizar solo para usuarios Gold.</span>
+             </div>
+             <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style> o <div>Hola Premium</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono"></textarea>
+
+             <div class="bg-cyan-500/10 border border-cyan-500/30 p-3 rounded-xl mb-2 text-xs text-cyan-200 mt-4">
+                 <b>💎 HTML/CSS Custom para Modo DIAMOND:</b><br>
+                 <span class="text-[9px] text-cyan-500/70">Este código se inyectará cuando el usuario sea nivel Diamond.</span>
+             </div>
+             <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style> o <div class='neon'>Diamond User</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono"></textarea>
+
+             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Themes Exclusivos</button>
+          </form>
+      </div>
+
       <div id="tabFirebase" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminFirebaseForm" class="space-y-4 flex-shrink-0">
              <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl mb-2 text-xs text-red-200">
@@ -960,6 +981,9 @@
     window.firebaseRadios = [];
     window.firebaseCategorias = [];
     
+    // VARIABLES PARA TEMAS (HTML CUSTOM)
+    window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
+    
     // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
         const modal = document.getElementById('paymentModal');
@@ -1018,6 +1042,9 @@
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         
+        window.currentPremiumStatus = 'gold';
+        if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
+
         alert("Has ingresado al modo Demo GOLD de forma gratuita.");
         window.cerrarSesion = () => { window.location.reload(); };
     };
@@ -1054,6 +1081,9 @@
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         
+        window.currentPremiumStatus = 'diamond';
+        if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
+
         alert("💎 Has ingresado al modo Demo DIAMOND. ¡Disfruta los efectos visuales!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
@@ -1547,7 +1577,7 @@
             const alias = window.globalDonationAlias || "radio.alias.mp";
             if(navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(alias);
-                alert("¡Gracias por tu apoyo! ❤️\nEl alias " + alias + " ha sido copiado al portapapeles.");
+                alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
             } else {
                 alert("¡Gracias por tu apoyo! ❤️\nAlias para donar: " + alias);
             }
@@ -1822,6 +1852,7 @@
         const tabTen = document.getElementById('tabTendencias');
         const tabU = document.getElementById('tabUsers');
         const tabP = document.getElementById('tabPayments');
+        const tabTh = document.getElementById('tabThemes');
         
         const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); 
         const btnA = document.getElementById('tabBtnAds'); const btnN = document.getElementById('tabBtnNews');
@@ -1829,6 +1860,7 @@
         const btnTen = document.getElementById('tabBtnTendencias');
         const btnU = document.getElementById('tabBtnUsers');
         const btnP = document.getElementById('tabBtnPayments');
+        const btnTh = document.getElementById('tabBtnThemes');
 
         const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
         const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
@@ -1836,10 +1868,12 @@
         tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden'); tabTen.classList.add('hidden');
         if(tabU) tabU.classList.add('hidden');
         if(tabP) tabP.classList.add('hidden');
+        if(tabTh) tabTh.classList.add('hidden');
 
         btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass; btnN.className = inactClass; btnF.className = inactClass; btnT.className = inactClass; btnTen.className = inactClass;
         if(btnU) btnU.className = inactClass;
         if(btnP) btnP.className = inactClass;
+        if(btnTh) btnTh.className = inactClass;
 
         if(tab === 'radios') { tabR.classList.remove('hidden'); btnR.className = actClass; if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); } 
         else if (tab === 'cats') { tabC.classList.remove('hidden'); btnC.className = actClass; } 
@@ -1850,6 +1884,7 @@
         else if (tab === 'tendencias') { tabTen.classList.remove('hidden'); btnTen.className = actClass; if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias(); }
         else if (tab === 'users') { if(tabU) tabU.classList.remove('hidden'); if(btnU) btnU.className = actClass; }
         else if (tab === 'payments') { if(tabP) tabP.classList.remove('hidden'); if(btnP) btnP.className = actClass; }
+        else if (tab === 'themes') { if(tabTh) tabTh.classList.remove('hidden'); if(btnTh) btnTh.className = actClass; }
     };
 
     function updateMediaSession(r) {
@@ -2088,12 +2123,61 @@
     const top10Ref = ref(db, 'settings_comunidad/top10');
     const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
     const paymentsRef = ref(db, 'settings_comunidad/payments'); 
+    const themesRef = ref(db, 'settings_comunidad/themes');
     
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
     let sessionUnsubscribe = null;
+    let globalThemesConfig = { gold: '', diamond: '' };
+
+    // --- REAPLICAR THEMES CUSTOM ---
+    window.reapplyUserTheme = function() {
+        const container = document.getElementById('custom-premium-html-container');
+        if(!container) return;
+        
+        if (window.currentPremiumStatus === 'diamond') {
+            container.innerHTML = globalThemesConfig.diamond || '';
+        } else if (window.currentPremiumStatus === 'gold') {
+            container.innerHTML = globalThemesConfig.gold || '';
+        } else {
+            container.innerHTML = '';
+        }
+
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.text = oldScript.text;
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+    };
+
+    onValue(themesRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            globalThemesConfig = data;
+            if(document.getElementById('htmlGold')) document.getElementById('htmlGold').value = data.gold || '';
+            if(document.getElementById('htmlDiamond')) document.getElementById('htmlDiamond').value = data.diamond || '';
+            window.reapplyUserTheme();
+        }
+    });
+
+    document.getElementById('adminThemesForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configuración de Themes:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            gold: document.getElementById('htmlGold').value,
+            diamond: document.getElementById('htmlDiamond').value
+        };
+        
+        update(ref(db, 'settings_comunidad'), { themes: data }).then(() => {
+            alert("¡Themes (HTML Exclusivo) guardados correctamente!");
+        }).catch(err => alert("Error: " + err.message));
+    });
 
     window.iniciarSesion = () => {
         signInWithPopup(auth, provider).then((result) => {
@@ -2166,18 +2250,22 @@
             onValue(ref(db, `users/${user.uid}`), (snapshot) => {
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
+                    window.currentPremiumStatus = 'diamond';
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                 } else if(data && data.isPro) {
+                    window.currentPremiumStatus = 'gold';
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                 } else {
+                    window.currentPremiumStatus = 'free';
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                 }
+                window.reapplyUserTheme();
             });
 
         } else {
@@ -2191,6 +2279,9 @@
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
             if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
+            
+            window.currentPremiumStatus = 'free';
+            window.reapplyUserTheme();
         }
     });
 
@@ -3047,7 +3138,7 @@
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada."); });
+            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
         }
     };
   </script>
