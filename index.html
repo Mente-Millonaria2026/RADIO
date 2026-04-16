@@ -1547,7 +1547,7 @@
             const alias = window.globalDonationAlias || "radio.alias.mp";
             if(navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(alias);
-                alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
+                alert("¡Gracias por tu apoyo! ❤️\nEl alias " + alias + " ha sido copiado al portapapeles.");
             } else {
                 alert("¡Gracias por tu apoyo! ❤️\nAlias para donar: " + alias);
             }
