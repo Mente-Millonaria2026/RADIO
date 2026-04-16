@@ -68,6 +68,31 @@
         transition: transform 0.2s;
     }
     .btn-premium:hover { transform: scale(1.02); }
+
+    /* --- ESTILO DIAMOND: BRILLO DE NEÓN --- */
+    @keyframes diamondGlow {
+        0% { filter: hue-rotate(0deg) drop-shadow(0 0 8px rgba(0,242,254,0.6)); }
+        50% { filter: hue-rotate(60deg) drop-shadow(0 0 15px rgba(240,147,251,0.8)); }
+        100% { filter: hue-rotate(0deg) drop-shadow(0 0 8px rgba(0,242,254,0.6)); }
+    }
+    .logo-diamond {
+        background: linear-gradient(270deg, #00f2fe, #4facfe, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: liquidGold 4s ease infinite, diamondGlow 4s infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .logo-diamond .logo-pro { color: inherit; -webkit-text-fill-color: transparent; }
+
+    .btn-diamond {
+        background: linear-gradient(135deg, #00f2fe 0%, #f093fb 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        border: none;
+        font-weight: 800;
+        transition: transform 0.2s, filter 0.3s;
+    }
+    .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
@@ -262,7 +287,7 @@
     
     <div class="px-4 pb-2 w-full mt-1 flex flex-col gap-2">
       <button id="btnMobileLogin" onclick="iniciarSesion()" class="w-full text-xs bg-zinc-800 text-white font-bold py-1.5 rounded-lg flex items-center justify-center gap-2 border border-zinc-700">
-         <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar / Premium
+         <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar / Planes
       </button>
       
       <div id="mobileUserProfile" class="hidden items-center justify-between gap-3 bg-zinc-900 p-2 rounded-xl">
@@ -303,7 +328,7 @@
                </div>
             </div>
             <button id="btnPremium" onclick="mostrarModalPago()" class="btn-premium hidden w-full py-2.5 rounded-lg flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
-               👑 Hazte Premium
+               👑 Suscripciones
             </button>
          </div>
       </div>
@@ -380,7 +405,7 @@
                   <a id="detail-website" target="_blank" rel="noopener noreferrer" class="hidden text-[10px] md:text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors underline mb-3 w-max flex items-center gap-1">
                       <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.45 2-1v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Visitar Web Oficial
                   </a>
-                  <div class="flex flex-wrap gap-2 justify-start" id="detail-tags"></div>
+                  <div class="flex flex-wrap gap-2 justify-start items-center" id="detail-tags"></div>
               </div>
           </div>
           
@@ -478,15 +503,70 @@
      </div>
   </div>
 
+  <div id="paymentModal" class="hidden fixed inset-0 z-[4000] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-3xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="paymentModalContent">
+          <div class="p-5 border-b border-zinc-800 flex justify-between items-center bg-[#0a0a0a]">
+              <h3 class="text-xl font-black text-white tracking-tighter">Suscripciones RadioAR Pro</h3>
+              <button onclick="cerrarModalPago()" class="text-zinc-500 hover:text-white text-xl">✕</button>
+          </div>
+          <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto max-h-[80vh] no-scrollbar">
+              
+              <div class="border border-yellow-500/30 bg-yellow-500/5 rounded-2xl p-6 flex flex-col hover:border-yellow-500/60 transition-colors">
+                  <h4 class="text-yellow-500 font-black text-2xl mb-1 flex items-center gap-2">👑 Premium Gold</h4>
+                  <p class="text-[11px] text-zinc-400 mb-4 font-bold uppercase tracking-widest">Plan Base</p>
+                  <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
+                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Sin publicidad en la web</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Logo dorado en tu perfil</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Soporte prioritario</li>
+                  </ul>
+                  <div class="flex flex-col gap-3">
+                      <button onclick="procesarPago('mercadopago', 'gold')" class="w-full bg-[#009EE3] hover:bg-[#0088cc] text-white font-bold py-3 rounded-xl transition shadow-lg text-sm flex justify-center items-center gap-2">
+                          Pagar con MercadoPago
+                      </button>
+                      <button onclick="procesarPago('paypal', 'gold')" class="w-full bg-[#003087] hover:bg-[#002266] text-white font-bold py-3 rounded-xl transition shadow-lg text-sm flex justify-center items-center gap-2">
+                          Pagar con PayPal
+                      </button>
+                  </div>
+              </div>
+              
+              <div class="border border-cyan-500/50 bg-cyan-500/10 rounded-2xl p-6 flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,242,254,0.1)] hover:shadow-[0_0_30px_rgba(0,242,254,0.2)] transition-shadow">
+                  <div class="absolute top-0 right-0 bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg shadow-lg">NUEVO</div>
+                  <h4 class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 font-black text-2xl mb-1 flex items-center gap-2">💎 Diamond</h4>
+                  <p class="text-[11px] text-cyan-200 mb-4 font-bold uppercase tracking-widest">Suscripción Mensual</p>
+                  <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Todo lo del plan Premium</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Resaltado VIP en chat (próximamente)</li>
+                  </ul>
+                  <div class="flex flex-col gap-3">
+                      <button onclick="procesarPago('mercadopago', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2">
+                          Suscribirse (MercadoPago)
+                      </button>
+                      <button onclick="procesarPago('paypal', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2" style="background: linear-gradient(135deg, #003087 0%, #009EE3 100%);">
+                          Suscribirse (PayPal)
+                      </button>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
   <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-2 md:p-4">
     <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
       <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
       
       <div class="text-center mb-4 flex-shrink-0 relative">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
-        <button id="btnMockLogin" onclick="loginDemoPro()" class="mt-2 mx-auto bg-zinc-800 hover:bg-zinc-700 text-yellow-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-yellow-600/30">
-          👑 Ingresar como Demo PRO
-        </button>
+        <div class="flex justify-center gap-2 mt-3">
+            <button id="btnMockLogin" onclick="loginDemoPro()" class="bg-zinc-800 hover:bg-zinc-700 text-yellow-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-yellow-600/30">
+              👑 Demo Gold
+            </button>
+            <button id="btnMockLoginDiamond" onclick="loginDemoDiamond()" class="bg-zinc-800 hover:bg-zinc-700 text-cyan-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-cyan-500/30 shadow-[0_0_10px_rgba(0,242,254,0.2)]">
+              💎 Demo DIAMOND
+            </button>
+        </div>
       </div>
       
       <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl overflow-x-auto no-scrollbar">
@@ -676,6 +756,9 @@
       
       <div id="tabPayments" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminPaymentsForm" class="space-y-4 flex-shrink-0">
+              <div class="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl mb-2 text-xs text-blue-200">
+                  <b>ℹ️ Entorno de Pagos:</b> Guarda aquí las credenciales para la integración SDK/Checkout. El frontend UI ya está listo para invocarlas.
+              </div>
               <div class="border-b border-zinc-800 pb-4">
                   <label class="text-xs font-bold text-blue-400 uppercase flex items-center gap-2 mb-2">
                       <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> MercadoPago
@@ -689,6 +772,13 @@
                   </label>
                   <input type="text" id="paypalClientId" placeholder="Client ID" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600 mb-2">
                   <input type="password" id="paypalSecret" placeholder="Secret Key" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600">
+              </div>
+              
+              <div class="pt-4 border-t border-zinc-800 mt-4">
+                  <label class="text-xs font-bold text-yellow-500 uppercase flex items-center gap-2 mb-2">
+                      ☕ Apóyanos (Alias)
+                  </label>
+                  <input type="text" id="donationAlias" placeholder="Tu Alias o link de donación acá..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500">
               </div>
               <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
           </form>
@@ -850,6 +940,8 @@
   <audio id="relaxEngine" preload="none" crossorigin="anonymous" loop></audio>
 
   <script>
+    window.globalDonationAlias = "radio.alias.mp";
+
     const audio = document.getElementById('engine');
     const relaxAudio = document.getElementById('relaxEngine');
     const pDot = document.getElementById('p-dot'), pStat = document.getElementById('p-stat'), pIcon = document.getElementById('p-icon');
@@ -868,28 +960,43 @@
     window.firebaseRadios = [];
     window.firebaseCategorias = [];
     
-    // Funciones de pago simuladas
+    // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
-        alert("Funcionalidad de Pago: Seleccione un método");
-        // pagarConMercadoPago(auth.currentUser.uid); // Si existiera integración real
+        const modal = document.getElementById('paymentModal');
+        const content = document.getElementById('paymentModalContent');
+        modal.classList.remove('hidden');
+        // Forzar reflujo
+        void modal.offsetWidth; 
+        modal.classList.remove('opacity-0');
+        content.classList.remove('scale-95');
     };
-    window.pagarConMercadoPago = function(uid) { console.log("Procesando pago MercadoPago para:", uid); };
-    window.pagarConPayPal = function(uid) { console.log("Procesando pago PayPal para:", uid); };
 
-    // --- NUEVO USUARIO DEMO PRO ---
+    window.cerrarModalPago = function() {
+        const modal = document.getElementById('paymentModal');
+        const content = document.getElementById('paymentModalContent');
+        modal.classList.add('opacity-0');
+        content.classList.add('scale-95');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    };
+
+    window.procesarPago = function(gateway, plan) {
+        // En un entorno real, aquí inicializas el SDK o haces redirect a la URL de MercadoPago/PayPal generada por tu backend.
+        alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producción, esto te redigiría a la ventana de cobro).`);
+        window.cerrarModalPago();
+    };
+
+    // --- NUEVOS USUARIOS DEMO (GOLD Y DIAMOND) ---
     window.loginDemoPro = () => {
         const mockUser = {
-            displayName: "Usuario Demo PRO",
-            photoURL: "https://ui-avatars.com/api/?name=Pro&background=F6B40E&color=fff",
+            displayName: "Usuario Demo GOLD",
+            photoURL: "https://ui-avatars.com/api/?name=Gold&background=F6B40E&color=fff",
         };
         
-        // Ocultar botones de login de forma segura
         if(document.getElementById('btnLogin')) document.getElementById('btnLogin').classList.add('hidden');
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
+        if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
         if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
-        if(document.getElementById('btnMobileMockLogin')) document.getElementById('btnMobileMockLogin').classList.add('hidden');
         
-        // Mostrar perfiles
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
         if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
@@ -901,13 +1008,53 @@
         if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = mockUser.photoURL;
         
         // Efectos Visuales Premium
-        if(document.getElementById('mainLogoText')) document.getElementById('mainLogoText').classList.add('logo-oro');
-        if(document.getElementById('mobLogoText')) document.getElementById('mobLogoText').classList.add('logo-oro');
+        if(document.getElementById('mainLogoText')) {
+            document.getElementById('mainLogoText').classList.remove('logo-diamond');
+            document.getElementById('mainLogoText').classList.add('logo-oro');
+        }
+        if(document.getElementById('mobLogoText')) {
+            document.getElementById('mobLogoText').classList.remove('logo-diamond');
+            document.getElementById('mobLogoText').classList.add('logo-oro');
+        }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         
-        alert("Has ingresado al modo Demo PRO de forma gratuita.");
+        alert("Has ingresado al modo Demo GOLD de forma gratuita.");
+        window.cerrarSesion = () => { window.location.reload(); };
+    };
 
-        // Sobreescribir cierre de sesión
+    window.loginDemoDiamond = () => {
+        const mockUser = {
+            displayName: "Usuario Demo DIAMOND",
+            photoURL: "https://ui-avatars.com/api/?name=Dia&background=00f2fe&color=fff",
+        };
+        
+        if(document.getElementById('btnLogin')) document.getElementById('btnLogin').classList.add('hidden');
+        if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
+        if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
+        if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
+        
+        const profile = document.getElementById('userProfile');
+        const mobProfile = document.getElementById('mobileUserProfile');
+        if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
+        if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
+        
+        if(document.getElementById('userName')) document.getElementById('userName').innerText = mockUser.displayName;
+        if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = mockUser.displayName;
+        if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = mockUser.photoURL;
+        if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = mockUser.photoURL;
+        
+        // Efectos Visuales Diamond
+        if(document.getElementById('mainLogoText')) {
+            document.getElementById('mainLogoText').classList.remove('logo-oro');
+            document.getElementById('mainLogoText').classList.add('logo-diamond');
+        }
+        if(document.getElementById('mobLogoText')) {
+            document.getElementById('mobLogoText').classList.remove('logo-oro');
+            document.getElementById('mobLogoText').classList.add('logo-diamond');
+        }
+        if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Disfruta los efectos visuales!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -1392,6 +1539,22 @@
             });
         }
         
+        // --- NUEVO BOTÓN DE APOYANOS ---
+        const supportBtn = document.createElement('button');
+        supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase tracking-wide transition-colors shadow-sm flex items-center gap-1 ml-1';
+        supportBtn.innerHTML = '☕ Apóyanos';
+        supportBtn.onclick = () => {
+            const alias = window.globalDonationAlias || "radio.alias.mp";
+            if(navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(alias);
+                alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
+            } else {
+                alert("¡Gracias por tu apoyo! ❤️\nAlias para donar: " + alias);
+            }
+        };
+        tagsContainer.appendChild(supportBtn);
+        // -------------------------------
+        
         fetchRadioNews(r.tags, r.state);
         fetchWeather(r.state);
         document.getElementById('mainScroll').scrollTop = 0;
@@ -1616,7 +1779,6 @@
         if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
     }
 
-    // ACCION FUEGUITO Y FAVORITOS REVISADA
     window.boostTrend = function(e, id) {
         e.stopPropagation();
         const btn = e.currentTarget;
@@ -1629,7 +1791,6 @@
             btn.classList.add('is-fav');
             
             const rect = btn.getBoundingClientRect();
-            // Lanza partículas de fuego
             createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '🔥');
         } else {
             boosts = boosts.filter(x => x !== id);
@@ -1733,7 +1894,7 @@
         div.innerHTML = `
           <div class="card-actions">
             <button class="action-btn" onclick="shareRadio(event, '${primaryId}')" title="Compartir radio">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
             <button class="action-btn ${isFav ? 'is-fav' : ''}" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -1876,7 +2037,6 @@
       } else {
           favs.push(primaryId);
           const rect = e.currentTarget.getBoundingClientRect();
-          // Lanza partículas de corazón azul
           createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '💙');
       }
       
@@ -1901,9 +2061,6 @@
     import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue, get, child, set } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-    /* ========================================================
-    GESTIÓN DINÁMICA DE CREDENCIALES DE FIREBASE
-    ======================================================== */
     const defaultFbConfig = {
       apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
       authDomain: "radioarpro.firebaseapp.com",
@@ -1930,16 +2087,14 @@
     const newsRef = ref(db, 'settings_comunidad/news');
     const top10Ref = ref(db, 'settings_comunidad/top10');
     const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
-    const paymentsRef = ref(db, 'settings_comunidad/payments'); // NUEVA REFERENCIA DE PAGOS
+    const paymentsRef = ref(db, 'settings_comunidad/payments'); 
     
-    // Ruta mensual para los clics en fueguitos (ej: 2026-04)
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
 
     const ADMIN_PASSWORD = "Moniyjere11@"; 
     let sessionUnsubscribe = null;
 
-    /* --- SISTEMA DE AUTENTICACIÓN Y SESIÓN --- */
     window.iniciarSesion = () => {
         signInWithPopup(auth, provider).then((result) => {
             const user = result.user;
@@ -1959,6 +2114,7 @@
                     email: user.email,
                     foto: user.photoURL,
                     isPro: false,
+                    isDiamond: false,
                     fechaRegistro: new Date().toISOString(),
                     sesion_activa: sessionToken
                 });
@@ -1985,8 +2141,8 @@
     onAuthStateChanged(auth, (user) => {
         const btnLogin = document.getElementById('btnLogin');
         const btnMockLogin = document.getElementById('btnMockLogin');
+        const btnMockLoginDiamond = document.getElementById('btnMockLoginDiamond');
         const btnMobileLogin = document.getElementById('btnMobileLogin');
-        const btnMobileMockLogin = document.getElementById('btnMobileMockLogin');
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
         const mainLogoText = document.getElementById('mainLogoText');
@@ -1995,8 +2151,8 @@
         if (user) {
             if(btnLogin) btnLogin.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
+            if(btnMockLoginDiamond) btnMockLoginDiamond.classList.add('hidden');
             if(btnMobileLogin) btnMobileLogin.classList.add('hidden');
-            if(btnMobileMockLogin) btnMobileMockLogin.classList.add('hidden');
 
             if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
             if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
@@ -2006,35 +2162,35 @@
             if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
             if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
 
-            // Revisar si es PRO
+            // Revisar si es PRO (GOLD) o DIAMOND
             onValue(ref(db, `users/${user.uid}`), (snapshot) => {
                 const data = snapshot.val();
-                if(data && data.isPro) {
-                    if(mainLogoText) mainLogoText.classList.add('logo-oro');
-                    if(mobLogoText) mobLogoText.classList.add('logo-oro');
+                if(data && data.isDiamond) {
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                } else if(data && data.isPro) {
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                 } else {
-                    if(mainLogoText) mainLogoText.classList.remove('logo-oro');
-                    if(mobLogoText) mobLogoText.classList.remove('logo-oro');
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                 }
             });
 
-            // Reasignar variable de pago para que use el UID
-            window.mostrarModalPago = function() { window.pagarConMercadoPago(user.uid); };
         } else {
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
             if(btnLogin) btnLogin.classList.remove('hidden');
             if(btnMockLogin) btnMockLogin.classList.remove('hidden');
+            if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
             if(btnMobileLogin) btnMobileLogin.classList.remove('hidden');
-            if(btnMobileMockLogin) btnMobileMockLogin.classList.remove('hidden');
 
             if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
-            if(mainLogoText) mainLogoText.classList.remove('logo-oro');
-            if(mobLogoText) mobLogoText.classList.remove('logo-oro');
-            
-            window.mostrarModalPago = function() { alert("Debes iniciar sesión para hacerte Premium."); };
+            if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
+            if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
         }
     });
 
@@ -2048,37 +2204,53 @@
             snapshot.forEach(childSnapshot => {
                 const uid = childSnapshot.key;
                 const data = childSnapshot.val();
-                const isProBadge = data.isPro 
-                    ? '<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2">PRO</span>' 
-                    : '<span class="bg-zinc-600 text-white text-[9px] font-bold px-2 py-0.5 rounded ml-2">BASIC</span>';
+                
+                let badge = '<span class="bg-zinc-600 text-white text-[9px] font-bold px-2 py-0.5 rounded ml-2">BASIC</span>';
+                if(data.isDiamond) badge = '<span class="bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2 shadow-[0_0_8px_rgba(0,242,254,0.4)]">DIAMOND</span>';
+                else if(data.isPro) badge = '<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2">GOLD</span>';
 
                 const div = document.createElement('div');
                 div.className = 'flex justify-between items-center bg-zinc-800/50 p-3 rounded-xl border border-zinc-700/50 mb-2';
                 div.innerHTML = `
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 w-1/2">
                         <img src="${data.foto || 'https://ui-avatars.com/api/?name=U'}" class="w-8 h-8 rounded-full">
-                        <div>
-                            <p class="text-sm font-bold text-white flex items-center">${data.nombre} ${isProBadge}</p>
-                            <p class="text-[10px] text-zinc-400">${data.email}</p>
+                        <div class="truncate">
+                            <p class="text-sm font-bold text-white flex items-center truncate">${data.nombre} ${badge}</p>
+                            <p class="text-[10px] text-zinc-400 truncate">${data.email}</p>
                         </div>
                     </div>
-                    <button class="text-[10px] font-bold px-3 py-1.5 rounded bg-zinc-700 hover:bg-zinc-600 toggle-pro-btn" data-uid="${uid}" data-status="${data.isPro}">
-                        ${data.isPro ? 'Quitar Pro' : 'Hacer Pro'}
-                    </button>
+                    <div class="flex gap-2">
+                        <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-yellow-600 hover:bg-yellow-500 text-black toggle-pro-btn" data-uid="${uid}" data-status="${data.isPro}">
+                            ${data.isPro ? 'Quitar Gold' : 'Hacer Gold'}
+                        </button>
+                        <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white toggle-diamond-btn" data-uid="${uid}" data-status="${data.isDiamond}">
+                            ${data.isDiamond ? 'Quitar Diamond' : 'Hacer Diamond'}
+                        </button>
+                    </div>
                 `;
                 adminList.appendChild(div);
             });
 
             document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const pass = prompt("Contraseña de Administrador para cambiar estado de usuario:");
+                    const pass = prompt("Contraseña de Admin:");
                     if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-                    
                     const uid = e.target.getAttribute('data-uid');
                     const currentStatus = e.target.getAttribute('data-status') === 'true';
-                    update(ref(db, `users/${uid}`), { isPro: !currentStatus });
+                    update(ref(db, `users/${uid}`), { isPro: !currentStatus, isDiamond: false });
                 });
             });
+
+            document.querySelectorAll('.toggle-diamond-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const pass = prompt("Contraseña de Admin:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                    const uid = e.target.getAttribute('data-uid');
+                    const currentStatus = e.target.getAttribute('data-status') === 'true';
+                    update(ref(db, `users/${uid}`), { isDiamond: !currentStatus, isPro: false });
+                });
+            });
+
         } else {
              adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aún.</div>';
         }
@@ -2121,7 +2293,6 @@
         }
     };
 
-    // --- CARGA Y GUARDADO DE PAGOS (PayPal / MercadoPago) ---
     onValue(paymentsRef, (snapshot) => {
         const data = snapshot.val();
         if(data) {
@@ -2129,27 +2300,30 @@
             document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
             document.getElementById('paypalClientId').value = data.paypalClientId || "";
             document.getElementById('paypalSecret').value = data.paypalSecret || "";
+            document.getElementById('donationAlias').value = data.donationAlias || "";
+            window.globalDonationAlias = data.donationAlias || "";
         }
     });
 
     document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Pagos:");
+        const pass = prompt("Contraseña de Administrador para Configuración de Pagos y Alias:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
             mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
             mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
             paypalClientId: document.getElementById('paypalClientId').value.trim(),
-            paypalSecret: document.getElementById('paypalSecret').value.trim()
+            paypalSecret: document.getElementById('paypalSecret').value.trim(),
+            donationAlias: document.getElementById('donationAlias').value.trim()
         };
         
         update(ref(db, 'settings_comunidad'), { payments: data }).then(() => {
-            alert("Credenciales de pago guardadas correctamente.");
+            alert("Credenciales y Alias guardados correctamente.");
         }).catch(err => alert("Error: " + err.message));
     });
 
-    // --- TENDENCIAS MENSUALES CONFIG (Fueguitos + Drag&Drop) ---
+    // --- TENDENCIAS MENSUALES CONFIG ---
     let globalTendenciasConfig = { pinned: [], hidden: [] };
     let globalClicks = {};
 
@@ -2324,7 +2498,7 @@
         update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
     };
 
-    // --- TOP 10 MANUAL CONFIG (Drag & Drop Integrado) ---
+    // --- TOP 10 MANUAL CONFIG ---
     onValue(top10Ref, (snapshot) => {
         globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
         if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
@@ -2368,11 +2542,9 @@
             let draggedIdx = currentList.indexOf(draggedId);
             let targetIdx = currentList.indexOf(targetId);
             
-            // Reordenar la vista actual
             currentList.splice(draggedIdx, 1);
             currentList.splice(targetIdx, 0, draggedId);
             
-            // Mantener las fijadas globalmente sin perder ninguna oculta
             let fullNewPinned = [];
             currentList.forEach(id => {
                 if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
@@ -2380,7 +2552,6 @@
                 }
             });
             
-            // Agrega cualquier otra fijada que no estuviera visible en los primeros 10
             globalTop10Config.pinned.forEach(id => {
                 if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
             });
