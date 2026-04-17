@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <title id="meta-title">RadioAR Pro | Radios en vivo Argentina y el Mundo</title>
-  <meta id="meta-desc" name="description" content="Escuchá las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor música las 24 horas.">
+  <meta id="meta-desc" name="description" content="EscuchÃ¡ las mejores radios argentinas en vivo. RadioAR Pro te ofrece un ecualizador integrado, modo relax, chat en vivo de la comunidad y la mejor mÃºsica las 24 horas.">
   
   <meta id="meta-keywords" name="keywords" content="radio argentina, radios en vivo, escuchar radio online, radio fm, radio am, fm argentina, streaming de audio, chat en vivo, modo relax, top 10 radios argentinas, zapping aleatorio">
   <meta name="author" content="RadioAR Pro">
@@ -39,7 +39,7 @@
     .logo-text { font-size: 20px; font-weight: 800; letter-spacing: -1px; transition: all 0.3s ease; }
     .logo-pro { color: #888; font-weight: 700; margin-left: 2px; transition: all 0.3s ease; }
 
-    /* --- ESTILO PREMIUM: ORO LÍQUIDO --- */
+    /* --- ESTILO PREMIUM: ORO LÃQUIDO --- */
     @keyframes liquidGold {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -70,7 +70,7 @@
     }
     .btn-premium:hover { transform: scale(1.02); }
 
-    /* --- ESTILO DIAMOND: BRILLO DE NEÓN --- */
+    /* --- ESTILO DIAMOND: BRILLO DE NEÃ“N --- */
     @keyframes diamondGlow {
         0% { filter: hue-rotate(0deg) drop-shadow(0 0 8px rgba(0,242,254,0.6)); }
         50% { filter: hue-rotate(60deg) drop-shadow(0 0 15px rgba(240,147,251,0.8)); }
@@ -109,19 +109,14 @@
     body.theme-cyberpunk .player-bar { background: rgba(5, 5, 5, 0.95); border-top: 1px solid #fce300; box-shadow: 0 -5px 20px rgba(252, 227, 0, 0.2); }
     body.theme-cyberpunk .epic-logo { color: #fce300; text-shadow: 0 0 10px rgba(252, 227, 0, 0.8); }
     body.theme-cyberpunk .search-input:focus { border-color: #00ffcc; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
-    
-    /* Botón Zapping Cyberpunk */
     body.theme-cyberpunk .btn-zapping { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); color: #000; box-shadow: 0 0 15px rgba(255, 0, 60, 0.6); border: 1px solid #ff003c; text-shadow: none; font-family: 'Orbitron', sans-serif;}
     body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 25px rgba(255, 0, 60, 0.8); transform: scale(1.02); }
 
-    
     /* THEME: SYNTHWAVE - ENHANCED */
     body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
     body.theme-synthwave .main-view { background: linear-gradient(180deg, #2b0057 0%, #090014 60%, #17002b 100%); position: relative; }
-    /* Grid de fondo en perspectiva */
     body.theme-synthwave .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,0,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,255,0.1) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; opacity: 0.3; transform: scaleY(1.5) perspective(500px) rotateX(45deg); transform-origin: bottom; }
     body.theme-synthwave .main-view > * { position: relative; z-index: 1; }
-    
     body.theme-synthwave .sidebar, body.theme-synthwave .chat-sidebar, body.theme-synthwave .mobile-header, body.theme-synthwave .prov-nav-wrapper { background: rgba(9,0,20,0.9); border-color: #ff00ff; backdrop-filter: blur(10px); z-index: 10; }
     body.theme-synthwave .r-card { background: rgba(26,0,42,0.8); border: 1px solid #4a0080; backdrop-filter: blur(5px); transition: all 0.3s; }
     body.theme-synthwave .r-card:hover { border-color: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0,255,255,0.2); transform: translateY(-5px); }
@@ -131,13 +126,26 @@
     body.theme-synthwave .player-bar { background: rgba(9, 0, 20, 0.95); border-top: 1px solid #ff00ff; box-shadow: 0 -5px 20px rgba(255, 0, 255, 0.3); z-index: 2000; }
     body.theme-synthwave .epic-logo { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.6); }
     body.theme-synthwave .search-input:focus { border-color: #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-    
-    /* Botón Zapping Synthwave */
     body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #000; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); border: none; text-shadow: none; font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 1px;}
     body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
 
+    /* THEME: GALAXY - ENHANCED */
+    body.theme-galaxy { font-family: 'Plus Jakarta Sans', sans-serif; background: #050014; color: #e0d0ff; }
+    body.theme-galaxy .main-view { background: radial-gradient(ellipse at top, #1b004a 0%, #050014 80%); }
+    body.theme-galaxy .main-view::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='white' opacity='0.3'/%3E%3Ccircle cx='150' cy='100' r='1.5' fill='white' opacity='0.5'/%3E%3Ccircle cx='250' cy='250' r='1' fill='white' opacity='0.2'/%3E%3C/svg%3E") repeat; pointer-events: none; z-index: 0; opacity: 0.7; }
+    body.theme-galaxy .sidebar, body.theme-galaxy .chat-sidebar, body.theme-galaxy .mobile-header, body.theme-galaxy .prov-nav-wrapper { background: rgba(5, 0, 20, 0.85); border-color: #6a00ff; backdrop-filter: blur(12px); z-index: 10; }
+    body.theme-galaxy .r-card { background: rgba(20, 5, 40, 0.7); border: 1px solid #4a00aa; backdrop-filter: blur(8px); transition: all 0.3s; }
+    body.theme-galaxy .r-card:hover { border-color: #b050ff; box-shadow: 0 0 20px rgba(176, 80, 255, 0.5), inset 0 0 10px rgba(176, 80, 255, 0.2); transform: translateY(-5px); }
+    body.theme-galaxy .btn-diamond { background: linear-gradient(135deg, #6a00ff 0%, #00d4ff 100%); box-shadow: 0 4px 20px rgba(106, 0, 255, 0.5); color: #fff; text-transform: uppercase; font-weight: 900; }
+    body.theme-galaxy .pill { color: #d0a0ff; border-color: #6a00ff; background: rgba(106, 0, 255, 0.1); }
+    body.theme-galaxy .pill.active { background: #b050ff; color: #fff; border-color: #b050ff; box-shadow: 0 0 15px rgba(176, 80, 255, 0.6); }
+    body.theme-galaxy .player-bar { background: rgba(5, 0, 20, 0.95); border-top: 1px solid #6a00ff; box-shadow: 0 -5px 25px rgba(106, 0, 255, 0.3); z-index: 2000; }
+    body.theme-galaxy .epic-logo { color: #d0a0ff; text-shadow: 0 0 10px rgba(176, 80, 255, 0.8), 0 0 20px rgba(106, 0, 255, 0.6); }
+    body.theme-galaxy .search-input:focus { border-color: #b050ff; box-shadow: 0 0 15px rgba(176, 80, 255, 0.4); }
+    body.theme-galaxy .btn-zapping { background: linear-gradient(135deg, #6a00ff 0%, #00d4ff 100%); color: #fff; box-shadow: 0 0 25px rgba(106, 0, 255, 0.5); border: none; text-shadow: none; font-weight: 900; letter-spacing: 1px;}
+    body.theme-galaxy .btn-zapping:hover { box-shadow: 0 0 35px rgba(0, 212, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
 
-    /* --- ANIMACIÓN BARRAS DE SONIDO --- */
+    /* --- ANIMACIÃ“N BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
     .eq-bar { width: 4px; border-radius: 2px; animation: eqAnim 0.7s infinite ease-in-out alternate; transition: background-color 0.3s ease, border 0.3s ease; }
     .eq-bar:nth-child(1) { background-color: var(--arg-blue); height: 60%; animation-delay: 0.1s; }
@@ -254,7 +262,7 @@
     body.light-mode .prov-arrow, body.light-mode .nav-arrow { background: rgba(255,255,255,0.9); color: black; border-color: #e4e4e7; }
     body.light-mode #worldModalContent { background: #ffffff; border-color: #e4e4e7; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
-    /* ESTILOS ESPECÍFICOS MODO RELAX */
+    /* ESTILOS ESPECÃFICOS MODO RELAX */
     .relax-btn { background: #0a0a0a; border-color: #27272a; transition: all 0.2s ease; }
     .relax-btn:hover { border-color: #52525b; }
     .relax-btn.active-relax { background: rgba(0, 36, 255, 0.1); border-color: var(--sp-green); }
@@ -283,7 +291,7 @@
     body.light-mode .ticker-wrap { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
     body.light-mode .ticker-content { color: #18181b; }
 
-    /* --- ADAPTACIONES MÓVILES (TICKER) --- */
+    /* --- ADAPTACIONES MÃ“VILES (TICKER) --- */
     @media (max-width: 768px) {
         .ticker-badge { padding: 3px 6px !important; font-size: 8px !important; left: 6px !important; }
         .ticker-scroller { padding: 8px 10px 8px 95px !important; }
@@ -316,13 +324,16 @@
   <div id="custom-premium-html-container"></div>
 
   <header class="mobile-header">
-    <div class="p-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
+    <div class="p-3 sm:p-4 flex justify-between items-center">
+      <div class="flex items-center gap-1.5 sm:gap-3">
         <div class="epic-logo" onclick="handleHomeTap()">
           <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
           <div class="logo-text" id="mobLogoText">RadioAR<span class="logo-pro">Pro</span></div>
         </div>
         <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
+        <button id="btnMobPremiumIcon" onclick="mostrarModalPago()" class="hidden p-2 text-yellow-500 hover:text-yellow-400 transition-colors" title="Suscripciones">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1.5l3.09 6.26 6.91 1-5 4.87 1.18 6.88-6.18-3.26-6.18 3.26 1.18-6.88-5-4.87 6.91-1L12 1.5z"/></svg>
+        </button>
         <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
         <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg></button>
         <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-[var(--sp-green)] transition-colors" title="Radios del Mundo"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></button>
@@ -345,9 +356,9 @@
     </div>
 
     <div class="prov-nav-wrapper" id="mobProvNav">
-      <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">❮</button>
+      <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">â®</button>
       <div class="prov-scroll no-scrollbar" id="mobProvs"></div>
-      <button class="prov-arrow prov-arrow-r" onclick="sideScroll('mobProvs', 200)">❯</button>
+      <button class="prov-arrow prov-arrow-r" onclick="sideScroll('mobProvs', 200)">â¯</button>
     </div>
   </header>
 
@@ -369,11 +380,11 @@
                <img id="userAvatar" src="" class="w-10 h-10 rounded-full border border-zinc-700">
                <div class="flex-1 overflow-hidden">
                   <p id="userName" class="text-xs font-bold truncate text-white"></p>
-                  <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mt-1">Cerrar Sesión</button>
+                  <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mt-1">Cerrar SesiÃ³n</button>
                </div>
             </div>
             <button id="btnPremium" onclick="mostrarModalPago()" class="btn-premium hidden w-full py-2.5 rounded-lg flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
-               👑 Suscripciones
+               ðŸ‘‘ Suscripciones
             </button>
          </div>
       </div>
@@ -408,9 +419,9 @@
           <div class="flex items-center gap-2 w-full max-w-[450px]">
             <div class="search-wrapper flex-1">
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
+              <input type="text" id="masterSearch" placeholder="Â¿QuÃ© quieres escuchar hoy?" class="search-input">
             </div>
-            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
+            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Ã‰pico (Diamond)">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
             </button>
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
@@ -429,11 +440,11 @@
           <div id="radio-news-wrapper" class="hidden flex-row items-center gap-2 w-full mb-4">
               <div id="radio-weather-widget" class="hidden flex items-center justify-center gap-1.5 bg-zinc-800 text-white px-3 py-2 rounded-xl border border-zinc-700 shadow-lg flex-shrink-0">
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
-                  <span class="text-xs font-black tracking-wide" id="radio-weather-temp">--°C</span>
+                  <span class="text-xs font-black tracking-wide" id="radio-weather-temp">--Â°C</span>
               </div>
               
               <div id="radio-news-ticker" class="ticker-wrap hidden flex-1 !mb-0 !mt-0 !py-0 relative">
-                  <span class="ticker-badge absolute left-[10px] top-[50%] -translate-y-1/2 z-10 pointer-events-none">ÚLTIMO MOMENTO</span>
+                  <span class="ticker-badge absolute left-[10px] top-[50%] -translate-y-1/2 z-10 pointer-events-none">ÃšLTIMO MOMENTO</span>
                   <div id="radio-news-ticker-scroll" class="ticker-scroller cursor-grab h-full w-full py-[8px]">
                       <div id="radio-news-content" class="ticker-content">Buscando noticias...</div>
                   </div>
@@ -465,28 +476,28 @@
       <div class="mb-10" id="moodFiltersContainer">
         <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="moodFilters">
           <button onclick="filterByMood('all', this)" class="pill active">Todo</button>
-          <button onclick="filterByMood('mate', this)" class="pill">🧉 Para unos Mates</button>
-          <button onclick="filterByMood('estudiar', this)" class="pill">🧠 Concentrate</button>
-          <button onclick="filterByMood('sport', this)" class="pill">⚽ Fútbol y Pasiones</button>
-          <button onclick="filterByMood('retro', this)" class="pill">📻 Retro Tour</button>
+          <button onclick="filterByMood('mate', this)" class="pill">ðŸ§‰ Para unos Mates</button>
+          <button onclick="filterByMood('estudiar', this)" class="pill">ðŸ§  Concentrate</button>
+          <button onclick="filterByMood('sport', this)" class="pill">âš½ FÃºtbol y Pasiones</button>
+          <button onclick="filterByMood('retro', this)" class="pill">ðŸ“» Retro Tour</button>
         </div>
       </div>
 
       <section id="sectTop" class="mb-14" style="display: block;">
-        <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 Más Escuchados</h3></div>
+        <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 MÃ¡s Escuchados</h3></div>
         <div class="carousel-wrapper">
-          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">❮</button>
+          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">â®</button>
           <div class="h-scroll no-scrollbar" id="gridTop"></div>
-          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">❯</button>
+          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">â¯</button>
         </div>
       </section>
 
       <section id="sectTendencias" class="mb-14" style="display: none;">
-        <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-orange"></span><h3 class="text-xl font-bold">Tendencias del Mes 🔥</h3></div>
+        <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-orange"></span><h3 class="text-xl font-bold">Tendencias del Mes ðŸ”¥</h3></div>
         <div class="carousel-wrapper">
-          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTendencias', -600)">❮</button>
+          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTendencias', -600)">â®</button>
           <div class="h-scroll no-scrollbar" id="gridTendencias"></div>
-          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTendencias', 600)">❯</button>
+          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTendencias', 600)">â¯</button>
         </div>
       </section>
 
@@ -494,7 +505,7 @@
         <div class="flex items-center gap-3 mb-8" id="gridTitleContainer"><span class="section-bar bar-orange" style="background:#737373; box-shadow:none;"></span><h3 id="gridTitle" class="text-xl font-bold">Dial en Vivo</h3></div>
         <div id="gridMain" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
         <div id="loadMoreTrigger" class="h-20 flex items-center justify-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
-            Desliza para cargar más...
+            Desliza para cargar mÃ¡s...
         </div>
       </section>
     </main>
@@ -503,9 +514,9 @@
       <div class="p-5 border-b border-zinc-900 bg-zinc-950/50 flex justify-between items-center transition-colors">
         <div>
           <h3 class="font-black text-lg tracking-tighter">COMUNIDAD LIVE</h3>
-          <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest mt-1" id="onlineCounter">● Conectando...</p>
+          <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest mt-1" id="onlineCounter">â— Conectando...</p>
         </div>
-        <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
+        <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">âœ•</button>
       </div>
       
       <div id="ad-container-sidebar" class="w-full bg-[#050505] border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
@@ -513,14 +524,14 @@
       <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
 
       <div class="px-4 pb-2">
-        <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien está escribiendo...</div>
+        <div id="typingIndicator" style="display: none; font-size: 10px; color: #1DB954; font-weight: bold; font-style: italic;">Alguien estÃ¡ escribiendo...</div>
       </div>
       
       <div class="p-4 border-t border-zinc-900 bg-[#050505]">
         <form id="chatForm" class="flex flex-col gap-2">
           <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition">
           <div class="flex gap-2">
-            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition" required>
+            <input type="text" id="chatInput" placeholder="EscribÃ­ algo acÃ¡..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition" required>
             <button type="submit" class="bg-zinc-800 text-white px-4 rounded-lg font-bold text-[10px] hover:bg-zinc-600 uppercase border border-zinc-700">Enviar</button>
           </div>
         </form>
@@ -531,21 +542,21 @@
   <div id="worldModal" class="hidden fixed inset-0 z-[3000] bg-black/80 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 opacity-0">
      <div class="bg-[#121212] border border-zinc-800 rounded-2xl p-6 w-[90%] max-w-lg transform scale-95 transition-transform duration-300" id="worldModalContent">
         <div class="flex justify-between items-center mb-6">
-           <h3 class="text-xl font-bold flex items-center gap-2">🌎 Radios del Mundo</h3>
-           <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current font-bold text-xl transition">✕</button>
+           <h3 class="text-xl font-bold flex items-center gap-2">ðŸŒŽ Radios del Mundo</h3>
+           <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current font-bold text-xl transition">âœ•</button>
         </div>
         <div class="grid grid-cols-2 gap-4">
            <button onclick="handleHomeTap(); closeWorldRadios()" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-              <span class="text-4xl">🇦🇷</span> <span class="font-bold text-sm">Argentina</span>
+              <span class="text-4xl">ðŸ‡¦ðŸ‡·</span> <span class="font-bold text-sm">Argentina</span>
            </button>
            <a href="https://URL-DE-TU-WEB-BRASIL.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-              <span class="text-4xl">🇧🇷</span> <span class="font-bold text-sm">Brasil</span>
+              <span class="text-4xl">ðŸ‡§ðŸ‡·</span> <span class="font-bold text-sm">Brasil</span>
            </a>
            <a href="https://URL-DE-TU-WEB-MEXICO.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-              <span class="text-4xl">🇲🇽</span> <span class="font-bold text-sm">México</span>
+              <span class="text-4xl">ðŸ‡²ðŸ‡½</span> <span class="font-bold text-sm">MÃ©xico</span>
            </a>
            <a href="https://URL-DE-TU-WEB-USA.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
-              <span class="text-4xl">🇺🇸</span> <span class="font-bold text-sm">EE.UU.</span>
+              <span class="text-4xl">ðŸ‡ºðŸ‡¸</span> <span class="font-bold text-sm">EE.UU.</span>
            </a>
         </div>
      </div>
@@ -555,17 +566,17 @@
       <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-3xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="paymentModalContent">
           <div class="p-5 border-b border-zinc-800 flex justify-between items-center bg-[#0a0a0a]">
               <h3 class="text-xl font-black text-white tracking-tighter">Suscripciones RadioAR Pro</h3>
-              <button onclick="cerrarModalPago()" class="text-zinc-500 hover:text-white text-xl">✕</button>
+              <button onclick="cerrarModalPago()" class="text-zinc-500 hover:text-white text-xl">âœ•</button>
           </div>
           <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto max-h-[80vh] no-scrollbar">
               
               <div class="border border-yellow-500/30 bg-yellow-500/5 rounded-2xl p-6 flex flex-col hover:border-yellow-500/60 transition-colors">
-                  <h4 class="text-yellow-500 font-black text-2xl mb-1 flex items-center gap-2">👑 Premium Gold</h4>
+                  <h4 class="text-yellow-500 font-black text-2xl mb-1 flex items-center gap-2">ðŸ‘‘ Premium Gold</h4>
                   <p class="text-[11px] text-zinc-400 mb-4 font-bold uppercase tracking-widest">Plan Base</p>
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Sin publicidad en la web</li>
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Logo dorado en tu perfil</li>
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Soporte prioritario</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">âœ”</span> Sin publicidad en la web</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">âœ”</span> Logo dorado en tu perfil</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">âœ”</span> Soporte prioritario</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'gold')" class="w-full bg-[#009EE3] hover:bg-[#0088cc] text-white font-bold py-3 rounded-xl transition shadow-lg text-sm flex justify-center items-center gap-2">
@@ -579,14 +590,14 @@
               
               <div class="border border-cyan-500/50 bg-cyan-500/10 rounded-2xl p-6 flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,242,254,0.1)] hover:shadow-[0_0_30px_rgba(0,242,254,0.2)] transition-shadow">
                   <div class="absolute top-0 right-0 bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg shadow-lg">NUEVO</div>
-                  <h4 class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 font-black text-2xl mb-1 flex items-center gap-2">💎 Diamond</h4>
-                  <p class="text-[11px] text-cyan-200 mb-4 font-bold uppercase tracking-widest">Suscripción Mensual</p>
+                  <h4 class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 font-black text-2xl mb-1 flex items-center gap-2">ðŸ’Ž Diamond</h4>
+                  <p class="text-[11px] text-cyan-200 mb-4 font-bold uppercase tracking-widest">SuscripciÃ³n Mensual</p>
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Todo lo del plan Premium</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Resaltado VIP en chat (próximamente)</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Modo Karaoke Inédito</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">âœ”</span> Todo lo del plan Premium</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">âœ”</span> Efectos visuales de interfaz</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">âœ”</span> Colores neÃ³n exclusivos</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">âœ”</span> Resaltado VIP en chat (prÃ³ximamente)</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">âœ”</span> Modo Karaoke InÃ©dito</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2">
@@ -604,35 +615,35 @@
 
   <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-2 md:p-4">
     <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
-      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
+      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">âœ•</button>
       
       <div class="text-center mb-4 flex-shrink-0 relative">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
         <div class="flex justify-center gap-2 mt-3">
             <button id="btnMockLogin" onclick="loginDemoPro()" class="bg-zinc-800 hover:bg-zinc-700 text-yellow-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-yellow-600/30">
-              👑 Demo Gold
+              ðŸ‘‘ Demo Gold
             </button>
             <button id="btnMockLoginDiamond" onclick="loginDemoDiamond()" class="bg-zinc-800 hover:bg-zinc-700 text-cyan-400 text-xs font-bold py-1.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-cyan-500/30 shadow-[0_0_10px_rgba(0,242,254,0.2)]">
-              💎 Demo DIAMOND
+              ðŸ’Ž Demo DIAMOND
             </button>
         </div>
       </div>
       
       <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl overflow-x-auto no-scrollbar">
-          <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">👥 Users</button>
-          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
-          <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏆 Top 10</button>
-          <button onclick="switchAdminTab('tendencias')" id="tabBtnTendencias" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 Tend</button>
-          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏷️ Cats</button>
-          <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">📰 Notas</button>
-          <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
-          <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">💳 Pagos</button>
-          <button onclick="switchAdminTab('themes')" id="tabBtnThemes" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🎨 Themes</button>
-          <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
+          <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ‘¥ Users</button>
+          <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">ðŸ“» Radios</button>
+          <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ† Top 10</button>
+          <button onclick="switchAdminTab('tendencias')" id="tabBtnTendencias" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ”¥ Tend</button>
+          <button onclick="switchAdminTab('cats')" id="tabBtnCats" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ·ï¸ Cats</button>
+          <button onclick="switchAdminTab('news')" id="tabBtnNews" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ“° Notas</button>
+          <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ’° Ads</button>
+          <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">ðŸ’³ Pagos</button>
+          <button onclick="switchAdminTab('themes')" id="tabBtnThemes" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸŽ¨ Themes</button>
+          <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">ðŸ”¥ DB</button>
       </div>
 
       <div id="tabUsers" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
-         <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Gestión de Usuarios Registrados</h4>
+         <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">GestiÃ³n de Usuarios Registrados</h4>
          <div id="adminUsersList" class="space-y-2 flex-shrink-0"></div>
       </div>
 
@@ -645,7 +656,7 @@
             <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             <input type="url" id="mWebsite" placeholder="Sitio Web Oficial (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
-            <textarea id="mDescription" placeholder="Descripción Personalizada (Ej: Provincia/Estado: Buenos Aires. Disfrutá de la mejor transmisión...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[80px]"></textarea>
+            <textarea id="mDescription" placeholder="DescripciÃ³n Personalizada (Ej: Provincia/Estado: Buenos Aires. DisfrutÃ¡ de la mejor transmisiÃ³n...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[80px]"></textarea>
             
             <input type="text" id="mMetaInfo" placeholder="Meta info SEO / Keywords (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
@@ -658,17 +669,17 @@
                         <option value="Catamarca">Catamarca</option>
                         <option value="Chaco">Chaco</option>
                         <option value="Chubut">Chubut</option>
-                        <option value="Córdoba">Córdoba</option>
+                        <option value="CÃ³rdoba">CÃ³rdoba</option>
                         <option value="Corrientes">Corrientes</option>
-                        <option value="Entre Ríos">Entre Ríos</option>
+                        <option value="Entre RÃ­os">Entre RÃ­os</option>
                         <option value="Formosa">Formosa</option>
                         <option value="Jujuy">Jujuy</option>
                         <option value="La Pampa">La Pampa</option>
                         <option value="La Rioja">La Rioja</option>
                         <option value="Mendoza">Mendoza</option>
                         <option value="Misiones">Misiones</option>
-                        <option value="Neuquén">Neuquén</option>
-                        <option value="Río Negro">Río Negro</option>
+                        <option value="NeuquÃ©n">NeuquÃ©n</option>
+                        <option value="RÃ­o Negro">RÃ­o Negro</option>
                         <option value="Salta">Salta</option>
                         <option value="San Juan">San Juan</option>
                         <option value="San Luis">San Luis</option>
@@ -676,15 +687,15 @@
                         <option value="Santa Fe">Santa Fe</option>
                         <option value="Santiago del Estero">Santiago del Estero</option>
                         <option value="Tierra del Fuego">Tierra del Fuego</option>
-                        <option value="Tucumán">Tucumán</option>
+                        <option value="TucumÃ¡n">TucumÃ¡n</option>
                     </select>
                     <select id="mCategoria" class="w-1/2 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" onchange="toggleCustomCat()">
-                        <option value="">Categoría (Ninguna)</option>
-                        <option value="mate">🧉 Para unos Mates</option>
-                        <option value="estudiar">🧠 Concentrate</option>
-                        <option value="sport">⚽ Fútbol y Pasiones</option>
-                        <option value="retro">📻 Retro Tour</option>
-                        <option value="otra">➕ Otra Categoría...</option>
+                        <option value="">CategorÃ­a (Ninguna)</option>
+                        <option value="mate">ðŸ§‰ Para unos Mates</option>
+                        <option value="estudiar">ðŸ§  Concentrate</option>
+                        <option value="sport">âš½ FÃºtbol y Pasiones</option>
+                        <option value="retro">ðŸ“» Retro Tour</option>
+                        <option value="otra">âž• Otra CategorÃ­a...</option>
                     </select>
                 </div>
                 <input type="text" id="mCategoriaCustom" placeholder="Ej: noticias, cumbia, pop..." class="hidden w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
@@ -694,7 +705,7 @@
             
             <div class="flex gap-2">
                 <button type="submit" id="submitRadioBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Subir Radio</button>
-                <button type="button" id="cancelRadioBtn" onclick="cancelRadioEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
+                <button type="button" id="cancelRadioBtn" onclick="cancelRadioEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">âœ•</button>
             </div>
           </form>
 
@@ -709,26 +720,26 @@
       
       <div id="tabTop10" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <div class="mb-4 flex-shrink-0">
-              <label class="text-xs font-bold text-yellow-500 uppercase">Añadir al Top 10</label>
+              <label class="text-xs font-bold text-yellow-500 uppercase">AÃ±adir al Top 10</label>
               <input type="text" id="top10Search" placeholder="Buscar radio por nombre para fijar en el top..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-yellow-500 mt-1" oninput="searchForTop10()">
               <div id="top10SearchResults" class="space-y-1 mt-1"></div>
           </div>
           <div class="flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
               <h4 class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-2 flex items-center gap-2">Top 10 En Vivo</h4>
-              <p class="text-[9px] text-zinc-500 mb-2">Mantén presionado y arrastra una emisora para reordenarla a tu gusto en el Top 10.</p>
+              <p class="text-[9px] text-zinc-500 mb-2">MantÃ©n presionado y arrastra una emisora para reordenarla a tu gusto en el Top 10.</p>
               <div id="activeTop10List" class="flex flex-col flex-shrink-0"></div>
           </div>
       </div>
 
       <div id="tabTendencias" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <div class="mb-4 flex-shrink-0">
-              <label class="text-xs font-bold text-orange-500 uppercase">Añadir a Tendencias (Manual)</label>
+              <label class="text-xs font-bold text-orange-500 uppercase">AÃ±adir a Tendencias (Manual)</label>
               <input type="text" id="tendenciasSearch" placeholder="Buscar radio para fijar en tendencias..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-orange-500 mt-1" oninput="searchForTendencias()">
               <div id="tendenciasSearchResults" class="space-y-1 mt-1"></div>
           </div>
           <div class="flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
               <h4 class="text-xs font-bold text-orange-500 uppercase tracking-widest mb-2 flex items-center gap-2">Top Tendencias Mensuales</h4>
-              <p class="text-[9px] text-zinc-500 mb-2">Arrastra para ordenar a gusto. Las radios fijadas sobrescriben a los votos (fueguitos) del público.</p>
+              <p class="text-[9px] text-zinc-500 mb-2">Arrastra para ordenar a gusto. Las radios fijadas sobrescriben a los votos (fueguitos) del pÃºblico.</p>
               <div id="activeTendenciasList" class="flex flex-col flex-shrink-0"></div>
           </div>
       </div>
@@ -739,13 +750,13 @@
               <input type="text" id="cName" placeholder="Nombre (ej: Rock Nacional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-purple-500" required>
               <input type="text" id="cValue" placeholder="Valor Tag (ej: rock)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-purple-500" required>
               <div class="flex gap-2">
-                <button type="submit" id="submitCatBtn" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Crear Categoría</button>
-                <button type="button" id="cancelCatBtn" onclick="cancelCatEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
+                <button type="submit" id="submitCatBtn" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Crear CategorÃ­a</button>
+                <button type="button" id="cancelCatBtn" onclick="cancelCatEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">âœ•</button>
               </div>
            </form>
            
            <div class="mt-4 flex-shrink-0 flex flex-col border-t border-zinc-800 pt-4">
-              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Categorías Creadas</h4>
+              <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">CategorÃ­as Creadas</h4>
               <div id="manualCatsList" class="space-y-2 flex-shrink-0"></div>
           </div>
       </div>
@@ -755,31 +766,31 @@
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">Mostrar Cintillo de Noticias</label>
                   <select id="newsEnabled" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1">
-                      <option value="true">Sí, habilitar cintillo</option>
+                      <option value="true">SÃ­, habilitar cintillo</option>
                       <option value="false">No, ocultar cintillo</option>
                   </select>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase text-yellow-400">Velocidad del Cintillo</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Tiempo base en segundos. A mayor número, más lento avanza.</p>
+                  <p class="text-[9px] text-zinc-500 mb-2">Tiempo base en segundos. A mayor nÃºmero, mÃ¡s lento avanza.</p>
                   <input type="number" id="newsSpeed" placeholder="Ej: 30" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios genéricas.</p>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias (MÃ¡x 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por lÃ­nea. Para radios genÃ©ricas.</p>
                   <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/&#10;https://www.infobae.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios con tags de fútbol/deportes.</p>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (MÃ¡x 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por lÃ­nea. Para radios con tags de fÃºtbol/deportes.</p>
                   <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/&#10;https://www.tycsports.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios musicales.</p>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">RSS MÃºsica / EspectÃ¡culos (MÃ¡x 5)</label>
+                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por lÃ­nea. Para radios musicales.</p>
                   <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/&#10;https://tn.com.ar/rss/show/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
-              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración RSS</button>
+              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar ConfiguraciÃ³n RSS</button>
           </form>
       </div>
 
@@ -787,7 +798,7 @@
            <form id="adminAdsForm" class="space-y-4 flex-shrink-0">
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">Script Head AdSense (Opcional)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pégalo aquí.</p>
+                  <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pÃ©galo aquÃ­.</p>
                   <textarea id="adsHead" placeholder='<script async src="https://pagead2.googlesyndication.com/..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
@@ -800,14 +811,14 @@
                   <p class="text-[9px] text-zinc-500 mb-2">Aparece arriba del chat de la comunidad.</p>
                   <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
-              <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración de Ads</button>
+              <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar ConfiguraciÃ³n de Ads</button>
            </form>
       </div>
       
       <div id="tabPayments" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminPaymentsForm" class="space-y-4 flex-shrink-0">
               <div class="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl mb-2 text-xs text-blue-200">
-                  <b>ℹ️ Entorno de Pagos:</b> Guarda aquí las credenciales para la integración SDK/Checkout. El frontend UI ya está listo para invocarlas.
+                  <b>â„¹ï¸ Entorno de Pagos:</b> Guarda aquÃ­ las credenciales para la integraciÃ³n SDK/Checkout. El frontend UI ya estÃ¡ listo para invocarlas.
               </div>
               <div class="border-b border-zinc-800 pb-4">
                   <label class="text-xs font-bold text-blue-400 uppercase flex items-center gap-2 mb-2">
@@ -826,9 +837,9 @@
               
               <div class="pt-4 border-t border-zinc-800 mt-4">
                   <label class="text-xs font-bold text-yellow-500 uppercase flex items-center gap-2 mb-2">
-                      ☕ Apóyanos (Alias)
+                      â˜• ApÃ³yanos (Alias)
                   </label>
-                  <input type="text" id="donationAlias" placeholder="Tu Alias o link de donación acá..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500">
+                  <input type="text" id="donationAlias" placeholder="Tu Alias o link de donaciÃ³n acÃ¡..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500">
               </div>
               <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
           </form>
@@ -837,14 +848,14 @@
       <div id="tabThemes" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminThemesForm" class="space-y-4 flex-shrink-0">
              <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
-                 <b>👑 HTML/CSS Custom para Modo GOLD:</b><br>
+                 <b>ðŸ‘‘ HTML/CSS Custom para Modo GOLD:</b><br>
                  <span class="text-[9px] text-yellow-500/70">Puedes incluir etiquetas &lt;style&gt; o divs que quieras renderizar solo para usuarios Gold.</span>
              </div>
              <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style> o <div>Hola Premium</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono"></textarea>
 
              <div class="bg-cyan-500/10 border border-cyan-500/30 p-3 rounded-xl mb-2 text-xs text-cyan-200 mt-4">
-                 <b>💎 HTML/CSS Custom para Modo DIAMOND:</b><br>
-                 <span class="text-[9px] text-cyan-500/70">Este código se inyectará cuando el usuario sea nivel Diamond.</span>
+                 <b>ðŸ’Ž HTML/CSS Custom para Modo DIAMOND:</b><br>
+                 <span class="text-[9px] text-cyan-500/70">Este cÃ³digo se inyectarÃ¡ cuando el usuario sea nivel Diamond.</span>
              </div>
              <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style> o <div class='neon'>Diamond User</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono"></textarea>
 
@@ -855,7 +866,7 @@
       <div id="tabFirebase" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminFirebaseForm" class="space-y-4 flex-shrink-0">
              <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl mb-2 text-xs text-red-200">
-                 <b>⚠️ Zona de Riesgo:</b> Aquí puedes reemplazar la base de datos por defecto con tus propias credenciales de Firebase. Al guardar se recargará la página.
+                 <b>âš ï¸ Zona de Riesgo:</b> AquÃ­ puedes reemplazar la base de datos por defecto con tus propias credenciales de Firebase. Al guardar se recargarÃ¡ la pÃ¡gina.
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">API Key</label>
@@ -887,7 +898,7 @@
              </div>
              
              <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar Servidor</button>
-             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
+             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar ConexiÃ³n por Defecto</button>
           </form>
       </div>
 
@@ -920,7 +931,7 @@
         </button>
 
         <div class="relative flex items-center">
-             <button id="p-alarm-btn" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-current hover:border-current transition" onclick="document.getElementById('alarm-menu').classList.toggle('hidden')" title="Despertador Automático y Modo Relax">
+             <button id="p-alarm-btn" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-current hover:border-current transition" onclick="document.getElementById('alarm-menu').classList.toggle('hidden')" title="Despertador AutomÃ¡tico y Modo Relax">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
             </button>
             
@@ -955,19 +966,19 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <button onclick="playRelax('rain', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🌧️</span>
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">ðŸŒ§ï¸</span>
                             <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Lluvia</span>
                         </button>
                         <button onclick="playRelax('thunder', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">⛈️</span>
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">â›ˆï¸</span>
                             <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Truenos</span>
                         </button>
                         <button onclick="playRelax('roof', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🏠</span>
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">ðŸ </span>
                             <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Tejado</span>
                         </button>
                         <button onclick="playRelax('fire', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🔥</span>
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">ðŸ”¥</span>
                             <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Hogar</span>
                         </button>
                     </div>
@@ -1053,13 +1064,14 @@
         if(k) { k.classList.add('hidden'); k.classList.remove('flex'); }
     };
 
-    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND ---
+    // --- LÃ“GICA DE TEMAS Ã‰PICOS DIAMOND ---
     let diamondThemeIndex = 0;
-    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave'];
+    // Se ha agregado el tema 'theme-galaxy' al array
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-galaxy'];
     
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-galaxy');
         diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
         const newTheme = diamondThemes[diamondThemeIndex];
         if (newTheme) {
@@ -1087,8 +1099,8 @@
     };
 
     window.procesarPago = function(gateway, plan) {
-        // En un entorno real, aquí inicializas el SDK o haces redirect a la URL de MercadoPago/PayPal generada por tu backend.
-        alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producción, esto te redigiría a la ventana de cobro).`);
+        // En un entorno real, aquÃ­ inicializas el SDK o haces redirect a la URL de MercadoPago/PayPal generada por tu backend.
+        alert(`Iniciando conexiÃ³n con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producciÃ³n, esto te redigirÃ­a a la ventana de cobro).`);
         window.cerrarModalPago();
     };
 
@@ -1103,6 +1115,7 @@
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
         if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
+        if(document.getElementById('btnMobPremiumIcon')) document.getElementById('btnMobPremiumIcon').classList.add('hidden');
         
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
@@ -1125,7 +1138,7 @@
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-galaxy');
         
         window.currentPremiumStatus = 'gold';
         window.hideKaraoke(); // Ocultamos karaoke en Gold
@@ -1145,6 +1158,7 @@
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
         if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
+        if(document.getElementById('btnMobPremiumIcon')) document.getElementById('btnMobPremiumIcon').classList.add('hidden');
         
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
@@ -1172,7 +1186,7 @@
         window.showKaraoke(); // Mostramos Karaoke en Diamond
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Karaoke y los Temas Épicos!");
+        alert("ðŸ’Ž Has ingresado al modo Demo DIAMOND. Â¡Prueba el Karaoke y los Temas Ã‰picos!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -1183,17 +1197,17 @@
         "Catamarca": {lat: -28.4696, lon: -65.7852},
         "Chaco": {lat: -27.4606, lon: -58.9839},
         "Chubut": {lat: -43.3002, lon: -65.1023},
-        "Córdoba": {lat: -31.4201, lon: -64.1888},
+        "CÃ³rdoba": {lat: -31.4201, lon: -64.1888},
         "Corrientes": {lat: -27.4692, lon: -58.8306},
-        "Entre Ríos": {lat: -31.7331, lon: -60.5297},
+        "Entre RÃ­os": {lat: -31.7331, lon: -60.5297},
         "Formosa": {lat: -26.1775, lon: -58.1781},
         "Jujuy": {lat: -24.1946, lon: -65.2971},
         "La Pampa": {lat: -36.6167, lon: -64.2833},
         "La Rioja": {lat: -29.4135, lon: -66.8565},
         "Mendoza": {lat: -32.8908, lon: -68.8272},
         "Misiones": {lat: -27.3671, lon: -55.8961},
-        "Neuquén": {lat: -38.9516, lon: -68.0591},
-        "Río Negro": {lat: -40.8135, lon: -63.0022},
+        "NeuquÃ©n": {lat: -38.9516, lon: -68.0591},
+        "RÃ­o Negro": {lat: -40.8135, lon: -63.0022},
         "Salta": {lat: -24.7821, lon: -65.4232},
         "San Juan": {lat: -31.5375, lon: -68.5364},
         "San Luis": {lat: -33.2950, lon: -66.3356},
@@ -1201,10 +1215,10 @@
         "Santa Fe": {lat: -31.6333, lon: -60.7000},
         "Santiago del Estero": {lat: -27.7951, lon: -64.2615},
         "Tierra del Fuego": {lat: -54.8019, lon: -68.3030},
-        "Tucumán": {lat: -26.8083, lon: -65.2176}
+        "TucumÃ¡n": {lat: -26.8083, lon: -65.2176}
     };
 
-    // Configuración Global de Noticias
+    // ConfiguraciÃ³n Global de Noticias
     let globalNewsConfig = {
         enabled: true,
         speed: 30, // Segundos base
@@ -1213,13 +1227,13 @@
         music: 'https://www.clarin.com/rss/espectaculos/'
     };
 
-    // Configuración Global del Top 10 Manual
+    // ConfiguraciÃ³n Global del Top 10 Manual
     let globalTop10Config = { pinned: [], hidden: [] };
 
-    const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
+    const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "CÃ³rdoba", "Corrientes", "Entre RÃ­os", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "NeuquÃ©n", "RÃ­o Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "TucumÃ¡n"];
     const SEO_DATA = { provincias: {}, radios: {} };
 
-    // Función global para crear partículas (corazones/fuegos)
+    // FunciÃ³n global para crear partÃ­culas (corazones/fuegos)
     function createParticles(x, y, emoji) {
         for(let i = 0; i < 6; i++) {
             const p = document.createElement('div');
@@ -1243,7 +1257,7 @@
         const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
         SEO_DATA.provincias[p] = {
             url: `radios-de-${slug}-en-vivo`, title: `Radios de ${p} en Vivo | RadioAR Pro`, h1: `Radios de ${p} en Vivo`,
-            h2: `Escuchá las mejores emisoras de ${p} online`, desc: `Sintonizá las mejores radios de ${p} en vivo y en directo.`
+            h2: `EscuchÃ¡ las mejores emisoras de ${p} online`, desc: `SintonizÃ¡ las mejores radios de ${p} en vivo y en directo.`
         };
     });
 
@@ -1252,21 +1266,21 @@
         const state = (typeof r === 'object' && r.state) ? r.state : 'Argentina';
         const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
         
-        let tipo = "la mejor programación";
+        let tipo = "la mejor programaciÃ³n";
         if (typeof r === 'object' && r.tags) {
             const t = r.tags.toLowerCase();
-            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
-            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
-            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
+            if (t.includes('news') || t.includes('noticias')) tipo = "las Ãºltimas noticias, anÃ¡lisis confiable y la cobertura mÃ¡s completa";
+            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasiÃ³n del deporte, transmisiones en vivo y el mejor anÃ¡lisis";
+            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selecciÃ³n musical y entretenimiento";
         }
 
         if (!SEO_DATA.radios[radioName]) {
-            const defaultDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${radioName}. Sintonizá ${tipo} de ${state} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${radioName}: donde el sonido cobra vida, estés donde estés.`;
-            const defaultKeywords = `Escuchar ${radioName} en vivo online gratis, Radio ${radioName} ${state}, Transmisión en directo ${radioName} online`;
+            const defaultDesc = `DescubrÃ­ en tiempo real todo lo que ofrece la radio online de ${radioName}. SintonizÃ¡ ${tipo} de ${state} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y vivÃ­ una experiencia dinÃ¡mica, Ã¡gil y siempre al dÃ­a. ${radioName}: donde el sonido cobra vida, estÃ©s donde estÃ©s.`;
+            const defaultKeywords = `Escuchar ${radioName} en vivo online gratis, Radio ${radioName} ${state}, TransmisiÃ³n en directo ${radioName} online`;
 
             SEO_DATA.radios[radioName] = { 
                 url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, 
-                h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, 
+                h1: `${radioName} en Vivo`, h2: `EstÃ¡s escuchando ${radioName} en directo`, 
                 desc: (typeof r === 'object' && (r.description)) ? r.description : defaultDesc,
                 keywords: (typeof r === 'object' && (r.meta_info)) ? r.meta_info : defaultKeywords
             };
@@ -1326,7 +1340,7 @@
         } else resetToHome();
     });
 
-    /* --- LÓGICA DE CLIMA Y NOTICIAS --- */
+    /* --- LÃ“GICA DE CLIMA Y NOTICIAS --- */
     async function fetchWeather(prov) {
         const widget = document.getElementById('radio-weather-widget');
         const wrapper = document.getElementById('radio-news-wrapper');
@@ -1344,12 +1358,12 @@
             const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
             const data = await res.json();
             if(data.current_weather) {
-                tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`;
+                tempEl.innerText = `${Math.round(data.current_weather.temperature)}Â°C`;
             } else {
-                tempEl.innerText = "--°C"; 
+                tempEl.innerText = "--Â°C"; 
             }
         } catch(e) {
-            tempEl.innerText = "--°C";
+            tempEl.innerText = "--Â°C";
         }
     }
 
@@ -1434,7 +1448,7 @@
         wrapper.classList.remove('hidden');
         wrapper.classList.add('flex');
         tickerWrap.classList.remove('hidden');
-        tickerContent.innerHTML = "Cargando información en vivo...";
+        tickerContent.innerHTML = "Cargando informaciÃ³n en vivo...";
         
         const t = (tags || "").toLowerCase();
         const p = (province || "").trim();
@@ -1486,7 +1500,7 @@
                                     }
                                 }
                                 
-                                let goalsText = "⚽ Detalles del Partido:&#10;";
+                                let goalsText = "âš½ Detalles del Partido:&#10;";
                                 let hasGoals = false;
                                 if (ev.competitions[0].details && ev.competitions[0].details.length > 0) {
                                     ev.competitions[0].details.forEach(d => {
@@ -1506,9 +1520,9 @@
                                             let player = d.participants && d.participants[0] && d.participants[0].athlete ? d.participants[0].athlete.shortName : "";
                                             
                                             if (player) {
-                                                goalsText += `• ${player} (${teamName}) ${min}&#10;`;
+                                                goalsText += `â€¢ ${player} (${teamName}) ${min}&#10;`;
                                             } else {
-                                                goalsText += `• Gol de ${teamName} ${min}&#10;`;
+                                                goalsText += `â€¢ Gol de ${teamName} ${min}&#10;`;
                                             }
                                             hasGoals = true;
                                         }
@@ -1517,9 +1531,9 @@
                                 
                                 if (!hasGoals) {
                                     if ((c1.score && c1.score !== "0") || (c2.score && c2.score !== "0")) {
-                                        goalsText += "Goles aún no procesados en el resumen.";
+                                        goalsText += "Goles aÃºn no procesados en el resumen.";
                                     } else if (isScheduled) {
-                                        goalsText += "El partido aún no ha comenzado.";
+                                        goalsText += "El partido aÃºn no ha comenzado.";
                                     } else {
                                         goalsText += "Sin goles por el momento.";
                                     }
@@ -1577,7 +1591,7 @@
             
             results.forEach(res => {
                 if (typeof res === 'string' && res !== "") {
-                    finalHtml += res + " &nbsp;&nbsp; ⚡ &nbsp;&nbsp; "; 
+                    finalHtml += res + " &nbsp;&nbsp; âš¡ &nbsp;&nbsp; "; 
                 } else if (Array.isArray(res)) {
                     headlines = headlines.concat(res);
                 }
@@ -1585,17 +1599,17 @@
 
             if(headlines.length > 0) {
                 headlines = headlines.filter((item, index) => headlines.indexOf(item) === index); 
-                finalHtml += headlines.join(' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ');
+                finalHtml += headlines.join(' &nbsp;&nbsp; âš¡ &nbsp;&nbsp; ');
             }
             
             if(finalHtml !== "") {
-                const fullString = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ';
+                const fullString = finalHtml + ' &nbsp;&nbsp; âš¡ &nbsp;&nbsp; ';
                 tickerContent.innerHTML = fullString + fullString;
             } else {
                 tickerContent.innerText = "Bienvenido a RadioAR Pro. Transmitiendo en vivo...";
             }
         }).catch(() => {
-            tickerContent.innerText = "Transmitiendo en vivo desde Argentina 🌎";
+            tickerContent.innerText = "Transmitiendo en vivo desde Argentina ðŸŒŽ";
         });
     }
 
@@ -1614,16 +1628,16 @@
         document.getElementById('detail-title').innerText = r.name;
         document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
         
-        let tipo = "la mejor programación";
+        let tipo = "la mejor programaciÃ³n";
         if (r.tags) {
             const t = r.tags.toLowerCase();
-            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
-            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
-            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
+            if (t.includes('news') || t.includes('noticias')) tipo = "las Ãºltimas noticias, anÃ¡lisis confiable y la cobertura mÃ¡s completa";
+            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasiÃ³n del deporte, transmisiones en vivo y el mejor anÃ¡lisis";
+            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selecciÃ³n musical y entretenimiento";
         }
         
         const stateStr = r.state ? r.state : 'Argentina';
-        const generatedDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${r.name}. Sintonizá ${tipo} de ${stateStr} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${r.name}: donde el sonido cobra vida, estés donde estés.`;
+        const generatedDesc = `DescubrÃ­ en tiempo real todo lo que ofrece la radio online de ${r.name}. SintonizÃ¡ ${tipo} de ${stateStr} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y vivÃ­ una experiencia dinÃ¡mica, Ã¡gil y siempre al dÃ­a. ${r.name}: donde el sonido cobra vida, estÃ©s donde estÃ©s.`;
         
         document.getElementById('detail-desc').innerText = r.description || generatedDesc;
 
@@ -1638,7 +1652,7 @@
         if(r.state) {
             const stateBtn = document.createElement('button');
             stateBtn.className = 'px-3 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded-full text-[10px] font-bold border border-blue-500/30 uppercase tracking-wide transition-colors shadow-sm';
-            stateBtn.innerText = '📍 ' + r.state;
+            stateBtn.innerText = 'ðŸ“ ' + r.state;
             stateBtn.onclick = () => filterP(r.state);
             tagsContainer.appendChild(stateBtn);
         }
@@ -1657,17 +1671,17 @@
             });
         }
         
-        // --- NUEVO BOTÓN DE APOYANOS ---
+        // --- NUEVO BOTÃ“N DE APOYANOS ---
         const supportBtn = document.createElement('button');
         supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase tracking-wide transition-colors shadow-sm flex items-center gap-1 ml-1';
-        supportBtn.innerHTML = '☕ Apóyanos';
+        supportBtn.innerHTML = 'â˜• ApÃ³yanos';
         supportBtn.onclick = () => {
             const alias = window.globalDonationAlias || "radio.alias.mp";
             if(navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(alias);
-                alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
+                alert("Â¡Gracias por tu apoyo! â¤ï¸\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
             } else {
-                alert("¡Gracias por tu apoyo! ❤️\nAlias para donar: " + alias);
+                alert("Â¡Gracias por tu apoyo! â¤ï¸\nAlias para donar: " + alias);
             }
         };
         tagsContainer.appendChild(supportBtn);
@@ -1694,7 +1708,7 @@
         }
     }
 
-    /* --- LÓGICA MODO RELAX --- */
+    /* --- LÃ“GICA MODO RELAX --- */
     const relaxSources = {
         'rain': 'https://cdn.pixabay.com/audio/2025/11/15/audio_3f7ff9f3e2.mp3', 
         'thunder': 'https://cdn.pixabay.com/audio/2022/02/07/audio_1393bdaae1.mp3',
@@ -1739,7 +1753,7 @@
         updateCounter() {
             const fluctuation = Math.floor(Math.random() * 300 - 100);
             this.currentOnline = Math.min(this.maxOnline, this.currentOnline + fluctuation);
-            document.getElementById('onlineCounter').innerText = `● ${this.currentOnline.toLocaleString()} ESCUCHANDO AHORA`;
+            document.getElementById('onlineCounter').innerText = `â— ${this.currentOnline.toLocaleString()} ESCUCHANDO AHORA`;
         }
     };
 
@@ -1773,7 +1787,7 @@
             // Karaoke Mode (Vocal Reducer)
             window.karaokeFilter = audioCtx.createBiquadFilter();
             window.karaokeFilter.type = "peaking";
-            window.karaokeFilter.frequency.value = 1000; // Frecuencias típicas de la voz
+            window.karaokeFilter.frequency.value = 1000; // Frecuencias tÃ­picas de la voz
             window.karaokeFilter.Q.value = 0.5;
             window.karaokeFilter.gain.value = 0; // Apagado por defecto
 
@@ -1806,10 +1820,10 @@
         const btn = document.getElementById('p-karaoke');
         if(isKaraokeOn) {
             btn.classList.add('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
-            alert("🎤 Modo Karaoke Activado: Atenuando voces principales.");
+            alert("ðŸŽ¤ Modo Karaoke Activado: Atenuando voces principales.");
         } else {
             btn.classList.remove('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
-            alert("🎵 Modo Karaoke Desactivado.");
+            alert("ðŸŽµ Modo Karaoke Desactivado.");
         }
     }
 
@@ -1884,7 +1898,7 @@
             if(window.renderActualTendencias) window.renderActualTendencias();
 
             document.getElementById('sectTop').style.display = 'block';
-            document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
+            document.getElementById('radioCount').innerText = "CARGANDO CATÃLOGO...";
 
             setTimeout(async () => {
                 let apiRadios = [];
@@ -1933,7 +1947,7 @@
         const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || { name: uuid };
         const seoData = getRadioSEO(r); 
         const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
-        const text = `¡Estoy escuchando ${r.name} en RadioAR Pro! 🌎 Escuchala en vivo acá:`;
+        const text = `Â¡Estoy escuchando ${r.name} en RadioAR Pro! ðŸŒŽ Escuchala en vivo acÃ¡:`;
         if (navigator.share) navigator.share({title: seoData.title, text: text, url: urlToShare}).catch(err => console.log('Error compartiendo:', err));
         else { navigator.clipboard.writeText(`${text} ${urlToShare}`); alert(`Enlace de ${r.name} copiado al portapapeles.`); }
     }
@@ -1954,7 +1968,7 @@
             btn.classList.add('is-fav');
             
             const rect = btn.getBoundingClientRect();
-            createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '🔥');
+            createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 'ðŸ”¥');
         } else {
             boosts = boosts.filter(x => x !== id);
             localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts));
@@ -2023,7 +2037,7 @@
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
-          title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
+          title: r.name, artist: 'RadioAR Pro ðŸŒŽ', album: r.state || 'Radio Mundial',
           artwork: [{ src: makeHttps(r.favicon) || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
         });
         navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause());
@@ -2082,7 +2096,7 @@
 
     function loadMoreRadios() {
         const nextSet = displayedRadios.slice(currentOffset, currentOffset + itemsPerPage);
-        if (nextSet.length > 0) { renderGrid(nextSet, 'gridMain', true); currentOffset += itemsPerPage; document.getElementById('loadMoreTrigger').innerText = "Desliza para cargar más..."; } 
+        if (nextSet.length > 0) { renderGrid(nextSet, 'gridMain', true); currentOffset += itemsPerPage; document.getElementById('loadMoreTrigger').innerText = "Desliza para cargar mÃ¡s..."; } 
         else { document.getElementById('loadMoreTrigger').innerText = "Has llegado al final"; }
     }
 
@@ -2100,7 +2114,7 @@
         if (audio.paused || !audio.src) { alert("Debes reproducir una radio primero para poder grabar."); return; }
         try {
             const stream = audio.captureStream ? audio.captureStream() : audio.mozCaptureStream ? audio.mozCaptureStream() : null;
-            if (!stream) { alert("Tu navegador no soporta la grabación nativa."); return; }
+            if (!stream) { alert("Tu navegador no soporta la grabaciÃ³n nativa."); return; }
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
             mediaRecorder.onstop = () => {
@@ -2131,7 +2145,7 @@
       onlineManager.init(); setupControls(); setupInfiniteScroll(); setupTickerDrag();
       loadCountryData('argentina'); setupAlarmClock();
       
-      // Asegurar que el estado inicial del karaoke esté oculto
+      // Asegurar que el estado inicial del karaoke estÃ© oculto
       window.hideKaraoke();
     }
 
@@ -2189,7 +2203,7 @@
           if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) document.getElementById('sectTendencias').style.display = 'block';
       } 
       else {
-          const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
+          const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clÃ¡sica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
           let searchTerms = keywords[mood] || [mood];
           displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
           document.getElementById('sectTop').style.display = 'none';
@@ -2208,7 +2222,7 @@
       } else {
           favs.push(primaryId);
           const rect = e.currentTarget.getBoundingClientRect();
-          createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '💙');
+          createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 'ðŸ’™');
       }
       
       localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); 
@@ -2302,7 +2316,7 @@
 
     document.getElementById('adminThemesForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Themes:");
+        const pass = prompt("ContraseÃ±a de Administrador para ConfiguraciÃ³n de Themes:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
@@ -2311,7 +2325,7 @@
         };
         
         update(ref(db, 'settings_comunidad'), { themes: data }).then(() => {
-            alert("¡Themes (HTML Exclusivo) guardados correctamente!");
+            alert("Â¡Themes (HTML Exclusivo) guardados correctamente!");
         }).catch(err => alert("Error: " + err.message));
     });
 
@@ -2352,7 +2366,7 @@
         sessionUnsubscribe = onValue(sesionRef, (snapshot) => {
             const tokenDB = snapshot.val();
             if(tokenDB && tokenDB !== miToken) {
-                alert("Sesión cerrada: Has iniciado sesión en otro navegador o dispositivo.");
+                alert("SesiÃ³n cerrada: Has iniciado sesiÃ³n en otro navegador o dispositivo.");
                 cerrarSesion();
             }
         });
@@ -2363,6 +2377,7 @@
         const btnMockLogin = document.getElementById('btnMockLogin');
         const btnMockLoginDiamond = document.getElementById('btnMockLoginDiamond');
         const btnMobileLogin = document.getElementById('btnMobileLogin');
+        const btnMobPremiumIcon = document.getElementById('btnMobPremiumIcon');
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
         const mainLogoText = document.getElementById('mainLogoText');
@@ -2391,6 +2406,7 @@
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(btnMobPremiumIcon) btnMobPremiumIcon.classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
                 } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
@@ -2398,16 +2414,18 @@
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(btnMobPremiumIcon) btnMobPremiumIcon.classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-galaxy');
                 } else {
                     window.currentPremiumStatus = 'free';
                     window.hideKaraoke(); // OCULTA KARAOKE
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                    if(btnMobPremiumIcon) btnMobPremiumIcon.classList.remove('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-galaxy');
                 }
                 window.reapplyUserTheme();
             });
@@ -2424,8 +2442,9 @@
             if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
+            if(btnMobPremiumIcon) btnMobPremiumIcon.classList.add('hidden');
             if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-galaxy');
             
             window.currentPremiumStatus = 'free';
             window.hideKaraoke(); // OCULTA KARAOKE
@@ -2433,7 +2452,7 @@
         }
     });
 
-    // PANEL ADMIN: GESTIÓN DE USUARIOS
+    // PANEL ADMIN: GESTIÃ“N DE USUARIOS
     onValue(ref(db, 'users'), (snapshot) => {
         const adminList = document.getElementById('adminUsersList');
         if(!adminList) return;
@@ -2472,7 +2491,7 @@
 
             document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const pass = prompt("Contraseña de Admin:");
+                    const pass = prompt("ContraseÃ±a de Admin:");
                     if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
                     const uid = e.target.getAttribute('data-uid');
                     const currentStatus = e.target.getAttribute('data-status') === 'true';
@@ -2482,7 +2501,7 @@
 
             document.querySelectorAll('.toggle-diamond-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const pass = prompt("Contraseña de Admin:");
+                    const pass = prompt("ContraseÃ±a de Admin:");
                     if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
                     const uid = e.target.getAttribute('data-uid');
                     const currentStatus = e.target.getAttribute('data-status') === 'true';
@@ -2491,7 +2510,7 @@
             });
 
         } else {
-             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aún.</div>';
+             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aÃºn.</div>';
         }
     });
 
@@ -2505,7 +2524,7 @@
 
     document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
+        const pass = prompt("ContraseÃ±a de Administrador para Configurar Base de Datos:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const newConfig = {
@@ -2521,12 +2540,12 @@
         if(!newConfig.apiKey || !newConfig.projectId) { return alert("API Key y Project ID son obligatorios."); }
 
         localStorage.setItem('RAR_FIREBASE_CONFIG', JSON.stringify(newConfig));
-        alert("Credenciales guardadas. La página se recargará para aplicar los cambios.");
+        alert("Credenciales guardadas. La pÃ¡gina se recargarÃ¡ para aplicar los cambios.");
         window.location.reload();
     });
 
     window.resetFirebase = function() {
-        if(confirm('¿Estás seguro de que quieres volver a la base de datos por defecto?')) {
+        if(confirm('Â¿EstÃ¡s seguro de que quieres volver a la base de datos por defecto?')) {
             localStorage.removeItem('RAR_FIREBASE_CONFIG');
             window.location.reload();
         }
@@ -2546,7 +2565,7 @@
 
     document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Pagos y Alias:");
+        const pass = prompt("ContraseÃ±a de Administrador para ConfiguraciÃ³n de Pagos y Alias:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
@@ -2616,682 +2635,715 @@
             document.getElementById('sectTendencias').style.display = 'none';
         }
         
-        if(window.renderAdminTendencias) window.renderAdminTendencias();
-    };
-
-    let tenDraggedId = null;
-    
-    window.tenDragStart = function(e, id) {
-        tenDraggedId = id; e.target.classList.add('top10-drag-active'); e.dataTransfer.effectAllowed = 'move';
-    };
-    window.tenDragOver = function(e) {
-        e.preventDefault(); e.dataTransfer.dropEffect = 'move';
-        const target = e.target.closest('[data-id]');
-        if(target && target.dataset.id !== tenDraggedId) target.classList.add('top10-drag-over');
-    };
-    window.tenDragLeave = function(e) {
-        const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
-    };
-    window.tenDrop = function(e, targetId) {
-        e.preventDefault(); const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
-        
-        if (tenDraggedId && tenDraggedId !== targetId) {
-            const pass = prompt("Contraseña de Administrador para reordenar Tendencias:");
-            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-            let currentList = window.currentActiveTendencias.map(r => r.original_uuid || r.stationuuid || r.fb_key);
-            let draggedIdx = currentList.indexOf(tenDraggedId);
-            let targetIdx = currentList.indexOf(targetId);
+        if(window.renderAdminTendencias) window.renderActualTendencias = function() {
+            if (allRadios.length === 0) return;
             
-            currentList.splice(draggedIdx, 1);
-            currentList.splice(targetIdx, 0, tenDraggedId);
+            let pinnedRadios = [];
+            let hiddenIds = globalTendenciasConfig.hidden || [];
+            let pinnedIds = globalTendenciasConfig.pinned || [];
             
-            let fullNewPinned = [];
-            currentList.forEach(id => {
-                if (globalTendenciasConfig.pinned.includes(id) || id === tenDraggedId || id === targetId) fullNewPinned.push(id);
+            pinnedIds.forEach(id => {
+                let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
+                if(r) pinnedRadios.push(r);
             });
-            
-            globalTendenciasConfig.pinned.forEach(id => {
-                if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+
+            // Ordenar por clicks
+            let clicksArray = Object.entries(globalClicks)
+                .filter(([id]) => !hiddenIds.includes(id) && !pinnedIds.includes(id))
+                .sort((a, b) => b[1] - a[1]) // descendente
+                .map(([id]) => id);
+                
+            let clickRadios = [];
+            clicksArray.forEach(id => {
+                let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
+                if(r) clickRadios.push(r);
             });
+
+            window.currentActiveTendencias = [...pinnedRadios, ...clickRadios].slice(0, 10);
             
-            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } });
-        }
-        tenDraggedId = null;
-    };
-    window.tenDragEnd = function(e) { e.target.classList.remove('top10-drag-active'); tenDraggedId = null; };
-
-    window.renderAdminTendencias = function() {
-        const list = document.getElementById('activeTendenciasList');
-        if(!list) return;
-        
-        let html = '';
-        if(window.currentActiveTendencias) {
-            window.currentActiveTendencias.forEach((r, idx) => {
-                const id = r.original_uuid || r.stationuuid || r.fb_key;
-                const isPinned = globalTendenciasConfig.pinned.includes(id);
-                const clicks = globalClicks[id] || 0;
-                html += `
-                    <div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">🔥 ${clicks} fueguitos (mes)</p>
-                            </div>
-                        </div>
-                        <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
-                    </div>
-                `;
-            });
-        }
-        list.innerHTML = html;
-    };
-
-    window.searchForTendencias = function() {
-        const q = document.getElementById('tendenciasSearch').value.toLowerCase();
-        const resDiv = document.getElementById('tendenciasSearchResults');
-        if(q.length < 2) { resDiv.innerHTML = ''; return; }
-        
-        const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
-        resDiv.innerHTML = found.map(r => {
-            const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
-                <div class="flex items-center gap-2 truncate">
-                    <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <span class="text-xs text-white font-bold truncate">${r.name}</span>
-                </div>
-                <span class="text-[10px] bg-orange-600 text-black font-bold px-2 py-1 rounded">Añadir</span>
-            </div>
-        `}).join('');
-    };
-
-    window.addToTendencias = function(id) {
-        const pass = prompt("Contraseña de Administrador para fijar en Tendencias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = [...globalTendenciasConfig.pinned];
-        if(!newPinned.includes(id)) newPinned.unshift(id); 
-        
-        let newHidden = globalTendenciasConfig.hidden.filter(x => x !== id);
-        
-        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } }).then(() => {
-            document.getElementById('tendenciasSearch').value = '';
-            document.getElementById('tendenciasSearchResults').innerHTML = '';
-        });
-    };
-
-    window.removeFromTendencias = function(id, isPinned) {
-        const pass = prompt("Contraseña de Administrador para quitar de Tendencias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = globalTendenciasConfig.pinned.filter(x => x !== id);
-        let newHidden = [...globalTendenciasConfig.hidden];
-        
-        if(!isPinned) {
-            if(!newHidden.includes(id)) newHidden.push(id);
-        }
-        
-        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
-    };
-
-    // --- TOP 10 MANUAL CONFIG ---
-    onValue(top10Ref, (snapshot) => {
-        globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
-        if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
-        if(!globalTop10Config.hidden) globalTop10Config.hidden = [];
-        
-        if(window.renderActualTop10) window.renderActualTop10();
-    });
-
-    let draggedId = null;
-    
-    window.topDragStart = function(e, id) {
-        draggedId = id;
-        e.target.classList.add('top10-drag-active');
-        e.dataTransfer.effectAllowed = 'move';
-    };
-    
-    window.topDragOver = function(e) {
-        e.preventDefault(); 
-        e.dataTransfer.dropEffect = 'move';
-        const target = e.target.closest('[data-id]');
-        if(target && target.dataset.id !== draggedId) {
-            target.classList.add('top10-drag-over');
-        }
-    };
-    
-    window.topDragLeave = function(e) {
-        const target = e.target.closest('[data-id]');
-        if(target) target.classList.remove('top10-drag-over');
-    };
-    
-    window.topDrop = function(e, targetId) {
-        e.preventDefault();
-        const target = e.target.closest('[data-id]');
-        if(target) target.classList.remove('top10-drag-over');
-        
-        if (draggedId && draggedId !== targetId) {
-            const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
-            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-            let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
-            let draggedIdx = currentList.indexOf(draggedId);
-            let targetIdx = currentList.indexOf(targetId);
+            if (window.currentActiveTendencias.length > 0) {
+                document.getElementById('sectTendencias').style.display = 'block';
+                renderGrid(window.currentActiveTendencias, 'gridTendencias', false);
+            } else {
+                document.getElementById('sectTendencias').style.display = 'none';
+            }
             
-            currentList.splice(draggedIdx, 1);
-            currentList.splice(targetIdx, 0, draggedId);
-            
-            let fullNewPinned = [];
-            currentList.forEach(id => {
-                if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
-                    fullNewPinned.push(id);
-                }
-            });
-            
-            globalTop10Config.pinned.forEach(id => {
-                if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
-            });
-            
-            update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
-        }
-        draggedId = null;
-    };
-    
-    window.topDragEnd = function(e) {
-        e.target.classList.remove('top10-drag-active');
-        draggedId = null;
-    };
-
-    window.renderAdminTop10 = function() {
-        const list = document.getElementById('activeTop10List');
-        if(!list) return;
-        
-        let html = '';
-        if(window.currentActiveTop10) {
-            window.currentActiveTop10.forEach((r, idx) => {
-                const id = r.original_uuid || r.stationuuid || r.fb_key;
-                const isPinned = globalTop10Config.pinned.includes(id);
-                html += `
-                    <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
-                            </div>
-                        </div>
-                        <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
-                    </div>
-                `;
-            });
-        }
-        list.innerHTML = html;
-    };
-
-    window.searchForTop10 = function() {
-        const q = document.getElementById('top10Search').value.toLowerCase();
-        const resDiv = document.getElementById('top10SearchResults');
-        if(q.length < 2) { resDiv.innerHTML = ''; return; }
-        
-        const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
-        resDiv.innerHTML = found.map(r => {
-            const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
-                <div class="flex items-center gap-2 truncate">
-                    <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <span class="text-xs text-white font-bold truncate">${r.name}</span>
-                </div>
-                <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">Añadir al Top</span>
-            </div>
-        `}).join('');
-    };
-
-    window.addToTop10 = function(id) {
-        const pass = prompt("Contraseña de Administrador para fijar en el Top 10:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = [...globalTop10Config.pinned];
-        if(!newPinned.includes(id))newPinned.unshift(id); 
-        
-        let newHidden = globalTop10Config.hidden.filter(x => x !== id);
-        
-        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
-            document.getElementById('top10Search').value = '';
-            document.getElementById('top10SearchResults').innerHTML = '';
-        });
-    };
-
-    window.removeFromTop10 = function(id, isPinned) {
-        const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = globalTop10Config.pinned.filter(x => x !== id);
-        let newHidden = [...globalTop10Config.hidden];
-        
-        if(!isPinned) {
-            if(!newHidden.includes(id)) newHidden.push(id);
-        }
-        
-        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
-    };
-
-    // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
-    onValue(newsRef, (snapshot) => {
-        const data = snapshot.val();
-        if(data) {
-            globalNewsConfig = data;
-            document.getElementById('newsEnabled').value = data.enabled.toString();
-            document.getElementById('newsSpeed').value = data.speed || 30;
-            document.getElementById('rssGeneral').value = Array.isArray(data.general) ? data.general.join('\n') : (data.general || "");
-            document.getElementById('rssSport').value = Array.isArray(data.sport) ? data.sport.join('\n') : (data.sport || "");
-            document.getElementById('rssMusic').value = Array.isArray(data.music) ? data.music.join('\n') : (data.music || "");
-        }
-    });
-
-    document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
-
-        const data = {
-            enabled: document.getElementById('newsEnabled').value === "true",
-            speed: parseInt(document.getElementById('newsSpeed').value) || 30,
-            general: parseRssUrls(document.getElementById('rssGeneral').value),
-            sport: parseRssUrls(document.getElementById('rssSport').value),
-            music: parseRssUrls(document.getElementById('rssMusic').value)
+            if(window.renderAdminTendencias) window.renderAdminTendencias();
         };
-        
-        update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
-            alert("Configuración de noticias guardada correctamente (Máx 5 enlaces por sección).");
-        }).catch(err => alert("Error: " + err.message));
-    });
 
-    // --- CARGA DE ANUNCIOS (ADSENSE) ---
-    function injectAdHTML(containerId, htmlString) {
-        const container = document.getElementById(containerId);
-        if(!container) return;
-        container.innerHTML = htmlString || "";
+        let tenDraggedId = null;
         
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-            newScript.text = oldScript.text;
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-    }
-
-    onValue(adsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            document.getElementById('adsHead').value = data.head || "";
-            document.getElementById('adsRadio').value = data.radio || "";
-            document.getElementById('adsSidebar').value = data.sidebar || "";
+        window.tenDragStart = function(e, id) {
+            tenDraggedId = id; e.target.classList.add('top10-drag-active'); e.dataTransfer.effectAllowed = 'move';
+        };
+        window.tenDragOver = function(e) {
+            e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+            const target = e.target.closest('[data-id]');
+            if(target && target.dataset.id !== tenDraggedId) target.classList.add('top10-drag-over');
+        };
+        window.tenDragLeave = function(e) {
+            const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
+        };
+        window.tenDrop = function(e, targetId) {
+            e.preventDefault(); const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
             
-            if(data.head && !document.getElementById('adsense-head-script')) {
-                const temp = document.createElement('div');
-                temp.innerHTML = data.head;
-                const scripts = temp.querySelectorAll('script');
-                scripts.forEach(oldScript => {
-                    const newScript = document.createElement('script');
-                    newScript.id = 'adsense-head-script';
-                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                    newScript.text = oldScript.text;
-                    document.head.appendChild(newScript);
+            if (tenDraggedId && tenDraggedId !== targetId) {
+                const pass = prompt("ContraseÃ±a de Administrador para reordenar Tendencias:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+                let currentList = window.currentActiveTendencias.map(r => r.original_uuid || r.stationuuid || r.fb_key);
+                let draggedIdx = currentList.indexOf(tenDraggedId);
+                let targetIdx = currentList.indexOf(targetId);
+                
+                currentList.splice(draggedIdx, 1);
+                currentList.splice(targetIdx, 0, tenDraggedId);
+                
+                let fullNewPinned = [];
+                currentList.forEach(id => {
+                    if (globalTendenciasConfig.pinned.includes(id) || id === tenDraggedId || id === targetId) fullNewPinned.push(id);
+                });
+                
+                globalTendenciasConfig.pinned.forEach(id => {
+                    if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+                });
+                
+                update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } });
+            }
+            tenDraggedId = null;
+        };
+        window.tenDragEnd = function(e) { e.target.classList.remove('top10-drag-active'); tenDraggedId = null; };
+
+        window.renderAdminTendencias = function() {
+            const list = document.getElementById('activeTendenciasList');
+            if(!list) return;
+            
+            let html = '';
+            if(window.currentActiveTendencias) {
+                window.currentActiveTendencias.forEach((r, idx) => {
+                    const id = r.original_uuid || r.stationuuid || r.fb_key;
+                    const isPinned = globalTendenciasConfig.pinned.includes(id);
+                    const clicks = globalClicks[id] || 0;
+                    html += `
+                        <div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                            <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                                <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                                <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                                <div class="truncate">
+                                    <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                                    <p class="text-[9px] text-zinc-500 truncate mt-0.5">ðŸ”¥ ${clicks} fueguitos (mes)</p>
+                                </div>
+                            </div>
+                            <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                        </div>
+                    `;
                 });
             }
-            
-            injectAdHTML('ad-container-sidebar', data.sidebar);
-            injectAdHTML('ad-container-radio', data.radio);
-        }
-    });
+            list.innerHTML = html;
+        };
 
-    document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        window.searchForTendencias = function() {
+            const q = document.getElementById('tendenciasSearch').value.toLowerCase();
+            const resDiv = document.getElementById('tendenciasSearchResults');
+            if(q.length < 2) { resDiv.innerHTML = ''; return; }
+            
+            const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
+            resDiv.innerHTML = found.map(r => {
+                const id = r.original_uuid || r.stationuuid || r.fb_key;
+                return `
+                <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
+                    <div class="flex items-center gap-2 truncate">
+                        <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <span class="text-xs text-white font-bold truncate">${r.name}</span>
+                    </div>
+                    <span class="text-[10px] bg-orange-600 text-black font-bold px-2 py-1 rounded">AÃ±adir</span>
+                </div>
+            `}).join('');
+        };
+
+        window.addToTendencias = function(id) {
+            const pass = prompt("ContraseÃ±a de Administrador para fijar en Tendencias:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            let newPinned = [...globalTendenciasConfig.pinned];
+            if(!newPinned.includes(id)) newPinned.unshift(id); 
+            
+            let newHidden = globalTendenciasConfig.hidden.filter(x => x !== id);
+            
+            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } }).then(() => {
+                document.getElementById('tendenciasSearch').value = '';
+                document.getElementById('tendenciasSearchResults').innerHTML = '';
+            });
+        };
+
+        window.removeFromTendencias = function(id, isPinned) {
+            const pass = prompt("ContraseÃ±a de Administrador para quitar de Tendencias:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            let newPinned = globalTendenciasConfig.pinned.filter(x => x !== id);
+            let newHidden = [...globalTendenciasConfig.hidden];
+            
+            if(!isPinned) {
+                if(!newHidden.includes(id)) newHidden.push(id);
+            }
+            
+            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
+        };
+
+        // --- TOP 10 MANUAL CONFIG ---
+        onValue(top10Ref, (snapshot) => {
+            globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
+            if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
+            if(!globalTop10Config.hidden) globalTop10Config.hidden = [];
+            
+            if(window.renderActualTop10) window.renderActualTop10();
+        });
+
+        let draggedId = null;
         
-        const data = {
-            head: document.getElementById('adsHead').value,
-            radio: document.getElementById('adsRadio').value,
-            sidebar: document.getElementById('adsSidebar').value
+        window.topDragStart = function(e, id) {
+            draggedId = id;
+            e.target.classList.add('top10-drag-active');
+            e.dataTransfer.effectAllowed = 'move';
         };
         
-        update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
-            alert("Anuncios guardados. Refresca la web para ver los cambios.");
-        }).catch(err => alert("Error: " + err.message));
-    });
-
-    // --- FIREBASE CHAT COMUNIDAD ---
-    function renderMessage(data, isReal = true) {
-        const box = document.getElementById('chatMessages');
-        const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
-        const isMe = isReal && data.user === myNick;
-        const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
-        
-        let colorHash = 0;
-        for (let i = 0; i < (data.user || "").length; i++) { colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash); }
-        const color = `hsl(${colorHash % 360}, 60%, 65%)`;
-
-        const div = document.createElement('div');
-        div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
-        
-        div.innerHTML = `
-            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
-            <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
-                <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
-                <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
-            </div>`;
-        box.appendChild(div);
-        
-        box.scrollTop = box.scrollHeight;
-        if(box.children.length > 50) box.removeChild(box.firstChild);
-    }
-
-    onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
-
-    document.getElementById('chatForm')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
-        const input = document.getElementById('chatInput');
-        const msg = input.value.trim();
-        if (msg !== "") { push(chatRef, { user: nick, text: msg, timestamp: serverTimestamp() }); input.value = ""; }
-    });
-
-    const botPhrases = ["Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos"];
-    const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
-
-    function botLoop() {
-        const delay = Math.random() * 12000 + 4000;
-        setTimeout(async () => {
-            const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
-            const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
-            const indicator = document.getElementById('typingIndicator');
-            if(indicator) {
-                indicator.innerText = `${bName} está escribiendo...`; indicator.style.display = 'block';
-                await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
-                indicator.style.display = 'none';
+        window.topDragOver = function(e) {
+            e.preventDefault(); 
+            e.dataTransfer.dropEffect = 'move';
+            const target = e.target.closest('[data-id]');
+            if(target && target.dataset.id !== draggedId) {
+                target.classList.add('top10-drag-over');
             }
-            renderMessage({user: bName, text: bText}, false); 
-            botLoop();
-        }, delay);
-    }
-    botLoop();
+        };
+        
+        window.topDragLeave = function(e) {
+            const target = e.target.closest('[data-id]');
+            if(target) target.classList.remove('top10-drag-over');
+        };
+        
+        window.topDrop = function(e, targetId) {
+            e.preventDefault();
+            const target = e.target.closest('[data-id]');
+            if(target) target.classList.remove('top10-drag-over');
+            
+            if (draggedId && draggedId !== targetId) {
+                const pass = prompt("ContraseÃ±a de Administrador para reordenar el Top 10:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
-    // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
-    onValue(catRef, (snapshot) => {
-        window.firebaseCategorias = [];
-        const adminList = document.getElementById('manualCatsList');
-        const selectCat = document.getElementById('mCategoria');
-        const filterContainer = document.getElementById('moodFilters');
+                let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
+                let draggedIdx = currentList.indexOf(draggedId);
+                let targetIdx = currentList.indexOf(targetId);
+                
+                currentList.splice(draggedIdx, 1);
+                currentList.splice(targetIdx, 0, draggedId);
+                
+                let fullNewPinned = [];
+                currentList.forEach(id => {
+                    if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
+                        fullNewPinned.push(id);
+                    }
+                });
+                
+                globalTop10Config.pinned.forEach(id => {
+                    if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+                });
+                
+                update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
+            }
+            draggedId = null;
+        };
+        
+        window.topDragEnd = function(e) {
+            e.target.classList.remove('top10-drag-active');
+            draggedId = null;
+        };
 
-        if(selectCat) {
-            selectCat.innerHTML = `
-                <option value="">Categoría (Ninguna)</option>
-                <option value="mate">🧉 Para unos Mates</option>
-                <option value="estudiar">🧠 Concentrate</option>
-                <option value="sport">⚽ Fútbol y Pasiones</option>
-                <option value="retro">📻 Retro Tour</option>
-            `;
+        window.renderAdminTop10 = function() {
+            const list = document.getElementById('activeTop10List');
+            if(!list) return;
+            
+            let html = '';
+            if(window.currentActiveTop10) {
+                window.currentActiveTop10.forEach((r, idx) => {
+                    const id = r.original_uuid || r.stationuuid || r.fb_key;
+                    const isPinned = globalTop10Config.pinned.includes(id);
+                    html += `
+                        <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                            <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                                <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                                <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                                <div class="truncate">
+                                    <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                                    <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+                                </div>
+                            </div>
+                            <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                        </div>
+                    `;
+                });
+            }
+            list.innerHTML = html;
+        };
+
+        window.searchForTop10 = function() {
+            const q = document.getElementById('top10Search').value.toLowerCase();
+            const resDiv = document.getElementById('top10SearchResults');
+            if(q.length < 2) { resDiv.innerHTML = ''; return; }
+            
+            const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
+            resDiv.innerHTML = found.map(r => {
+                const id = r.original_uuid || r.stationuuid || r.fb_key;
+                return `
+                <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
+                    <div class="flex items-center gap-2 truncate">
+                        <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <span class="text-xs text-white font-bold truncate">${r.name}</span>
+                    </div>
+                    <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">AÃ±adir al Top</span>
+                </div>
+            `}).join('');
+        };
+
+        window.addToTop10 = function(id) {
+            const pass = prompt("ContraseÃ±a de Administrador para fijar en el Top 10:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            let newPinned = [...globalTop10Config.pinned];
+            if(!newPinned.includes(id))newPinned.unshift(id); 
+            
+            let newHidden = globalTop10Config.hidden.filter(x => x !== id);
+            
+            update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
+                document.getElementById('top10Search').value = '';
+                document.getElementById('top10SearchResults').innerHTML = '';
+            });
+        };
+
+        window.removeFromTop10 = function(id, isPinned) {
+            const pass = prompt("ContraseÃ±a de Administrador para quitar del Top 10:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            let newPinned = globalTop10Config.pinned.filter(x => x !== id);
+            let newHidden = [...globalTop10Config.hidden];
+            
+            if(!isPinned) {
+                if(!newHidden.includes(id)) newHidden.push(id);
+            }
+            
+            update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
+        };
+
+        // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
+        onValue(newsRef, (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                globalNewsConfig = data;
+                document.getElementById('newsEnabled').value = data.enabled.toString();
+                document.getElementById('newsSpeed').value = data.speed || 30;
+                document.getElementById('rssGeneral').value = Array.isArray(data.general) ? data.general.join('\n') : (data.general || "");
+                document.getElementById('rssSport').value = Array.isArray(data.sport) ? data.sport.join('\n') : (data.sport || "");
+                document.getElementById('rssMusic').value = Array.isArray(data.music) ? data.music.join('\n') : (data.music || "");
+            }
+        });
+
+        document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pass = prompt("ContraseÃ±a de Administrador para ConfiguraciÃ³n de Noticias:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
+
+            const data = {
+                enabled: document.getElementById('newsEnabled').value === "true",
+                speed: parseInt(document.getElementById('newsSpeed').value) || 30,
+                general: parseRssUrls(document.getElementById('rssGeneral').value),
+                sport: parseRssUrls(document.getElementById('rssSport').value),
+                music: parseRssUrls(document.getElementById('rssMusic').value)
+            };
+            
+            update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
+                alert("ConfiguraciÃ³n de noticias guardada correctamente (MÃ¡x 5 enlaces por secciÃ³n).");
+            }).catch(err => alert("Error: " + err.message));
+        });
+
+        // --- CARGA DE ANUNCIOS (ADSENSE) ---
+        function injectAdHTML(containerId, htmlString) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.innerHTML = htmlString || "";
+            
+            const scripts = container.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                newScript.text = oldScript.text;
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
         }
 
-        if(adminList) adminList.innerHTML = '';
+        onValue(adsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('adsHead').value = data.head || "";
+                document.getElementById('adsRadio').value = data.radio || "";
+                document.getElementById('adsSidebar').value = data.sidebar || "";
+                
+                if(data.head && !document.getElementById('adsense-head-script')) {
+                    const temp = document.createElement('div');
+                    temp.innerHTML = data.head;
+                    const scripts = temp.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        newScript.id = 'adsense-head-script';
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.text = oldScript.text;
+                        document.head.appendChild(newScript);
+                    });
+                }
+                
+                injectAdHTML('ad-container-sidebar', data.sidebar);
+                injectAdHTML('ad-container-radio', data.radio);
+            }
+        });
 
-        snapshot.forEach(child => {
-            const c = child.val();
-            c.key = child.key;
-            window.firebaseCategorias.push(c);
+        document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pass = prompt("ContraseÃ±a de Administrador para ConfiguraciÃ³n de Anuncios:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            const data = {
+                head: document.getElementById('adsHead').value,
+                radio: document.getElementById('adsRadio').value,
+                sidebar: document.getElementById('adsSidebar').value
+            };
+            
+            update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
+                alert("Anuncios guardados. Refresca la web para ver los cambios.");
+            }).catch(err => alert("Error: " + err.message));
+        });
 
-            if(selectCat) selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
+        // --- FIREBASE CHAT COMUNIDAD ---
+        function renderMessage(data, isReal = true) {
+            const box = document.getElementById('chatMessages');
+            const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
+            const isMe = isReal && data.user === myNick;
+            const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
+            
+            let colorHash = 0;
+            for (let i = 0; i < (data.user || "").length; i++) { colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash); }
+            const color = `hsl(${colorHash % 360}, 60%, 65%)`;
 
-            if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
-                const btn = document.createElement('button');
-                btn.id = `filter_${c.value}`; btn.className = "pill";
-                btn.innerText = `✨ ${c.name}`;
-                btn.onclick = function() { filterByMood(c.value, this); };
-                filterContainer.appendChild(btn);
+            const div = document.createElement('div');
+            div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
+            
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
+                <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
+                    <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
+                    <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
+                </div>`;
+            box.appendChild(div);
+            
+            box.scrollTop = box.scrollHeight;
+            if(box.children.length > 50) box.removeChild(box.firstChild);
+        }
+
+        onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
+
+        document.getElementById('chatForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (msg !== "") { push(chatRef, { user: nick, text: msg, timestamp: serverTimestamp() }); input.value = ""; }
+        });
+
+        const botPhrases = ["Alguien sabe el nombre del tema?", "QuÃ© buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortÃ³ o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "Â¿Sale ese fernet?", "Alguien de CÃ³rdoba por acÃ¡?", "La mejor app de radios lejos"];
+        const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
+
+        function botLoop() {
+            const delay = Math.random() * 12000 + 4000;
+            setTimeout(async () => {
+                const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
+                const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
+                const indicator = document.getElementById('typingIndicator');
+                if(indicator) {
+                    indicator.innerText = `${bName} estÃ¡ escribiendo...`; indicator.style.display = 'block';
+                    await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
+                    indicator.style.display = 'none';
+                }
+                renderMessage({user: bName, text: bText}, false); 
+                botLoop();
+            }, delay);
+        }
+        botLoop();
+
+        // --- GESTIÃ“N DE CATEGORÃAS (FIREBASE) ---
+        onValue(catRef, (snapshot) => {
+            window.firebaseCategorias = [];
+            const adminList = document.getElementById('manualCatsList');
+            const selectCat = document.getElementById('mCategoria');
+            const filterContainer = document.getElementById('moodFilters');
+
+            if(selectCat) {
+                selectCat.innerHTML = `
+                    <option value="">CategorÃ­a (Ninguna)</option>
+                    <option value="mate">ðŸ§‰ Para unos Mates</option>
+                    <option value="estudiar">ðŸ§  Concentrate</option>
+                    <option value="sport">âš½ FÃºtbol y Pasiones</option>
+                    <option value="retro">ðŸ“» Retro Tour</option>
+                `;
             }
 
-            if(adminList) {
+            if(adminList) adminList.innerHTML = '';
+
+            snapshot.forEach(child => {
+                const c = child.val();
+                c.key = child.key;
+                window.firebaseCategorias.push(c);
+
+                if(selectCat) selectCat.innerHTML += `<option value="${c.value}">âœ¨ ${c.name}</option>`;
+
+                if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
+                    const btn = document.createElement('button');
+                    btn.id = `filter_${c.value}`; btn.className = "pill";
+                    btn.innerText = `âœ¨ ${c.name}`;
+                    btn.onclick = function() { filterByMood(c.value, this); };
+                    filterContainer.appendChild(btn);
+                }
+
+                if(adminList) {
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+                    item.innerHTML = `
+                        <div class="truncate">
+                            <p class="text-sm font-bold text-white truncate">${c.name}</p>
+                            <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
+                        </div>
+                        <div class="flex gap-1 ml-2">
+                            <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            </button>
+                            <button type="button" onclick="deleteFirebaseCat('${c.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
+                               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            </button>
+                        </div>
+                    `;
+                    adminList.insertBefore(item, adminList.firstChild);
+                }
+            });
+
+            if(selectCat) selectCat.innerHTML += '<option value="otra">âž• Otra CategorÃ­a (Personalizada)...</option>';
+            if(window.firebaseCategorias.length === 0 && adminList) {
+                adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorÃ­as.</div>';
+            }
+        });
+
+        document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pass = prompt("ContraseÃ±a de Administrador para CategorÃ­as:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+            const key = document.getElementById('cEditKey').value;
+            const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
+
+            if (key) {
+                update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("CategorÃ­a actualizada."); window.cancelCatEdit(); });
+            } else {
+                push(catRef, data).then(() => { alert("CategorÃ­a creada exitosamente."); document.getElementById('manualCatForm').reset(); });
+            }
+        });
+
+        window.editFirebaseCat = function(key) {
+            const c = window.firebaseCategorias.find(x => x.key === key);
+            if(!c) return;
+            document.getElementById('cEditKey').value = key;
+            document.getElementById('cName').value = c.name;
+            document.getElementById('cValue').value = c.value;
+            document.getElementById('submitCatBtn').innerText = "Actualizar CategorÃ­a";
+            document.getElementById('cancelCatBtn').classList.remove('hidden');
+            document.getElementById('tabCats').scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.cancelCatEdit = function() {
+            document.getElementById('cEditKey').value = '';
+            document.getElementById('manualCatForm').reset();
+            document.getElementById('submitCatBtn').innerText = "Crear CategorÃ­a";
+            document.getElementById('cancelCatBtn').classList.add('hidden');
+        };
+
+        window.deleteFirebaseCat = function(key) {
+            const pass = prompt("ContraseÃ±a de Administrador para eliminar:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            if(confirm('Â¿Seguro que quieres eliminar esta categorÃ­a para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
+        };
+
+        // --- CARGA Y EDICIÃ“N DE RADIOS GLOBALES ---
+        document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const pass = prompt("Ingresa la ContraseÃ±a de Administrador:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. ContraseÃ±a incorrecta.");
+
+            let rawUrl = document.getElementById('mUrl').value.trim();
+            if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
+
+            const prov = document.getElementById('mProvincia').value;
+            let cat = document.getElementById('mCategoria').value;
+            if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
+
+            let finalTags = document.getElementById('mTags').value;
+            if (cat) finalTags += " " + cat; 
+
+            const originalUuid = document.getElementById('mOriginalUuid').value;
+
+            const data = {
+                name: document.getElementById('mName').value,
+                url: rawUrl,
+                url_resolved: rawUrl,
+                favicon: makeHttps(document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333'),
+                homepage: document.getElementById('mWebsite').value.trim(),
+                description: document.getElementById('mDescription').value.trim(),
+                meta_info: document.getElementById('mMetaInfo').value.trim(),
+                tags: finalTags.trim() || 'Comunidad',
+                state: prov || 'Comunidad',
+                original_uuid: originalUuid || null,
+                timestamp: serverTimestamp()
+            };
+
+            const key = document.getElementById('mEditKey').value;
+
+            if (key) {
+                update(ref(db, 'radios_comunidad/' + key), data).then(() => {
+                    alert("Radio actualizada con Ã©xito."); window.cancelRadioEdit();
+                }).catch(err => alert("Error al guardar: " + err.message));
+            } else {
+                data.stationuuid = 'fb_' + Date.now();
+                push(radioRef, data).then(() => {
+                    alert("Radio subida exitosamente."); window.cancelRadioEdit();
+                }).catch(err => alert("Error al guardar: " + err.message));
+            }
+        });
+
+        onValue(radioRef, (snapshot) => {
+            window.firebaseRadios = [];
+
+            snapshot.forEach(child => {
+                const r = child.val();
+                r.fb_key = child.key; 
+                window.firebaseRadios.push(r);
+            });
+
+            if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
+        });
+
+        window.renderAdminRadiosList = function() {
+            const adminList = document.getElementById('manualRadiosList');
+            if(!adminList) return;
+            adminList.innerHTML = '';
+            
+            const searchInput = document.getElementById('adminSearch');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+
+            const filtered = allRadios.filter(r => r.name.toLowerCase().includes(searchTerm));
+            const toRender = filtered.slice(0, 50); 
+
+            toRender.forEach(r => {
+                const isFb = r.fb_key ? true : false;
+                const itemId = r.original_uuid || r.stationuuid || r.fb_key;
+
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
                 item.innerHTML = `
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-white truncate">${c.name}</p>
-                        <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="truncate">
+                            <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
+                            <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
+                        </div>
                     </div>
                     <div class="flex gap-1 ml-2">
-                        <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
-                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        <button type="button" onclick="editAnyRadio('${itemId}', ${isFb})" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </button>
-                        <button type="button" onclick="deleteFirebaseCat('${c.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
-                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
+                        ${isFb ? `<button type="button" onclick="deleteFirebaseRadio('${r.fb_key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>` : ''}
                     </div>
                 `;
-                adminList.insertBefore(item, adminList.firstChild);
+                adminList.appendChild(item);
+            });
+
+            if(toRender.length === 0) {
+                adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No se encontraron radios.</div>';
             }
-        });
-
-        if(selectCat) selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
-        if(window.firebaseCategorias.length === 0 && adminList) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
-        }
-    });
-
-    document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Categorías:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-        const key = document.getElementById('cEditKey').value;
-        const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
-
-        if (key) {
-            update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
-        } else {
-            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
-        }
-    });
-
-    window.editFirebaseCat = function(key) {
-        const c = window.firebaseCategorias.find(x => x.key === key);
-        if(!c) return;
-        document.getElementById('cEditKey').value = key;
-        document.getElementById('cName').value = c.name;
-        document.getElementById('cValue').value = c.value;
-        document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
-        document.getElementById('cancelCatBtn').classList.remove('hidden');
-        document.getElementById('tabCats').scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    window.cancelCatEdit = function() {
-        document.getElementById('cEditKey').value = '';
-        document.getElementById('manualCatForm').reset();
-        document.getElementById('submitCatBtn').innerText = "Crear Categoría";
-        document.getElementById('cancelCatBtn').classList.add('hidden');
-    };
-
-    window.deleteFirebaseCat = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
-    };
-
-    // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
-    document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const pass = prompt("Ingresa la Contraseña de Administrador:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
-
-        let rawUrl = document.getElementById('mUrl').value.trim();
-        if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
-
-        const prov = document.getElementById('mProvincia').value;
-        let cat = document.getElementById('mCategoria').value;
-        if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
-
-        let finalTags = document.getElementById('mTags').value;
-        if (cat) finalTags += " " + cat; 
-
-        const originalUuid = document.getElementById('mOriginalUuid').value;
-
-        const data = {
-            name: document.getElementById('mName').value,
-            url: rawUrl,
-            url_resolved: rawUrl,
-            favicon: makeHttps(document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333'),
-            homepage: document.getElementById('mWebsite').value.trim(),
-            description: document.getElementById('mDescription').value.trim(),
-            meta_info: document.getElementById('mMetaInfo').value.trim(),
-            tags: finalTags.trim() || 'Comunidad',
-            state: prov || 'Comunidad',
-            original_uuid: originalUuid || null,
-            timestamp: serverTimestamp()
         };
 
-        const key = document.getElementById('mEditKey').value;
+        window.editAnyRadio = function(id, isFb) {
+            let r;
+            if (isFb) {
+                r = window.firebaseRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
+                document.getElementById('mEditKey').value = r.fb_key;
+                document.getElementById('mOriginalUuid').value = r.original_uuid || "";
+            } else {
+                r = allRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
+                document.getElementById('mEditKey').value = ""; 
+                document.getElementById('mOriginalUuid').value = id; 
+            }
 
-        if (key) {
-            update(ref(db, 'radios_comunidad/' + key), data).then(() => {
-                alert("Radio actualizada con éxito."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        } else {
-            data.stationuuid = 'fb_' + Date.now();
-            push(radioRef, data).then(() => {
-                alert("Radio subida exitosamente."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        }
-    });
-
-    onValue(radioRef, (snapshot) => {
-        window.firebaseRadios = [];
-
-        snapshot.forEach(child => {
-            const r = child.val();
-            r.fb_key = child.key; 
-            window.firebaseRadios.push(r);
-        });
-
-        if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
-    });
-
-    window.renderAdminRadiosList = function() {
-        const adminList = document.getElementById('manualRadiosList');
-        if(!adminList) return;
-        adminList.innerHTML = '';
-        
-        const searchInput = document.getElementById('adminSearch');
-        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-
-        const filtered = allRadios.filter(r => r.name.toLowerCase().includes(searchTerm));
-        const toRender = filtered.slice(0, 50); 
-
-        toRender.forEach(r => {
-            const isFb = r.fb_key ? true : false;
-            const itemId = r.original_uuid || r.stationuuid || r.fb_key;
-
-            const item = document.createElement('div');
-            item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
-            item.innerHTML = `
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
-                        <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
-                    </div>
-                </div>
-                <div class="flex gap-1 ml-2">
-                    <button type="button" onclick="editAnyRadio('${itemId}', ${isFb})" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                    </button>
-                    ${isFb ? `<button type="button" onclick="deleteFirebaseRadio('${r.fb_key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                    </button>` : ''}
-                </div>
-            `;
-            adminList.appendChild(item);
-        });
-
-        if(toRender.length === 0) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No se encontraron radios.</div>';
-        }
-    };
-
-    window.editAnyRadio = function(id, isFb) {
-        let r;
-        if (isFb) {
-            r = window.firebaseRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
-            document.getElementById('mEditKey').value = r.fb_key;
-            document.getElementById('mOriginalUuid').value = r.original_uuid || "";
-        } else {
-            r = allRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
-            document.getElementById('mEditKey').value = ""; 
-            document.getElementById('mOriginalUuid').value = id; 
-        }
-
-        if(!r) return;
-        document.getElementById('mName').value = r.name;
-        document.getElementById('mUrl').value = r.url || r.url_resolved;
-        document.getElementById('mLogo').value = makeHttps(r.favicon);
-        document.getElementById('mWebsite').value = r.homepage || r.website || "";
-        
-        document.getElementById('mDescription').value = r.description || "";
-        document.getElementById('mMetaInfo').value = r.meta_info || "";
-        document.getElementById('mProvincia').value = r.state || "";
-
-        let cleanTags = r.tags || "";
-        const selectCat = document.getElementById('mCategoria');
-        if(selectCat) {
-            const opts = Array.from(selectCat.options).map(o=>o.value).filter(v=>v && v!=='otra');
-            let foundCat = "";
+            if(!r) return;
+            document.getElementById('mName').value = r.name;
+            document.getElementById('mUrl').value = r.url || r.url_resolved;
+            document.getElementById('mLogo').value = makeHttps(r.favicon);
+            document.getElementById('mWebsite').value = r.homepage || r.website || "";
             
-            for(let opt of opts) {
-                if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
-                    foundCat = opt;
-                    const reg = new RegExp('\\b' + opt + '\\b', 'gi');
-                    cleanTags = cleanTags.replace(reg, "").trim();
-                    break;
+            document.getElementById('mDescription').value = r.description || "";
+            document.getElementById('mMetaInfo').value = r.meta_info || "";
+            document.getElementById('mProvincia').value = r.state || "";
+
+            let cleanTags = r.tags || "";
+            const selectCat = document.getElementById('mCategoria');
+            if(selectCat) {
+                const opts = Array.from(selectCat.options).map(o=>o.value).filter(v=>v && v!=='otra');
+                let foundCat = "";
+                
+                for(let opt of opts) {
+                    if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
+                        foundCat = opt;
+                        const reg = new RegExp('\\b' + opt + '\\b', 'gi');
+                        cleanTags = cleanTags.replace(reg, "").trim();
+                        break;
+                    }
                 }
+                
+                if(foundCat) { selectCat.value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
+                else { selectCat.value = ""; }
             }
             
-            if(foundCat) { selectCat.value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
-            else { selectCat.value = ""; }
-        }
-        
-        document.getElementById('mTags').value = cleanTags;
+            document.getElementById('mTags').value = cleanTags;
 
-        document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar Personalización API";
-        document.getElementById('cancelRadioBtn').classList.remove('hidden');
-        document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
-    };
+            document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar PersonalizaciÃ³n API";
+            document.getElementById('cancelRadioBtn').classList.remove('hidden');
+            document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
-    window.cancelRadioEdit = function() {
-        document.getElementById('mEditKey').value = '';
-        document.getElementById('mOriginalUuid').value = '';
-        document.getElementById('manualRadioForm')?.reset();
-        document.getElementById('mCategoriaCustom').classList.add('hidden');
-        const submitBtn = document.getElementById('submitRadioBtn');
-        if(submitBtn) submitBtn.innerText = "Subir Radio";
-        document.getElementById('cancelRadioBtn')?.classList.add('hidden');
-    };
+        window.cancelRadioEdit = function() {
+            document.getElementById('mEditKey').value = '';
+            document.getElementById('mOriginalUuid').value = '';
+            document.getElementById('manualRadioForm')?.reset();
+            document.getElementById('mCategoriaCustom').classList.add('hidden');
+            const submitBtn = document.getElementById('submitRadioBtn');
+            if(submitBtn) submitBtn.innerText = "Subir Radio";
+            document.getElementById('cancelRadioBtn')?.classList.add('hidden');
+        };
 
-    window.deleteFirebaseRadio = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
-        }
-    };
-  </script>
+        window.deleteFirebaseRadio = function(key) {
+            const pass = prompt("ContraseÃ±a de Administrador para eliminar esta radio:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+            
+            if(confirm('Â¿EstÃ¡s seguro de que quieres eliminar esta radio de manera global?')) {
+                remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
+            }
+        };
+    </script>
 </body>
 </html>
