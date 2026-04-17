@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#1DB954">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root { --sp-green: #0024ff; --sp-bg: #000000; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
     
@@ -31,6 +31,7 @@
       flex-direction: column;
       overflow: hidden;
       color-scheme: dark;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     /* --- UI COMPONENTS --- */
@@ -94,23 +95,36 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
-    /* --- TEMAS ÉPICOS DIAMOND --- */
-    body.diamond-t1 .main-view { background: linear-gradient(to bottom, #050b14 0%, #000 100%); }
-    body.diamond-t1 .player-bar { background: rgba(5, 10, 20, 0.95); border-top: 1px solid rgba(0, 242, 254, 0.3); box-shadow: 0 -5px 20px rgba(0, 242, 254, 0.1); }
-    body.diamond-t1 .sticky-controls { background: rgba(5, 10, 20, 0.85); }
-    body.diamond-t1 .pill.active { background: #00f2fe; color: black; border-color: #00f2fe; box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
-
-    body.diamond-t2 .main-view { background: linear-gradient(to bottom, #1a0b2e 0%, #000 100%); }
-    body.diamond-t2 .player-bar { background: rgba(15, 5, 30, 0.95); border-top: 1px solid rgba(176, 102, 254, 0.3); box-shadow: 0 -5px 20px rgba(176, 102, 254, 0.1); }
-    body.diamond-t2 .sticky-controls { background: rgba(15, 5, 30, 0.85); }
-    body.diamond-t2 * { --sp-green: #b066fe; }
-    body.diamond-t2 .pill.active { background: #b066fe; color: white; border-color: #b066fe; box-shadow: 0 0 10px rgba(176, 102, 254, 0.5); }
-
-    body.diamond-t3 .main-view { background: linear-gradient(to bottom, #2a0808 0%, #000 100%); }
-    body.diamond-t3 .player-bar { background: rgba(30, 5, 5, 0.95); border-top: 1px solid rgba(255, 50, 50, 0.3); box-shadow: 0 -5px 20px rgba(255, 50, 50, 0.1); }
-    body.diamond-t3 .sticky-controls { background: rgba(30, 5, 5, 0.85); }
-    body.diamond-t3 * { --sp-green: #ff3232; }
-    body.diamond-t3 .pill.active { background: #ff3232; color: white; border-color: #ff3232; box-shadow: 0 0 10px rgba(255, 50, 50, 0.5); }
+    /* --- THEMES DIAMOND EXCLUSIVOS (AHORA MÁS ÉPICOS) --- */
+    /* THEME: CYBERPUNK */
+    body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #0a0a0a; color: #facc15; }
+    body.theme-cyberpunk .main-view { background: radial-gradient(circle at top, #262600 0%, #000 80%); }
+    body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: #050500; border-color: #eab308; box-shadow: inset 0 0 20px rgba(234,179,8,0.05); }
+    body.theme-cyberpunk .r-card { background: #111; border: 1px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.8); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    body.theme-cyberpunk .r-card:hover { border-color: #eab308; box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); transform: translateY(-5px) scale(1.02); }
+    body.theme-cyberpunk .btn-diamond { background: linear-gradient(135deg, #eab308 0%, #ef4444 100%); box-shadow: 0 4px 20px rgba(234, 179, 8, 0.6); color: black; border: 1px solid #facc15; }
+    body.theme-cyberpunk .btn-zapping { background: linear-gradient(135deg, #facc15 0%, #ef4444 100%); color: black; box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); border: 1px solid #facc15; font-weight: 900; }
+    body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 30px rgba(234, 179, 8, 0.8); transform: scale(1.05); }
+    body.theme-cyberpunk .pill { color: #facc15; border-color: #facc15; background: transparent; }
+    body.theme-cyberpunk .pill.active { background: #eab308; color: black; border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.6); }
+    body.theme-cyberpunk .player-bar { background: rgba(10, 10, 0, 0.95); border-top: 1px solid #eab308; box-shadow: 0 -5px 20px rgba(234,179,8,0.2); }
+    body.theme-cyberpunk .epic-logo { color: #eab308; text-shadow: 0 0 8px rgba(234, 179, 8, 0.5); }
+    body.theme-cyberpunk .search-input:focus { border-color: #eab308; box-shadow: 0 0 15px rgba(234,179,8,0.3); }
+    
+    /* THEME: SYNTHWAVE */
+    body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #0f001a; color: #f472b6; }
+    body.theme-synthwave .main-view { background: linear-gradient(180deg, #2d004d 0%, #0f001a 60%, #05000a 100%); }
+    body.theme-synthwave .sidebar, body.theme-synthwave .chat-sidebar, body.theme-synthwave .mobile-header, body.theme-synthwave .prov-nav-wrapper { background: #0a0011; border-color: #d946ef; box-shadow: inset 0 0 20px rgba(217,70,239,0.05); }
+    body.theme-synthwave .r-card { background: #1a002a; border: 1px solid #3b0764; box-shadow: 0 4px 10px rgba(0,0,0,0.8); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    body.theme-synthwave .r-card:hover { border-color: #d946ef; box-shadow: 0 0 25px rgba(217, 70, 239, 0.6); transform: translateY(-5px) scale(1.02); }
+    body.theme-synthwave .btn-diamond { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); box-shadow: 0 4px 20px rgba(217, 70, 239, 0.6); border: 1px solid #f472b6; }
+    body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #d946ef 0%, #8b5cf6 100%); color: white; box-shadow: 0 0 20px rgba(217, 70, 239, 0.5); border: 1px solid #d946ef; font-weight: 900; }
+    body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(217, 70, 239, 0.8); transform: scale(1.05); }
+    body.theme-synthwave .pill { color: #f472b6; border-color: #f472b6; background: transparent; }
+    body.theme-synthwave .pill.active { background: #d946ef; color: white; border-color: #d946ef; box-shadow: 0 0 20px rgba(217, 70, 239, 0.6); }
+    body.theme-synthwave .player-bar { background: rgba(15, 0, 26, 0.95); border-top: 1px solid #d946ef; box-shadow: 0 -5px 25px rgba(217,70,239,0.3); }
+    body.theme-synthwave .epic-logo { color: #d946ef; text-shadow: 0 0 15px rgba(217, 70, 239, 0.6); }
+    body.theme-synthwave .search-input:focus { border-color: #d946ef; box-shadow: 0 0 15px rgba(217,70,239,0.4); }
 
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
@@ -385,11 +399,9 @@
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
-            
-            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 hover:border-cyan-400 transition-all flex-shrink-0" title="Cambiar Tema Diamond">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
             </button>
-
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
               <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
               <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
@@ -562,7 +574,7 @@
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Todo lo del plan Premium</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Resaltado VIP en chat (próximamente)</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Filtro Karaoke Exclusivo 🎤</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2">
@@ -883,12 +895,12 @@
     </div>
     
     <div class="flex items-center gap-4 sm:gap-6 justify-center">
-        <button id="p-record" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
-            <div class="w-3 h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
+        <button id="p-karaoke" class="hidden w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-current hover:border-current transition group relative" title="Modo Karaoke (Atenuar Voces)" onclick="toggleKaraoke()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
         </button>
 
-        <button id="p-karaoke" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-cyan-400 hover:border-cyan-400 transition" title="Modo Karaoke">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        <button id="p-record" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
+            <div class="w-3 h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
         </button>
 
         <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg">
@@ -954,41 +966,41 @@
 
     <div class="w-1/3 flex justify-end items-center gap-0 sm:gap-0">
       <div class="relative flex items-center">
-          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador de Audio">
+          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador de 5 Bandas">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
           </button>
           
-          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[230px] z-50">
+          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[250px] z-50">
               <div class="flex justify-between items-center mb-[15px]">
-                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ</span>
+                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ 5-Band</span>
                   <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
               </div>
               <div class="flex flex-col gap-3">
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Bajos</span>
-                      <input type="range" id="eq-band1" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band1', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">60Hz</span>
+                      <input type="range" id="eq-60" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('60', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Med-Baj</span>
-                      <input type="range" id="eq-band2" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band2', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">230Hz</span>
+                      <input type="range" id="eq-230" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('230', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Medios</span>
-                      <input type="range" id="eq-band3" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band3', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">910Hz</span>
+                      <input type="range" id="eq-910" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('910', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Med-Agu</span>
-                      <input type="range" id="eq-band4" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band4', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">3.6kHz</span>
+                      <input type="range" id="eq-3600" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('3600', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Agudos</span>
-                      <input type="range" id="eq-band5" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band5', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">14kHz</span>
+                      <input type="range" id="eq-14000" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('14000', this.value)">
                   </div>
               </div>
           </div>
       </div>
 
-      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white">
+      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white ml-4">
     </div>
   </footer>
 
@@ -1018,18 +1030,21 @@
     
     // VARIABLES PARA TEMAS (HTML CUSTOM)
     window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
-    let currentDiamondTheme = 0; // 0, 1, 2, 3
+
+    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND ---
+    let diamondThemeIndex = 0;
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave'];
     
-    // --- LÓGICA TEMAS DIAMOND ---
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
-        currentDiamondTheme = (currentDiamondTheme + 1) % 4;
-        document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
-        if (currentDiamondTheme > 0) {
-            document.body.classList.add(`diamond-t${currentDiamondTheme}`);
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
+        const newTheme = diamondThemes[diamondThemeIndex];
+        if (newTheme) {
+            document.body.classList.add(newTheme);
         }
     };
-
+    
     // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
         const modal = document.getElementById('paymentModal');
@@ -1050,6 +1065,7 @@
     };
 
     window.procesarPago = function(gateway, plan) {
+        // En un entorno real, aquí inicializas el SDK o haces redirect a la URL de MercadoPago/PayPal generada por tu backend.
         alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producción, esto te redigiría a la ventana de cobro).`);
         window.cerrarModalPago();
     };
@@ -1087,6 +1103,8 @@
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+        if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.add('hidden');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
         
         window.currentPremiumStatus = 'gold';
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
@@ -1127,11 +1145,12 @@
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+        if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.remove('hidden');
         
         window.currentPremiumStatus = 'diamond';
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Disfruta los efectos visuales!");
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Usa el nuevo botón minimalista de temas al lado del modo oscuro y disfruta del Karaoke exclusivo!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -1710,34 +1729,72 @@
         document.getElementById('sun-icon').classList.toggle('hidden', !isLight);
     }
 
+    // --- ECUALIZADOR 5 BANDAS Y MODO KARAOKE ---
     let eqInitialized = false, eqFilters = {};
+    window.karaokeFilter = null;
+    let isKaraokeOn = false;
+
     function initEQ() {
         if (eqInitialized) return;
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioCtx = new AudioContext(); const source = audioCtx.createMediaElementSource(audio);
-            eqFilters.band1 = audioCtx.createBiquadFilter(); eqFilters.band1.type = "lowshelf"; eqFilters.band1.frequency.value = 60;
-            eqFilters.band2 = audioCtx.createBiquadFilter(); eqFilters.band2.type = "peaking"; eqFilters.band2.frequency.value = 230; eqFilters.band2.Q.value = 1;
-            eqFilters.band3 = audioCtx.createBiquadFilter(); eqFilters.band3.type = "peaking"; eqFilters.band3.frequency.value = 910; eqFilters.band3.Q.value = 1;
-            eqFilters.band4 = audioCtx.createBiquadFilter(); eqFilters.band4.type = "peaking"; eqFilters.band4.frequency.value = 3600; eqFilters.band4.Q.value = 1;
-            eqFilters.band5 = audioCtx.createBiquadFilter(); eqFilters.band5.type = "highshelf"; eqFilters.band5.frequency.value = 14000;
+            const audioCtx = new AudioContext(); 
+            const source = audioCtx.createMediaElementSource(audio);
             
-            ['band1', 'band2', 'band3', 'band4', 'band5'].forEach(b => {
-                eqFilters[b].gain.value = document.getElementById('eq-' + b).value;
-            });
+            // 5 Bandas
+            eqFilters.f60 = audioCtx.createBiquadFilter(); eqFilters.f60.type = "lowshelf"; eqFilters.f60.frequency.value = 60; eqFilters.f60.gain.value = document.getElementById('eq-60').value;
+            eqFilters.f230 = audioCtx.createBiquadFilter(); eqFilters.f230.type = "peaking"; eqFilters.f230.frequency.value = 230; eqFilters.f230.Q.value = 1; eqFilters.f230.gain.value = document.getElementById('eq-230').value;
+            eqFilters.f910 = audioCtx.createBiquadFilter(); eqFilters.f910.type = "peaking"; eqFilters.f910.frequency.value = 910; eqFilters.f910.Q.value = 1; eqFilters.f910.gain.value = document.getElementById('eq-910').value;
+            eqFilters.f3600 = audioCtx.createBiquadFilter(); eqFilters.f3600.type = "peaking"; eqFilters.f3600.frequency.value = 3600; eqFilters.f3600.Q.value = 1; eqFilters.f3600.gain.value = document.getElementById('eq-3600').value;
+            eqFilters.f14000 = audioCtx.createBiquadFilter(); eqFilters.f14000.type = "highshelf"; eqFilters.f14000.frequency.value = 14000; eqFilters.f14000.gain.value = document.getElementById('eq-14000').value;
+            
+            // Karaoke Mode (Vocal Reducer)
+            window.karaokeFilter = audioCtx.createBiquadFilter();
+            window.karaokeFilter.type = "peaking";
+            window.karaokeFilter.frequency.value = 1000; // Frecuencias típicas de la voz
+            window.karaokeFilter.Q.value = 0.5;
+            window.karaokeFilter.gain.value = 0; // Apagado por defecto
 
-            source.connect(eqFilters.band1);
-            eqFilters.band1.connect(eqFilters.band2);
-            eqFilters.band2.connect(eqFilters.band3);
-            eqFilters.band3.connect(eqFilters.band4);
-            eqFilters.band4.connect(eqFilters.band5);
-            eqFilters.band5.connect(audioCtx.destination);
+            source.connect(eqFilters.f60); 
+            eqFilters.f60.connect(eqFilters.f230); 
+            eqFilters.f230.connect(eqFilters.f910); 
+            eqFilters.f910.connect(eqFilters.f3600); 
+            eqFilters.f3600.connect(eqFilters.f14000); 
+            eqFilters.f14000.connect(window.karaokeFilter);
+            window.karaokeFilter.connect(audioCtx.destination);
+            
             eqInitialized = true;
         } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
     }
 
-    function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
-    function resetEQ() { ['eq-band1', 'eq-band2', 'eq-band3', 'eq-band4', 'eq-band5'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
+    function updateEQ(band, val) { if (eqFilters['f'+band]) eqFilters['f'+band].gain.value = parseFloat(val); }
+    function resetEQ() { 
+        ['eq-60', 'eq-230', 'eq-910', 'eq-3600', 'eq-14000'].forEach(id => { 
+            document.getElementById(id).value = 0; 
+            updateEQ(id.replace('eq-', ''), 0); 
+        }); 
+    }
+
+    function toggleKaraoke() {
+        if(window.currentPremiumStatus !== 'diamond') {
+            alert("⭐ El Modo Karaoke es una función exclusiva del plan DIAMOND.");
+            return;
+        }
+
+        if(!eqInitialized) initEQ();
+        isKaraokeOn = !isKaraokeOn;
+        if(window.karaokeFilter) {
+            window.karaokeFilter.gain.value = isKaraokeOn ? -30 : 0; 
+        }
+        const btn = document.getElementById('p-karaoke');
+        if(isKaraokeOn) {
+            btn.classList.add('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
+            alert("🎤 Modo Karaoke Activado: Atenuando voces principales.");
+        } else {
+            btn.classList.remove('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
+            alert("🎵 Modo Karaoke Desactivado.");
+        }
+    }
 
     function openWorldRadios() {
         const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
@@ -2198,17 +2255,10 @@
         
         if (window.currentPremiumStatus === 'diamond') {
             container.innerHTML = globalThemesConfig.diamond || '';
-            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
         } else if (window.currentPremiumStatus === 'gold') {
             container.innerHTML = globalThemesConfig.gold || '';
-            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
-            currentDiamondTheme = 0;
         } else {
             container.innerHTML = '';
-            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
-            currentDiamondTheme = 0;
         }
 
         const scripts = container.querySelectorAll('script');
@@ -2320,16 +2370,24 @@
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+                    if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.remove('hidden');
                 } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
                 } else {
                     window.currentPremiumStatus = 'free';
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
                 }
                 window.reapplyUserTheme();
             });
@@ -2345,6 +2403,10 @@
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
             if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
+            
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+            if(document.getElementById('p-karaoke')) document.getElementById('p-karaoke').classList.add('hidden');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
             
             window.currentPremiumStatus = 'free';
             window.reapplyUserTheme();
@@ -2774,7 +2836,7 @@
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = [...globalTop10Config.pinned];
-        if(!newPinned.includes(id)) newPinned.unshift(id); 
+        if(!newPinned.includes(id))newPinned.unshift(id); 
         
         let newHidden = globalTop10Config.hidden.filter(x => x !== id);
         
@@ -2785,7 +2847,7 @@
     };
 
     window.removeFromTop10 = function(id, isPinned) {
-        const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
+        const pass = prompt("Contraseña de Administrador para quitardel Top 10:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = globalTop10Config.pinned.filter(x => x !== id);
@@ -3160,53 +3222,4 @@
         if(!r) return;
         document.getElementById('mName').value = r.name;
         document.getElementById('mUrl').value = r.url || r.url_resolved;
-        document.getElementById('mLogo').value = makeHttps(r.favicon);
-        document.getElementById('mWebsite').value = r.homepage || r.website || "";
-        
-        document.getElementById('mDescription').value = r.description || "";
-        document.getElementById('mMetaInfo').value = r.meta_info || "";
-        document.getElementById('mProvincia').value = r.state || "";
-
-        let cleanTags = r.tags || "";
-        const opts = Array.from(document.getElementById('mCategoria').options).map(o=>o.value).filter(v=>v && v!=='otra');
-        let foundCat = "";
-        
-        for(let opt of opts) {
-            if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
-                foundCat = opt;
-                const reg = new RegExp('\\b' + opt + '\\b', 'gi');
-                cleanTags = cleanTags.replace(reg, "").trim();
-                break;
-            }
-        }
-        
-        if(foundCat) { document.getElementById('mCategoria').value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
-        else { document.getElementById('mCategoria').value = ""; }
-        
-        document.getElementById('mTags').value = cleanTags;
-
-        document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar Personalización API";
-        document.getElementById('cancelRadioBtn').classList.remove('hidden');
-        document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    window.cancelRadioEdit = function() {
-        document.getElementById('mEditKey').value = '';
-        document.getElementById('mOriginalUuid').value = '';
-        document.getElementById('manualRadioForm').reset();
-        document.getElementById('mCategoriaCustom').classList.add('hidden');
-        document.getElementById('submitRadioBtn').innerText = "Subir Radio";
-        document.getElementById('cancelRadioBtn').classList.add('hidden');
-    };
-
-    window.deleteFirebaseRadio = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
-        }
-    };
-  </script>
-</body>
-</html>
+        document.getElementById('mLogo').value = m
