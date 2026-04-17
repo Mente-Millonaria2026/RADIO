@@ -94,6 +94,24 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
+    /* --- TEMAS ÉPICOS DIAMOND --- */
+    body.diamond-t1 .main-view { background: linear-gradient(to bottom, #050b14 0%, #000 100%); }
+    body.diamond-t1 .player-bar { background: rgba(5, 10, 20, 0.95); border-top: 1px solid rgba(0, 242, 254, 0.3); box-shadow: 0 -5px 20px rgba(0, 242, 254, 0.1); }
+    body.diamond-t1 .sticky-controls { background: rgba(5, 10, 20, 0.85); }
+    body.diamond-t1 .pill.active { background: #00f2fe; color: black; border-color: #00f2fe; box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+
+    body.diamond-t2 .main-view { background: linear-gradient(to bottom, #1a0b2e 0%, #000 100%); }
+    body.diamond-t2 .player-bar { background: rgba(15, 5, 30, 0.95); border-top: 1px solid rgba(176, 102, 254, 0.3); box-shadow: 0 -5px 20px rgba(176, 102, 254, 0.1); }
+    body.diamond-t2 .sticky-controls { background: rgba(15, 5, 30, 0.85); }
+    body.diamond-t2 * { --sp-green: #b066fe; }
+    body.diamond-t2 .pill.active { background: #b066fe; color: white; border-color: #b066fe; box-shadow: 0 0 10px rgba(176, 102, 254, 0.5); }
+
+    body.diamond-t3 .main-view { background: linear-gradient(to bottom, #2a0808 0%, #000 100%); }
+    body.diamond-t3 .player-bar { background: rgba(30, 5, 5, 0.95); border-top: 1px solid rgba(255, 50, 50, 0.3); box-shadow: 0 -5px 20px rgba(255, 50, 50, 0.1); }
+    body.diamond-t3 .sticky-controls { background: rgba(30, 5, 5, 0.85); }
+    body.diamond-t3 * { --sp-green: #ff3232; }
+    body.diamond-t3 .pill.active { background: #ff3232; color: white; border-color: #ff3232; box-shadow: 0 0 10px rgba(255, 50, 50, 0.5); }
+
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
     .eq-bar { width: 4px; border-radius: 2px; animation: eqAnim 0.7s infinite ease-in-out alternate; transition: background-color 0.3s ease, border 0.3s ease; }
@@ -367,6 +385,11 @@
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
+            
+            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 hover:border-cyan-400 transition-all flex-shrink-0" title="Cambiar Tema Diamond">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </button>
+
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
               <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
               <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
@@ -864,6 +887,10 @@
             <div class="w-3 h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
         </button>
 
+        <button id="p-karaoke" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-cyan-400 hover:border-cyan-400 transition" title="Modo Karaoke">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </button>
+
         <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg">
           <svg id="p-icon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </button>
@@ -939,15 +966,23 @@
               <div class="flex flex-col gap-3">
                   <div class="flex items-center gap-[10px]">
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Bajos</span>
-                      <input type="range" id="eq-bass" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('bass', this.value)">
+                      <input type="range" id="eq-band1" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band1', this.value)">
+                  </div>
+                  <div class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Med-Baj</span>
+                      <input type="range" id="eq-band2" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band2', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Medios</span>
-                      <input type="range" id="eq-mid" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('mid', this.value)">
+                      <input type="range" id="eq-band3" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band3', this.value)">
+                  </div>
+                  <div class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Med-Agu</span>
+                      <input type="range" id="eq-band4" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band4', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Agudos</span>
-                      <input type="range" id="eq-treb" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('treb', this.value)">
+                      <input type="range" id="eq-band5" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('band5', this.value)">
                   </div>
               </div>
           </div>
@@ -983,7 +1018,18 @@
     
     // VARIABLES PARA TEMAS (HTML CUSTOM)
     window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
+    let currentDiamondTheme = 0; // 0, 1, 2, 3
     
+    // --- LÓGICA TEMAS DIAMOND ---
+    window.cycleDiamondTheme = function() {
+        if (window.currentPremiumStatus !== 'diamond') return;
+        currentDiamondTheme = (currentDiamondTheme + 1) % 4;
+        document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
+        if (currentDiamondTheme > 0) {
+            document.body.classList.add(`diamond-t${currentDiamondTheme}`);
+        }
+    };
+
     // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
         const modal = document.getElementById('paymentModal');
@@ -1004,7 +1050,6 @@
     };
 
     window.procesarPago = function(gateway, plan) {
-        // En un entorno real, aquí inicializas el SDK o haces redirect a la URL de MercadoPago/PayPal generada por tu backend.
         alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producción, esto te redigiría a la ventana de cobro).`);
         window.cerrarModalPago();
     };
@@ -1041,6 +1086,7 @@
             document.getElementById('mobLogoText').classList.add('logo-oro');
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
         
         window.currentPremiumStatus = 'gold';
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
@@ -1080,6 +1126,7 @@
             document.getElementById('mobLogoText').classList.add('logo-diamond');
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
         
         window.currentPremiumStatus = 'diamond';
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
@@ -1669,16 +1716,28 @@
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext(); const source = audioCtx.createMediaElementSource(audio);
-            eqFilters.bass = audioCtx.createBiquadFilter(); eqFilters.bass.type = "lowshelf"; eqFilters.bass.frequency.value = 250; eqFilters.bass.gain.value = document.getElementById('eq-bass').value;
-            eqFilters.mid = audioCtx.createBiquadFilter(); eqFilters.mid.type = "peaking"; eqFilters.mid.frequency.value = 1000; eqFilters.mid.Q.value = 1; eqFilters.mid.gain.value = document.getElementById('eq-mid').value;
-            eqFilters.treb = audioCtx.createBiquadFilter(); eqFilters.treb.type = "highshelf"; eqFilters.treb.frequency.value = 4000; eqFilters.treb.gain.value = document.getElementById('eq-treb').value;
-            source.connect(eqFilters.bass); eqFilters.bass.connect(eqFilters.mid); eqFilters.mid.connect(eqFilters.treb); eqFilters.treb.connect(audioCtx.destination);
+            eqFilters.band1 = audioCtx.createBiquadFilter(); eqFilters.band1.type = "lowshelf"; eqFilters.band1.frequency.value = 60;
+            eqFilters.band2 = audioCtx.createBiquadFilter(); eqFilters.band2.type = "peaking"; eqFilters.band2.frequency.value = 230; eqFilters.band2.Q.value = 1;
+            eqFilters.band3 = audioCtx.createBiquadFilter(); eqFilters.band3.type = "peaking"; eqFilters.band3.frequency.value = 910; eqFilters.band3.Q.value = 1;
+            eqFilters.band4 = audioCtx.createBiquadFilter(); eqFilters.band4.type = "peaking"; eqFilters.band4.frequency.value = 3600; eqFilters.band4.Q.value = 1;
+            eqFilters.band5 = audioCtx.createBiquadFilter(); eqFilters.band5.type = "highshelf"; eqFilters.band5.frequency.value = 14000;
+            
+            ['band1', 'band2', 'band3', 'band4', 'band5'].forEach(b => {
+                eqFilters[b].gain.value = document.getElementById('eq-' + b).value;
+            });
+
+            source.connect(eqFilters.band1);
+            eqFilters.band1.connect(eqFilters.band2);
+            eqFilters.band2.connect(eqFilters.band3);
+            eqFilters.band3.connect(eqFilters.band4);
+            eqFilters.band4.connect(eqFilters.band5);
+            eqFilters.band5.connect(audioCtx.destination);
             eqInitialized = true;
         } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
     }
 
     function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
-    function resetEQ() { ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
+    function resetEQ() { ['eq-band1', 'eq-band2', 'eq-band3', 'eq-band4', 'eq-band5'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
 
     function openWorldRadios() {
         const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
@@ -2139,10 +2198,17 @@
         
         if (window.currentPremiumStatus === 'diamond') {
             container.innerHTML = globalThemesConfig.diamond || '';
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
         } else if (window.currentPremiumStatus === 'gold') {
             container.innerHTML = globalThemesConfig.gold || '';
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+            document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
+            currentDiamondTheme = 0;
         } else {
             container.innerHTML = '';
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+            document.body.classList.remove('diamond-t1', 'diamond-t2', 'diamond-t3');
+            currentDiamondTheme = 0;
         }
 
         const scripts = container.querySelectorAll('script');
