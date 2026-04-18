@@ -97,31 +97,30 @@
     
     /* --- THEMES DIAMOND EXCLUSIVOS --- */
     
-    /* THEME: CYBERPUNK - ENHANCED */
-    body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #050505; color: #00ffcc; }
+    /* THEME: CYBERPUNK - EPIC ENHANCED */
+    body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #050505; color: #00ffcc; text-shadow: 0 0 2px rgba(0, 255, 204, 0.4); }
+    /* CRT Scanlines Overlay */
+    body.theme-cyberpunk::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 4px, 3px 100%; z-index: 9999; pointer-events: none; opacity: 0.6; }
     body.theme-cyberpunk .main-view { background: radial-gradient(circle at 50% 0%, #1a1a00 0%, #000000 80%); }
-    body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,0,0.9); border-color: #fce300; backdrop-filter: blur(10px); }
-    body.theme-cyberpunk .r-card { background: #0a0a0a; border: 1px solid #333; transition: all 0.3s; }
-    body.theme-cyberpunk .r-card:hover { border-color: #fce300; box-shadow: 0 0 15px rgba(252, 227, 0, 0.6), inset 0 0 10px rgba(252, 227, 0, 0.2); transform: scale(1.05); }
-    body.theme-cyberpunk .btn-diamond { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); box-shadow: 0 4px 20px rgba(255, 0, 60, 0.5); color: #000; text-transform: uppercase; letter-spacing: 1px; }
-    body.theme-cyberpunk .pill { color: #00ffcc; border-color: #00ffcc; background: rgba(0, 255, 204, 0.1); }
-    body.theme-cyberpunk .pill.active { background: #fce300; color: #000; border-color: #fce300; box-shadow: 0 0 15px rgba(252, 227, 0, 0.6); }
-    body.theme-cyberpunk .player-bar { background: rgba(5, 5, 5, 0.95); border-top: 1px solid #fce300; box-shadow: 0 -5px 20px rgba(252, 227, 0, 0.2); }
-    body.theme-cyberpunk .epic-logo { color: #fce300; text-shadow: 0 0 10px rgba(252, 227, 0, 0.8); }
-    body.theme-cyberpunk .search-input:focus { border-color: #00ffcc; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
-    
-    /* Botón Zapping Cyberpunk */
-    body.theme-cyberpunk .btn-zapping { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); color: #000; box-shadow: 0 0 15px rgba(255, 0, 60, 0.6); border: 1px solid #ff003c; text-shadow: none; font-family: 'Orbitron', sans-serif;}
-    body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 25px rgba(255, 0, 60, 0.8); transform: scale(1.02); }
+    body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,0,0.85); border-color: #fce300; border-width: 1px; backdrop-filter: blur(5px); }
+    body.theme-cyberpunk .r-card { background: #0a0a0a; border: 1px solid #333; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); transition: all 0.3s; border-radius: 0; }
+    body.theme-cyberpunk .r-card:hover { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.6), inset 0 0 10px rgba(0, 255, 204, 0.2); transform: scale(1.05); }
+    body.theme-cyberpunk .btn-diamond { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); box-shadow: 4px 4px 0px #00ffcc; color: #000; text-transform: uppercase; letter-spacing: 2px; border-radius: 0; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+    body.theme-cyberpunk .btn-diamond:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #00ffcc; }
+    body.theme-cyberpunk .pill { color: #00ffcc; border-color: #00ffcc; background: transparent; border-radius: 0; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+    body.theme-cyberpunk .pill.active { background: #fce300; color: #000; border-color: #fce300; box-shadow: 0 0 15px rgba(252, 227, 0, 0.8); }
+    body.theme-cyberpunk .player-bar { background: rgba(5, 5, 5, 0.95); border-top: 2px solid #ff003c; box-shadow: 0 -5px 30px rgba(255, 0, 60, 0.3); }
+    body.theme-cyberpunk .epic-logo { color: #fce300; text-shadow: 2px 2px 0px #ff003c, -2px -2px 0px #00ffcc; letter-spacing: 1px; }
+    body.theme-cyberpunk .search-input { border-radius: 0; border: 1px solid #333; }
+    body.theme-cyberpunk .search-input:focus { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); background: rgba(0, 255, 204, 0.05); }
+    body.theme-cyberpunk .btn-zapping { background: #000; color: #00ffcc; border: 1px solid #00ffcc; border-radius: 0; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); box-shadow: inset 0 0 10px rgba(0,255,204,0.3); font-family: 'Orbitron', sans-serif; text-transform: uppercase; font-weight: 900;}
+    body.theme-cyberpunk .btn-zapping:hover { background: #00ffcc; color: #000; box-shadow: 0 0 20px rgba(0, 255, 204, 0.8); }
 
-    
     /* THEME: SYNTHWAVE - ENHANCED */
     body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
     body.theme-synthwave .main-view { background: linear-gradient(180deg, #2b0057 0%, #090014 60%, #17002b 100%); position: relative; }
-    /* Grid de fondo en perspectiva */
     body.theme-synthwave .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,0,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,255,0.1) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; opacity: 0.3; transform: scaleY(1.5) perspective(500px) rotateX(45deg); transform-origin: bottom; }
     body.theme-synthwave .main-view > * { position: relative; z-index: 1; }
-    
     body.theme-synthwave .sidebar, body.theme-synthwave .chat-sidebar, body.theme-synthwave .mobile-header, body.theme-synthwave .prov-nav-wrapper { background: rgba(9,0,20,0.9); border-color: #ff00ff; backdrop-filter: blur(10px); z-index: 10; }
     body.theme-synthwave .r-card { background: rgba(26,0,42,0.8); border: 1px solid #4a0080; backdrop-filter: blur(5px); transition: all 0.3s; }
     body.theme-synthwave .r-card:hover { border-color: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0,255,255,0.2); transform: translateY(-5px); }
@@ -131,11 +130,28 @@
     body.theme-synthwave .player-bar { background: rgba(9, 0, 20, 0.95); border-top: 1px solid #ff00ff; box-shadow: 0 -5px 20px rgba(255, 0, 255, 0.3); z-index: 2000; }
     body.theme-synthwave .epic-logo { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.6); }
     body.theme-synthwave .search-input:focus { border-color: #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-    
-    /* Botón Zapping Synthwave */
     body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #000; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); border: none; text-shadow: none; font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 1px;}
     body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
 
+    /* THEME: SPACE - NEW DIAMOND EXCLUSIVE */
+    @keyframes starFloat { 0% { background-position: 0% 0%; } 100% { background-position: -200px 200px; } }
+    body.theme-space { font-family: 'Plus Jakarta Sans', sans-serif; background: #040114; color: #e2e8f0; }
+    body.theme-space .main-view { background: radial-gradient(circle at top right, #1a0b3c 0%, #040114 60%); position: relative; }
+    body.theme-space .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px), radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px), radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px); background-size: 550px 550px, 350px 350px, 250px 250px; background-position: 0 0, 40px 60px, 130px 270px; opacity: 0.3; pointer-events: none; animation: starFloat 100s linear infinite; z-index: 0; }
+    body.theme-space .main-view > * { position: relative; z-index: 1; }
+    body.theme-space .sidebar, body.theme-space .chat-sidebar, body.theme-space .mobile-header, body.theme-space .prov-nav-wrapper { background: rgba(4,1,20,0.85); border-color: #3b0764; backdrop-filter: blur(15px); }
+    body.theme-space .r-card { background: rgba(20,10,50,0.6); border: 1px solid #4c1d95; backdrop-filter: blur(8px); border-radius: 20px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    body.theme-space .r-card:hover { border-color: #a855f7; box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2); transform: translateY(-8px) scale(1.02); }
+    body.theme-space .btn-diamond { background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%); box-shadow: 0 4px 25px rgba(124, 58, 237, 0.5); color: white; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); }
+    body.theme-space .pill { color: #c4b5fd; border-color: #6d28d9; background: rgba(109, 40, 217, 0.15); }
+    body.theme-space .pill.active { background: linear-gradient(90deg, #7c3aed, #c026d3); color: white; border-color: transparent; box-shadow: 0 0 20px rgba(192, 38, 211, 0.6); }
+    body.theme-space .player-bar { background: rgba(4, 1, 20, 0.95); border-top: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 0 -10px 40px rgba(124, 58, 237, 0.2); }
+    body.theme-space .epic-logo { color: white; text-shadow: 0 0 10px #a855f7, 0 0 20px #c026d3, 0 0 30px #3b82f6; }
+    body.theme-space .epic-logo .logo-pro { color: #e9d5ff; }
+    body.theme-space .search-input { background: rgba(255,255,255,0.05); border-color: rgba(168, 85, 247, 0.3); border-radius: 30px; }
+    body.theme-space .search-input:focus { border-color: #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); background: rgba(255,255,255,0.1); }
+    body.theme-space .btn-zapping { background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 25px rgba(147, 51, 234, 0.5); font-weight: 800; letter-spacing: 0.5px; }
+    body.theme-space .btn-zapping:hover { box-shadow: 0 0 35px rgba(147, 51, 234, 0.8); transform: translateY(-3px); }
 
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
@@ -202,7 +218,8 @@
     .is-fav:hover { background: var(--sp-green) !important; color: white !important; }
 
     /* PLAYER BAR */
-    .player-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 90px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 2000; transition: background 0.3s ease, border-color 0.3s ease; }
+    .player-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 90px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; z-index: 2000; transition: background 0.3s ease, border-color 0.3s ease; }
+    @media (min-width: 640px) { .player-bar { padding: 0 20px; } }
 
     .pill { padding: 6px 14px; border-radius: 20px; background: #1a1a1a; font-size: 11px; font-weight: 700; color: #b3b3b3; border: 1px solid #333; white-space: nowrap; cursor: pointer; transition: 0.2s; }
     .pill.active { background: white; color: black; border-color: white; }
@@ -620,6 +637,7 @@
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Resaltado VIP en chat (próximamente)</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Modo Karaoke Inédito</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> EQ Profesional 5 Bandas</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2">
@@ -930,8 +948,8 @@
   </div>
 
   <footer class="player-bar">
-    <div class="flex items-center gap-4 w-1/3">
-      <img id="p-img" src="https://ui-avatars.com/api/?name=R&background=333" class="w-14 h-14 rounded-lg object-cover">
+    <div class="flex items-center gap-3 w-[120px] sm:w-1/3 flex-shrink-0">
+      <img id="p-img" src="https://ui-avatars.com/api/?name=R&background=333" class="w-10 h-10 sm:w-14 sm:h-14 rounded-lg object-cover">
       <div class="hidden sm:block truncate">
         <div id="p-name" class="font-bold text-sm truncate w-40">Selecciona una radio</div>
         <div class="flex items-center gap-2 mt-1">
@@ -941,25 +959,25 @@
       </div>
     </div>
     
-    <div class="flex items-center gap-4 sm:gap-6 justify-center">
-        <button id="p-karaoke" class="hidden w-10 h-10 border-zinc-700 rounded-full items-center justify-center text-zinc-400 hover:text-current hover:border-current transition group relative" style="border-width: 1px;" title="Modo Karaoke (Atenuar Voces) - Exclusivo Diamond" onclick="toggleKaraoke()">
+    <div class="flex items-center gap-1.5 sm:gap-4 justify-center flex-1 sm:flex-none">
+        <button id="p-karaoke" class="hidden w-8 h-8 sm:w-10 sm:h-10 border-zinc-700 rounded-full items-center justify-center text-zinc-400 hover:text-current hover:border-current transition group relative" style="border-width: 1px;" title="Modo Karaoke (Atenuar Voces) - Exclusivo Diamond" onclick="toggleKaraoke()">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
         </button>
 
-        <button id="p-record" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
-            <div class="w-3 h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
+        <button id="p-record" class="w-8 h-8 sm:w-10 sm:h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
+            <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
         </button>
 
-        <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg">
+        <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg flex-shrink-0">
           <svg id="p-icon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </button>
 
         <div class="relative flex items-center">
-             <button id="p-alarm-btn" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-current hover:border-current transition" onclick="document.getElementById('alarm-menu').classList.toggle('hidden')" title="Despertador Automático y Modo Relax">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+             <button id="p-alarm-btn" class="w-8 h-8 sm:w-10 sm:h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-current hover:border-current transition" onclick="document.getElementById('alarm-menu').classList.toggle('hidden')" title="Despertador Automático y Modo Relax">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
             </button>
             
-            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg-[#181818] border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
+            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 sm:translate-x-0 bg-[#181818] border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
                 
                 <div>
                     <div class="flex justify-between items-center mb-3">
@@ -1011,15 +1029,15 @@
         </div>
     </div>
 
-    <div class="w-1/3 flex justify-end items-center gap-0 sm:gap-0">
+    <div class="w-[80px] sm:w-1/3 flex justify-end items-center gap-2 sm:gap-4 flex-shrink-0">
       <div class="relative flex items-center">
-          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador de 5 Bandas">
+          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition w-8 h-8 sm:w-auto flex justify-center items-center" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador Avanzado">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
           </button>
           
           <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[250px] z-50">
               <div class="flex justify-between items-center mb-[15px]">
-                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ 5-Band</span>
+                  <span id="eq-title-text" class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ 3-Band</span>
                   <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
               </div>
               <div class="flex flex-col gap-3">
@@ -1027,7 +1045,7 @@
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">60Hz</span>
                       <input type="range" id="eq-60" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('60', this.value)">
                   </div>
-                  <div class="flex items-center gap-[10px]">
+                  <div class="flex items-center gap-[10px]" id="eq-band-230">
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">230Hz</span>
                       <input type="range" id="eq-230" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('230', this.value)">
                   </div>
@@ -1035,7 +1053,7 @@
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">910Hz</span>
                       <input type="range" id="eq-910" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('910', this.value)">
                   </div>
-                  <div class="flex items-center gap-[10px]">
+                  <div class="flex items-center gap-[10px]" id="eq-band-3600">
                       <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">3.6kHz</span>
                       <input type="range" id="eq-3600" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('3600', this.value)">
                   </div>
@@ -1047,7 +1065,7 @@
           </div>
       </div>
 
-      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white ml-4">
+      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white hidden md:block">
     </div>
   </footer>
 
@@ -1078,7 +1096,24 @@
     // VARIABLES PARA TEMAS (HTML CUSTOM)
     window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
 
-    // --- FUNCIONES UTILIDAD KARAOKE ---
+    // --- FUNCIONES UTILIDAD EQ Y KARAOKE ---
+    window.updateEQVisibility = function() {
+        const isDiamond = window.currentPremiumStatus === 'diamond';
+        const b230 = document.getElementById('eq-band-230');
+        const b3600 = document.getElementById('eq-band-3600');
+        const title = document.getElementById('eq-title-text');
+        
+        if(isDiamond) {
+            if(b230) b230.style.display = 'flex';
+            if(b3600) b3600.style.display = 'flex';
+            if(title) title.innerText = 'Master EQ 5-Band (Diamond)';
+        } else {
+            if(b230) b230.style.display = 'none';
+            if(b3600) b3600.style.display = 'none';
+            if(title) title.innerText = 'Master EQ 3-Band';
+        }
+    };
+
     window.showKaraoke = function() {
         const k = document.getElementById('p-karaoke');
         if(k) { k.classList.remove('hidden'); k.classList.add('flex'); }
@@ -1090,11 +1125,11 @@
 
     // --- LÓGICA DE TEMAS ÉPICOS DIAMOND ---
     let diamondThemeIndex = 0;
-    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave'];
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-space'];
     
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
         diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
         const newTheme = diamondThemes[diamondThemeIndex];
         if (newTheme) {
@@ -1161,10 +1196,11 @@
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
         
         window.currentPremiumStatus = 'gold';
         window.hideKaraoke(); // Ocultamos karaoke en Gold
+        window.updateEQVisibility(); // Pasa a 3 bandas
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
         alert("Has ingresado al modo Demo GOLD de forma gratuita.");
@@ -1207,9 +1243,10 @@
         
         window.currentPremiumStatus = 'diamond';
         window.showKaraoke(); // Mostramos Karaoke en Diamond
+        window.updateEQVisibility(); // Pasa a 5 bandas
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Karaoke y los Temas Épicos!");
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Karaoke, el EQ 5 Bandas y los Temas Épicos!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -2168,8 +2205,9 @@
       onlineManager.init(); setupControls(); setupInfiniteScroll(); setupTickerDrag();
       loadCountryData('argentina'); setupAlarmClock();
       
-      // Asegurar que el estado inicial del karaoke esté oculto
+      // Asegurar que el estado inicial del karaoke y el EQ estén acordes al estado "free" por defecto
       window.hideKaraoke();
+      window.updateEQVisibility();
     }
 
     function setupAlarmClock() {
@@ -2411,928 +2449,933 @@
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
             if(btnMockLoginDiamond) btnMockLoginDiamond.classList.add('hidden');
-
-            if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
-            if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
-            
-            if(document.getElementById('userName')) document.getElementById('userName').innerText = user.displayName;
-            if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = user.displayName;
-            if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
-            if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
-
-            // Revisar si es PRO (GOLD) o DIAMOND
-            onValue(ref(db, `users/${user.uid}`), (snapshot) => {
-                const data = snapshot.val();
-                if(data && data.isDiamond) {
-                    window.currentPremiumStatus = 'diamond';
-                    window.showKaraoke(); // MUESTRA KARAOKE
-                    if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
-                    if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
-                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
-                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
-                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
-} else if(data && data.isPro) {
-                    window.currentPremiumStatus = 'gold';
-                    window.hideKaraoke(); // OCULTA KARAOKE
-                    if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
-                    if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
-                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
-                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+
+                    if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
+                    if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
+                    
+                    if(document.getElementById('userName')) document.getElementById('userName').innerText = user.displayName;
+                    if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = user.displayName;
+                    if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
+                    if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
+
+                    // Revisar si es PRO (GOLD) o DIAMOND
+                    onValue(ref(db, `users/${user.uid}`), (snapshot) => {
+                        const data = snapshot.val();
+                        if(data && data.isDiamond) {
+                            window.currentPremiumStatus = 'diamond';
+                            window.showKaraoke(); // MUESTRA KARAOKE
+                            window.updateEQVisibility(); // 5 Bandas
+                            if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
+                            if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
+                            if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                            if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+                        } else if(data && data.isPro) {
+                            window.currentPremiumStatus = 'gold';
+                            window.hideKaraoke(); // OCULTA KARAOKE
+                            window.updateEQVisibility(); // 3 Bandas
+                            if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
+                            if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
+                            if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                            if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                        } else {
+                            window.currentPremiumStatus = 'free';
+                            window.hideKaraoke(); // OCULTA KARAOKE
+                            window.updateEQVisibility(); // 3 Bandas
+                            if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
+                            if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
+                            if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                            if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
+                            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                        }
+                        window.reapplyUserTheme();
+                    });
+
                 } else {
-                    window.currentPremiumStatus = 'free';
-                    window.hideKaraoke(); // OCULTA KARAOKE
+                    if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
+                    if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
+                    if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
+                    if(btnMockLogin) btnMockLogin.classList.remove('hidden');
+                    if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
+
+                    if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
+                    if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
-                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
-                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
+                    
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                    
+                    window.currentPremiumStatus = 'free';
+                    window.hideKaraoke(); // OCULTA KARAOKE
+                    window.updateEQVisibility(); // 3 Bandas
+                    window.reapplyUserTheme();
                 }
-                window.reapplyUserTheme();
             });
 
-        } else {
-            if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
-            if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
-            if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
-            if(btnMockLogin) btnMockLogin.classList.remove('hidden');
-            if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
-
-            if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
-            if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
-            if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
-            if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
-            
-            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
-            
-            window.currentPremiumStatus = 'free';
-            window.hideKaraoke(); // OCULTA KARAOKE
-            window.reapplyUserTheme();
-        }
-    });
-
-    // PANEL ADMIN: GESTIÓN DE USUARIOS
-    onValue(ref(db, 'users'), (snapshot) => {
-        const adminList = document.getElementById('adminUsersList');
-        if(!adminList) return;
-        adminList.innerHTML = '';
-        
-        if(snapshot.exists()){
-            snapshot.forEach(childSnapshot => {
-                const uid = childSnapshot.key;
-                const data = childSnapshot.val();
+            // PANEL ADMIN: GESTIÓN DE USUARIOS
+            onValue(ref(db, 'users'), (snapshot) => {
+                const adminList = document.getElementById('adminUsersList');
+                if(!adminList) return;
+                adminList.innerHTML = '';
                 
-                let badge = '<span class="bg-zinc-600 text-white text-[9px] font-bold px-2 py-0.5 rounded ml-2">BASIC</span>';
-                if(data.isDiamond) badge = '<span class="bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2 shadow-[0_0_8px_rgba(0,242,254,0.4)]">DIAMOND</span>';
-                else if(data.isPro) badge = '<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2">GOLD</span>';
+                if(snapshot.exists()){
+                    snapshot.forEach(childSnapshot => {
+                        const uid = childSnapshot.key;
+                        const data = childSnapshot.val();
+                        
+                        let badge = '<span class="bg-zinc-600 text-white text-[9px] font-bold px-2 py-0.5 rounded ml-2">BASIC</span>';
+                        if(data.isDiamond) badge = '<span class="bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2 shadow-[0_0_8px_rgba(0,242,254,0.4)]">DIAMOND</span>';
+                        else if(data.isPro) badge = '<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded ml-2">GOLD</span>';
 
-                const div = document.createElement('div');
-                div.className = 'flex justify-between items-center bg-zinc-800/50 p-3 rounded-xl border border-zinc-700/50 mb-2';
-                div.innerHTML = `
-                    <div class="flex items-center gap-3 w-1/2">
-                        <img src="${data.foto || 'https://ui-avatars.com/api/?name=U'}" class="w-8 h-8 rounded-full">
-                        <div class="truncate">
-                            <p class="text-sm font-bold text-white flex items-center truncate">${data.nombre} ${badge}</p>
-                            <p class="text-[10px] text-zinc-400 truncate">${data.email}</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-yellow-600 hover:bg-yellow-500 text-black toggle-pro-btn" data-uid="${uid}" data-status="${data.isPro}">
-                            ${data.isPro ? 'Quitar Gold' : 'Hacer Gold'}
-                        </button>
-                        <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white toggle-diamond-btn" data-uid="${uid}" data-status="${data.isDiamond}">
-                            ${data.isDiamond ? 'Quitar Diamond' : 'Hacer Diamond'}
-                        </button>
-                    </div>
-                `;
-                adminList.appendChild(div);
-            });
-
-            document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const pass = prompt("Contraseña de Admin:");
-                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-                    const uid = e.target.getAttribute('data-uid');
-                    const currentStatus = e.target.getAttribute('data-status') === 'true';
-                    update(ref(db, `users/${uid}`), { isPro: !currentStatus, isDiamond: false });
-                });
-            });
-
-            document.querySelectorAll('.toggle-diamond-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const pass = prompt("Contraseña de Admin:");
-                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-                    const uid = e.target.getAttribute('data-uid');
-                    const currentStatus = e.target.getAttribute('data-status') === 'true';
-                    update(ref(db, `users/${uid}`), { isDiamond: !currentStatus, isPro: false });
-                });
-            });
-
-        } else {
-             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aún.</div>';
-        }
-    });
-
-    document.getElementById('fbApiKey').value = firebaseConfig.apiKey || "";
-    document.getElementById('fbAuthDomain').value = firebaseConfig.authDomain || "";
-    document.getElementById('fbDatabaseURL').value = firebaseConfig.databaseURL || "";
-    document.getElementById('fbProjectId').value = firebaseConfig.projectId || "";
-    document.getElementById('fbStorageBucket').value = firebaseConfig.storageBucket || "";
-    document.getElementById('fbMessagingSenderId').value = firebaseConfig.messagingSenderId || "";
-    document.getElementById('fbAppId').value = firebaseConfig.appId || "";
-
-    document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const newConfig = {
-            apiKey: document.getElementById('fbApiKey').value.trim(),
-            authDomain: document.getElementById('fbAuthDomain').value.trim(),
-            databaseURL: document.getElementById('fbDatabaseURL').value.trim(),
-            projectId: document.getElementById('fbProjectId').value.trim(),
-            storageBucket: document.getElementById('fbStorageBucket').value.trim(),
-            messagingSenderId: document.getElementById('fbMessagingSenderId').value.trim(),
-            appId: document.getElementById('fbAppId').value.trim()
-        };
-
-        if(!newConfig.apiKey || !newConfig.projectId) { return alert("API Key y Project ID son obligatorios."); }
-
-        localStorage.setItem('RAR_FIREBASE_CONFIG', JSON.stringify(newConfig));
-        alert("Credenciales guardadas. La página se recargará para aplicar los cambios.");
-        window.location.reload();
-    });
-
-    window.resetFirebase = function() {
-        if(confirm('¿Estás seguro de que quieres volver a la base de datos por defecto?')) {
-            localStorage.removeItem('RAR_FIREBASE_CONFIG');
-            window.location.reload();
-        }
-    };
-
-    onValue(paymentsRef, (snapshot) => {
-        const data = snapshot.val();
-        if(data) {
-            document.getElementById('mpPublicKey').value = data.mpPublicKey || "";
-            document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
-            document.getElementById('paypalClientId').value = data.paypalClientId || "";
-            document.getElementById('paypalSecret').value = data.paypalSecret || "";
-            document.getElementById('donationAlias').value = data.donationAlias || "";
-            window.globalDonationAlias = data.donationAlias || "";
-        }
-    });
-
-    document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Pagos y Alias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const data = {
-            mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
-            mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
-            paypalClientId: document.getElementById('paypalClientId').value.trim(),
-            paypalSecret: document.getElementById('paypalSecret').value.trim(),
-            donationAlias: document.getElementById('donationAlias').value.trim()
-        };
-        
-        update(ref(db, 'settings_comunidad'), { payments: data }).then(() => {
-            alert("Credenciales y Alias guardados correctamente.");
-        }).catch(err => alert("Error: " + err.message));
-    });
-
-    // --- TENDENCIAS MENSUALES CONFIG ---
-    let globalTendenciasConfig = { pinned: [], hidden: [] };
-    let globalClicks = {};
-
-    onValue(tendenciasRef, (snapshot) => {
-        globalTendenciasConfig = snapshot.val() || { pinned: [], hidden: [] };
-        if(!globalTendenciasConfig.pinned) globalTendenciasConfig.pinned = [];
-        if(!globalTendenciasConfig.hidden) globalTendenciasConfig.hidden = [];
-        if(window.renderActualTendencias) window.renderActualTendencias();
-    });
-
-    onValue(clicksRef, (snapshot) => {
-        globalClicks = snapshot.val() || {};
-        if(window.renderActualTendencias) window.renderActualTendencias();
-    });
-
-    window.updateTendenciasClicks = function(id) {
-        const currentClicks = globalClicks[id] || 0;
-        update(ref(db, `tendencias_clicks/${currentMonthStr}`), { [id]: currentClicks + 1 });
-    };
-
-    window.renderActualTendencias = function() {
-        if (allRadios.length === 0) return;
-        
-        let pinnedRadios = [];
-        let hiddenIds = globalTendenciasConfig.hidden || [];
-        let pinnedIds = globalTendenciasConfig.pinned || [];
-        
-        pinnedIds.forEach(id => {
-            let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
-            if(r) pinnedRadios.push(r);
-        });
-
-        // Ordenar por clicks
-        let clicksArray = Object.entries(globalClicks)
-            .filter(([id]) => !hiddenIds.includes(id) && !pinnedIds.includes(id))
-            .sort((a, b) => b[1] - a[1]) // descendente
-            .map(([id]) => id);
-            
-        let clickRadios = [];
-        clicksArray.forEach(id => {
-            let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
-            if(r) clickRadios.push(r);
-        });
-
-        window.currentActiveTendencias = [...pinnedRadios, ...clickRadios].slice(0, 10);
-        
-        if (window.currentActiveTendencias.length > 0) {
-            document.getElementById('sectTendencias').style.display = 'block';
-            renderGrid(window.currentActiveTendencias, 'gridTendencias', false);
-        } else {
-            document.getElementById('sectTendencias').style.display = 'none';
-        }
-        
-        if(window.renderAdminTendencias) window.renderAdminTendencias();
-    };
-
-    let tenDraggedId = null;
-    
-    window.tenDragStart = function(e, id) {
-        tenDraggedId = id; e.target.classList.add('top10-drag-active'); e.dataTransfer.effectAllowed = 'move';
-    };
-    window.tenDragOver = function(e) {
-        e.preventDefault(); e.dataTransfer.dropEffect = 'move';
-        const target = e.target.closest('[data-id]');
-        if(target && target.dataset.id !== tenDraggedId) target.classList.add('top10-drag-over');
-    };
-    window.tenDragLeave = function(e) {
-        const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
-    };
-    window.tenDrop = function(e, targetId) {
-        e.preventDefault(); const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
-        
-        if (tenDraggedId && tenDraggedId !== targetId) {
-            const pass = prompt("Contraseña de Administrador para reordenar Tendencias:");
-            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-            let currentList = window.currentActiveTendencias.map(r => r.original_uuid || r.stationuuid || r.fb_key);
-            let draggedIdx = currentList.indexOf(tenDraggedId);
-            let targetIdx = currentList.indexOf(targetId);
-            
-            currentList.splice(draggedIdx, 1);
-            currentList.splice(targetIdx, 0, tenDraggedId);
-            
-            let fullNewPinned = [];
-            currentList.forEach(id => {
-                if (globalTendenciasConfig.pinned.includes(id) || id === tenDraggedId || id === targetId) fullNewPinned.push(id);
-            });
-            
-            globalTendenciasConfig.pinned.forEach(id => {
-                if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
-            });
-            
-            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } });
-        }
-        tenDraggedId = null;
-    };
-    window.tenDragEnd = function(e) { e.target.classList.remove('top10-drag-active'); tenDraggedId = null; };
-
-    window.renderAdminTendencias = function() {
-        const list = document.getElementById('activeTendenciasList');
-        if(!list) return;
-        
-        let html = '';
-        if(window.currentActiveTendencias) {
-            window.currentActiveTendencias.forEach((r, idx) => {
-                const id = r.original_uuid || r.stationuuid || r.fb_key;
-                const isPinned = globalTendenciasConfig.pinned.includes(id);
-                const clicks = globalClicks[id] || 0;
-                html += `
-                    <div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">🔥 ${clicks} fueguitos (mes)</p>
+                        const div = document.createElement('div');
+                        div.className = 'flex justify-between items-center bg-zinc-800/50 p-3 rounded-xl border border-zinc-700/50 mb-2';
+                        div.innerHTML = `
+                            <div class="flex items-center gap-3 w-1/2">
+                                <img src="${data.foto || 'https://ui-avatars.com/api/?name=U'}" class="w-8 h-8 rounded-full">
+                                <div class="truncate">
+                                    <p class="text-sm font-bold text-white flex items-center truncate">${data.nombre} ${badge}</p>
+                                    <p class="text-[10px] text-zinc-400 truncate">${data.email}</p>
+                                </div>
                             </div>
-                        </div>
-                        <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
-                    </div>
-                `;
-            });
-        }
-        list.innerHTML = html;
-    };
+                            <div class="flex gap-2">
+                                <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-yellow-600 hover:bg-yellow-500 text-black toggle-pro-btn" data-uid="${uid}" data-status="${data.isPro}">
+                                    ${data.isPro ? 'Quitar Gold' : 'Hacer Gold'}
+                                </button>
+                                <button class="text-[9px] font-bold px-3 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white toggle-diamond-btn" data-uid="${uid}" data-status="${data.isDiamond}">
+                                    ${data.isDiamond ? 'Quitar Diamond' : 'Hacer Diamond'}
+                                </button>
+                            </div>
+                        `;
+                        adminList.appendChild(div);
+                    });
 
-    window.searchForTendencias = function() {
-        const q = document.getElementById('tendenciasSearch').value.toLowerCase();
-        const resDiv = document.getElementById('tendenciasSearchResults');
-        if(q.length < 2) { resDiv.innerHTML = ''; return; }
-        
-        const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
-        resDiv.innerHTML = found.map(r => {
-            const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
-                <div class="flex items-center gap-2 truncate">
-                    <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <span class="text-xs text-white font-bold truncate">${r.name}</span>
-                </div>
-                <span class="text-[10px] bg-orange-600 text-black font-bold px-2 py-1 rounded">Añadir</span>
-            </div>
-        `}).join('');
-    };
+                    document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const pass = prompt("Contraseña de Admin:");
+                            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                            const uid = e.target.getAttribute('data-uid');
+                            const currentStatus = e.target.getAttribute('data-status') === 'true';
+                            update(ref(db, `users/${uid}`), { isPro: !currentStatus, isDiamond: false });
+                        });
+                    });
 
-    window.addToTendencias = function(id) {
-        const pass = prompt("Contraseña de Administrador para fijar en Tendencias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = [...globalTendenciasConfig.pinned];
-        if(!newPinned.includes(id)) newPinned.unshift(id); 
-        
-        let newHidden = globalTendenciasConfig.hidden.filter(x => x !== id);
-        
-        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } }).then(() => {
-            document.getElementById('tendenciasSearch').value = '';
-            document.getElementById('tendenciasSearchResults').innerHTML = '';
-        });
-    };
+                    document.querySelectorAll('.toggle-diamond-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const pass = prompt("Contraseña de Admin:");
+                            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                            const uid = e.target.getAttribute('data-uid');
+                            const currentStatus = e.target.getAttribute('data-status') === 'true';
+                            update(ref(db, `users/${uid}`), { isDiamond: !currentStatus, isPro: false });
+                        });
+                    });
 
-    window.removeFromTendencias = function(id, isPinned) {
-        const pass = prompt("Contraseña de Administrador para quitar de Tendencias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = globalTendenciasConfig.pinned.filter(x => x !== id);
-        let newHidden = [...globalTendenciasConfig.hidden];
-        
-        if(!isPinned) {
-            if(!newHidden.includes(id)) newHidden.push(id);
-        }
-        
-        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
-    };
-
-    // --- TOP 10 MANUAL CONFIG ---
-    onValue(top10Ref, (snapshot) => {
-        globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
-        if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
-        if(!globalTop10Config.hidden) globalTop10Config.hidden = [];
-        
-        if(window.renderActualTop10) window.renderActualTop10();
-    });
-
-    let draggedId = null;
-    
-    window.topDragStart = function(e, id) {
-        draggedId = id;
-        e.target.classList.add('top10-drag-active');
-        e.dataTransfer.effectAllowed = 'move';
-    };
-    
-    window.topDragOver = function(e) {
-        e.preventDefault(); 
-        e.dataTransfer.dropEffect = 'move';
-        const target = e.target.closest('[data-id]');
-        if(target && target.dataset.id !== draggedId) {
-            target.classList.add('top10-drag-over');
-        }
-    };
-    
-    window.topDragLeave = function(e) {
-        const target = e.target.closest('[data-id]');
-        if(target) target.classList.remove('top10-drag-over');
-    };
-    
-    window.topDrop = function(e, targetId) {
-        e.preventDefault();
-        const target = e.target.closest('[data-id]');
-        if(target) target.classList.remove('top10-drag-over');
-        
-        if (draggedId && draggedId !== targetId) {
-            const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
-            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-            let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
-            let draggedIdx = currentList.indexOf(draggedId);
-            let targetIdx = currentList.indexOf(targetId);
-            
-            currentList.splice(draggedIdx, 1);
-            currentList.splice(targetIdx, 0, draggedId);
-            
-            let fullNewPinned = [];
-            currentList.forEach(id => {
-                if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
-                    fullNewPinned.push(id);
+                } else {
+                     adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay usuarios registrados aún.</div>';
                 }
             });
-            
-            globalTop10Config.pinned.forEach(id => {
-                if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
-            });
-            
-            update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
-        }
-        draggedId = null;
-    };
-    
-    window.topDragEnd = function(e) {
-        e.target.classList.remove('top10-drag-active');
-        draggedId = null;
-    };
 
-    window.renderAdminTop10 = function() {
-        const list = document.getElementById('activeTop10List');
-        if(!list) return;
-        
-        let html = '';
-        if(window.currentActiveTop10) {
-            window.currentActiveTop10.forEach((r, idx) => {
-                const id = r.original_uuid || r.stationuuid || r.fb_key;
-                const isPinned = globalTop10Config.pinned.includes(id);
-                html += `
-                    <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+            document.getElementById('fbApiKey').value = firebaseConfig.apiKey || "";
+            document.getElementById('fbAuthDomain').value = firebaseConfig.authDomain || "";
+            document.getElementById('fbDatabaseURL').value = firebaseConfig.databaseURL || "";
+            document.getElementById('fbProjectId').value = firebaseConfig.projectId || "";
+            document.getElementById('fbStorageBucket').value = firebaseConfig.storageBucket || "";
+            document.getElementById('fbMessagingSenderId').value = firebaseConfig.messagingSenderId || "";
+            document.getElementById('fbAppId').value = firebaseConfig.appId || "";
+
+            document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                const newConfig = {
+                    apiKey: document.getElementById('fbApiKey').value.trim(),
+                    authDomain: document.getElementById('fbAuthDomain').value.trim(),
+                    databaseURL: document.getElementById('fbDatabaseURL').value.trim(),
+                    projectId: document.getElementById('fbProjectId').value.trim(),
+                    storageBucket: document.getElementById('fbStorageBucket').value.trim(),
+                    messagingSenderId: document.getElementById('fbMessagingSenderId').value.trim(),
+                    appId: document.getElementById('fbAppId').value.trim()
+                };
+
+                if(!newConfig.apiKey || !newConfig.projectId) { return alert("API Key y Project ID son obligatorios."); }
+
+                localStorage.setItem('RAR_FIREBASE_CONFIG', JSON.stringify(newConfig));
+                alert("Credenciales guardadas. La página se recargará para aplicar los cambios.");
+                window.location.reload();
+            });
+
+            window.resetFirebase = function() {
+                if(confirm('¿Estás seguro de que quieres volver a la base de datos por defecto?')) {
+                    localStorage.removeItem('RAR_FIREBASE_CONFIG');
+                    window.location.reload();
+                }
+            };
+
+            onValue(paymentsRef, (snapshot) => {
+                const data = snapshot.val();
+                if(data) {
+                    document.getElementById('mpPublicKey').value = data.mpPublicKey || "";
+                    document.getElementById('mpAccessToken').value = data.mpAccessToken || "";
+                    document.getElementById('paypalClientId').value = data.paypalClientId || "";
+                    document.getElementById('paypalSecret').value = data.paypalSecret || "";
+                    document.getElementById('donationAlias').value = data.donationAlias || "";
+                    window.globalDonationAlias = data.donationAlias || "";
+                }
+            });
+
+            document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pass = prompt("Contraseña de Administrador para Configuración de Pagos y Alias:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                const data = {
+                    mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
+                    mpAccessToken: document.getElementById('mpAccessToken').value.trim(),
+                    paypalClientId: document.getElementById('paypalClientId').value.trim(),
+                    paypalSecret: document.getElementById('paypalSecret').value.trim(),
+                    donationAlias: document.getElementById('donationAlias').value.trim()
+                };
+                
+                update(ref(db, 'settings_comunidad'), { payments: data }).then(() => {
+                    alert("Credenciales y Alias guardados correctamente.");
+                }).catch(err => alert("Error: " + err.message));
+            });
+
+            // --- TENDENCIAS MENSUALES CONFIG ---
+            let globalTendenciasConfig = { pinned: [], hidden: [] };
+            let globalClicks = {};
+
+            onValue(tendenciasRef, (snapshot) => {
+                globalTendenciasConfig = snapshot.val() || { pinned: [], hidden: [] };
+                if(!globalTendenciasConfig.pinned) globalTendenciasConfig.pinned = [];
+                if(!globalTendenciasConfig.hidden) globalTendenciasConfig.hidden = [];
+                if(window.renderActualTendencias) window.renderActualTendencias();
+            });
+
+            onValue(clicksRef, (snapshot) => {
+                globalClicks = snapshot.val() || {};
+                if(window.renderActualTendencias) window.renderActualTendencias();
+            });
+
+            window.updateTendenciasClicks = function(id) {
+                const currentClicks = globalClicks[id] || 0;
+                update(ref(db, `tendencias_clicks/${currentMonthStr}`), { [id]: currentClicks + 1 });
+            };
+
+            window.renderActualTendencias = function() {
+                if (allRadios.length === 0) return;
+                
+                let pinnedRadios = [];
+                let hiddenIds = globalTendenciasConfig.hidden || [];
+                let pinnedIds = globalTendenciasConfig.pinned || [];
+                
+                pinnedIds.forEach(id => {
+                    let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
+                    if(r) pinnedRadios.push(r);
+                });
+
+                // Ordenar por clicks
+                let clicksArray = Object.entries(globalClicks)
+                    .filter(([id]) => !hiddenIds.includes(id) && !pinnedIds.includes(id))
+                    .sort((a, b) => b[1] - a[1]) // descendente
+                    .map(([id]) => id);
+                    
+                let clickRadios = [];
+                clicksArray.forEach(id => {
+                    let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
+                    if(r) clickRadios.push(r);
+                });
+
+                window.currentActiveTendencias = [...pinnedRadios, ...clickRadios].slice(0, 10);
+                
+                if (window.currentActiveTendencias.length > 0) {
+                    document.getElementById('sectTendencias').style.display = 'block';
+                    renderGrid(window.currentActiveTendencias, 'gridTendencias', false);
+                } else {
+                    document.getElementById('sectTendencias').style.display = 'none';
+                }
+                
+                if(window.renderAdminTendencias) window.renderAdminTendencias();
+            };
+
+            let tenDraggedId = null;
+            
+            window.tenDragStart = function(e, id) {
+                tenDraggedId = id; e.target.classList.add('top10-drag-active'); e.dataTransfer.effectAllowed = 'move';
+            };
+            window.tenDragOver = function(e) {
+                e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+                const target = e.target.closest('[data-id]');
+                if(target && target.dataset.id !== tenDraggedId) target.classList.add('top10-drag-over');
+            };
+            window.tenDragLeave = function(e) {
+                const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
+            };
+            window.tenDrop = function(e, targetId) {
+                e.preventDefault(); const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
+                
+                if (tenDraggedId && tenDraggedId !== targetId) {
+                    const pass = prompt("Contraseña de Administrador para reordenar Tendencias:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+                    let currentList = window.currentActiveTendencias.map(r => r.original_uuid || r.stationuuid || r.fb_key);
+                    let draggedIdx = currentList.indexOf(tenDraggedId);
+                    let targetIdx = currentList.indexOf(targetId);
+                    
+                    currentList.splice(draggedIdx, 1);
+                    currentList.splice(targetIdx, 0, tenDraggedId);
+                    
+                    let fullNewPinned = [];
+                    currentList.forEach(id => {
+                        if (globalTendenciasConfig.pinned.includes(id) || id === tenDraggedId || id === targetId) fullNewPinned.push(id);
+                    });
+                    
+                    globalTendenciasConfig.pinned.forEach(id => {
+                        if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+                    });
+                    
+                    update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } });
+                }
+                tenDraggedId = null;
+            };
+            window.tenDragEnd = function(e) { e.target.classList.remove('top10-drag-active'); tenDraggedId = null; };
+
+            window.renderAdminTendencias = function() {
+                const list = document.getElementById('activeTendenciasList');
+                if(!list) return;
+                
+                let html = '';
+                if(window.currentActiveTendencias) {
+                    window.currentActiveTendencias.forEach((r, idx) => {
+                        const id = r.original_uuid || r.stationuuid || r.fb_key;
+                        const isPinned = globalTendenciasConfig.pinned.includes(id);
+                        const clicks = globalClicks[id] || 0;
+                        html += `
+                            <div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                                <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                                    <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                                    <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                                    <div class="truncate">
+                                        <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                                        <p class="text-[9px] text-zinc-500 truncate mt-0.5">🔥 ${clicks} fueguitos (mes)</p>
+                                    </div>
+                                </div>
+                                <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
                             </div>
+                        `;
+                    });
+                }
+                list.innerHTML = html;
+            };
+
+            window.searchForTendencias = function() {
+                const q = document.getElementById('tendenciasSearch').value.toLowerCase();
+                const resDiv = document.getElementById('tendenciasSearchResults');
+                if(q.length < 2) { resDiv.innerHTML = ''; return; }
+                
+                const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
+                resDiv.innerHTML = found.map(r => {
+                    const id = r.original_uuid || r.stationuuid || r.fb_key;
+                    return `
+                    <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
+                        <div class="flex items-center gap-2 truncate">
+                            <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                            <span class="text-xs text-white font-bold truncate">${r.name}</span>
                         </div>
-                        <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                        <span class="text-[10px] bg-orange-600 text-black font-bold px-2 py-1 rounded">Añadir</span>
                     </div>
-                `;
+                `}).join('');
+            };
+
+            window.addToTendencias = function(id) {
+                const pass = prompt("Contraseña de Administrador para fijar en Tendencias:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                let newPinned = [...globalTendenciasConfig.pinned];
+                if(!newPinned.includes(id)) newPinned.unshift(id); 
+                
+                let newHidden = globalTendenciasConfig.hidden.filter(x => x !== id);
+                
+                update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } }).then(() => {
+                    document.getElementById('tendenciasSearch').value = '';
+                    document.getElementById('tendenciasSearchResults').innerHTML = '';
+                });
+            };
+
+            window.removeFromTendencias = function(id, isPinned) {
+                const pass = prompt("Contraseña de Administrador para quitar de Tendencias:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                let newPinned = globalTendenciasConfig.pinned.filter(x => x !== id);
+                let newHidden = [...globalTendenciasConfig.hidden];
+                
+                if(!isPinned) {
+                    if(!newHidden.includes(id)) newHidden.push(id);
+                }
+                
+                update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
+            };
+
+            // --- TOP 10 MANUAL CONFIG ---
+            onValue(top10Ref, (snapshot) => {
+                globalTop10Config = snapshot.val() || { pinned: [], hidden: [] };
+                if(!globalTop10Config.pinned) globalTop10Config.pinned = [];
+                if(!globalTop10Config.hidden) globalTop10Config.hidden = [];
+                
+                if(window.renderActualTop10) window.renderActualTop10();
             });
-        }
-        list.innerHTML = html;
-    };
 
-    window.searchForTop10 = function() {
-        const q = document.getElementById('top10Search').value.toLowerCase();
-        const resDiv = document.getElementById('top10SearchResults');
-        if(q.length < 2) { resDiv.innerHTML = ''; return; }
-        
-        const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
-        resDiv.innerHTML = found.map(r => {
-            const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
-                <div class="flex items-center gap-2 truncate">
-                    <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <span class="text-xs text-white font-bold truncate">${r.name}</span>
-                </div>
-                <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">Añadir al Top</span>
-            </div>
-        `}).join('');
-    };
-
-    window.addToTop10 = function(id) {
-        const pass = prompt("Contraseña de Administrador para fijar en el Top 10:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = [...globalTop10Config.pinned];
-        if(!newPinned.includes(id))newPinned.unshift(id); 
-        
-        let newHidden = globalTop10Config.hidden.filter(x => x !== id);
-        
-        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
-            document.getElementById('top10Search').value = '';
-            document.getElementById('top10SearchResults').innerHTML = '';
-        });
-    };
-
-    window.removeFromTop10 = function(id, isPinned) {
-        const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        let newPinned = globalTop10Config.pinned.filter(x => x !== id);
-        let newHidden = [...globalTop10Config.hidden];
-        
-        if(!isPinned) {
-            if(!newHidden.includes(id)) newHidden.push(id);
-        }
-        
-        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
-    };
-
-    // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
-    onValue(newsRef, (snapshot) => {
-        const data = snapshot.val();
-        if(data) {
-            globalNewsConfig = data;
-            document.getElementById('newsEnabled').value = data.enabled.toString();
-            document.getElementById('newsSpeed').value = data.speed || 30;
-            document.getElementById('rssGeneral').value = Array.isArray(data.general) ? data.general.join('\n') : (data.general || "");
-            document.getElementById('rssSport').value = Array.isArray(data.sport) ? data.sport.join('\n') : (data.sport || "");
-            document.getElementById('rssMusic').value = Array.isArray(data.music) ? data.music.join('\n') : (data.music || "");
-        }
-    });
-
-    document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
-
-        const data = {
-            enabled: document.getElementById('newsEnabled').value === "true",
-            speed: parseInt(document.getElementById('newsSpeed').value) || 30,
-            general: parseRssUrls(document.getElementById('rssGeneral').value),
-            sport: parseRssUrls(document.getElementById('rssSport').value),
-            music: parseRssUrls(document.getElementById('rssMusic').value)
-        };
-        
-        update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
-            alert("Configuración de noticias guardada correctamente (Máx 5 enlaces por sección).");
-        }).catch(err => alert("Error: " + err.message));
-    });
-
-    // --- CARGA DE ANUNCIOS (ADSENSE) ---
-    function injectAdHTML(containerId, htmlString) {
-        const container = document.getElementById(containerId);
-        if(!container) return;
-        container.innerHTML = htmlString || "";
-        
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-            newScript.text = oldScript.text;
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-    }
-
-    onValue(adsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            document.getElementById('adsHead').value = data.head || "";
-            document.getElementById('adsRadio').value = data.radio || "";
-            document.getElementById('adsSidebar').value = data.sidebar || "";
+            let draggedId = null;
             
-            if(data.head && !document.getElementById('adsense-head-script')) {
-                const temp = document.createElement('div');
-                temp.innerHTML = data.head;
-                const scripts = temp.querySelectorAll('script');
+            window.topDragStart = function(e, id) {
+                draggedId = id;
+                e.target.classList.add('top10-drag-active');
+                e.dataTransfer.effectAllowed = 'move';
+            };
+            
+            window.topDragOver = function(e) {
+                e.preventDefault(); 
+                e.dataTransfer.dropEffect = 'move';
+                const target = e.target.closest('[data-id]');
+                if(target && target.dataset.id !== draggedId) {
+                    target.classList.add('top10-drag-over');
+                }
+            };
+            
+            window.topDragLeave = function(e) {
+                const target = e.target.closest('[data-id]');
+                if(target) target.classList.remove('top10-drag-over');
+            };
+            
+            window.topDrop = function(e, targetId) {
+                e.preventDefault();
+                const target = e.target.closest('[data-id]');
+                if(target) target.classList.remove('top10-drag-over');
+                
+                if (draggedId && draggedId !== targetId) {
+                    const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+                    let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
+                    let draggedIdx = currentList.indexOf(draggedId);
+                    let targetIdx = currentList.indexOf(targetId);
+                    
+                    currentList.splice(draggedIdx, 1);
+                    currentList.splice(targetIdx, 0, draggedId);
+                    
+                    let fullNewPinned = [];
+                    currentList.forEach(id => {
+                        if (globalTop10Config.pinned.includes(id) || id === draggedId || id === targetId) {
+                            fullNewPinned.push(id);
+                        }
+                    });
+                    
+                    globalTop10Config.pinned.forEach(id => {
+                        if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
+                    });
+                    
+                    update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
+                }
+                draggedId = null;
+            };
+            
+            window.topDragEnd = function(e) {
+                e.target.classList.remove('top10-drag-active');
+                draggedId = null;
+            };
+
+            window.renderAdminTop10 = function() {
+                const list = document.getElementById('activeTop10List');
+                if(!list) return;
+                
+                let html = '';
+                if(window.currentActiveTop10) {
+                    window.currentActiveTop10.forEach((r, idx) => {
+                        const id = r.original_uuid || r.stationuuid || r.fb_key;
+                        const isPinned = globalTop10Config.pinned.includes(id);
+                        html += `
+                            <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                                <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                                    <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                                    <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                                    <div class="truncate">
+                                        <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                                        <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
+                                    </div>
+                                </div>
+                                <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                            </div>
+                        `;
+                    });
+                }
+                list.innerHTML = html;
+            };
+
+            window.searchForTop10 = function() {
+                const q = document.getElementById('top10Search').value.toLowerCase();
+                const resDiv = document.getElementById('top10SearchResults');
+                if(q.length < 2) { resDiv.innerHTML = ''; return; }
+                
+                const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
+                resDiv.innerHTML = found.map(r => {
+                    const id = r.original_uuid || r.stationuuid || r.fb_key;
+                    return `
+                    <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
+                        <div class="flex items-center gap-2 truncate">
+                            <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                            <span class="text-xs text-white font-bold truncate">${r.name}</span>
+                        </div>
+                        <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">Añadir al Top</span>
+                    </div>
+                `}).join('');
+            };
+
+            window.addToTop10 = function(id) {
+                const pass = prompt("Contraseña de Administrador para fijar en el Top 10:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                let newPinned = [...globalTop10Config.pinned];
+                if(!newPinned.includes(id))newPinned.unshift(id); 
+                
+                let newHidden = globalTop10Config.hidden.filter(x => x !== id);
+                
+                update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
+                    document.getElementById('top10Search').value = '';
+                    document.getElementById('top10SearchResults').innerHTML = '';
+                });
+            };
+
+            window.removeFromTop10 = function(id, isPinned) {
+                const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                let newPinned = globalTop10Config.pinned.filter(x => x !== id);
+                let newHidden = [...globalTop10Config.hidden];
+                
+                if(!isPinned) {
+                    if(!newHidden.includes(id)) newHidden.push(id);
+                }
+                
+                update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
+            };
+
+            // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
+            onValue(newsRef, (snapshot) => {
+                const data = snapshot.val();
+                if(data) {
+                    globalNewsConfig = data;
+                    document.getElementById('newsEnabled').value = data.enabled.toString();
+                    document.getElementById('newsSpeed').value = data.speed || 30;
+                    document.getElementById('rssGeneral').value = Array.isArray(data.general) ? data.general.join('\n') : (data.general || "");
+                    document.getElementById('rssSport').value = Array.isArray(data.sport) ? data.sport.join('\n') : (data.sport || "");
+                    document.getElementById('rssMusic').value = Array.isArray(data.music) ? data.music.join('\n') : (data.music || "");
+                }
+            });
+
+            document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
+
+                const data = {
+                    enabled: document.getElementById('newsEnabled').value === "true",
+                    speed: parseInt(document.getElementById('newsSpeed').value) || 30,
+                    general: parseRssUrls(document.getElementById('rssGeneral').value),
+                    sport: parseRssUrls(document.getElementById('rssSport').value),
+                    music: parseRssUrls(document.getElementById('rssMusic').value)
+                };
+                
+                update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
+                    alert("Configuración de noticias guardada correctamente (Máx 5 enlaces por sección).");
+                }).catch(err => alert("Error: " + err.message));
+            });
+
+            // --- CARGA DE ANUNCIOS (ADSENSE) ---
+            function injectAdHTML(containerId, htmlString) {
+                const container = document.getElementById(containerId);
+                if(!container) return;
+                container.innerHTML = htmlString || "";
+                
+                const scripts = container.querySelectorAll('script');
                 scripts.forEach(oldScript => {
                     const newScript = document.createElement('script');
-                    newScript.id = 'adsense-head-script';
                     Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
                     newScript.text = oldScript.text;
-                    document.head.appendChild(newScript);
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
                 });
             }
-            
-            injectAdHTML('ad-container-sidebar', data.sidebar);
-            injectAdHTML('ad-container-radio', data.radio);
-        }
-    });
 
-    document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        const data = {
-            head: document.getElementById('adsHead').value,
-            radio: document.getElementById('adsRadio').value,
-            sidebar: document.getElementById('adsSidebar').value
-        };
-        
-        update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
-            alert("Anuncios guardados. Refresca la web para ver los cambios.");
-        }).catch(err => alert("Error: " + err.message));
-    });
-
-    // --- FIREBASE CHAT COMUNIDAD ---
-    function renderMessage(data, isReal = true) {
-        const box = document.getElementById('chatMessages');
-        const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
-        const isMe = isReal && data.user === myNick;
-        const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
-        
-        let colorHash = 0;
-        for (let i = 0; i < (data.user || "").length; i++) { colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash); }
-        const color = `hsl(${colorHash % 360}, 60%, 65%)`;
-
-        const div = document.createElement('div');
-        div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
-        
-        div.innerHTML = `
-            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
-            <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
-                <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
-                <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
-            </div>`;
-        box.appendChild(div);
-        
-        box.scrollTop = box.scrollHeight;
-        if(box.children.length > 50) box.removeChild(box.firstChild);
-    }
-
-    onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
-
-    document.getElementById('chatForm')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
-        const input = document.getElementById('chatInput');
-        const msg = input.value.trim();
-        if (msg !== "") { push(chatRef, { user: nick, text: msg, timestamp: serverTimestamp() }); input.value = ""; }
-    });
-
-    const botPhrases = ["Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos"];
-    const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
-
-    function botLoop() {
-        const delay = Math.random() * 12000 + 4000;
-        setTimeout(async () => {
-            const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
-            const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
-            const indicator = document.getElementById('typingIndicator');
-            if(indicator) {
-                indicator.innerText = `${bName} está escribiendo...`; indicator.style.display = 'block';
-                await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
-                indicator.style.display = 'none';
-            }
-            renderMessage({user: bName, text: bText}, false); 
-            botLoop();
-        }, delay);
-    }
-    botLoop();
-
-    // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
-    onValue(catRef, (snapshot) => {
-        window.firebaseCategorias = [];
-        const adminList = document.getElementById('manualCatsList');
-        const selectCat = document.getElementById('mCategoria');
-        const filterContainer = document.getElementById('moodFilters');
-
-        if(selectCat) {
-            selectCat.innerHTML = `
-                <option value="">Categoría (Ninguna)</option>
-                <option value="mate">🧉 Para unos Mates</option>
-                <option value="estudiar">🧠 Concentrate</option>
-                <option value="sport">⚽ Fútbol y Pasiones</option>
-                <option value="retro">📻 Retro Tour</option>
-            `;
-        }
-
-        if(adminList) adminList.innerHTML = '';
-
-        snapshot.forEach(child => {
-            const c = child.val();
-            c.key = child.key;
-            window.firebaseCategorias.push(c);
-
-            if(selectCat) selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
-
-            if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
-                const btn = document.createElement('button');
-                btn.id = `filter_${c.value}`; btn.className = "pill";
-                btn.innerText = `✨ ${c.name}`;
-                btn.onclick = function() { filterByMood(c.value, this); };
-                filterContainer.appendChild(btn);
-            }
-
-            if(adminList) {
-                const item = document.createElement('div');
-                item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
-                item.innerHTML = `
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-white truncate">${c.name}</p>
-                        <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
-                    </div>
-                    <div class="flex gap-1 ml-2">
-                        <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
-                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button type="button" onclick="deleteFirebaseCat('${c.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
-                           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                `;
-                adminList.insertBefore(item, adminList.firstChild);
-            }
-        });
-
-        if(selectCat) selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
-        if(window.firebaseCategorias.length === 0 && adminList) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
-        }
-    });
-
-    document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Categorías:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-
-        const key = document.getElementById('cEditKey').value;
-        const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
-
-        if (key) {
-            update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
-        } else {
-            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
-        }
-    });
-
-    window.editFirebaseCat = function(key) {
-        const c = window.firebaseCategorias.find(x => x.key === key);
-        if(!c) return;
-        document.getElementById('cEditKey').value = key;
-        document.getElementById('cName').value = c.name;
-        document.getElementById('cValue').value = c.value;
-        document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
-        document.getElementById('cancelCatBtn').classList.remove('hidden');
-        document.getElementById('tabCats').scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    window.cancelCatEdit = function() {
-        document.getElementById('cEditKey').value = '';
-        document.getElementById('manualCatForm').reset();
-        document.getElementById('submitCatBtn').innerText = "Crear Categoría";
-        document.getElementById('cancelCatBtn').classList.add('hidden');
-    };
-
-    window.deleteFirebaseCat = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
-    };
-
-    // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
-    document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const pass = prompt("Ingresa la Contraseña de Administrador:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
-
-        let rawUrl = document.getElementById('mUrl').value.trim();
-        if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
-
-        const prov = document.getElementById('mProvincia').value;
-        let cat = document.getElementById('mCategoria').value;
-        if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
-
-        let finalTags = document.getElementById('mTags').value;
-        if (cat) finalTags += " " + cat; 
-
-        const originalUuid = document.getElementById('mOriginalUuid').value;
-
-        const data = {
-            name: document.getElementById('mName').value,
-            url: rawUrl,
-            url_resolved: rawUrl,
-            favicon: makeHttps(document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333'),
-            homepage: document.getElementById('mWebsite').value.trim(),
-            description: document.getElementById('mDescription').value.trim(),
-            meta_info: document.getElementById('mMetaInfo').value.trim(),
-            tags: finalTags.trim() || 'Comunidad',
-            state: prov || 'Comunidad',
-            original_uuid: originalUuid || null,
-            timestamp: serverTimestamp()
-        };
-
-        const key = document.getElementById('mEditKey').value;
-
-        if (key) {
-            update(ref(db, 'radios_comunidad/' + key), data).then(() => {
-                alert("Radio actualizada con éxito."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        } else {
-            data.stationuuid = 'fb_' + Date.now();
-            push(radioRef, data).then(() => {
-                alert("Radio subida exitosamente."); window.cancelRadioEdit();
-            }).catch(err => alert("Error al guardar: " + err.message));
-        }
-    });
-
-    onValue(radioRef, (snapshot) => {
-        window.firebaseRadios = [];
-
-        snapshot.forEach(child => {
-            const r = child.val();
-            r.fb_key = child.key; 
-            window.firebaseRadios.push(r);
-        });
-
-        if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
-    });
-
-    window.renderAdminRadiosList = function() {
-        const adminList = document.getElementById('manualRadiosList');
-        if(!adminList) return;
-        adminList.innerHTML = '';
-        
-        const searchInput = document.getElementById('adminSearch');
-        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-
-        const filtered = allRadios.filter(r => r.name.toLowerCase().includes(searchTerm));
-        const toRender = filtered.slice(0, 50); 
-
-        toRender.forEach(r => {
-            const isFb = r.fb_key ? true : false;
-            const itemId = r.original_uuid || r.stationuuid || r.fb_key;
-
-            const item = document.createElement('div');
-            item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
-            item.innerHTML = `
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
-                        <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
-                    </div>
-                </div>
-                <div class="flex gap-1 ml-2">
-                    <button type="button" onclick="editAnyRadio('${itemId}', ${isFb})" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                    </button>
-                    ${isFb ? `<button type="button" onclick="deleteFirebaseRadio('${r.fb_key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                    </button>` : ''}
-                </div>
-            `;
-            adminList.appendChild(item);
-        });
-
-        if(toRender.length === 0) {
-            adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No se encontraron radios.</div>';
-        }
-    };
-
-    window.editAnyRadio = function(id, isFb) {
-        let r;
-        if (isFb) {
-            r = window.firebaseRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
-            document.getElementById('mEditKey').value = r.fb_key;
-            document.getElementById('mOriginalUuid').value = r.original_uuid || "";
-        } else {
-            r = allRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
-            document.getElementById('mEditKey').value = ""; 
-            document.getElementById('mOriginalUuid').value = id; 
-        }
-
-        if(!r) return;
-        document.getElementById('mName').value = r.name;
-        document.getElementById('mUrl').value = r.url || r.url_resolved;
-        document.getElementById('mLogo').value = makeHttps(r.favicon);
-        document.getElementById('mWebsite').value = r.homepage || r.website || "";
-        
-        document.getElementById('mDescription').value = r.description || "";
-        document.getElementById('mMetaInfo').value = r.meta_info || "";
-        document.getElementById('mProvincia').value = r.state || "";
-
-        let cleanTags = r.tags || "";
-        const selectCat = document.getElementById('mCategoria');
-        if(selectCat) {
-            const opts = Array.from(selectCat.options).map(o=>o.value).filter(v=>v && v!=='otra');
-            let foundCat = "";
-            
-            for(let opt of opts) {
-                if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
-                    foundCat = opt;
-                    const reg = new RegExp('\\b' + opt + '\\b', 'gi');
-                    cleanTags = cleanTags.replace(reg, "").trim();
-                    break;
+            onValue(adsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    document.getElementById('adsHead').value = data.head || "";
+                    document.getElementById('adsRadio').value = data.radio || "";
+                    document.getElementById('adsSidebar').value = data.sidebar || "";
+                    
+                    if(data.head && !document.getElementById('adsense-head-script')) {
+                        const temp = document.createElement('div');
+                        temp.innerHTML = data.head;
+                        const scripts = temp.querySelectorAll('script');
+                        scripts.forEach(oldScript => {
+                            const newScript = document.createElement('script');
+                            newScript.id = 'adsense-head-script';
+                            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.text = oldScript.text;
+                            document.head.appendChild(newScript);
+                        });
+                    }
+                    
+                    injectAdHTML('ad-container-sidebar', data.sidebar);
+                    injectAdHTML('ad-container-radio', data.radio);
                 }
+            });
+
+            document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                const data = {
+                    head: document.getElementById('adsHead').value,
+                    radio: document.getElementById('adsRadio').value,
+                    sidebar: document.getElementById('adsSidebar').value
+                };
+                
+                update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
+                    alert("Anuncios guardados. Refresca la web para ver los cambios.");
+                }).catch(err => alert("Error: " + err.message));
+            });
+
+            // --- FIREBASE CHAT COMUNIDAD ---
+            function renderMessage(data, isReal = true) {
+                const box = document.getElementById('chatMessages');
+                const myNick = document.getElementById('chatUserName').value.trim() || "Oyente";
+                const isMe = isReal && data.user === myNick;
+                const userInitial = data.user ? data.user.charAt(0).toUpperCase() : 'O';
+                
+                let colorHash = 0;
+                for (let i = 0; i < (data.user || "").length; i++) { colorHash = data.user.charCodeAt(i) + ((colorHash << 5) - colorHash); }
+                const color = `hsl(${colorHash % 360}, 60%, 65%)`;
+
+                const div = document.createElement('div');
+                div.className = `chat-msg flex items-start gap-3 ${isMe ? 'flex-row-reverse' : ''}`;
+                
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[10px] text-black shadow-lg" style="background: ${isMe ? '#1DB954' : color}">${userInitial}</div>
+                    <div class="${isMe ? 'text-right' : 'text-left'} max-w-[80%]">
+                        <p class="text-[9px] font-black uppercase opacity-40 mb-0.5">${data.user}</p>
+                        <div class="inline-block p-2.5 rounded-2xl text-[11px] leading-snug ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-zinc-900 text-zinc-200 rounded-tl-none border border-zinc-800 shadow-xl'} break-words whitespace-pre-wrap">${data.text}</div>
+                    </div>`;
+                box.appendChild(div);
+                
+                box.scrollTop = box.scrollHeight;
+                if(box.children.length > 50) box.removeChild(box.firstChild);
             }
-            
-            if(foundCat) { selectCat.value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
-            else { selectCat.value = ""; }
-        }
-        
-        document.getElementById('mTags').value = cleanTags;
 
-        document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar Personalización API";
-        document.getElementById('cancelRadioBtn').classList.remove('hidden');
-        document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
-    };
+            onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
 
-    window.cancelRadioEdit = function() {
-        document.getElementById('mEditKey').value = '';
-        document.getElementById('mOriginalUuid').value = '';
-        document.getElementById('manualRadioForm')?.reset();
-        document.getElementById('mCategoriaCustom').classList.add('hidden');
-        const submitBtn = document.getElementById('submitRadioBtn');
-        if(submitBtn) submitBtn.innerText = "Subir Radio";
-        document.getElementById('cancelRadioBtn')?.classList.add('hidden');
-    };
+            document.getElementById('chatForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
+                const input = document.getElementById('chatInput');
+                const msg = input.value.trim();
+                if (msg !== "") { push(chatRef, { user: nick, text: msg, timestamp: serverTimestamp() }); input.value = ""; }
+            });
 
-    window.deleteFirebaseRadio = function(key) {
-        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
-        if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
-        }
-    };
-</script>
-</body>
-</html>
+            const botPhrases = ["Alguien sabe el nombre del tema?", "Qué buena radio por dios!", "Aguante la Mona lpm", "En la oficina escuchando a pleno la aspen", "Che se cortó o es mi internet?", "Buen lunes para todos, a meterle", "Vamoooo, alto tema metieron", "Tranca con unos matesulis y la radio de fondo", "¿Sale ese fernet?", "Alguien de Córdoba por acá?", "La mejor app de radios lejos"];
+            const botNames = ["Gonza_CBA", "Marta_SF", "Santi_CABJ", "Vero_CARP", "Charly_MZA", "Pepo_TUC", "Luli_CABA", "Rulo_ER"];
+
+            function botLoop() {
+                const delay = Math.random() * 12000 + 4000;
+                setTimeout(async () => {
+                    const bName = botNames[Math.floor(Math.random() * botNames.length)] + "_" + Math.floor(Math.random()*99);
+                    const bText = botPhrases[Math.floor(Math.random() * botPhrases.length)];
+                    const indicator = document.getElementById('typingIndicator');
+                    if(indicator) {
+                        indicator.innerText = `${bName} está escribiendo...`; indicator.style.display = 'block';
+                        await new Promise(r => setTimeout(r, Math.random() * 1500 + 500));
+                        indicator.style.display = 'none';
+                    }
+                    renderMessage({user: bName, text: bText}, false); 
+                    botLoop();
+                }, delay);
+            }
+            botLoop();
+
+            // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
+            onValue(catRef, (snapshot) => {
+                window.firebaseCategorias = [];
+                const adminList = document.getElementById('manualCatsList');
+                const selectCat = document.getElementById('mCategoria');
+                const filterContainer = document.getElementById('moodFilters');
+
+                if(selectCat) {
+                    selectCat.innerHTML = `
+                        <option value="">Categoría (Ninguna)</option>
+                        <option value="mate">🧉 Para unos Mates</option>
+                        <option value="estudiar">🧠 Concentrate</option>
+                        <option value="sport">⚽ Fútbol y Pasiones</option>
+                        <option value="retro">📻 Retro Tour</option>
+                    `;
+                }
+
+                if(adminList) adminList.innerHTML = '';
+
+                snapshot.forEach(child => {
+                    const c = child.val();
+                    c.key = child.key;
+                    window.firebaseCategorias.push(c);
+
+                    if(selectCat) selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
+
+                    if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
+                        const btn = document.createElement('button');
+                        btn.id = `filter_${c.value}`; btn.className = "pill";
+                        btn.innerText = `✨ ${c.name}`;
+                        btn.onclick = function() { filterByMood(c.value, this); };
+                        filterContainer.appendChild(btn);
+                    }
+
+                    if(adminList) {
+                        const item = document.createElement('div');
+                        item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+                        item.innerHTML = `
+                            <div class="truncate">
+                                <p class="text-sm font-bold text-white truncate">${c.name}</p>
+                                <p class="text-[10px] text-purple-400 font-bold truncate mt-0.5">TAG: ${c.value}</p>
+                            </div>
+                            <div class="flex gap-1 ml-2">
+                                <button type="button" onclick="editFirebaseCat('${c.key}')" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                                   <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                </button>
+                                <button type="button" onclick="deleteFirebaseCat('${c.key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar">
+                                   <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </button>
+                            </div>
+                        `;
+                        adminList.insertBefore(item, adminList.firstChild);
+                    }
+                });
+
+                if(selectCat) selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
+                if(window.firebaseCategorias.length === 0 && adminList) {
+                    adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
+                }
+            });
+
+            document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pass = prompt("Contraseña de Administrador para Categorías:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+
+                const key = document.getElementById('cEditKey').value;
+                const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
+
+                if (key) {
+                    update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
+                } else {
+                    push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
+                }
+            });
+
+            window.editFirebaseCat = function(key) {
+                const c = window.firebaseCategorias.find(x => x.key === key);
+                if(!c) return;
+                document.getElementById('cEditKey').value = key;
+                document.getElementById('cName').value = c.name;
+                document.getElementById('cValue').value = c.value;
+                document.getElementById('submitCatBtn').innerText = "Actualizar Categoría";
+                document.getElementById('cancelCatBtn').classList.remove('hidden');
+                document.getElementById('tabCats').scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.cancelCatEdit = function() {
+                document.getElementById('cEditKey').value = '';
+                document.getElementById('manualCatForm').reset();
+                document.getElementById('submitCatBtn').innerText = "Crear Categoría";
+                document.getElementById('cancelCatBtn').classList.add('hidden');
+            };
+
+            window.deleteFirebaseCat = function(key) {
+                const pass = prompt("Contraseña de Administrador para eliminar:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
+            };
+
+            // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
+            document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const pass = prompt("Ingresa la Contraseña de Administrador:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
+
+                let rawUrl = document.getElementById('mUrl').value.trim();
+                if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
+
+                const prov = document.getElementById('mProvincia').value;
+                let cat = document.getElementById('mCategoria').value;
+                if (cat === 'otra') { cat = document.getElementById('mCategoriaCustom').value.trim(); }
+
+                let finalTags = document.getElementById('mTags').value;
+                if (cat) finalTags += " " + cat; 
+
+                const originalUuid = document.getElementById('mOriginalUuid').value;
+
+                const data = {
+                    name: document.getElementById('mName').value,
+                    url: rawUrl,
+                    url_resolved: rawUrl,
+                    favicon: makeHttps(document.getElementById('mLogo').value || 'https://ui-avatars.com/api/?name=R&background=333'),
+                    homepage: document.getElementById('mWebsite').value.trim(),
+                    description: document.getElementById('mDescription').value.trim(),
+                    meta_info: document.getElementById('mMetaInfo').value.trim(),
+                    tags: finalTags.trim() || 'Comunidad',
+                    state: prov || 'Comunidad',
+                    original_uuid: originalUuid || null,
+                    timestamp: serverTimestamp()
+                };
+
+                const key = document.getElementById('mEditKey').value;
+
+                if (key) {
+                    update(ref(db, 'radios_comunidad/' + key), data).then(() => {
+                        alert("Radio actualizada con éxito."); window.cancelRadioEdit();
+                    }).catch(err => alert("Error al guardar: " + err.message));
+                } else {
+                    data.stationuuid = 'fb_' + Date.now();
+                    push(radioRef, data).then(() => {
+                        alert("Radio subida exitosamente."); window.cancelRadioEdit();
+                    }).catch(err => alert("Error al guardar: " + err.message));
+                }
+            });
+
+            onValue(radioRef, (snapshot) => {
+                window.firebaseRadios = [];
+
+                snapshot.forEach(child => {
+                    const r = child.val();
+                    r.fb_key = child.key; 
+                    window.firebaseRadios.push(r);
+                });
+
+                if(typeof window.triggerGridRefresh === 'function') { window.triggerGridRefresh(); }
+            });
+
+            window.renderAdminRadiosList = function() {
+                const adminList = document.getElementById('manualRadiosList');
+                if(!adminList) return;
+                adminList.innerHTML = '';
+                
+                const searchInput = document.getElementById('adminSearch');
+                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+
+                const filtered = allRadios.filter(r => r.name.toLowerCase().includes(searchTerm));
+                const toRender = filtered.slice(0, 50); 
+
+                toRender.forEach(r => {
+                    const isFb = r.fb_key ? true : false;
+                    const itemId = r.original_uuid || r.stationuuid || r.fb_key;
+
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                            <div class="truncate">
+                                <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
+                                <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 ml-2">
+                            <button type="button" onclick="editAnyRadio('${itemId}', ${isFb})" class="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Editar">
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            </button>
+                            ${isFb ? `<button type="button" onclick="deleteFirebaseRadio('${r.fb_key}')" class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all flex-shrink-0" title="Eliminar radio">
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            </button>` : ''}
+                        </div>
+                    `;
+                    adminList.appendChild(item);
+                });
+
+                if(toRender.length === 0) {
+                    adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No se encontraron radios.</div>';
+                }
+            };
+
+            window.editAnyRadio = function(id, isFb) {
+                let r;
+                if (isFb) {
+                    r = window.firebaseRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
+                    document.getElementById('mEditKey').value = r.fb_key;
+                    document.getElementById('mOriginalUuid').value = r.original_uuid || "";
+                } else {
+                    r = allRadios.find(x => (x.original_uuid || x.stationuuid || x.fb_key) === id);
+                    document.getElementById('mEditKey').value = ""; 
+                    document.getElementById('mOriginalUuid').value = id; 
+                }
+
+                if(!r) return;
+                document.getElementById('mName').value = r.name;
+                document.getElementById('mUrl').value = r.url || r.url_resolved;
+                document.getElementById('mLogo').value = makeHttps(r.favicon);
+                document.getElementById('mWebsite').value = r.homepage || r.website || "";
+                
+                document.getElementById('mDescription').value = r.description || "";
+                document.getElementById('mMetaInfo').value = r.meta_info || "";
+                document.getElementById('mProvincia').value = r.state || "";
+
+                let cleanTags = r.tags || "";
+                const selectCat = document.getElementById('mCategoria');
+                if(selectCat) {
+                    const opts = Array.from(selectCat.options).map(o=>o.value).filter(v=>v && v!=='otra');
+                    let foundCat = "";
+                    
+                    for(let opt of opts) {
+                        if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
+                            foundCat = opt;
+                            const reg = new RegExp('\\b' + opt + '\\b', 'gi');
+                            cleanTags = cleanTags.replace(reg, "").trim();
+                            break;
+                        }
+                    }
+                    
+                    if(foundCat) { selectCat.value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
+                    else { selectCat.value = ""; }
+                }
+                
+                document.getElementById('mTags').value = cleanTags;
+
+                document.getElementById('submitRadioBtn').innerText = isFb ? "Actualizar Radio" : "Guardar Personalización API";
+                document.getElementById('cancelRadioBtn').classList.remove('hidden');
+                document.getElementById('tabRadios').scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.cancelRadioEdit = function() {
+                document.getElementById('mEditKey').value = '';
+                document.getElementById('mOriginalUuid').value = '';
+                document.getElementById('manualRadioForm')?.reset();
+                document.getElementById('mCategoriaCustom').classList.add('hidden');
+                const submitBtn = document.getElementById('submitRadioBtn');
+                if(submitBtn) submitBtn.innerText = "Subir Radio";
+                document.getElementById('cancelRadioBtn')?.classList.add('hidden');
+            };
+
+            window.deleteFirebaseRadio = function(key) {
+                const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
+                if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+                
+                if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
+                    remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
+                }
+            };
+        </script>
+        </body>
+        </html>
