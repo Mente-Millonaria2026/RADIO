@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#1DB954">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root { --sp-green: #0024ff; --sp-bg: #000000; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
     
@@ -31,6 +31,7 @@
       flex-direction: column;
       overflow: hidden;
       color-scheme: dark;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     /* --- UI COMPONENTS --- */
@@ -94,6 +95,48 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
+    /* --- THEMES DIAMOND EXCLUSIVOS --- */
+    
+    /* THEME: CYBERPUNK - ENHANCED */
+    body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #050505; color: #00ffcc; }
+    body.theme-cyberpunk .main-view { background: radial-gradient(circle at 50% 0%, #1a1a00 0%, #000000 80%); }
+    body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,0,0.9); border-color: #fce300; backdrop-filter: blur(10px); }
+    body.theme-cyberpunk .r-card { background: #0a0a0a; border: 1px solid #333; transition: all 0.3s; }
+    body.theme-cyberpunk .r-card:hover { border-color: #fce300; box-shadow: 0 0 15px rgba(252, 227, 0, 0.6), inset 0 0 10px rgba(252, 227, 0, 0.2); transform: scale(1.05); }
+    body.theme-cyberpunk .btn-diamond { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); box-shadow: 0 4px 20px rgba(255, 0, 60, 0.5); color: #000; text-transform: uppercase; letter-spacing: 1px; }
+    body.theme-cyberpunk .pill { color: #00ffcc; border-color: #00ffcc; background: rgba(0, 255, 204, 0.1); }
+    body.theme-cyberpunk .pill.active { background: #fce300; color: #000; border-color: #fce300; box-shadow: 0 0 15px rgba(252, 227, 0, 0.6); }
+    body.theme-cyberpunk .player-bar { background: rgba(5, 5, 5, 0.95); border-top: 1px solid #fce300; box-shadow: 0 -5px 20px rgba(252, 227, 0, 0.2); }
+    body.theme-cyberpunk .epic-logo { color: #fce300; text-shadow: 0 0 10px rgba(252, 227, 0, 0.8); }
+    body.theme-cyberpunk .search-input:focus { border-color: #00ffcc; box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
+    
+    /* Botón Zapping Cyberpunk */
+    body.theme-cyberpunk .btn-zapping { background: linear-gradient(135deg, #fce300 0%, #ff003c 100%); color: #000; box-shadow: 0 0 15px rgba(255, 0, 60, 0.6); border: 1px solid #ff003c; text-shadow: none; font-family: 'Orbitron', sans-serif;}
+    body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 25px rgba(255, 0, 60, 0.8); transform: scale(1.02); }
+
+    
+    /* THEME: SYNTHWAVE - ENHANCED */
+    body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
+    body.theme-synthwave .main-view { background: linear-gradient(180deg, #2b0057 0%, #090014 60%, #17002b 100%); position: relative; }
+    /* Grid de fondo en perspectiva */
+    body.theme-synthwave .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,0,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,255,0.1) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; opacity: 0.3; transform: scaleY(1.5) perspective(500px) rotateX(45deg); transform-origin: bottom; }
+    body.theme-synthwave .main-view > * { position: relative; z-index: 1; }
+    
+    body.theme-synthwave .sidebar, body.theme-synthwave .chat-sidebar, body.theme-synthwave .mobile-header, body.theme-synthwave .prov-nav-wrapper { background: rgba(9,0,20,0.9); border-color: #ff00ff; backdrop-filter: blur(10px); z-index: 10; }
+    body.theme-synthwave .r-card { background: rgba(26,0,42,0.8); border: 1px solid #4a0080; backdrop-filter: blur(5px); transition: all 0.3s; }
+    body.theme-synthwave .r-card:hover { border-color: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0,255,255,0.2); transform: translateY(-5px); }
+    body.theme-synthwave .btn-diamond { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); box-shadow: 0 4px 20px rgba(255, 0, 255, 0.5); color: #000; text-transform: uppercase; font-weight: 900; }
+    body.theme-synthwave .pill { color: #ff00ff; border-color: #ff00ff; background: rgba(255,0,255,0.1); }
+    body.theme-synthwave .pill.active { background: #00ffff; color: #000; border-color: #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); }
+    body.theme-synthwave .player-bar { background: rgba(9, 0, 20, 0.95); border-top: 1px solid #ff00ff; box-shadow: 0 -5px 20px rgba(255, 0, 255, 0.3); z-index: 2000; }
+    body.theme-synthwave .epic-logo { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.6); }
+    body.theme-synthwave .search-input:focus { border-color: #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
+    
+    /* Botón Zapping Synthwave */
+    body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #000; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); border: none; text-shadow: none; font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 1px;}
+    body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
+
+
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
     .eq-icon { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-right: 4px; }
     .eq-bar { width: 4px; border-radius: 2px; animation: eqAnim 0.7s infinite ease-in-out alternate; transition: background-color 0.3s ease, border 0.3s ease; }
@@ -288,23 +331,37 @@
     </div>
     
     <div class="px-4 pb-2 w-full mt-1 flex flex-col gap-2">
-      <button id="btnMobileLogin" onclick="iniciarSesion()" class="w-full text-xs bg-zinc-800 text-white font-bold py-1.5 rounded-lg flex items-center justify-center gap-2 border border-zinc-700">
-         <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar / Planes
-      </button>
+      <div id="mobileAuthButtonsWrapper" class="flex gap-2 w-full">
+          <button id="btnMobileLogin" onclick="iniciarSesion()" class="flex-1 text-[11px] bg-zinc-800 text-white font-bold py-2 rounded-lg flex items-center justify-center gap-1.5 border border-zinc-700 transition-colors">
+             <svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar
+          </button>
+          <button id="btnMobilePremiumGuest" onclick="mostrarModalPago()" class="flex-1 text-[11px] btn-premium py-2 rounded-lg flex items-center justify-center gap-1.5 uppercase tracking-wide transition-transform">
+             👑 Planes
+          </button>
+      </div>
       
-      <div id="mobileUserProfile" class="hidden items-center justify-between gap-3 bg-zinc-900 p-2 rounded-xl">
-         <div class="flex items-center gap-2">
-            <img id="mobileUserAvatar" src="" class="w-7 h-7 rounded-full">
-            <span id="mobileUserName" class="text-[10px] font-bold text-white truncate w-24"></span>
+      <div id="mobileUserProfile" class="hidden flex-col gap-2 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+         <div class="flex items-center justify-between w-full">
+             <div class="flex items-center gap-2">
+                <img id="mobileUserAvatar" src="" class="w-7 h-7 rounded-full border border-zinc-700">
+                <span id="mobileUserName" class="text-[10px] font-bold text-white truncate w-24"></span>
+             </div>
+             <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mr-1 transition-colors">Salir</button>
          </div>
-         <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase">Salir</button>
+         <button id="btnMobilePremiumLogged" onclick="mostrarModalPago()" class="btn-premium hidden w-full py-1.5 rounded flex items-center justify-center gap-1.5 text-[10px] uppercase tracking-wide transition-transform">
+             👑 Suscripciones
+         </button>
       </div>
     </div>
 
     <div class="prov-nav-wrapper" id="mobProvNav">
-      <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">❮</button>
+      <button class="prov-arrow prov-arrow-l" onclick="sideScroll('mobProvs', -200)">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+      </button>
       <div class="prov-scroll no-scrollbar" id="mobProvs"></div>
-      <button class="prov-arrow prov-arrow-r" onclick="sideScroll('mobProvs', 200)">❯</button>
+      <button class="prov-arrow prov-arrow-r" onclick="sideScroll('mobProvs', 200)">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+      </button>
     </div>
   </header>
 
@@ -317,16 +374,21 @@
       </div>
       
       <div id="authContainer" class="mb-6 flex flex-col gap-3">
-         <button id="btnLogin" onclick="iniciarSesion()" class="w-full bg-white hover:bg-zinc-200 text-black text-sm font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar con Google
-         </button>
+         <div id="authButtonsWrapper" class="flex gap-2 w-full">
+             <button id="btnLogin" onclick="iniciarSesion()" class="flex-1 bg-white hover:bg-zinc-200 text-black text-[12px] font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg> Ingresar
+             </button>
+             <button id="btnPremiumGuest" onclick="mostrarModalPago()" class="flex-1 btn-premium py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[12px] uppercase tracking-wide">
+                👑 Planes
+             </button>
+         </div>
          
          <div id="userProfile" class="hidden flex-col gap-3 bg-zinc-900 p-3 rounded-xl border border-zinc-800">
             <div class="flex items-center gap-3">
                <img id="userAvatar" src="" class="w-10 h-10 rounded-full border border-zinc-700">
                <div class="flex-1 overflow-hidden">
                   <p id="userName" class="text-xs font-bold truncate text-white"></p>
-                  <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mt-1">Cerrar Sesión</button>
+                  <button onclick="cerrarSesion()" class="text-[10px] text-zinc-500 hover:text-red-400 font-bold uppercase mt-1 transition-colors">Cerrar Sesión</button>
                </div>
             </div>
             <button id="btnPremium" onclick="mostrarModalPago()" class="btn-premium hidden w-full py-2.5 rounded-lg flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
@@ -358,7 +420,7 @@
 
       <div class="sticky-controls">
         <div class="flex flex-col sm:flex-row gap-4 w-full items-center">
-          <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white">
+          <button onclick="triggerZapping()" class="btn-zapping flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm w-full sm:w-auto tracking-wide text-white transition-all">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 9.42l-1.41 1.41L17.96 19 20 16.96V22h-5.04l2.04-2.04-4.17-4.17z"/></svg> Zapping Aleatorio
           </button>
           
@@ -367,6 +429,9 @@
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
+            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
+            </button>
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
               <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
               <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="hidden"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 001.06 1.06l1.59-1.591a.75.75 0 10-1.06-1.061l-1.591 1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 010 1.06l-1.59 1.591a.75.75 0 11-1.061-1.06l1.59-1.591a.75.75 0 011.06 0z"/></svg>
@@ -426,21 +491,29 @@
         </div>
       </div>
 
-      <section id="sectTop" class="mb-14" style="display: none;">
+      <section id="sectTop" class="mb-14" style="display: block;">
         <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 Más Escuchados</h3></div>
         <div class="carousel-wrapper">
-          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">❮</button>
+          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTop', -600)">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+          </button>
           <div class="h-scroll no-scrollbar" id="gridTop"></div>
-          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">❯</button>
+          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTop', 600)">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
         </div>
       </section>
 
       <section id="sectTendencias" class="mb-14" style="display: none;">
         <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-orange"></span><h3 class="text-xl font-bold">Tendencias del Mes 🔥</h3></div>
         <div class="carousel-wrapper">
-          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTendencias', -600)">❮</button>
+          <button class="nav-arrow arrow-l" onclick="sideScroll('gridTendencias', -600)">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+          </button>
           <div class="h-scroll no-scrollbar" id="gridTendencias"></div>
-          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTendencias', 600)">❯</button>
+          <button class="nav-arrow arrow-r" onclick="sideScroll('gridTendencias', 600)">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
         </div>
       </section>
 
@@ -459,7 +532,9 @@
           <h3 class="font-black text-lg tracking-tighter">COMUNIDAD LIVE</h3>
           <p class="text-[10px] text-green-500 font-bold uppercase tracking-widest mt-1" id="onlineCounter">● Conectando...</p>
         </div>
-        <button onclick="toggleChat()" class="text-zinc-400 xl:hidden">✕</button>
+        <button onclick="toggleChat()" class="text-zinc-400 hover:text-white transition-colors xl:hidden">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
       </div>
       
       <div id="ad-container-sidebar" class="w-full bg-[#050505] border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
@@ -486,7 +561,9 @@
      <div class="bg-[#121212] border border-zinc-800 rounded-2xl p-6 w-[90%] max-w-lg transform scale-95 transition-transform duration-300" id="worldModalContent">
         <div class="flex justify-between items-center mb-6">
            <h3 class="text-xl font-bold flex items-center gap-2">🌎 Radios del Mundo</h3>
-           <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current font-bold text-xl transition">✕</button>
+           <button onclick="closeWorldRadios()" class="text-zinc-400 hover:text-current transition">
+               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+           </button>
         </div>
         <div class="grid grid-cols-2 gap-4">
            <button onclick="handleHomeTap(); closeWorldRadios()" class="r-card flex flex-col items-center justify-center p-6 gap-3">
@@ -509,7 +586,9 @@
       <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-3xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="paymentModalContent">
           <div class="p-5 border-b border-zinc-800 flex justify-between items-center bg-[#0a0a0a]">
               <h3 class="text-xl font-black text-white tracking-tighter">Suscripciones RadioAR Pro</h3>
-              <button onclick="cerrarModalPago()" class="text-zinc-500 hover:text-white text-xl">✕</button>
+              <button onclick="cerrarModalPago()" class="text-zinc-500 hover:text-white transition">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
           </div>
           <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto max-h-[80vh] no-scrollbar">
               
@@ -540,6 +619,7 @@
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Resaltado VIP en chat (próximamente)</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Modo Karaoke Inédito</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'diamond')" class="btn-diamond w-full py-3 rounded-xl text-sm flex justify-center items-center gap-2">
@@ -557,7 +637,9 @@
 
   <div id="adminPanel" class="hidden fixed inset-0 z-[5000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-2 md:p-4">
     <div class="bg-zinc-900 border border-zinc-800 p-4 md:p-8 rounded-3xl w-[95%] md:w-full max-w-4xl shadow-2xl relative text-white flex flex-col max-h-[95vh] md:max-h-[90vh]">
-      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl z-50">✕</button>
+      <button onclick="document.getElementById('adminPanel').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-500 hover:text-white z-50 transition">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
       
       <div class="text-center mb-4 flex-shrink-0 relative">
         <h3 class="text-2xl font-black tracking-tighter">Panel de Control</h3>
@@ -860,6 +942,10 @@
     </div>
     
     <div class="flex items-center gap-4 sm:gap-6 justify-center">
+        <button id="p-karaoke" class="hidden w-10 h-10 border-zinc-700 rounded-full items-center justify-center text-zinc-400 hover:text-current hover:border-current transition group relative" style="border-width: 1px;" title="Modo Karaoke (Atenuar Voces) - Exclusivo Diamond" onclick="toggleKaraoke()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </button>
+
         <button id="p-record" class="w-10 h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
             <div class="w-3 h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
         </button>
@@ -927,33 +1013,41 @@
 
     <div class="w-1/3 flex justify-end items-center gap-0 sm:gap-0">
       <div class="relative flex items-center">
-          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador de Audio">
+          <button id="p-eq-btn" class="text-zinc-400 hover:text-current transition" onclick="document.getElementById('eq-menu').classList.toggle('hidden')" title="Ecualizador de 5 Bandas">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
           </button>
           
-          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[230px] z-50">
+          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[250px] z-50">
               <div class="flex justify-between items-center mb-[15px]">
-                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ</span>
+                  <span class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px]">Master EQ 5-Band</span>
                   <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
               </div>
               <div class="flex flex-col gap-3">
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Bajos</span>
-                      <input type="range" id="eq-bass" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('bass', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">60Hz</span>
+                      <input type="range" id="eq-60" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('60', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Medios</span>
-                      <input type="range" id="eq-mid" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('mid', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">230Hz</span>
+                      <input type="range" id="eq-230" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('230', this.value)">
                   </div>
                   <div class="flex items-center gap-[10px]">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">Agudos</span>
-                      <input type="range" id="eq-treb" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('treb', this.value)">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">910Hz</span>
+                      <input type="range" id="eq-910" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('910', this.value)">
+                  </div>
+                  <div class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">3.6kHz</span>
+                      <input type="range" id="eq-3600" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('3600', this.value)">
+                  </div>
+                  <div class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">14kHz</span>
+                      <input type="range" id="eq-14000" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('14000', this.value)">
                   </div>
               </div>
           </div>
       </div>
 
-      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white">
+      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 sm:w-24 accent-white ml-4">
     </div>
   </footer>
 
@@ -983,6 +1077,30 @@
     
     // VARIABLES PARA TEMAS (HTML CUSTOM)
     window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
+
+    // --- FUNCIONES UTILIDAD KARAOKE ---
+    window.showKaraoke = function() {
+        const k = document.getElementById('p-karaoke');
+        if(k) { k.classList.remove('hidden'); k.classList.add('flex'); }
+    };
+    window.hideKaraoke = function() {
+        const k = document.getElementById('p-karaoke');
+        if(k) { k.classList.add('hidden'); k.classList.remove('flex'); }
+    };
+
+    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND ---
+    let diamondThemeIndex = 0;
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave'];
+    
+    window.cycleDiamondTheme = function() {
+        if (window.currentPremiumStatus !== 'diamond') return;
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+        diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
+        const newTheme = diamondThemes[diamondThemeIndex];
+        if (newTheme) {
+            document.body.classList.add(newTheme);
+        }
+    };
     
     // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
@@ -1016,10 +1134,10 @@
             photoURL: "https://ui-avatars.com/api/?name=Gold&background=F6B40E&color=fff",
         };
         
-        if(document.getElementById('btnLogin')) document.getElementById('btnLogin').classList.add('hidden');
+        if(document.getElementById('authButtonsWrapper')) document.getElementById('authButtonsWrapper').classList.add('hidden');
+        if(document.getElementById('mobileAuthButtonsWrapper')) document.getElementById('mobileAuthButtonsWrapper').classList.add('hidden');
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
-        if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
         
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
@@ -1041,8 +1159,12 @@
             document.getElementById('mobLogoText').classList.add('logo-oro');
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
         
         window.currentPremiumStatus = 'gold';
+        window.hideKaraoke(); // Ocultamos karaoke en Gold
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
         alert("Has ingresado al modo Demo GOLD de forma gratuita.");
@@ -1055,10 +1177,10 @@
             photoURL: "https://ui-avatars.com/api/?name=Dia&background=00f2fe&color=fff",
         };
         
-        if(document.getElementById('btnLogin')) document.getElementById('btnLogin').classList.add('hidden');
+        if(document.getElementById('authButtonsWrapper')) document.getElementById('authButtonsWrapper').classList.add('hidden');
+        if(document.getElementById('mobileAuthButtonsWrapper')) document.getElementById('mobileAuthButtonsWrapper').classList.add('hidden');
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
-        if(document.getElementById('btnMobileLogin')) document.getElementById('btnMobileLogin').classList.add('hidden');
         
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
@@ -1080,11 +1202,14 @@
             document.getElementById('mobLogoText').classList.add('logo-diamond');
         }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+        if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
         
         window.currentPremiumStatus = 'diamond';
+        window.showKaraoke(); // Mostramos Karaoke en Diamond
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Disfruta los efectos visuales!");
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Karaoke y los Temas Épicos!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -1663,22 +1788,67 @@
         document.getElementById('sun-icon').classList.toggle('hidden', !isLight);
     }
 
+    // --- ECUALIZADOR 5 BANDAS Y MODO KARAOKE ---
     let eqInitialized = false, eqFilters = {};
+    window.karaokeFilter = null;
+    let isKaraokeOn = false;
+
     function initEQ() {
         if (eqInitialized) return;
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioCtx = new AudioContext(); const source = audioCtx.createMediaElementSource(audio);
-            eqFilters.bass = audioCtx.createBiquadFilter(); eqFilters.bass.type = "lowshelf"; eqFilters.bass.frequency.value = 250; eqFilters.bass.gain.value = document.getElementById('eq-bass').value;
-            eqFilters.mid = audioCtx.createBiquadFilter(); eqFilters.mid.type = "peaking"; eqFilters.mid.frequency.value = 1000; eqFilters.mid.Q.value = 1; eqFilters.mid.gain.value = document.getElementById('eq-mid').value;
-            eqFilters.treb = audioCtx.createBiquadFilter(); eqFilters.treb.type = "highshelf"; eqFilters.treb.frequency.value = 4000; eqFilters.treb.gain.value = document.getElementById('eq-treb').value;
-            source.connect(eqFilters.bass); eqFilters.bass.connect(eqFilters.mid); eqFilters.mid.connect(eqFilters.treb); eqFilters.treb.connect(audioCtx.destination);
+            const audioCtx = new AudioContext(); 
+            const source = audioCtx.createMediaElementSource(audio);
+            
+            // 5 Bandas
+            eqFilters.f60 = audioCtx.createBiquadFilter(); eqFilters.f60.type = "lowshelf"; eqFilters.f60.frequency.value = 60; eqFilters.f60.gain.value = document.getElementById('eq-60').value;
+            eqFilters.f230 = audioCtx.createBiquadFilter(); eqFilters.f230.type = "peaking"; eqFilters.f230.frequency.value = 230; eqFilters.f230.Q.value = 1; eqFilters.f230.gain.value = document.getElementById('eq-230').value;
+            eqFilters.f910 = audioCtx.createBiquadFilter(); eqFilters.f910.type = "peaking"; eqFilters.f910.frequency.value = 910; eqFilters.f910.Q.value = 1; eqFilters.f910.gain.value = document.getElementById('eq-910').value;
+            eqFilters.f3600 = audioCtx.createBiquadFilter(); eqFilters.f3600.type = "peaking"; eqFilters.f3600.frequency.value = 3600; eqFilters.f3600.Q.value = 1; eqFilters.f3600.gain.value = document.getElementById('eq-3600').value;
+            eqFilters.f14000 = audioCtx.createBiquadFilter(); eqFilters.f14000.type = "highshelf"; eqFilters.f14000.frequency.value = 14000; eqFilters.f14000.gain.value = document.getElementById('eq-14000').value;
+            
+            // Karaoke Mode (Vocal Reducer)
+            window.karaokeFilter = audioCtx.createBiquadFilter();
+            window.karaokeFilter.type = "peaking";
+            window.karaokeFilter.frequency.value = 1000; // Frecuencias típicas de la voz
+            window.karaokeFilter.Q.value = 0.5;
+            window.karaokeFilter.gain.value = 0; // Apagado por defecto
+
+            source.connect(eqFilters.f60); 
+            eqFilters.f60.connect(eqFilters.f230); 
+            eqFilters.f230.connect(eqFilters.f910); 
+            eqFilters.f910.connect(eqFilters.f3600); 
+            eqFilters.f3600.connect(eqFilters.f14000); 
+            eqFilters.f14000.connect(window.karaokeFilter);
+            window.karaokeFilter.connect(audioCtx.destination);
+            
             eqInitialized = true;
         } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
     }
 
-    function updateEQ(band, val) { if (eqFilters[band]) eqFilters[band].gain.value = parseFloat(val); }
-    function resetEQ() { ['eq-bass', 'eq-mid', 'eq-treb'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
+    function updateEQ(band, val) { if (eqFilters['f'+band]) eqFilters['f'+band].gain.value = parseFloat(val); }
+    function resetEQ() { 
+        ['eq-60', 'eq-230', 'eq-910', 'eq-3600', 'eq-14000'].forEach(id => { 
+            document.getElementById(id).value = 0; 
+            updateEQ(id.replace('eq-', ''), 0); 
+        }); 
+    }
+
+    function toggleKaraoke() {
+        if(!eqInitialized) initEQ();
+        isKaraokeOn = !isKaraokeOn;
+        if(window.karaokeFilter) {
+            window.karaokeFilter.gain.value = isKaraokeOn ? -30 : 0; 
+        }
+        const btn = document.getElementById('p-karaoke');
+        if(isKaraokeOn) {
+            btn.classList.add('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
+            alert("🎤 Modo Karaoke Activado: Atenuando voces principales.");
+        } else {
+            btn.classList.remove('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
+            alert("🎵 Modo Karaoke Desactivado.");
+        }
+    }
 
     function openWorldRadios() {
         const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
@@ -1997,6 +2167,9 @@
       });
       onlineManager.init(); setupControls(); setupInfiniteScroll(); setupTickerDrag();
       loadCountryData('argentina'); setupAlarmClock();
+      
+      // Asegurar que el estado inicial del karaoke esté oculto
+      window.hideKaraoke();
     }
 
     function setupAlarmClock() {
@@ -2223,20 +2396,21 @@
     }
 
     onAuthStateChanged(auth, (user) => {
-        const btnLogin = document.getElementById('btnLogin');
+        const authButtonsWrapper = document.getElementById('authButtonsWrapper');
+        const mobileAuthButtonsWrapper = document.getElementById('mobileAuthButtonsWrapper');
         const btnMockLogin = document.getElementById('btnMockLogin');
         const btnMockLoginDiamond = document.getElementById('btnMockLoginDiamond');
-        const btnMobileLogin = document.getElementById('btnMobileLogin');
+        
         const profile = document.getElementById('userProfile');
         const mobProfile = document.getElementById('mobileUserProfile');
         const mainLogoText = document.getElementById('mainLogoText');
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
-            if(btnLogin) btnLogin.classList.add('hidden');
+            if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
+            if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
             if(btnMockLoginDiamond) btnMockLoginDiamond.classList.add('hidden');
-            if(btnMobileLogin) btnMobileLogin.classList.add('hidden');
 
             if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
             if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
@@ -2251,36 +2425,51 @@
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
                     window.currentPremiumStatus = 'diamond';
+                    window.showKaraoke(); // MUESTRA KARAOKE
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
-                } else if(data && data.isPro) {
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+} else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
+                    window.hideKaraoke(); // OCULTA KARAOKE
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
                 } else {
                     window.currentPremiumStatus = 'free';
+                    window.hideKaraoke(); // OCULTA KARAOKE
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
                 }
                 window.reapplyUserTheme();
             });
 
         } else {
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
-            if(btnLogin) btnLogin.classList.remove('hidden');
+            if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
+            if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
             if(btnMockLogin) btnMockLogin.classList.remove('hidden');
             if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
-            if(btnMobileLogin) btnMobileLogin.classList.remove('hidden');
 
             if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
             if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave');
+            
             window.currentPremiumStatus = 'free';
+            window.hideKaraoke(); // OCULTA KARAOKE
             window.reapplyUserTheme();
         }
     });
@@ -2708,7 +2897,7 @@
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = [...globalTop10Config.pinned];
-        if(!newPinned.includes(id)) newPinned.unshift(id); 
+        if(!newPinned.includes(id))newPinned.unshift(id); 
         
         let newHidden = globalTop10Config.hidden.filter(x => x !== id);
         
@@ -2732,7 +2921,6 @@
         update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
     };
 
-
     // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
     onValue(newsRef, (snapshot) => {
         const data = snapshot.val();
@@ -2746,7 +2934,7 @@
         }
     });
 
-    document.getElementById('adminNewsForm').addEventListener('submit', function(e) {
+    document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
@@ -2806,7 +2994,7 @@
         }
     });
 
-    document.getElementById('adminAdsForm').addEventListener('submit', function(e) {
+    document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
@@ -2850,7 +3038,7 @@
 
     onChildAdded(query(chatRef, limitToLast(30)), (snapshot) => { renderMessage(snapshot.val(), true); });
 
-    document.getElementById('chatForm').addEventListener('submit', (e) => {
+    document.getElementById('chatForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const nick = document.getElementById('chatUserName').value.trim() || "Oyente";
         const input = document.getElementById('chatInput');
@@ -2878,7 +3066,6 @@
     }
     botLoop();
 
-
     // --- GESTIÓN DE CATEGORÍAS (FIREBASE) ---
     onValue(catRef, (snapshot) => {
         window.firebaseCategorias = [];
@@ -2886,13 +3073,15 @@
         const selectCat = document.getElementById('mCategoria');
         const filterContainer = document.getElementById('moodFilters');
 
-        selectCat.innerHTML = `
-            <option value="">Categoría (Ninguna)</option>
-            <option value="mate">🧉 Para unos Mates</option>
-            <option value="estudiar">🧠 Concentrate</option>
-            <option value="sport">⚽ Fútbol y Pasiones</option>
-            <option value="retro">📻 Retro Tour</option>
-        `;
+        if(selectCat) {
+            selectCat.innerHTML = `
+                <option value="">Categoría (Ninguna)</option>
+                <option value="mate">🧉 Para unos Mates</option>
+                <option value="estudiar">🧠 Concentrate</option>
+                <option value="sport">⚽ Fútbol y Pasiones</option>
+                <option value="retro">📻 Retro Tour</option>
+            `;
+        }
 
         if(adminList) adminList.innerHTML = '';
 
@@ -2901,7 +3090,7 @@
             c.key = child.key;
             window.firebaseCategorias.push(c);
 
-            selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
+            if(selectCat) selectCat.innerHTML += `<option value="${c.value}">✨ ${c.name}</option>`;
 
             if(filterContainer && !document.getElementById(`filter_${c.value}`)) {
                 const btn = document.createElement('button');
@@ -2932,13 +3121,13 @@
             }
         });
 
-        selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
+        if(selectCat) selectCat.innerHTML += '<option value="otra">➕ Otra Categoría (Personalizada)...</option>';
         if(window.firebaseCategorias.length === 0 && adminList) {
             adminList.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No has creado categorías.</div>';
         }
     });
 
-    document.getElementById('manualCatForm').addEventListener('submit', function(e) {
+    document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const pass = prompt("Contraseña de Administrador para Categorías:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
@@ -2977,9 +3166,8 @@
         if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
     };
 
-
     // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
-    document.getElementById('manualRadioForm').addEventListener('submit', function(e) {
+    document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const pass = prompt("Ingresa la Contraseña de Administrador:");
@@ -3102,20 +3290,23 @@
         document.getElementById('mProvincia').value = r.state || "";
 
         let cleanTags = r.tags || "";
-        const opts = Array.from(document.getElementById('mCategoria').options).map(o=>o.value).filter(v=>v && v!=='otra');
-        let foundCat = "";
-        
-        for(let opt of opts) {
-            if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
-                foundCat = opt;
-                const reg = new RegExp('\\b' + opt + '\\b', 'gi');
-                cleanTags = cleanTags.replace(reg, "").trim();
-                break;
+        const selectCat = document.getElementById('mCategoria');
+        if(selectCat) {
+            const opts = Array.from(selectCat.options).map(o=>o.value).filter(v=>v && v!=='otra');
+            let foundCat = "";
+            
+            for(let opt of opts) {
+                if(cleanTags.toLowerCase().includes(opt.toLowerCase())) {
+                    foundCat = opt;
+                    const reg = new RegExp('\\b' + opt + '\\b', 'gi');
+                    cleanTags = cleanTags.replace(reg, "").trim();
+                    break;
+                }
             }
+            
+            if(foundCat) { selectCat.value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
+            else { selectCat.value = ""; }
         }
-        
-        if(foundCat) { document.getElementById('mCategoria').value = foundCat; document.getElementById('mCategoriaCustom').classList.add('hidden'); } 
-        else { document.getElementById('mCategoria').value = ""; }
         
         document.getElementById('mTags').value = cleanTags;
 
@@ -3127,10 +3318,11 @@
     window.cancelRadioEdit = function() {
         document.getElementById('mEditKey').value = '';
         document.getElementById('mOriginalUuid').value = '';
-        document.getElementById('manualRadioForm').reset();
+        document.getElementById('manualRadioForm')?.reset();
         document.getElementById('mCategoriaCustom').classList.add('hidden');
-        document.getElementById('submitRadioBtn').innerText = "Subir Radio";
-        document.getElementById('cancelRadioBtn').classList.add('hidden');
+        const submitBtn = document.getElementById('submitRadioBtn');
+        if(submitBtn) submitBtn.innerText = "Subir Radio";
+        document.getElementById('cancelRadioBtn')?.classList.add('hidden');
     };
 
     window.deleteFirebaseRadio = function(key) {
@@ -3141,6 +3333,6 @@
             remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
         }
     };
-  </script>
+</script>
 </body>
 </html>
