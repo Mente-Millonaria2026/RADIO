@@ -209,7 +209,23 @@
     .sidebar { width: 260px; background: #000; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 20px; transition: background 0.3s ease, border-color 0.3s ease; }
     .main-view { flex: 1; overflow-y: auto; background: linear-gradient(to bottom, #121212 0%, #000 100%); padding-bottom: 220px; scroll-behavior: smooth; transition: background 0.3s ease; }
     
-    .sticky-controls { position: sticky; top: 0; z-index: 1000; background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(15px); padding: 15px 0; margin: -15px 0 25px 0; transition: background 0.3s ease; }
+  .sticky-controls { 
+  position: sticky; 
+  top: 0; 
+  z-index: 1000; 
+  background: rgba(18, 18, 18, 0.85); 
+  backdrop-filter: blur(15px); 
+  transition: background 0.3s ease; 
+  padding: 15px 24px; 
+  margin: -24px -24px 25px -24px; 
+}
+
+@media (min-width: 768px) {
+  .sticky-controls {
+    padding: 20px 40px;
+    margin: -40px -40px 25px -40px;
+  }
+}
 
     .chat-sidebar { width: 320px; background: #080808; border-left: 1px solid #1a1a1a; display: flex; flex-direction: column; transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; height: calc(100vh - 90px); }
 
