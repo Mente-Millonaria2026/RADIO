@@ -95,9 +95,9 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
-    /* --- THEMES DIAMOND EXCLUSIVOS --- */
+    /* --- THEMES DIAMOND EXCLUSIVOS (5 EN TOTAL) --- */
     
-    /* THEME: CYBERPUNK - ENHANCED (PRO ÉPICO) */
+    /* 1. THEME: CYBERPUNK - ENHANCED (PRO ÉPICO) */
     body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #090909; color: #00ffcc; text-shadow: 0 0 2px rgba(0,255,204,0.3); }
     body.theme-cyberpunk .main-view { background: radial-gradient(circle at 50% 0%, #1a0033 0%, #050505 80%); }
     body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,5,0.95); border-color: #ff003c; backdrop-filter: blur(12px); box-shadow: 0 0 10px rgba(255,0,60,0.2); }
@@ -115,7 +115,7 @@
     body.theme-cyberpunk .btn-zapping { background: linear-gradient(135deg, #00ffcc 0%, #ff003c 100%); color: #000; box-shadow: 0 0 20px rgba(0, 255, 204, 0.6); border: none; font-weight: 900; }
     body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 25px rgba(255, 0, 60, 0.8); transform: scale(1.02); }
 
-    /* THEME: ESPACIAL */
+    /* 2. THEME: ESPACIAL */
     body.theme-espacial { font-family: 'Plus Jakarta Sans', sans-serif; background: #03040b; color: #e2e8f0; }
     body.theme-espacial .main-view { background: radial-gradient(circle at center 20%, #1a103c 0%, #03040b 70%); position: relative; }
     body.theme-espacial .main-view::after { content:""; position: fixed; top:0; left:0; right:0; bottom:0; background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px); background-size: 50px 50px, 100px 100px; background-position: 0 0, 25px 25px; opacity: 0.1; pointer-events: none; z-index: 0; animation: starDrift 100s linear infinite; }
@@ -131,7 +131,7 @@
     body.theme-espacial .epic-logo { color: #fff; text-shadow: 0 0 15px #6366f1, 0 0 30px #d946ef; }
     body.theme-espacial .search-input:focus { border-color: #d946ef; box-shadow: 0 0 10px rgba(217, 70, 239, 0.3); }
 
-    /* THEME: SYNTHWAVE - ENHANCED */
+    /* 3. THEME: SYNTHWAVE - ENHANCED */
     body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
     body.theme-synthwave .main-view { background: linear-gradient(180deg, #2b0057 0%, #090014 60%, #17002b 100%); position: relative; }
     body.theme-synthwave .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,0,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,255,0.1) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; opacity: 0.3; transform: scaleY(1.5) perspective(500px) rotateX(45deg); transform-origin: bottom; }
@@ -147,6 +147,34 @@
     body.theme-synthwave .search-input:focus { border-color: #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
     body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #000; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); border: none; text-shadow: none; font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 1px;}
     body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
+
+    /* 4. THEME: AURORA BOREALIS */
+    body.theme-aurora { font-family: 'Plus Jakarta Sans', sans-serif; background: #010a08; color: #a7f3d0; }
+    body.theme-aurora .main-view { background: linear-gradient(135deg, #010a08 0%, #064e3b 50%, #010a08 100%); }
+    body.theme-aurora .sidebar, body.theme-aurora .chat-sidebar, body.theme-aurora .mobile-header, body.theme-aurora .prov-nav-wrapper { background: rgba(1,10,8,0.9); border-color: #10b981; backdrop-filter: blur(12px); box-shadow: 0 0 15px rgba(16,185,129,0.2); }
+    body.theme-aurora .r-card { background: rgba(6,78,59,0.4); border: 1px solid #047857; transition: all 0.3s; }
+    body.theme-aurora .r-card:hover { border-color: #34d399; box-shadow: 0 0 20px rgba(52,211,153,0.4); transform: translateY(-3px); }
+    body.theme-aurora .btn-diamond { background: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%); box-shadow: 0 4px 20px rgba(16,185,129,0.5); color: #fff; text-transform: uppercase; font-weight: 900; }
+    body.theme-aurora .pill { color: #34d399; border-color: #047857; background: rgba(4,120,87,0.2); }
+    body.theme-aurora .pill.active { background: #10b981; color: #000; box-shadow: 0 0 15px rgba(16,185,129,0.6); }
+    body.theme-aurora .player-bar { background: rgba(1,10,8,0.95); border-top: 1px solid #10b981; box-shadow: 0 -5px 25px rgba(16,185,129,0.2); z-index: 2000; }
+    body.theme-aurora .epic-logo { color: #a7f3d0; text-shadow: 0 0 15px rgba(16,185,129,0.8); }
+    body.theme-aurora .search-input:focus { border-color: #10b981; box-shadow: 0 0 10px rgba(16,185,129,0.3); }
+    body.theme-aurora .btn-zapping { background: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%); color: #fff; box-shadow: 0 0 20px rgba(16,185,129,0.5); border: none; font-weight: 900; }
+
+    /* 5. THEME: MIDNIGHT CRYSTAL */
+    body.theme-crystal { font-family: 'Plus Jakarta Sans', sans-serif; background: #000000; color: #ffffff; }
+    body.theme-crystal .main-view { background: radial-gradient(circle at 50% 50%, #111 0%, #000 80%); }
+    body.theme-crystal .sidebar, body.theme-crystal .chat-sidebar, body.theme-crystal .mobile-header, body.theme-crystal .prov-nav-wrapper { background: rgba(5,5,5,0.95); border-color: #333; backdrop-filter: blur(20px); }
+    body.theme-crystal .r-card { background: linear-gradient(145deg, #0a0a0a, #000); border: 1px solid #222; backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    body.theme-crystal .r-card:hover { border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.2); transform: scale(1.02); }
+    body.theme-crystal .btn-diamond { background: linear-gradient(135deg, #fff 0%, #aaa 100%); box-shadow: 0 4px 20px rgba(255,255,255,0.3); color: #000; text-transform: uppercase; font-weight: 900; }
+    body.theme-crystal .pill { color: #ccc; border-color: #444; background: transparent; }
+    body.theme-crystal .pill.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+    body.theme-crystal .player-bar { background: rgba(0,0,0,0.98); border-top: 1px solid #333; z-index: 2000; }
+    body.theme-crystal .epic-logo { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    body.theme-crystal .search-input:focus { border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+    body.theme-crystal .btn-zapping { background: linear-gradient(135deg, #444 0%, #000 100%); border: 1px solid #555; color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.1); font-weight: 900; }
 
 
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
@@ -450,9 +478,7 @@
             </button>
           </div>
         </div>
-      </div>
-
-      <section id="singleRadioView" class="hidden animate-fade-in mb-24">
+      </div><section id="singleRadioView" class="hidden animate-fade-in mb-24">
           <button onclick="closeRadioView()" class="mb-4 text-zinc-400 hover:text-white flex items-center gap-2 text-sm font-bold w-max transition">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Volver al inicio
           </button>
@@ -629,7 +655,7 @@
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Todo lo del plan Premium</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Colores neón exclusivos</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> 5 Temas Épicos Rotativos</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Ecualizador 5-Bandas</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Modo Karaoke Inédito</li>
                   </ul>
@@ -1059,7 +1085,7 @@
           </div>
       </div>
 
-      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="hidden sm:block w-16 md:w-24 accent-white">
+      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 md:w-24 accent-white">
     </div>
   </footer>
 
@@ -1129,13 +1155,13 @@
         }
     };
 
-    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND ---
+    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND (LOS 5 TEMAS) ---
     let diamondThemeIndex = 0;
-    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial'];
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal'];
     
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
         diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
         const newTheme = diamondThemes[diamondThemeIndex];
         if (newTheme) {
@@ -1199,7 +1225,7 @@
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
         
         window.currentPremiumStatus = 'gold';
         window.hideKaraoke(); 
@@ -1248,7 +1274,7 @@
         window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Ecualizador de 5 bandas, el Karaoke y los Temas Épicos!");
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Ecualizador de 5 bandas, el Karaoke y los 5 Temas Épicos!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -2480,7 +2506,7 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 } else {
                     window.currentPremiumStatus = 'free';
                     window.hideKaraoke(); // OCULTA KARAOKE
@@ -2490,7 +2516,7 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 }
                 window.reapplyUserTheme();
             });
@@ -2508,7 +2534,7 @@
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
             if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
             
             window.currentPremiumStatus = 'free';
             window.hideKaraoke(); 
