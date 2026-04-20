@@ -2472,6 +2472,76 @@
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
+            if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
+            if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
+            
+            // Hemos eliminado las líneas que ocultaban los botones Demo aquí
+
+            if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
+            if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
+            
+            if(document.getElementById('userName')) document.getElementById('userName').innerText = user.displayName;
+            if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = user.displayName;
+            if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
+            if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
+
+            // Revisar si es PRO (GOLD) o DIAMOND
+            onValue(ref(db, `users/${user.uid}`), (snapshot) => {
+                const data = snapshot.val();
+                if(data && data.isDiamond) {
+                    window.currentPremiumStatus = 'diamond';
+                    window.showKaraoke(); 
+                    window.updateEQVisibility(); 
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+                } else if(data && data.isPro) {
+                    window.currentPremiumStatus = 'gold';
+                    window.hideKaraoke(); 
+                    window.updateEQVisibility(); 
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                } else {
+                    window.currentPremiumStatus = 'free';
+                    window.hideKaraoke(); 
+                    window.updateEQVisibility(); 
+                    if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
+                    if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
+                    if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
+                    if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
+                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                }
+                window.reapplyUserTheme();
+            });
+
+        } else {
+            if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
+            if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
+            if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
+            if(btnMockLogin) btnMockLogin.classList.remove('hidden');
+            if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
+
+            if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
+            if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
+            if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
+            if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
+            
+            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+            
+            window.currentPremiumStatus = 'free';
+            window.hideKaraoke(); 
+            window.updateEQVisibility(); 
+            window.reapplyUserTheme();
+        }
+    });
             // -- LOGICA DE SESION Y CREACIÓN DE USUARIO CORREGIDA --
             const userRef = ref(db, `users/${user.uid}`);
             get(userRef).then((snapshot) => {
