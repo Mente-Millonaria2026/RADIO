@@ -459,7 +459,6 @@
         <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Radios del Mundo</button>
         <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live</button>
         <button onclick="shareWeb()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir Web</button>
-        <button id="btnOpenAdminSidebar" onclick="openAdminPanel()" class="hidden flex items-center gap-4 w-full p-3 text-red-400 hover:text-red-500 font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg> Panel Admin</button>
       </nav>
       <div id="sideProvs" class="overflow-y-auto space-y-1 pr-2 no-scrollbar">
         <p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-3 mb-4">Provincias</p>
@@ -2095,16 +2094,7 @@
         if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias();
     }
     
-    const MI_ADMIN_UID = 'GGgxttnnhIU8mPsvgvIAJPHhXCP2';
-    
-    document.addEventListener('keydown', (e) => { 
-        if (e.shiftKey && e.key === 'M') { 
-            const user = auth.currentUser;
-            if(user && user.uid === MI_ADMIN_UID) {
-                openAdminPanel(); 
-            }
-        } 
-    });
+    document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
 
     window.switchAdminTab = function(tab) {
         const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); 
@@ -2392,9 +2382,7 @@
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
 
-    // ID del Administrador Maestro
-    const MI_ADMIN_UID = 'GGgxttnnhIU8mPsvgvIAJPHhXCP2';
-    
+    const ADMIN_PASSWORD = "Moniyjere11@"; 
     let sessionUnsubscribe = null;
     let globalThemesConfig = { gold: '', diamond: '' };
 
@@ -2432,7 +2420,8 @@
 
     document.getElementById('adminThemesForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar Themes Exclusivos?")) return;
+        const pass = prompt("Contraseña de Administrador para Configuración de Themes:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
             gold: document.getElementById('htmlGold').value,
@@ -2440,8 +2429,8 @@
         };
         
         update(ref(db, 'settings_comunidad'), { themes: data }).then(() => {
-            alert("¡Themes guardados correctamente!");
-        }).catch(err => alert("Acceso denegado: " + err.message));
+            alert("¡Themes (HTML Exclusivo) guardados correctamente!");
+        }).catch(err => alert("Error: " + err.message));
     });
 
     window.iniciarSesion = () => {
@@ -2497,18 +2486,8 @@
         const mobProfile = document.getElementById('mobileUserProfile');
         const mainLogoText = document.getElementById('mainLogoText');
         const mobLogoText = document.getElementById('mobLogoText');
-        const btnOpenAdminSidebar = document.getElementById('btnOpenAdminSidebar');
         
         if (user) {
-            // Mostrar botón del panel oculto si es el Administrador
-            if (user.uid === MI_ADMIN_UID && btnOpenAdminSidebar) {
-                btnOpenAdminSidebar.classList.remove('hidden');
-                btnOpenAdminSidebar.classList.add('flex');
-            } else if (btnOpenAdminSidebar) {
-                btnOpenAdminSidebar.classList.add('hidden');
-                btnOpenAdminSidebar.classList.remove('flex');
-            }
-
             if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
@@ -2527,17 +2506,17 @@
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
                     window.currentPremiumStatus = 'diamond';
-                    window.showKaraoke(); 
-                    window.applyEQLimits(); 
+                    window.showKaraoke(); // MUESTRA KARAOKE
+                    window.applyEQLimits(); // 5 BANDAS
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
-                } else if(data && data.isPro) {
+} else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
-                    window.hideKaraoke(); 
-                    window.applyEQLimits(); 
+                    window.hideKaraoke(); // OCULTA KARAOKE
+                    window.applyEQLimits(); // 3 BANDAS
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
@@ -2546,8 +2525,8 @@
                     document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 } else {
                     window.currentPremiumStatus = 'free';
-                    window.hideKaraoke(); 
-                    window.applyEQLimits(); 
+                    window.hideKaraoke(); // OCULTA KARAOKE
+                    window.applyEQLimits(); // 3 BANDAS
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
@@ -2564,11 +2543,6 @@
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
             if(btnMockLogin) btnMockLogin.classList.remove('hidden');
             if(btnMockLoginDiamond) btnMockLoginDiamond.classList.remove('hidden');
-
-            if(btnOpenAdminSidebar) {
-                btnOpenAdminSidebar.classList.add('hidden');
-                btnOpenAdminSidebar.classList.remove('flex');
-            }
 
             if(profile) { profile.classList.add('hidden'); profile.classList.remove('flex'); }
             if(mobProfile) { mobProfile.classList.add('hidden'); mobProfile.classList.remove('flex'); }
@@ -2624,21 +2598,21 @@
 
             document.querySelectorAll('.toggle-pro-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    if(!confirm("¿Modificar estado Gold del usuario?")) return;
+                    const pass = prompt("Contraseña de Admin:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
                     const uid = e.target.getAttribute('data-uid');
                     const currentStatus = e.target.getAttribute('data-status') === 'true';
-                    update(ref(db, `users/${uid}`), { isPro: !currentStatus, isDiamond: false })
-                        .catch(err => alert("Acceso denegado: " + err.message));
+                    update(ref(db, `users/${uid}`), { isPro: !currentStatus, isDiamond: false });
                 });
             });
 
             document.querySelectorAll('.toggle-diamond-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    if(!confirm("¿Modificar estado Diamond del usuario?")) return;
+                    const pass = prompt("Contraseña de Admin:");
+                    if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
                     const uid = e.target.getAttribute('data-uid');
                     const currentStatus = e.target.getAttribute('data-status') === 'true';
-                    update(ref(db, `users/${uid}`), { isDiamond: !currentStatus, isPro: false })
-                        .catch(err => alert("Acceso denegado: " + err.message));
+                    update(ref(db, `users/${uid}`), { isDiamond: !currentStatus, isPro: false });
                 });
             });
 
@@ -2657,7 +2631,8 @@
 
     document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Estás seguro de modificar la configuración maestra de Firebase?")) return;
+        const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const newConfig = {
             apiKey: document.getElementById('fbApiKey').value.trim(),
@@ -2697,7 +2672,8 @@
 
     document.getElementById('adminPaymentsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar Credenciales de Pago y Alias?")) return;
+        const pass = prompt("Contraseña de Administrador para Configuración de Pagos y Alias:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
             mpPublicKey: document.getElementById('mpPublicKey').value.trim(),
@@ -2709,7 +2685,7 @@
         
         update(ref(db, 'settings_comunidad'), { payments: data }).then(() => {
             alert("Credenciales y Alias guardados correctamente.");
-        }).catch(err => alert("Acceso denegado: " + err.message));
+        }).catch(err => alert("Error: " + err.message));
     });
 
     // --- TENDENCIAS MENSUALES CONFIG ---
@@ -2786,7 +2762,8 @@
         e.preventDefault(); const target = e.target.closest('[data-id]'); if(target) target.classList.remove('top10-drag-over');
         
         if (tenDraggedId && tenDraggedId !== targetId) {
-            if(!confirm("¿Reordenar Tendencias?")) return;
+            const pass = prompt("Contraseña de Administrador para reordenar Tendencias:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
             let currentList = window.currentActiveTendencias.map(r => r.original_uuid || r.stationuuid || r.fb_key);
             let draggedIdx = currentList.indexOf(tenDraggedId);
@@ -2804,8 +2781,7 @@
                 if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
             });
             
-            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } })
-            .catch(err => alert("Acceso denegado: " + err.message));
+            update(ref(db, 'settings_comunidad'), { tendencias: { pinned: fullNewPinned, hidden: globalTendenciasConfig.hidden } });
         }
         tenDraggedId = null;
     };
@@ -2859,7 +2835,8 @@
     };
 
     window.addToTendencias = function(id) {
-        if(!confirm("¿Añadir y fijar en Tendencias?")) return;
+        const pass = prompt("Contraseña de Administrador para fijar en Tendencias:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = [...globalTendenciasConfig.pinned];
         if(!newPinned.includes(id)) newPinned.unshift(id); 
@@ -2869,11 +2846,12 @@
         update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } }).then(() => {
             document.getElementById('tendenciasSearch').value = '';
             document.getElementById('tendenciasSearchResults').innerHTML = '';
-        }).catch(err => alert("Acceso denegado: " + err.message));
+        });
     };
 
     window.removeFromTendencias = function(id, isPinned) {
-        if(!confirm("¿Quitar de Tendencias?")) return;
+        const pass = prompt("Contraseña de Administrador para quitar de Tendencias:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = globalTendenciasConfig.pinned.filter(x => x !== id);
         let newHidden = [...globalTendenciasConfig.hidden];
@@ -2882,8 +2860,7 @@
             if(!newHidden.includes(id)) newHidden.push(id);
         }
         
-        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } })
-        .catch(err => alert("Acceso denegado: " + err.message));
+        update(ref(db, 'settings_comunidad'), { tendencias: { pinned: newPinned, hidden: newHidden } });
     };
 
     // --- TOP 10 MANUAL CONFIG ---
@@ -2923,7 +2900,8 @@
         if(target) target.classList.remove('top10-drag-over');
         
         if (draggedId && draggedId !== targetId) {
-            if(!confirm("¿Reordenar el Top 10?")) return;
+            const pass = prompt("Contraseña de Administrador para reordenar el Top 10:");
+            if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
             let currentList = window.currentActiveTop10.map(r => r.original_uuid || r.stationuuid || r.fb_key);
             let draggedIdx = currentList.indexOf(draggedId);
@@ -2943,8 +2921,7 @@
                 if (!fullNewPinned.includes(id)) fullNewPinned.push(id);
             });
             
-            update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } })
-            .catch(err => alert("Acceso denegado: " + err.message));
+            update(ref(db, 'settings_comunidad'), { top10: { pinned: fullNewPinned, hidden: globalTop10Config.hidden } });
         }
         draggedId = null;
     };
@@ -3001,7 +2978,8 @@
     };
 
     window.addToTop10 = function(id) {
-        if(!confirm("¿Añadir al Top 10 Manual?")) return;
+        const pass = prompt("Contraseña de Administrador para fijar en el Top 10:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = [...globalTop10Config.pinned];
         if(!newPinned.includes(id))newPinned.unshift(id); 
@@ -3011,11 +2989,12 @@
         update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } }).then(() => {
             document.getElementById('top10Search').value = '';
             document.getElementById('top10SearchResults').innerHTML = '';
-        }).catch(err => alert("Acceso denegado: " + err.message));
+        });
     };
 
     window.removeFromTop10 = function(id, isPinned) {
-        if(!confirm("¿Quitar del Top 10?")) return;
+        const pass = prompt("Contraseña de Administrador para quitar del Top 10:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         let newPinned = globalTop10Config.pinned.filter(x => x !== id);
         let newHidden = [...globalTop10Config.hidden];
@@ -3024,8 +3003,7 @@
             if(!newHidden.includes(id)) newHidden.push(id);
         }
         
-        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } })
-        .catch(err => alert("Acceso denegado: " + err.message));
+        update(ref(db, 'settings_comunidad'), { top10: { pinned: newPinned, hidden: newHidden } });
     };
 
     // --- CARGA DE NOTICIAS (RSS) CONFIG 5 URLS ---
@@ -3043,7 +3021,8 @@
 
     document.getElementById('adminNewsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar configuración de Noticias RSS?")) return;
+        const pass = prompt("Contraseña de Administrador para Configuración de Noticias:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const parseRssUrls = (str) => str.split('\n').map(u => u.trim()).filter(u => u !== '').slice(0, 5);
 
@@ -3056,8 +3035,8 @@
         };
         
         update(ref(db, 'settings_comunidad'), { news: data }).then(() => {
-            alert("Configuración de noticias guardada correctamente.");
-        }).catch(err => alert("Acceso denegado: " + err.message));
+            alert("Configuración de noticias guardada correctamente (Máx 5 enlaces por sección).");
+        }).catch(err => alert("Error: " + err.message));
     });
 
     // --- CARGA DE ANUNCIOS (ADSENSE) ---
@@ -3102,7 +3081,8 @@
 
     document.getElementById('adminAdsForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar Configuración de Ads (Publicidad)?")) return;
+        const pass = prompt("Contraseña de Administrador para Configuración de Anuncios:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
         
         const data = {
             head: document.getElementById('adsHead').value,
@@ -3112,7 +3092,7 @@
         
         update(ref(db, 'settings_comunidad'), { ads: data }).then(() => {
             alert("Anuncios guardados. Refresca la web para ver los cambios.");
-        }).catch(err => alert("Acceso denegado: " + err.message));
+        }).catch(err => alert("Error: " + err.message));
     });
 
     // --- FIREBASE CHAT COMUNIDAD ---
@@ -3234,17 +3214,16 @@
 
     document.getElementById('manualCatForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar Categoría?")) return;
+        const pass = prompt("Contraseña de Administrador para Categorías:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
 
         const key = document.getElementById('cEditKey').value;
         const data = { name: document.getElementById('cName').value, value: document.getElementById('cValue').value.toLowerCase().trim() };
 
         if (key) {
-            update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); })
-            .catch(err => alert("Acceso denegado: " + err.message));
+            update(ref(db, 'categorias_comunidad/' + key), data).then(() => { alert("Categoría actualizada."); window.cancelCatEdit(); });
         } else {
-            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); })
-            .catch(err => alert("Acceso denegado: " + err.message));
+            push(catRef, data).then(() => { alert("Categoría creada exitosamente."); document.getElementById('manualCatForm').reset(); });
         }
     });
 
@@ -3267,15 +3246,17 @@
     };
 
     window.deleteFirebaseCat = function(key) {
-        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { 
-            remove(ref(db, 'categorias_comunidad/' + key)).catch(err => alert("Acceso denegado: " + err.message)); 
-        }
+        const pass = prompt("Contraseña de Administrador para eliminar:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        if(confirm('¿Seguro que quieres eliminar esta categoría para siempre?')) { remove(ref(db, 'categorias_comunidad/' + key)); }
     };
 
     // --- CARGA Y EDICIÓN DE RADIOS GLOBALES ---
     document.getElementById('manualRadioForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        if(!confirm("¿Guardar información de la Radio?")) return;
+        
+        const pass = prompt("Ingresa la Contraseña de Administrador:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado. Contraseña incorrecta.");
 
         let rawUrl = document.getElementById('mUrl').value.trim();
         if (rawUrl.match(/:\d+(\/)?$/)) { rawUrl = rawUrl.endsWith('/') ? rawUrl + ';' : rawUrl + '/;'; }
@@ -3308,12 +3289,12 @@
         if (key) {
             update(ref(db, 'radios_comunidad/' + key), data).then(() => {
                 alert("Radio actualizada con éxito."); window.cancelRadioEdit();
-            }).catch(err => alert("Acceso denegado: " + err.message));
+            }).catch(err => alert("Error al guardar: " + err.message));
         } else {
             data.stationuuid = 'fb_' + Date.now();
             push(radioRef, data).then(() => {
                 alert("Radio subida exitosamente."); window.cancelRadioEdit();
-            }).catch(err => alert("Acceso denegado: " + err.message));
+            }).catch(err => alert("Error al guardar: " + err.message));
         }
     });
 
@@ -3430,30 +3411,13 @@
     };
 
     window.deleteFirebaseRadio = function(key) {
+        const pass = prompt("Contraseña de Administrador para eliminar esta radio:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
         if(confirm('¿Estás seguro de que quieres eliminar esta radio de manera global?')) {
-            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); })
-            .catch(err => alert("Acceso denegado: " + err.message));
+            remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
         }
     };
-
-    // CORRECCIÓN VISUAL: Mover login a la derecha en Desktop
-    function adjustDesktopLoginPosition() {
-        if (window.innerWidth >= 1024) {
-            const authContainer = document.getElementById('authContainer');
-            const mobileHeader = document.querySelector('.mobile-header > div:first-child');
-            if(authContainer && mobileHeader && !document.getElementById('desktopAuthClone')) {
-                const clone = authContainer.cloneNode(true);
-                clone.id = 'desktopAuthClone';
-                clone.classList.remove('mb-6');
-                clone.classList.add('w-auto', 'min-w-[200px]', 'max-w-[300px]');
-                authContainer.classList.add('hidden'); // Ocultar el del sidebar
-                mobileHeader.appendChild(clone);
-            }
-        }
-    }
-    window.addEventListener('resize', adjustDesktopLoginPosition);
-    document.addEventListener('DOMContentLoaded', adjustDesktopLoginPosition);
-
 </script>
 </body>
 </html>
