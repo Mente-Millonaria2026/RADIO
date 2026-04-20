@@ -2433,10 +2433,12 @@
         }).catch(err => alert("Error: " + err.message));
     });
 
-    // 1. Generamos un Token Único por pestaña (sobrevive a recargas F5)
+   // 1. Generamos un Token Único (Compatible con pruebas en celular o red local sin HTTPS)
     let localSessionToken = sessionStorage.getItem('RAR_SESSION_TOKEN');
     if (!localSessionToken) {
-        localSessionToken = crypto.randomUUID();
+        localSessionToken = (window.crypto && window.crypto.randomUUID) 
+            ? crypto.randomUUID() 
+            : 'token-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
         sessionStorage.setItem('RAR_SESSION_TOKEN', localSessionToken);
     }
 
@@ -2472,10 +2474,29 @@
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
+            // -- LOGICA DE SESION Y CREACIÓN DE USUARIO --
+            const userRef = ref(db, `users/${user.uid}`);
+            get(userRef).then((snapshot) => {
+                if (!snapshot.exists()) {
+                    set(userRef, {
+                        nombre: user.displayName,
+                        email: user.email,
+                        foto: user.photoURL,
+                        isPro: false,
+                        isDiamond: false,
+                        fechaRegistro: new Date().toISOString(),
+                        sesion_activa: localSessionToken
+                    });
+                } else {
+                    update(userRef, { sesion_activa: localSessionToken });
+                }
+                vigilarSesionUnica(user.uid);
+            });
+
             if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
-            
-            // Hemos eliminado las líneas que ocultaban los botones Demo aquí
+            if(btnMockLogin) btnMockLogin.classList.add('hidden');
+            if(btnMockLoginDiamond) btnMockLoginDiamond.classList.add('hidden');
 
             if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
             if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
