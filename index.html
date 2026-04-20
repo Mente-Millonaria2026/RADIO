@@ -2433,12 +2433,10 @@
         }).catch(err => alert("Error: " + err.message));
     });
 
-   // 1. Generamos un Token Único (Compatible con pruebas en celular o red local sin HTTPS)
+    // 1. Generamos un Token Único por pestaña (sobrevive a recargas F5)
     let localSessionToken = sessionStorage.getItem('RAR_SESSION_TOKEN');
     if (!localSessionToken) {
-        localSessionToken = (window.crypto && window.crypto.randomUUID) 
-            ? crypto.randomUUID() 
-            : 'token-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now();
+        localSessionToken = crypto.randomUUID();
         sessionStorage.setItem('RAR_SESSION_TOKEN', localSessionToken);
     }
 
@@ -2474,7 +2472,7 @@
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
-            // -- LOGICA DE SESION Y CREACIÓN DE USUARIO --
+            // 1. Lógica de creación/actualización del usuario en DB
             const userRef = ref(db, `users/${user.uid}`);
             get(userRef).then((snapshot) => {
                 if (!snapshot.exists()) {
@@ -2493,6 +2491,7 @@
                 vigilarSesionUnica(user.uid);
             });
 
+            // 2. Actualizar UI (ocultar botones, mostrar perfil)
             if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
@@ -2506,13 +2505,13 @@
             if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
             if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
 
-            // Revisar si es PRO (GOLD) o DIAMOND
+            // 3. Revisar y aplicar suscripciones Premium (Gold o Diamond)
             onValue(ref(db, `users/${user.uid}`), (snapshot) => {
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
                     window.currentPremiumStatus = 'diamond';
                     window.showKaraoke(); 
-                    window.updateEQVisibility(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
@@ -2521,28 +2520,29 @@
                 } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
                     window.hideKaraoke(); 
-                    window.updateEQVisibility(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 } else {
                     window.currentPremiumStatus = 'free';
                     window.hideKaraoke(); 
-                    window.updateEQVisibility(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 }
                 window.reapplyUserTheme();
             });
 
         } else {
+            // 4. Lógica cuando no hay sesión activa
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
             if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
@@ -2555,13 +2555,14 @@
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
             if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-space');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
             
             window.currentPremiumStatus = 'free';
             window.hideKaraoke(); 
-            window.updateEQVisibility(); 
+            window.applyEQLimits(); 
             window.reapplyUserTheme();
         }
+    });
     });
             // -- LOGICA DE SESION Y CREACIÓN DE USUARIO CORREGIDA --
             const userRef = ref(db, `users/${user.uid}`);
