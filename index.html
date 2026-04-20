@@ -485,7 +485,7 @@
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
-            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
+            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
             </button>
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
@@ -1117,9 +1117,14 @@
     let allRadios = [], displayedRadios = [], currentOffset = 0;
     let globalApiRadios = []; 
     const itemsPerPage = 30;
+    
     let favs = JSON.parse(localStorage.getItem('RAR_FAVS')) || [];
     let boosts = JSON.parse(localStorage.getItem('RAR_BOOSTS')) || [];
     let currentStation = null;
+    
+    // Variables de Administrador
+    const ADMIN_UID = 'GGgxttnnhIU8mPsvgvIAJPHhXCP2';
+    let isSuperAdmin = false;
     
     // Variables globales para el Ticker arrastrable
     let tickerReq;
@@ -1413,7 +1418,10 @@
     let homeTapCount = 0; let homeTapTimer = null;
     function handleHomeTap() {
         homeTapCount++; clearTimeout(homeTapTimer);
-        if (homeTapCount >= 5) { openAdminPanel(); homeTapCount = 0; } 
+        if (homeTapCount >= 5) { 
+            if (isSuperAdmin) { openAdminPanel(); }
+            homeTapCount = 0; 
+        } 
         else { homeTapTimer = setTimeout(() => { homeTapCount = 0; }, 2000); }
         resetToHome();
     }
@@ -2094,7 +2102,11 @@
         if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias();
     }
     
-    document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { openAdminPanel(); } });
+    document.addEventListener('keydown', (e) => { 
+        if (e.shiftKey && e.key === 'M') { 
+            if (isSuperAdmin) { openAdminPanel(); }
+        } 
+    });
 
     window.switchAdminTab = function(tab) {
         const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); 
@@ -2488,6 +2500,8 @@
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
+            isSuperAdmin = (user.uid === ADMIN_UID); // Detecta si es el admin maestro
+
             if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
             if(btnMockLogin) btnMockLogin.classList.add('hidden');
@@ -2513,7 +2527,7 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
-} else if(data && data.isPro) {
+                } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
                     window.hideKaraoke(); // OCULTA KARAOKE
                     window.applyEQLimits(); // 3 BANDAS
@@ -2538,6 +2552,8 @@
             });
 
         } else {
+            isSuperAdmin = false; // Apaga el modo admin
+
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
             if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.remove('hidden');
