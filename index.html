@@ -162,20 +162,22 @@
     body.theme-cyberpunk .btn-zapping:active { transform: scale(0.95); }
 
     /* 2. THEME: ESPACIAL */
-    body.theme-espacial { font-family: 'Plus Jakarta Sans', sans-serif; background: #03040b; color: #e2e8f0; }
-    body.theme-espacial .main-view { background: radial-gradient(circle at center 20%, #1a103c 0%, #03040b 70%); position: relative; }
-    body.theme-espacial .main-view::after { content:""; position: fixed; top:0; left:0; right:0; bottom:0; background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px); background-size: 50px 50px, 100px 100px; background-position: 0 0, 25px 25px; opacity: 0.1; pointer-events: none; z-index: 0; animation: starDrift 100s linear infinite; }
+    body.theme-espacial { font-family: 'Plus Jakarta Sans', sans-serif; background: #020308; color: #e2e8f0; }
+    body.theme-espacial .main-view { background: radial-gradient(circle at 50% 50%, #0d0b21 0%, #020308 100%); position: relative; }
+    body.theme-espacial .main-view::after { content:""; position: fixed; top:0; left:0; right:0; bottom:0; background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 60px 60px, 120px 120px; background-position: 0 0, 30px 30px; opacity: 0.2; pointer-events: none; z-index: 0; animation: starDrift 150s linear infinite, starTwinkle 4s ease-in-out infinite; }
     @keyframes starDrift { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
-    body.theme-espacial .sidebar, body.theme-espacial .chat-sidebar, body.theme-espacial .mobile-header, body.theme-espacial .prov-nav-wrapper { background: rgba(3, 4, 11, 0.85); border-color: #6366f1; backdrop-filter: blur(15px); z-index: 10;}
-    body.theme-espacial .r-card { background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; backdrop-filter: blur(5px); transition: all 0.3s; z-index: 1;}
-    body.theme-espacial .r-card:hover { border-color: #8b5cf6; box-shadow: 0 0 25px rgba(139, 92, 246, 0.5); transform: translateY(-5px); }
-    body.theme-espacial .btn-diamond { background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%); box-shadow: 0 0 20px rgba(99, 102, 241, 0.6); color: white; }
-    body.theme-espacial .pill { color: #a78bfa; border-color: #4c1d95; background: rgba(76, 29, 149, 0.2); }
-    body.theme-espacial .pill.active { background: linear-gradient(90deg, #6366f1, #d946ef); color: white; border-color: transparent; box-shadow: 0 0 15px rgba(217, 70, 239, 0.5); }
-    body.theme-espacial .player-bar { background: rgba(3, 4, 11, 0.95); border-top: 1px solid #8b5cf6; box-shadow: 0 -5px 30px rgba(99, 102, 241, 0.2); z-index: 2000;}
-    body.theme-espacial .btn-zapping { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); border: none; font-weight: bold;}
-    body.theme-espacial .epic-logo { color: #fff; text-shadow: 0 0 15px #6366f1, 0 0 30px #d946ef; }
-    body.theme-espacial .search-input:focus { border-color: #d946ef; box-shadow: 0 0 10px rgba(217, 70, 239, 0.3); }
+    @keyframes starTwinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.4; } }
+    body.theme-espacial .sidebar, body.theme-espacial .chat-sidebar, body.theme-espacial .mobile-header, body.theme-espacial .prov-nav-wrapper { background: rgba(5, 7, 16, 0.75); border-color: rgba(99, 102, 241, 0.4); backdrop-filter: blur(20px); z-index: 10; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    body.theme-espacial .r-card { background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; }
+    body.theme-espacial .r-card:hover { border-color: #8b5cf6; box-shadow: 0 0 30px rgba(99, 102, 241, 0.3), inset 0 0 15px rgba(139, 92, 246, 0.2); transform: translateY(-8px) scale(1.02); }
+    body.theme-espacial .btn-diamond { background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%); box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); color: white; border: none; font-weight: 800; text-transform: uppercase; }
+    body.theme-espacial .pill { color: #a78bfa; border-color: rgba(139, 92, 246, 0.3); background: rgba(76, 29, 149, 0.15); backdrop-filter: blur(5px); }
+    body.theme-espacial .pill.active { background: linear-gradient(90deg, #4f46e5, #9333ea); color: white; border-color: transparent; box-shadow: 0 0 20px rgba(147, 51, 234, 0.6); }
+    body.theme-espacial .player-bar { background: rgba(2, 3, 8, 0.9); border-top: 1px solid rgba(139, 92, 246, 0.4); backdrop-filter: blur(20px); box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8); z-index: 2000; }
+    body.theme-espacial .btn-zapping { background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%); color: white; box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); border: none; font-weight: 800; letter-spacing: 1px; transition: 0.3s; }
+    body.theme-espacial .btn-zapping:hover { box-shadow: 0 0 35px rgba(99, 102, 241, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
+    body.theme-espacial .epic-logo { color: #fff; text-shadow: 0 0 10px #6366f1, 0 0 25px #d946ef, 0 0 50px rgba(217, 70, 239, 0.5); font-weight: 900; }
+    body.theme-espacial .search-input:focus { border-color: #d946ef; background: rgba(15, 23, 42, 0.8); box-shadow: 0 0 20px rgba(217, 70, 239, 0.4); }
 
     /* 3. THEME: SYNTHWAVE - ENHANCED */
     body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
