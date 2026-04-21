@@ -95,6 +95,8 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
+    /* --- THEMES DIAMOND EXCLUSIVOS (5 EN TOTAL) --- */
+    
     /* --- TEMAS REMERA EXCLUSIVOS --- */
     /* Tema Gold: Filigrana Albiceleste (Negra con patrón azul) */
     body.remera-gold { background: #000; color: #74ACDF; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
@@ -234,7 +236,7 @@
 
     @keyframes eqAnim { 0% { height: 20%; } 100% { height: 100%; } }
     
-    .arg-flag-mini { width: 20px; height: 12px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; margin-left: 4px; transition: border 0.3s ease; border: 1px solid transparent; }
+    .arg-flag-mini { width: 20px; height: 12px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; margin-left: 4px; transition: border 0.3s ease; }
     .flag-stripe { flex: 1; width: 100%; }
     .stripe-blue { background-color: var(--arg-blue); }
     .stripe-white { background-color: white; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -421,15 +423,17 @@
 
   <header class="mobile-header">
     <div class="p-4 flex justify-between items-center">
-      <div class="epic-logo" onclick="handleHomeTap()">
-        <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
-        <div class="logo-text" id="mobLogoText">RadioAR<span class="logo-pro">Pro</span></div>
-        <div class="arg-flag-mini"><div class="flag-stripe stripe-blue"></div><div class="flag-stripe stripe-white"><div class="sun-mini"></div></div><div class="flag-stripe stripe-blue"></div></div>
+      <div class="flex items-center gap-3">
+        <div class="epic-logo" onclick="handleHomeTap()">
+          <div class="eq-icon"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
+          <div class="logo-text" id="mobLogoText">RadioAR<span class="logo-pro">Pro</span></div>
+        </div>
+        <button onclick="handleHomeTap()" class="p-2 text-zinc-400 hover:text-white" title="Inicio"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></button>
+        <button onclick="renderFavorites()" class="p-2 text-zinc-400 hover:text-white" title="Favoritos"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        <button onclick="shareWeb()" class="p-2 text-zinc-400 hover:text-white" title="Compartir Web"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg></button>
+        <button onclick="openWorldRadios()" class="p-2 text-zinc-400 hover:text-[var(--sp-green)] transition-colors" title="Radios del Mundo"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></button>
       </div>
-      <div class="flex items-center gap-1">
-        <button onclick="shareWeb()" class="p-2.5 bg-zinc-900 rounded-lg text-white" title="Compartir Web"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg></button>
-        <button onclick="toggleChat()" class="p-2.5 bg-zinc-900 rounded-lg text-white"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-      </div>
+      <button onclick="toggleChat()" class="p-2 bg-zinc-900 rounded-lg text-white"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
     </div>
     
     <div class="px-4 pb-2 w-full mt-1 flex flex-col gap-2">
@@ -503,6 +507,7 @@
         <button onclick="handleHomeTap()" class="flex items-center gap-4 w-full p-3 bg-zinc-900 rounded-xl font-bold"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</button>
         <button onclick="renderFavorites()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favoritos</button>
         <button onclick="openWorldRadios()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Radios del Mundo</button>
+        <button onclick="toggleChat()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg> Comunidad Live</button>
         <button onclick="shareWeb()" class="flex items-center gap-4 w-full p-3 text-zinc-400 hover:text-current font-bold transition"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> Compartir Web</button>
       </nav>
       <div id="sideProvs" class="overflow-y-auto space-y-1 pr-2 no-scrollbar">
@@ -550,9 +555,9 @@
                   <span class="text-xs font-black tracking-wide" id="radio-weather-temp">--°C</span>
               </div>
               
-              <div id="radio-news-ticker" class="ticker-wrap hidden news-ticker-wrap flex-1 !mb-0 !mt-0 !py-0 relative">
-                  <span class="ticker-badge news-ticker-badge absolute left-[10px] top-[50%] -translate-y-1/2 z-10 pointer-events-none">ÚLTIMO MOMENTO</span>
-                  <div id="radio-news-ticker-scroll" class="ticker-scroller news-ticker-scroller cursor-grab h-full w-full py-[8px]">
+              <div id="radio-news-ticker" class="ticker-wrap hidden flex-1 !mb-0 !mt-0 !py-0 relative">
+                  <span class="ticker-badge absolute left-[10px] top-[50%] -translate-y-1/2 z-10 pointer-events-none">ÚLTIMO MOMENTO</span>
+                  <div id="radio-news-ticker-scroll" class="ticker-scroller cursor-grab h-full w-full py-[8px]">
                       <div id="radio-news-content" class="ticker-content">Buscando noticias...</div>
                   </div>
               </div>
@@ -575,7 +580,7 @@
               </div>
           </div>
           
-          <div id="ad-container-radio" class="w-full mt-6 ad-container-radio flex justify-center items-center overflow-hidden empty:hidden"></div>
+          <div id="ad-container-radio" class="w-full mt-6 flex justify-center items-center overflow-hidden empty:hidden"></div>
           
           <div class="h-32 sm:h-24 w-full block"></div>
       </section>
@@ -617,8 +622,8 @@
       </section>
 
       <section id="sectGrid">
-        <div class="flex items-center gap-3 mb-8" id="gridTitleContainer"><span class="section-bar bar-orange" style="background:#737373; box-shadow:none;"></span><h3 id="gridTitle" class="text-xl font-bold viewLabel">Dial en Vivo</h3></div>
-        <div id="gridMain" class="grid gridMain grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
+        <div class="flex items-center gap-3 mb-8" id="gridTitleContainer"><span class="section-bar bar-orange" style="background:#737373; box-shadow:none;"></span><h3 id="gridTitle" class="text-xl font-bold">Dial en Vivo</h3></div>
+        <div id="gridMain" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
         <div id="loadMoreTrigger" class="h-20 flex items-center justify-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
             Desliza para cargar más...
         </div>
@@ -636,7 +641,7 @@
         </button>
       </div>
       
-      <div id="ad-container-sidebar" class="w-full bg-[#050505] ad-container-sidebar border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
+      <div id="ad-container-sidebar" class="w-full bg-[#050505] border-b border-zinc-900 flex justify-center items-center overflow-hidden empty:hidden"></div>
       
       <div class="flex-1 p-4 overflow-y-auto no-scrollbar space-y-4" id="chatMessages"></div>
 
@@ -646,9 +651,9 @@
       
       <div class="p-4 border-t border-zinc-900 bg-[#050505]">
         <form id="chatForm" class="flex flex-col gap-2">
-          <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition chat-input">
+          <input type="text" id="chatUserName" placeholder="Tu @nick..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition">
           <div class="flex gap-2">
-            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition chat-input" required>
+            <input type="text" id="chatInput" placeholder="Escribí algo acá..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-[11px] outline-none focus:border-zinc-500 transition" required>
             <button type="submit" class="bg-zinc-800 text-white px-4 rounded-lg font-bold text-[10px] hover:bg-zinc-600 uppercase border border-zinc-700">Enviar</button>
           </div>
         </form>
@@ -696,8 +701,7 @@
                   <p class="text-[11px] text-zinc-400 mb-4 font-bold uppercase tracking-widest">Plan Base</p>
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
                       <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Sin publicidad en la web</li>
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Logo dorado/personalizado</li>
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Diseño Exclusivo Gold</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Logo dorado en tu perfil</li>
                       <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Soporte prioritario</li>
                   </ul>
                   <div class="flex flex-col gap-3">
@@ -717,7 +721,7 @@
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Todo lo del plan Premium</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Efectos visuales de interfaz</li>
-                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Diseño Exclusivo Diamond</li>
+                      <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> 5 Temas Épicos Rotativos</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Ecualizador 5-Bandas</li>
                       <li class="flex items-center gap-2"><span class="text-cyan-400">✔</span> Modo Karaoke Inédito</li>
                   </ul>
@@ -837,7 +841,7 @@
               <div class="flex justify-between items-center mb-2">
                   <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Radios (API & Manuales)</h4>
               </div>
-              <input type="text" id="adminSearch" placeholder="Buscar en todas las radios..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-blue-500 admin-search" oninput="renderAdminRadiosList()">
+              <input type="text" id="adminSearch" placeholder="Buscar en todas las radios..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white mb-2 outline-none focus:border-blue-500" oninput="renderAdminRadiosList()">
               <div id="manualRadiosList" class="space-y-2 flex-shrink-0"></div>
           </div>
       </div>
@@ -902,17 +906,17 @@
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias (Máx 5)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios genéricas.</p>
-                  <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/&#10;https://www.infobae.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y rss-textarea"></textarea>
+                  <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/&#10;https://www.infobae.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Máx 5)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios con tags de fútbol/deportes.</p>
-                  <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/&#10;https://www.tycsports.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y rss-textarea"></textarea>
+                  <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/&#10;https://www.tycsports.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos (Máx 5)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios musicales.</p>
-                  <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/&#10;https://tn.com.ar/rss/show/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y rss-textarea"></textarea>
+                  <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/&#10;https://tn.com.ar/rss/show/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración RSS</button>
           </form>
@@ -923,17 +927,17 @@
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">Script Head AdSense (Opcional)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pégalo aquí.</p>
-                  <textarea id="adsHead" placeholder='<script async src="https://pagead2.googlesyndication.com/..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono ads-textarea"></textarea>
+                  <textarea id="adsHead" placeholder='<script async src="https://pagead2.googlesyndication.com/..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase text-blue-400">Anuncio 1: Vista de Radio (Responsive)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Aparece dentro del panel de la radio cuando se hace clic en una.</p>
-                  <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono ads-textarea"></textarea>
+                  <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase text-green-400">Anuncio 2: Sidebar Derecho (Cuadrado)</label>
                   <p class="text-[9px] text-zinc-500 mb-2">Aparece arriba del chat de la comunidad.</p>
-                  <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono ads-textarea"></textarea>
+                  <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración de Ads</button>
            </form>
@@ -972,18 +976,18 @@
       <div id="tabThemes" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminThemesForm" class="space-y-4 flex-shrink-0">
              <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
-                 <b>👑 Temas Estilo Remera para Gold: "Filigrana Albiceleste" (Negro/Azul)</b><br>
-                 <span class="text-[9px] text-yellow-500/70">Este código se inyectará cuando el usuario sea nivel Gold.</span>
+                 <b>👑 HTML/CSS Custom para Modo GOLD:</b><br>
+                 <span class="text-[9px] text-yellow-500/70">Puedes incluir etiquetas &lt;style&gt; o divs que quieras renderizar solo para usuarios Gold.</span>
              </div>
-             <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style> o <div>Hola Premium</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono themes-textarea"></textarea>
+             <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style> o <div>Hola Premium</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono"></textarea>
 
              <div class="bg-cyan-500/10 border border-cyan-500/30 p-3 rounded-xl mb-2 text-xs text-cyan-200 mt-4">
-                 <b>💎 Temas Estilo Remera para Diamond: "Herencia de la Diez" (Blanco/Celete/Oro)</b><br>
+                 <b>💎 HTML/CSS Custom para Modo DIAMOND:</b><br>
                  <span class="text-[9px] text-cyan-500/70">Este código se inyectará cuando el usuario sea nivel Diamond.</span>
              </div>
-             <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style> o <div class='neon'>Diamond User</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono themes-textarea"></textarea>
+             <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style> o <div class='neon'>Diamond User</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono"></textarea>
 
-             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Temas Exclusivos</button>
+             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Themes Exclusivos</button>
           </form>
       </div>
 
@@ -994,35 +998,35 @@
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">API Key</label>
-                 <input type="text" id="fbApiKey" placeholder="AIzaSy..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbApiKey" placeholder="AIzaSy..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Auth Domain</label>
-                 <input type="text" id="fbAuthDomain" placeholder="midominio.firebaseapp.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbAuthDomain" placeholder="midominio.firebaseapp.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Database URL</label>
-                 <input type="text" id="fbDatabaseURL" placeholder="https://midominio.firebaseio.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbDatabaseURL" placeholder="https://midominio.firebaseio.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Project ID</label>
-                 <input type="text" id="fbProjectId" placeholder="midominio-proyecto" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbProjectId" placeholder="midominio-proyecto" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Storage Bucket</label>
-                 <input type="text" id="fbStorageBucket" placeholder="midominio.appspot.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbStorageBucket" placeholder="midominio.appspot.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Messaging Sender ID</label>
-                 <input type="text" id="fbMessagingSenderId" placeholder="1234567890" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbMessagingSenderId" placeholder="1234567890" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">App ID</label>
-                 <input type="text" id="fbAppId" placeholder="1:12345:web:abcd" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1 fb-input">
+                 <input type="text" id="fbAppId" placeholder="1:12345:web:abcd" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
              </div>
              
-             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4 fb-submit">Guardar y Recargar Servidor</button>
-             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2 fb-submit">Restaurar Conexión por Defecto</button>
+             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar Servidor</button>
+             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
           </form>
       </div>
 
@@ -1047,10 +1051,10 @@
         </button>
 
         <button id="p-record" class="w-8 h-8 sm:w-10 sm:h-10 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:border-current transition group relative" title="Grabar audio">
-            <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-zinc-500 rounded-full transition-all duration-300 rec-dot" id="rec-dot"></div>
+            <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-zinc-500 rounded-full transition-all duration-300" id="rec-dot"></div>
         </button>
 
-        <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg flex-shrink-0 p-play">
+        <button id="p-play" class="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 active:scale-95 transition shadow-lg flex-shrink-0">
           <svg id="p-icon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </button>
 
@@ -1059,51 +1063,51 @@
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
             </button>
             
-            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg-[#181818] alarm-menu border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
+            <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg-[#181818] border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
                 
                 <div>
                     <div class="flex justify-between items-center mb-3">
-                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest alarm-clock-label">Alarma / Reloj</span>
-                        <div id="alarm-status" class="w-2 h-2 rounded-full bg-zinc-600 transition-colors alarm-status-dot"></div>
+                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Alarma / Reloj</span>
+                        <div id="alarm-status" class="w-2 h-2 rounded-full bg-zinc-600 transition-colors"></div>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] alarm-input-wrapper rounded-xl p-2.5 border border-zinc-800 focus-within:border-blue-500 transition">
+                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-blue-500 transition">
                             <label class="text-[10px] text-zinc-500 font-bold uppercase w-8">ON</label>
-                            <input type="time" id="alarm-on" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current alarm-input-field">
+                            <input type="time" id="alarm-on" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current">
                         </div>
-                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] alarm-input-wrapper rounded-xl p-2.5 border border-zinc-800 focus-within:border-zinc-500 transition">
+                        <div class="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-xl p-2.5 border border-zinc-800 focus-within:border-zinc-500 transition">
                             <label class="text-[10px] text-zinc-500 font-bold uppercase w-8">OFF</label>
-                            <input type="time" id="alarm-off" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current alarm-input-field">
+                            <input type="time" id="alarm-off" class="bg-transparent text-sm outline-none cursor-pointer flex-1 text-right text-current">
                         </div>
                     </div>
                 </div>
 
-                <div class="h-px w-full bg-zinc-800 divider"></div>
+                <div class="h-px w-full bg-zinc-800"></div>
 
                 <div>
                     <div class="flex justify-between items-center mb-3">
-                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1 alarm-clock-label">
+                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> 
                             Modo Relax (Loop 8 Hrs)
                         </span>
                         <button onclick="stopRelax()" class="text-[9px] text-red-400 font-bold uppercase hover:text-red-300 transition-all hidden" id="stop-relax-btn">Detener</button>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="playRelax('rain', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group relax-button-card">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all relax-icon">🌧️</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all relax-label">Lluvia</span>
+                        <button onclick="playRelax('rain', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🌧️</span>
+                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Lluvia</span>
                         </button>
-                        <button onclick="playRelax('thunder', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group relax-button-card">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all relax-icon">⛈️</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all relax-label">Truenos</span>
+                        <button onclick="playRelax('thunder', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">⛈️</span>
+                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Truenos</span>
                         </button>
-                        <button onclick="playRelax('roof', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group relax-button-card">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all relax-icon">🏠</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all relax-label">Tejado</span>
+                        <button onclick="playRelax('roof', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🏠</span>
+                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Tejado</span>
                         </button>
-                        <button onclick="playRelax('fire', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group relax-button-card">
-                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all relax-icon">🔥</span>
-                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all relax-label">Hogar</span>
+                        <button onclick="playRelax('fire', this)" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group">
+                            <span class="text-xl grayscale group-hover:grayscale-0 transition-all">🔥</span>
+                            <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Hogar</span>
                         </button>
                     </div>
                 </div>
@@ -1117,37 +1121,37 @@
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
           </button>
           
-          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] eq-menu border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[250px] z-50">
+          <div id="eq-menu" class="hidden absolute bottom-16 right-[-10px] sm:right-0 bg-[#181818] border border-zinc-800 p-[18px] rounded-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col w-[250px] z-50">
               <div class="flex justify-between items-center mb-[15px]">
-                  <span id="eq-title" class="text-[11px] font-extrabold text-[#888] eq-label uppercase tracking-[1px] flex items-center">Master EQ 3-Band</span>
-                  <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 eq-reset-btn hover:text-current transition uppercase">Reset</button>
+                  <span id="eq-title" class="text-[11px] font-extrabold text-[#888] uppercase tracking-[1px] flex items-center">Master EQ 3-Band</span>
+                  <button onclick="resetEQ()" class="text-[9px] font-bold text-zinc-500 hover:text-current transition uppercase">Reset</button>
               </div>
               <div class="flex flex-col gap-3">
-                  <div id="band-60" class="hidden items-center gap-[10px] eq-band-wrapper">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] eq-band-label uppercase w-[45px] text-left">60Hz</span>
-                      <input type="range" id="eq-60" min="-12" max="12" step="1" value="0" class="eq-slider flex-1 eq-input-range" oninput="updateEQ('60', this.value)">
+                  <div id="band-60" class="hidden items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">60Hz</span>
+                      <input type="range" id="eq-60" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('60', this.value)">
                   </div>
-                  <div id="band-230" class="flex items-center gap-[10px] eq-band-wrapper">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] eq-band-label uppercase w-[45px] text-left">230Hz</span>
-                      <input type="range" id="eq-230" min="-12" max="12" step="1" value="0" class="eq-slider flex-1 eq-input-range" oninput="updateEQ('230', this.value)">
+                  <div id="band-230" class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">230Hz</span>
+                      <input type="range" id="eq-230" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('230', this.value)">
                   </div>
-                  <div id="band-910" class="flex items-center gap-[10px] eq-band-wrapper">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] eq-band-label uppercase w-[45px] text-left">910Hz</span>
-                      <input type="range" id="eq-910" min="-12" max="12" step="1" value="0" class="eq-slider flex-1 eq-input-range" oninput="updateEQ('910', this.value)">
+                  <div id="band-910" class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">910Hz</span>
+                      <input type="range" id="eq-910" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('910', this.value)">
                   </div>
-                  <div id="band-3600" class="flex items-center gap-[10px] eq-band-wrapper">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] eq-band-label uppercase w-[45px] text-left">3.6kHz</span>
-                      <input type="range" id="eq-3600" min="-12" max="12" step="1" value="0" class="eq-slider flex-1 eq-input-range" oninput="updateEQ('3600', this.value)">
+                  <div id="band-3600" class="flex items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">3.6kHz</span>
+                      <input type="range" id="eq-3600" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('3600', this.value)">
                   </div>
-                  <div id="band-14000" class="hidden items-center gap-[10px] eq-band-wrapper">
-                      <span class="text-[9px] font-extrabold text-[#b3b3b3] eq-band-label uppercase w-[45px] text-left">14kHz</span>
-                      <input type="range" id="eq-14000" min="-12" max="12" step="1" value="0" class="eq-slider flex-1 eq-input-range" oninput="updateEQ('14000', this.value)">
+                  <div id="band-14000" class="hidden items-center gap-[10px]">
+                      <span class="text-[9px] font-extrabold text-[#b3b3b3] uppercase w-[45px] text-left">14kHz</span>
+                      <input type="range" id="eq-14000" min="-12" max="12" step="1" value="0" class="eq-slider flex-1" oninput="updateEQ('14000', this.value)">
                   </div>
               </div>
           </div>
       </div>
 
-      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 md:w-24 accent-white p-vol-slider">
+      <input type="range" id="p-vol" min="0" max="1" step="0.05" value="0.8" class="w-16 md:w-24 accent-white">
     </div>
   </footer>
 
@@ -1222,15 +1226,13 @@
         }
     };
 
-    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND (LOS 5 TEMAS + 1 REMERA) ---
+    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND (LOS 5 TEMAS) ---
     let diamondThemeIndex = 0;
-    // Agregamos 'remera-diamond' al final para que entre en el ciclo
-    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-diamond'];
+    const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal'];
     
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
-        // Quitamos todos los temas, incluido el de remera
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-diamond');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
         diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
         const newTheme = diamondThemes[diamondThemeIndex];
         if (newTheme) {
@@ -1261,7 +1263,7 @@
         window.cerrarModalPago();
     };
 
-    // --- NUEVOS USUARIOS DEMO (GOLD Y DIAMOND CON TEMAS DE REMERA) ---
+    // --- NUEVOS USUARIOS DEMO (GOLD Y DIAMOND) ---
     window.loginDemoPro = () => {
         const mockUser = {
             displayName: "Usuario Demo GOLD",
@@ -1294,16 +1296,14 @@
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-        // Quitamos temas originales y ponemos el de remera
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-diamond');
-        document.body.classList.add('remera-gold');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
         
         window.currentPremiumStatus = 'gold';
         window.hideKaraoke(); 
         window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("¡Has ingresado al modo Demo GOLD! Disfruta del diseño exclusivo 'Filigrana Albiceleste'.");
+        alert("Has ingresado al modo Demo GOLD de forma gratuita.");
         window.cerrarSesion = () => { window.location.reload(); };
     };
 
@@ -1340,16 +1340,12 @@
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
         
-        // Quitamos temas originales y ponemos el de remera
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-gold');
-        document.body.classList.add('remera-diamond');
-        
         window.currentPremiumStatus = 'diamond';
         window.showKaraoke(); 
         window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
 
-        alert("💎 ¡Has ingresado al modo Demo DIAMOND! Disfruta del diseño exclusivo 'Herencia de la Diez'. ¡Prueba el Ecualizador de 5 bandas, el Karaoke y los 6 Temas Épicos!");
+        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Ecualizador de 5 bandas, el Karaoke y los 5 Temas Épicos!");
         window.cerrarSesion = () => { window.location.reload(); };
     };
     
@@ -1839,7 +1835,7 @@
         
         // --- NUEVO BOTÓN DE APOYANOS ---
         const supportBtn = document.createElement('button');
-        supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase tracking-wide transition-colors shadow-sm flex items-center gap-1 ml-1 support-button-card';
+        supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase tracking-wide transition-colors shadow-sm flex items-center gap-1 ml-1';
         supportBtn.innerHTML = '☕ Apóyanos';
         supportBtn.onclick = () => {
             const alias = window.globalDonationAlias || "radio.alias.mp";
@@ -2179,8 +2175,8 @@
         const btnP = document.getElementById('tabBtnPayments');
         const btnTh = document.getElementById('tabBtnThemes');
 
-        const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md tab-button-active";
-        const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all tab-button-inactive";
+        const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
+        const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
         tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden'); tabTen.classList.add('hidden');
         if(tabU) tabU.classList.add('hidden');
@@ -2226,7 +2222,7 @@
 
       document.getElementById('p-name').innerText = r.name;
       document.getElementById('p-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
-      pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse connecting-dot"; pStat.innerText = "Conectando...";
+      pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
       
       audio.src = r.url_resolved || r.url;
       audio.play().then(() => updateMediaSession(r)).catch(err => { pStat.innerText = "Error"; });
@@ -2242,23 +2238,23 @@
         
         const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
-        div.className = "r-card radio-card";
+        div.className = "r-card";
         div.innerHTML = `
           <div class="card-actions">
             <button class="action-btn" onclick="shareRadio(event, '${primaryId}')" title="Compartir radio">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
             </button>
-            <button class="action-btn ${isFav ? 'is-fav' : ''} fav-btn" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
+            <button class="action-btn ${isFav ? 'is-fav' : ''}" onclick="toggleF(event, '${primaryId}', '${r.stationuuid || ''}', '${r.fb_key || ''}')" title="Agregar a Favoritos">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
-            <button class="action-btn ${isBoosted ? 'is-fav' : ''} boost-btn" onclick="boostTrend(event, '${primaryId}')" title="Dar fueguito (Tendencias)">
+            <button class="action-btn ${isBoosted ? 'is-fav' : ''}" onclick="boostTrend(event, '${primaryId}')" title="Dar fueguito (Tendencias)">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 23a7.5 7.5 0 0 0 7.5-7.5c0-3.32-2.14-6.19-5.12-7.14a.75.75 0 0 0-.96.91c.71 2.37-.1 4.51-1.87 5.76a.75.75 0 0 1-1.15-.8v-9.5a.75.75 0 0 0-1.42-.33c-2.4 4.88-2.67 9.87-.28 13.91a.75.75 0 0 1-1.07.95 6.51 6.51 0 0 1-2.03-3.03.75.75 0 0 0-1.41.35 9 9 0 0 0 15 6.42z"/></svg>
             </button>
           </div>
           <div onclick="play('${primaryId}')">
             <img loading="lazy" src="${safeFavicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-            <div class="font-bold text-sm truncate radio-card-name">${r.name}</div>
-            <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1 radio-card-state">${r.state || 'Radio Live'}</div>
+            <div class="font-bold text-sm truncate">${r.name}</div>
+            <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
           </div>`;
         container.appendChild(div);
       });
@@ -2308,7 +2304,7 @@
     async function init() {
       if (localStorage.getItem('RAR_THEME') === 'light') toggleTheme();
       PROVS.forEach(p => {
-        const b = document.createElement('button'); b.className = "w-full text-left p-3 text-zinc-400 hover:text-current hover:bg-zinc-900 rounded-xl text-sm font-semibold transition prov-sidebar-btn";
+        const b = document.createElement('button'); b.className = "w-full text-left p-3 text-zinc-400 hover:text-current hover:bg-zinc-900 rounded-xl text-sm font-semibold transition";
         b.innerText = p; b.onclick = () => filterP(p); document.getElementById('sideProvs').appendChild(b);
         const bM = document.createElement('button'); bM.className = "pill"; bM.innerText = p; bM.onclick = () => filterP(p); document.getElementById('mobProvs').appendChild(bM);
       });
@@ -2352,8 +2348,8 @@
     function setupControls() {
       document.getElementById('p-play').onclick = () => { if(!relaxAudio.paused) { stopRelax(); return; } if(!eqInitialized && currentStation) initEQ(); audio.paused ? audio.play() : audio.pause(); };
       document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
-      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954] connecting-dot"; pStat.innerText = "EN VIVO"; };
-      audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600 connecting-dot"; pStat.innerText = "PAUSADO"; };
+      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
+      audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
         closeRadioView();
         const term = e.target.value.toLowerCase(); 
@@ -2452,7 +2448,7 @@
     let sessionUnsubscribe = null;
     let globalThemesConfig = { gold: '', diamond: '' };
 
-    // --- REAPLICAR THEMES CUSTOM (PARA MODO REMERA) ---
+    // --- REAPLICAR THEMES CUSTOM ---
     window.reapplyUserTheme = function() {
         const container = document.getElementById('custom-premium-html-container');
         if(!container) return;
@@ -2478,7 +2474,6 @@
         const data = snapshot.val();
         if(data) {
             globalThemesConfig = data;
-            // Pre-populamos los textareas en el panel admin para comodidad
             if(document.getElementById('htmlGold')) document.getElementById('htmlGold').value = data.gold || '';
             if(document.getElementById('htmlDiamond')) document.getElementById('htmlDiamond').value = data.diamond || '';
             window.reapplyUserTheme();
@@ -2570,7 +2565,7 @@
             if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
             if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
 
-            // Revisar si es PRO (GOLD) o DIAMOND y aplicar temas de remera
+            // Revisar si es PRO (GOLD) o DIAMOND
             onValue(ref(db, `users/${user.uid}`), (snapshot) => {
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
@@ -2582,9 +2577,6 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
-                    // Ponemos el de remera por defecto, pero permitimos ciclo
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-gold');
-                    document.body.classList.add('remera-diamond');
                 } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
                     window.hideKaraoke(); // OCULTA KARAOKE
@@ -2594,9 +2586,7 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-diamond');
-                    // Ponemos el de remera gold por defecto
-                    document.body.classList.add('remera-gold');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 } else {
                     window.currentPremiumStatus = 'free';
                     window.hideKaraoke(); // OCULTA KARAOKE
@@ -2606,7 +2596,7 @@
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-gold', 'remera-diamond');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 }
                 window.reapplyUserTheme();
             });
@@ -2626,7 +2616,7 @@
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
             if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'remera-gold', 'remera-diamond');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
             
             window.currentPremiumStatus = 'free';
             window.hideKaraoke(); 
