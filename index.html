@@ -96,7 +96,6 @@
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
     /* --- TEMAS REMERA EXCLUSIVOS --- */
-    /* Tema Gold: Filigrana Albiceleste (Negra con patrón azul) */
     body.remera-gold { background: #000; color: #74ACDF; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
     body.remera-gold .main-view { background: radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.4) 0%, rgba(0,0,0,0) 50%), radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.4) 0%, rgba(0,0,0,0) 50%), radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.2) 0%, rgba(0,0,0,0) 80%); }
     body.remera-gold .logo-text, body.remera-gold .viewLabel { color: #F6B40E; text-shadow: 0 2px 10px rgba(246, 180, 14, 0.5); }
@@ -111,7 +110,6 @@
     body.remera-gold .chat-msg .bg-zinc-900 { background-color: rgba(0,0,0,0.8) !important; color: #fff !important; border-color: #111 !important; }
     body.remera-gold .eq-icon .eq-bar:nth-child(1), body.remera-gold .eq-icon .eq-bar:nth-child(3) { background-color: #F6B40E; }
 
-    /* Tema Diamond: Herencia de la Diez (Blanca y Celeste con detalles dorados) */
     body.remera-diamond { background: #f0f9ff; color: #1e3a8a; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
     body.remera-diamond .main-view { background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%); position: relative; }
     body.remera-diamond .sidebar, body.remera-diamond .chat-sidebar, body.remera-diamond .mobile-header, body.remera-diamond .prov-nav-wrapper { background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(240,249,255,0.95) 100%); border-color: #74ACDF; backdrop-filter: blur(15px); }
@@ -140,9 +138,7 @@
     body.remera-diamond .chat-sidebar { border-left-color: #74ACDF; }
     @keyframes pulseDiamond { 0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(240, 147, 251, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); } }
 
-    /* 5 EN TOTAL (THEMES DIAMOND ORIGINALES) */
-    
-    /* 1. THEME: CYBERPUNK - ENHANCED (PRO ÉPICO) */
+    /* THEMES CYBERPUNK/ESPACIAL/SYNTH/AURORA/CRYSTAL ... (mantienen igual) */
     body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #090909; color: #00ffcc; text-shadow: 0 0 2px rgba(0,255,204,0.3); }
     body.theme-cyberpunk .main-view { background: radial-gradient(circle at 50% 0%, #1a0033 0%, #050505 80%); }
     body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,5,0.95); border-color: #ff003c; backdrop-filter: blur(12px); box-shadow: 0 0 10px rgba(255,0,60,0.2); }
@@ -161,7 +157,6 @@
     body.theme-cyberpunk .btn-zapping:hover { box-shadow: 0 0 25px rgba(0, 255, 204, 0.7); transform: scale(1.05) skewX(-4deg); filter: brightness(1.1); cursor: pointer; }
     body.theme-cyberpunk .btn-zapping:active { transform: scale(0.95); }
 
-    /* 2. THEME: ESPACIAL */
     body.theme-espacial { font-family: 'Plus Jakarta Sans', sans-serif; background: #020308; color: #e2e8f0; }
     body.theme-espacial .main-view { background: radial-gradient(circle at 50% 50%, #0d0b21 0%, #020308 100%); position: relative; }
     body.theme-espacial .main-view::after { content:""; position: fixed; top:0; left:0; right:0; bottom:0; background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 60px 60px, 120px 120px; background-position: 0 0, 30px 30px; opacity: 0.2; pointer-events: none; z-index: 0; animation: starDrift 150s linear infinite, starTwinkle 4s ease-in-out infinite; }
@@ -179,7 +174,6 @@
     body.theme-espacial .epic-logo { color: #fff; text-shadow: 0 0 10px #6366f1, 0 0 25px #d946ef, 0 0 50px rgba(217, 70, 239, 0.5); font-weight: 900; }
     body.theme-espacial .search-input:focus { border-color: #d946ef; background: rgba(15, 23, 42, 0.8); box-shadow: 0 0 20px rgba(217, 70, 239, 0.4); }
 
-    /* 3. THEME: SYNTHWAVE - ENHANCED */
     body.theme-synthwave { font-family: 'Rajdhani', sans-serif; background: #090014; color: #00ffff; }
     body.theme-synthwave .main-view { background: linear-gradient(180deg, #2b0057 0%, #090014 60%, #17002b 100%); position: relative; }
     body.theme-synthwave .main-view::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,0,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,255,0.1) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; opacity: 0.3; transform: scaleY(1.5) perspective(500px) rotateX(45deg); transform-origin: bottom; }
@@ -196,7 +190,6 @@
     body.theme-synthwave .btn-zapping { background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #000; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); border: none; text-shadow: none; font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 1px;}
     body.theme-synthwave .btn-zapping:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); transform: translateY(-2px); filter: brightness(1.2); }
 
-    /* 4. THEME: AURORA BOREALIS */
     body.theme-aurora { font-family: 'Plus Jakarta Sans', sans-serif; background: #010a08; color: #a7f3d0; }
     body.theme-aurora .main-view { background: linear-gradient(135deg, #010a08 0%, #064e3b 50%, #010a08 100%); }
     body.theme-aurora .sidebar, body.theme-aurora .chat-sidebar, body.theme-aurora .mobile-header, body.theme-aurora .prov-nav-wrapper { background: rgba(1,10,8,0.9); border-color: #10b981; backdrop-filter: blur(12px); box-shadow: 0 0 15px rgba(16,185,129,0.2); }
@@ -210,7 +203,6 @@
     body.theme-aurora .search-input:focus { border-color: #10b981; box-shadow: 0 0 10px rgba(16,185,129,0.3); }
     body.theme-aurora .btn-zapping { background: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%); color: #fff; box-shadow: 0 0 20px rgba(16,185,129,0.5); border: none; font-weight: 900; }
 
-    /* 5. THEME: MIDNIGHT CRYSTAL */
     body.theme-crystal { font-family: 'Plus Jakarta Sans', sans-serif; background: #000000; color: #ffffff; }
     body.theme-crystal .main-view { background: radial-gradient(circle at 50% 50%, #111 0%, #000 80%); }
     body.theme-crystal .sidebar, body.theme-crystal .chat-sidebar, body.theme-crystal .mobile-header, body.theme-crystal .prov-nav-wrapper { background: rgba(5,5,5,0.95); border-color: #333; backdrop-filter: blur(20px); }
@@ -223,6 +215,51 @@
     body.theme-crystal .epic-logo { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
     body.theme-crystal .search-input:focus { border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
     body.theme-crystal .btn-zapping { background: linear-gradient(135deg, #444 0%, #000 100%); border: 1px solid #555; color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.1); font-weight: 900; }
+
+    /* --- ESTILOS DE LA TARJETA ÉPICA DE PUBLICIDAD (INVERSE) --- */
+    .ad-promo-card {
+        background: #ffffff;
+        color: #000000;
+        border: 2px dashed #ffffff;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        min-width: 160px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    .ad-promo-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        border-style: solid;
+    }
+    body.light-mode .ad-promo-card {
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    body.light-mode .ad-promo-card:hover {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    }
+    
+    .ad-promo-icon {
+        font-size: 42px;
+        margin-bottom: 10px;
+        animation: pulseAdIcon 2s infinite ease-in-out;
+    }
+    @keyframes pulseAdIcon {
+        0% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 5px currentColor); }
+        50% { transform: scale(1.15) translateY(-5px); filter: drop-shadow(0 0 15px currentColor); }
+        100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 5px currentColor); }
+    }
 
 
     /* --- ANIMACIÓN BARRAS DE SONIDO --- */
@@ -305,7 +342,7 @@
     .is-fav { color: var(--sp-green) !important; opacity: 1 !important; transform: scale(1.1); background: rgba(0, 36, 255, 0.15) !important; box-shadow: 0 0 10px rgba(0, 36, 255, 0.3); }
     .is-fav:hover { background: var(--sp-green) !important; color: white !important; }
 
-    /* PLAYER BAR - MOBILE ORGANIZED */
+    /* PLAYER BAR */
     .player-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 90px; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; z-index: 2000; transition: background 0.3s ease, border-color 0.3s ease; }
 
     .pill { padding: 6px 14px; border-radius: 20px; background: #1a1a1a; font-size: 11px; font-weight: 700; color: #b3b3b3; border: 1px solid #333; white-space: nowrap; cursor: pointer; transition: 0.2s; }
@@ -671,17 +708,38 @@
            <button onclick="handleHomeTap(); closeWorldRadios()" class="r-card flex flex-col items-center justify-center p-6 gap-3">
               <span class="text-4xl">🇦🇷</span> <span class="font-bold text-sm">Argentina</span>
            </button>
-           <a href="https://URL-DE-TU-WEB-BRASIL.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+           <a href="#" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
               <span class="text-4xl">🇧🇷</span> <span class="font-bold text-sm">Brasil</span>
            </a>
-           <a href="https://URL-DE-TU-WEB-MEXICO.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+           <a href="#" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
               <span class="text-4xl">🇲🇽</span> <span class="font-bold text-sm">México</span>
            </a>
-           <a href="https://URL-DE-TU-WEB-USA.com" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
+           <a href="#" target="_blank" class="r-card flex flex-col items-center justify-center p-6 gap-3">
               <span class="text-4xl">🇺🇸</span> <span class="font-bold text-sm">EE.UU.</span>
            </a>
         </div>
      </div>
+  </div>
+
+  <div id="adContactModal" class="hidden fixed inset-0 z-[6000] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="adContactModalContent">
+          <div class="p-5 border-b border-zinc-800 flex justify-between items-center bg-[#0a0a0a]">
+              <h3 class="text-xl font-black text-white tracking-tighter">Destaca tu Emisora 🚀</h3>
+              <button onclick="closeAdContactModal()" class="text-zinc-500 hover:text-white transition">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+          </div>
+          <div class="p-6 text-white">
+              <p class="text-xs text-zinc-400 mb-4 font-medium">Aparecé en el Top 10, Tendencias y primera plana. Dejanos tus datos y nos comunicamos a la brevedad.</p>
+              <form id="adContactForm" class="space-y-4">
+                  <input type="text" id="adContactName" placeholder="Tu Nombre / Contacto" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-white transition-all" required>
+                  <input type="text" id="adContactRadio" placeholder="Nombre de tu Radio" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-white transition-all" required>
+                  <input type="email" id="adContactEmail" placeholder="Tu Correo Electrónico" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-white transition-all" required>
+                  <textarea id="adContactMsg" placeholder="Mensaje adicional..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm outline-none focus:border-white min-h-[80px] resize-none transition-all"></textarea>
+                  <button type="submit" class="w-full bg-white text-black font-black py-3 rounded-xl transition hover:bg-zinc-200 uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(255,255,255,0.4)]">Enviar Solicitud</button>
+              </form>
+          </div>
+      </div>
   </div>
 
   <div id="paymentModal" class="hidden fixed inset-0 z-[4000] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
@@ -756,6 +814,7 @@
       </div>
       
       <div class="flex gap-2 mb-4 flex-shrink-0 bg-zinc-800/50 p-2 rounded-xl overflow-x-auto no-scrollbar">
+          <button onclick="switchAdminTab('adRequests')" id="tabBtnAdRequests" class="flex-shrink-0 flex-1 text-green-400 hover:text-green-300 rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-green-500/30 bg-green-500/10">📬 Solicitudes</button>
           <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">👥 Users</button>
           <button onclick="switchAdminTab('radios')" id="tabBtnRadios" class="flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md">📻 Radios</button>
           <button onclick="switchAdminTab('top10')" id="tabBtnTop10" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🏆 Top 10</button>
@@ -766,6 +825,15 @@
           <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">💳 Pagos</button>
           <button onclick="switchAdminTab('themes')" id="tabBtnThemes" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🎨 Themes</button>
           <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
+      </div>
+
+      <div id="tabAdRequests" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <div class="flex justify-between items-center mb-4 flex-shrink-0 border-b border-zinc-800 pb-2">
+              <h4 class="text-xs font-bold text-green-500 uppercase tracking-widest">Bandeja de Solicitudes (Publicidad)</h4>
+              <span id="adReqCount" class="bg-green-600 text-black text-[10px] font-bold px-2 py-1 rounded-full">0</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-4">Aquí llegan los mensajes de los directores que clickean la tarjeta de publicidad inicial en las grillas.</p>
+          <div id="adminAdRequestsList" class="space-y-3 flex-shrink-0"></div>
       </div>
 
       <div id="tabUsers" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
@@ -781,9 +849,7 @@
             <input type="url" id="mUrl" placeholder="URL Streaming (mp3/aac)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500" required>
             <input type="url" id="mLogo" placeholder="URL Logo (Favicon)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             <input type="url" id="mWebsite" placeholder="Sitio Web Oficial (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-            
-            <textarea id="mDescription" placeholder="Descripción Personalizada (Ej: Provincia/Estado: Buenos Aires. Disfrutá de la mejor transmisión...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[80px]"></textarea>
-            
+            <textarea id="mDescription" placeholder="Descripción Personalizada" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500 resize-none min-h-[80px]"></textarea>
             <input type="text" id="mMetaInfo" placeholder="Meta info SEO / Keywords (Opcional)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             
             <div class="flex flex-col gap-2">
@@ -826,9 +892,7 @@
                 </div>
                 <input type="text" id="mCategoriaCustom" placeholder="Ej: noticias, cumbia, pop..." class="hidden w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             </div>
-
             <input type="text" id="mTags" placeholder="Tags adicionales (rock, 24hrs, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
-            
             <div class="flex gap-2">
                 <button type="submit" id="submitRadioBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Subir Radio</button>
                 <button type="button" id="cancelRadioBtn" onclick="cancelRadioEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
@@ -903,18 +967,15 @@
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS General / Noticias (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios genéricas.</p>
-                  <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/&#10;https://www.infobae.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
+                  <textarea id="rssGeneral" placeholder="https://www.clarin.com/rss/lo-ultimo/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS Deportes (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios con tags de fútbol/deportes.</p>
-                  <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/&#10;https://www.tycsports.com/rss/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
+                  <textarea id="rssSport" placeholder="https://www.ole.com.ar/rss/ultimas-noticias/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
                   <label class="text-xs font-bold text-zinc-400 uppercase">RSS Música / Espectáculos (Máx 5)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Carga una URL por línea. Para radios musicales.</p>
-                  <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/&#10;https://tn.com.ar/rss/show/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
+                  <textarea id="rssMusic" placeholder="https://www.clarin.com/rss/espectaculos/" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mt-1 min-h-[100px] resize-y"></textarea>
               </div>
               <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración RSS</button>
           </form>
@@ -924,18 +985,15 @@
            <form id="adminAdsForm" class="space-y-4 flex-shrink-0">
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">Script Head AdSense (Opcional)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Si Google AdSense te dio un script general, pégalo aquí.</p>
-                  <textarea id="adsHead" placeholder='<script async src="https://pagead2.googlesyndication.com/..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono"></textarea>
+                  <textarea id="adsHead" placeholder='<script async src="..."></script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[80px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase text-blue-400">Anuncio 1: Vista de Radio (Responsive)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Aparece dentro del panel de la radio cuando se hace clic en una.</p>
-                  <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono"></textarea>
+                  <label class="text-xs font-bold text-zinc-400 uppercase text-blue-400">Anuncio 1: Vista de Radio</label>
+                  <textarea id="adsRadio" placeholder='<ins class="adsbygoogle" ...></ins>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <div class="border-t border-zinc-800 pt-4">
-                  <label class="text-xs font-bold text-zinc-400 uppercase text-green-400">Anuncio 2: Sidebar Derecho (Cuadrado)</label>
-                  <p class="text-[9px] text-zinc-500 mb-2">Aparece arriba del chat de la comunidad.</p>
-                  <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>\n<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
+                  <label class="text-xs font-bold text-zinc-400 uppercase text-green-400">Anuncio 2: Sidebar</label>
+                  <textarea id="adsSidebar" placeholder='<ins class="adsbygoogle" ...></ins>' class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-green-500 resize-none min-h-[120px] font-mono"></textarea>
               </div>
               <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Configuración de Ads</button>
            </form>
@@ -944,46 +1002,37 @@
       <div id="tabPayments" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminPaymentsForm" class="space-y-4 flex-shrink-0">
               <div class="bg-blue-500/10 border border-blue-500/30 p-3 rounded-xl mb-2 text-xs text-blue-200">
-                  <b>ℹ️ Entorno de Pagos:</b> Guarda aquí las credenciales para la integración SDK/Checkout. El frontend UI ya está listo para invocarlas.
+                  <b>ℹ️ Entorno de Pagos:</b> Guarda aquí las credenciales para la integración SDK/Checkout.
               </div>
               <div class="border-b border-zinc-800 pb-4">
-                  <label class="text-xs font-bold text-blue-400 uppercase flex items-center gap-2 mb-2">
-                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> MercadoPago
-                  </label>
-                  <input type="text" id="mpPublicKey" placeholder="Public Key (APP_USR-...)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mb-2">
+                  <label class="text-xs font-bold text-blue-400 uppercase flex items-center gap-2 mb-2"> MercadoPago </label>
+                  <input type="text" id="mpPublicKey" placeholder="Public Key" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500 mb-2">
                   <input type="password" id="mpAccessToken" placeholder="Access Token" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-500">
               </div>
               <div class="pt-2">
-                  <label class="text-xs font-bold text-blue-600 uppercase flex items-center gap-2 mb-2">
-                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> PayPal
-                  </label>
+                  <label class="text-xs font-bold text-blue-600 uppercase flex items-center gap-2 mb-2"> PayPal </label>
                   <input type="text" id="paypalClientId" placeholder="Client ID" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600 mb-2">
                   <input type="password" id="paypalSecret" placeholder="Secret Key" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-blue-600">
               </div>
-              
               <div class="pt-4 border-t border-zinc-800 mt-4">
-                  <label class="text-xs font-bold text-yellow-500 uppercase flex items-center gap-2 mb-2">
-                      ☕ Apóyanos (Alias)
-                  </label>
-                  <input type="text" id="donationAlias" placeholder="Tu Alias o link de donación acá..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500">
+                  <label class="text-xs font-bold text-yellow-500 uppercase flex items-center gap-2 mb-2"> ☕ Apóyanos (Alias) </label>
+                  <input type="text" id="donationAlias" placeholder="Tu Alias acá..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500">
               </div>
-              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales de Pago</button>
+              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Credenciales</button>
           </form>
       </div>
 
       <div id="tabThemes" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminThemesForm" class="space-y-4 flex-shrink-0">
              <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
-                 <b>👑 HTML/CSS Custom para Modo GOLD:</b><br>
-                 <span class="text-[9px] text-yellow-500/70">Puedes incluir etiquetas &lt;style&gt; o divs que quieras renderizar solo para usuarios Gold.</span>
+                 <b>👑 HTML/CSS Custom GOLD</b>
              </div>
-             <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style> o <div>Hola Premium</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono"></textarea>
+             <textarea id="htmlGold" placeholder="<style> body { background: #111; } </style>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 resize-none min-h-[150px] font-mono"></textarea>
 
              <div class="bg-cyan-500/10 border border-cyan-500/30 p-3 rounded-xl mb-2 text-xs text-cyan-200 mt-4">
-                 <b>💎 HTML/CSS Custom para Modo DIAMOND:</b><br>
-                 <span class="text-[9px] text-cyan-500/70">Este código se inyectará cuando el usuario sea nivel Diamond.</span>
+                 <b>💎 HTML/CSS Custom DIAMOND</b>
              </div>
-             <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style> o <div class='neon'>Diamond User</div>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono"></textarea>
+             <textarea id="htmlDiamond" placeholder="<style> body { background: #000; } </style>" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500 resize-none min-h-[150px] font-mono"></textarea>
 
              <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Themes Exclusivos</button>
           </form>
@@ -992,39 +1041,38 @@
       <div id="tabFirebase" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminFirebaseForm" class="space-y-4 flex-shrink-0">
              <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl mb-2 text-xs text-red-200">
-                 <b>⚠️ Zona de Riesgo:</b> Aquí puedes reemplazar la base de datos por defecto con tus propias credenciales de Firebase. Al guardar se recargará la página.
+                 <b>⚠️ Zona de Riesgo:</b> Reemplazar la base de datos por defecto.
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">API Key</label>
-                 <input type="text" id="fbApiKey" placeholder="AIzaSy..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbApiKey" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Auth Domain</label>
-                 <input type="text" id="fbAuthDomain" placeholder="midominio.firebaseapp.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbAuthDomain" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Database URL</label>
-                 <input type="text" id="fbDatabaseURL" placeholder="https://midominio.firebaseio.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbDatabaseURL" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Project ID</label>
-                 <input type="text" id="fbProjectId" placeholder="midominio-proyecto" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbProjectId" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Storage Bucket</label>
-                 <input type="text" id="fbStorageBucket" placeholder="midominio.appspot.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbStorageBucket" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">Messaging Sender ID</label>
-                 <input type="text" id="fbMessagingSenderId" placeholder="1234567890" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbMessagingSenderId" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
              <div>
                  <label class="text-[10px] font-bold text-zinc-500 uppercase">App ID</label>
-                 <input type="text" id="fbAppId" placeholder="1:12345:web:abcd" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-red-500 mt-1">
+                 <input type="text" id="fbAppId" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-xs text-white mt-1">
              </div>
-             
-             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar Servidor</button>
-             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Conexión por Defecto</button>
+             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar y Recargar</button>
+             <button type="button" onclick="resetFirebase()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl transition-all text-sm mt-2">Restaurar Default</button>
           </form>
       </div>
 
@@ -1062,7 +1110,6 @@
             </button>
             
             <div id="alarm-menu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 bg-[#181818] border border-zinc-800 p-5 rounded-[20px] shadow-2xl flex flex-col gap-4 w-[280px] z-50">
-                
                 <div>
                     <div class="flex justify-between items-center mb-3">
                         <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Alarma / Reloj</span>
@@ -1086,7 +1133,7 @@
                     <div class="flex justify-between items-center mb-3">
                         <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> 
-                            Modo Relax (Loop 8 Hrs)
+                            Modo Relax (Loop)
                         </span>
                         <button onclick="stopRelax()" class="text-[9px] text-red-400 font-bold uppercase hover:text-red-300 transition-all hidden" id="stop-relax-btn">Detener</button>
                     </div>
@@ -1183,7 +1230,7 @@
     window.firebaseCategorias = [];
     
     // VARIABLES PARA TEMAS (HTML CUSTOM)
-    window.currentPremiumStatus = 'free'; // 'free', 'gold', 'diamond'
+    window.currentPremiumStatus = 'free';
 
     // --- FUNCIONES UTILIDAD KARAOKE ---
     window.showKaraoke = function() {
@@ -1213,335 +1260,201 @@
             band14000.classList.add(isDiamond ? 'flex' : 'hidden');
         }
 
-        // Si se quita el Diamond, resetear las bandas exclusivas
         if (!isDiamond) {
             document.getElementById('eq-60').value = 0;
             document.getElementById('eq-14000').value = 0;
-            if(eqInitialized) {
-                updateEQ('60', 0);
-                updateEQ('14000', 0);
-            }
+            if(eqInitialized) { updateEQ('60', 0); updateEQ('14000', 0); }
         }
     };
 
-    // --- LÓGICA DE TEMAS ÉPICOS DIAMOND (LOS 5 TEMAS) ---
     let diamondThemeIndex = 0;
     const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal'];
-    
     window.cycleDiamondTheme = function() {
         if (window.currentPremiumStatus !== 'diamond') return;
         document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
         diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
         const newTheme = diamondThemes[diamondThemeIndex];
-        if (newTheme) {
-            document.body.classList.add(newTheme);
-        }
+        if (newTheme) document.body.classList.add(newTheme);
     };
     
-    // --- NUEVO MANEJO DE MODAL DE PAGOS ---
     window.mostrarModalPago = function() {
         const modal = document.getElementById('paymentModal');
         const content = document.getElementById('paymentModalContent');
-        modal.classList.remove('hidden');
-        void modal.offsetWidth; 
-        modal.classList.remove('opacity-0');
-        content.classList.remove('scale-95');
+        modal.classList.remove('hidden'); void modal.offsetWidth; 
+        modal.classList.remove('opacity-0'); content.classList.remove('scale-95');
     };
-
     window.cerrarModalPago = function() {
         const modal = document.getElementById('paymentModal');
         const content = document.getElementById('paymentModalContent');
-        modal.classList.add('opacity-0');
-        content.classList.add('scale-95');
+        modal.classList.add('opacity-0'); content.classList.add('scale-95');
         setTimeout(() => modal.classList.add('hidden'), 300);
     };
-
     window.procesarPago = function(gateway, plan) {
-        alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}.\n\n(En un sistema en producción, esto te redigiría a la ventana de cobro).`);
+        alert(`Iniciando conexión con ${gateway.toUpperCase()}...\nSeleccionaste el plan: ${plan.toUpperCase()}`);
         window.cerrarModalPago();
     };
 
-    // --- NUEVOS USUARIOS DEMO (GOLD Y DIAMOND) ---
+    window.openAdContactModal = function() {
+        const modal = document.getElementById('adContactModal');
+        const content = document.getElementById('adContactModalContent');
+        modal.classList.remove('hidden'); void modal.offsetWidth;
+        modal.classList.remove('opacity-0'); content.classList.remove('scale-95');
+    };
+    window.closeAdContactModal = function() {
+        const modal = document.getElementById('adContactModal');
+        const content = document.getElementById('adContactModalContent');
+        modal.classList.add('opacity-0'); content.classList.add('scale-95');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    };
+
     window.loginDemoPro = () => {
-        const mockUser = {
-            displayName: "Usuario Demo GOLD",
-            photoURL: "https://ui-avatars.com/api/?name=Gold&background=F6B40E&color=fff",
-        };
-        
+        const mockUser = { displayName: "Usuario Demo GOLD", photoURL: "https://ui-avatars.com/api/?name=Gold&background=F6B40E&color=fff", };
         if(document.getElementById('authButtonsWrapper')) document.getElementById('authButtonsWrapper').classList.add('hidden');
         if(document.getElementById('mobileAuthButtonsWrapper')) document.getElementById('mobileAuthButtonsWrapper').classList.add('hidden');
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
-        
-        const profile = document.getElementById('userProfile');
-        const mobProfile = document.getElementById('mobileUserProfile');
+        const profile = document.getElementById('userProfile'); const mobProfile = document.getElementById('mobileUserProfile');
         if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
         if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
-        
         if(document.getElementById('userName')) document.getElementById('userName').innerText = mockUser.displayName;
         if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = mockUser.displayName;
         if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = mockUser.photoURL;
         if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = mockUser.photoURL;
-        
-        if(document.getElementById('mainLogoText')) {
-            document.getElementById('mainLogoText').classList.remove('logo-diamond');
-            document.getElementById('mainLogoText').classList.add('logo-oro');
-        }
-        if(document.getElementById('mobLogoText')) {
-            document.getElementById('mobLogoText').classList.remove('logo-diamond');
-            document.getElementById('mobLogoText').classList.add('logo-oro');
-        }
+        if(document.getElementById('mainLogoText')) { document.getElementById('mainLogoText').classList.remove('logo-diamond'); document.getElementById('mainLogoText').classList.add('logo-oro'); }
+        if(document.getElementById('mobLogoText')) { document.getElementById('mobLogoText').classList.remove('logo-diamond'); document.getElementById('mobLogoText').classList.add('logo-oro'); }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
         document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
-        
-        window.currentPremiumStatus = 'gold';
-        window.hideKaraoke(); 
-        window.applyEQLimits();
+        window.currentPremiumStatus = 'gold'; window.hideKaraoke(); window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
-
-        alert("Has ingresado al modo Demo GOLD de forma gratuita.");
-        window.cerrarSesion = () => { window.location.reload(); };
+        alert("Has ingresado al modo Demo GOLD."); window.cerrarSesion = () => { window.location.reload(); };
     };
 
     window.loginDemoDiamond = () => {
-        const mockUser = {
-            displayName: "Usuario Demo DIAMOND",
-            photoURL: "https://ui-avatars.com/api/?name=Dia&background=00f2fe&color=fff",
-        };
-        
+        const mockUser = { displayName: "Usuario Demo DIAMOND", photoURL: "https://ui-avatars.com/api/?name=Dia&background=00f2fe&color=fff", };
         if(document.getElementById('authButtonsWrapper')) document.getElementById('authButtonsWrapper').classList.add('hidden');
         if(document.getElementById('mobileAuthButtonsWrapper')) document.getElementById('mobileAuthButtonsWrapper').classList.add('hidden');
         if(document.getElementById('btnMockLogin')) document.getElementById('btnMockLogin').classList.add('hidden');
         if(document.getElementById('btnMockLoginDiamond')) document.getElementById('btnMockLoginDiamond').classList.add('hidden');
-        
-        const profile = document.getElementById('userProfile');
-        const mobProfile = document.getElementById('mobileUserProfile');
+        const profile = document.getElementById('userProfile'); const mobProfile = document.getElementById('mobileUserProfile');
         if(profile) { profile.classList.remove('hidden'); profile.classList.add('flex'); }
         if(mobProfile) { mobProfile.classList.remove('hidden'); mobProfile.classList.add('flex'); }
-        
         if(document.getElementById('userName')) document.getElementById('userName').innerText = mockUser.displayName;
         if(document.getElementById('mobileUserName')) document.getElementById('mobileUserName').innerText = mockUser.displayName;
         if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = mockUser.photoURL;
         if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = mockUser.photoURL;
-        
-        if(document.getElementById('mainLogoText')) {
-            document.getElementById('mainLogoText').classList.remove('logo-oro');
-            document.getElementById('mainLogoText').classList.add('logo-diamond');
-        }
-        if(document.getElementById('mobLogoText')) {
-            document.getElementById('mobLogoText').classList.remove('logo-oro');
-            document.getElementById('mobLogoText').classList.add('logo-diamond');
-        }
+        if(document.getElementById('mainLogoText')) { document.getElementById('mainLogoText').classList.remove('logo-oro'); document.getElementById('mainLogoText').classList.add('logo-diamond'); }
+        if(document.getElementById('mobLogoText')) { document.getElementById('mobLogoText').classList.remove('logo-oro'); document.getElementById('mobLogoText').classList.add('logo-diamond'); }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
         if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
-        
-        window.currentPremiumStatus = 'diamond';
-        window.showKaraoke(); 
-        window.applyEQLimits();
+        window.currentPremiumStatus = 'diamond'; window.showKaraoke(); window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
-
-        alert("💎 Has ingresado al modo Demo DIAMOND. ¡Prueba el Ecualizador de 5 bandas, el Karaoke y los 5 Temas Épicos!");
-        window.cerrarSesion = () => { window.location.reload(); };
+        alert("💎 Has ingresado al modo Demo DIAMOND."); window.cerrarSesion = () => { window.location.reload(); };
     };
     
-    // Coordenadas aproximadas por provincia para el Clima
     const provCoords = {
-        "CABA": {lat: -34.6037, lon: -58.3816},
-        "Buenos Aires": {lat: -34.9214, lon: -57.9545},
-        "Catamarca": {lat: -28.4696, lon: -65.7852},
-        "Chaco": {lat: -27.4606, lon: -58.9839},
-        "Chubut": {lat: -43.3002, lon: -65.1023},
-        "Córdoba": {lat: -31.4201, lon: -64.1888},
-        "Corrientes": {lat: -27.4692, lon: -58.8306},
-        "Entre Ríos": {lat: -31.7331, lon: -60.5297},
-        "Formosa": {lat: -26.1775, lon: -58.1781},
-        "Jujuy": {lat: -24.1946, lon: -65.2971},
-        "La Pampa": {lat: -36.6167, lon: -64.2833},
-        "La Rioja": {lat: -29.4135, lon: -66.8565},
-        "Mendoza": {lat: -32.8908, lon: -68.8272},
-        "Misiones": {lat: -27.3671, lon: -55.8961},
-        "Neuquén": {lat: -38.9516, lon: -68.0591},
-        "Río Negro": {lat: -40.8135, lon: -63.0022},
-        "Salta": {lat: -24.7821, lon: -65.4232},
-        "San Juan": {lat: -31.5375, lon: -68.5364},
-        "San Luis": {lat: -33.2950, lon: -66.3356},
-        "Santa Cruz": {lat: -51.6226, lon: -69.2181},
-        "Santa Fe": {lat: -31.6333, lon: -60.7000},
-        "Santiago del Estero": {lat: -27.7951, lon: -64.2615},
-        "Tierra del Fuego": {lat: -54.8019, lon: -68.3030},
-        "Tucumán": {lat: -26.8083, lon: -65.2176}
+        "CABA": {lat: -34.6037, lon: -58.3816}, "Buenos Aires": {lat: -34.9214, lon: -57.9545}, "Catamarca": {lat: -28.4696, lon: -65.7852},
+        "Chaco": {lat: -27.4606, lon: -58.9839}, "Chubut": {lat: -43.3002, lon: -65.1023}, "Córdoba": {lat: -31.4201, lon: -64.1888},
+        "Corrientes": {lat: -27.4692, lon: -58.8306}, "Entre Ríos": {lat: -31.7331, lon: -60.5297}, "Formosa": {lat: -26.1775, lon: -58.1781},
+        "Jujuy": {lat: -24.1946, lon: -65.2971}, "La Pampa": {lat: -36.6167, lon: -64.2833}, "La Rioja": {lat: -29.4135, lon: -66.8565},
+        "Mendoza": {lat: -32.8908, lon: -68.8272}, "Misiones": {lat: -27.3671, lon: -55.8961}, "Neuquén": {lat: -38.9516, lon: -68.0591},
+        "Río Negro": {lat: -40.8135, lon: -63.0022}, "Salta": {lat: -24.7821, lon: -65.4232}, "San Juan": {lat: -31.5375, lon: -68.5364},
+        "San Luis": {lat: -33.2950, lon: -66.3356}, "Santa Cruz": {lat: -51.6226, lon: -69.2181}, "Santa Fe": {lat: -31.6333, lon: -60.7000},
+        "Santiago del Estero": {lat: -27.7951, lon: -64.2615}, "Tierra del Fuego": {lat: -54.8019, lon: -68.3030}, "Tucumán": {lat: -26.8083, lon: -65.2176}
     };
 
-    // Configuración Global de Noticias
-    let globalNewsConfig = {
-        enabled: true,
-        speed: 30, // Segundos base
-        general: 'https://www.clarin.com/rss/lo-ultimo/',
-        sport: 'https://www.ole.com.ar/rss/ultimas-noticias/',
-        music: 'https://www.clarin.com/rss/espectaculos/'
-    };
-
-    // Configuración Global del Top 10 Manual
+    let globalNewsConfig = { enabled: true, speed: 30, general: 'https://www.clarin.com/rss/lo-ultimo/', sport: 'https://www.ole.com.ar/rss/ultimas-noticias/', music: 'https://www.clarin.com/rss/espectaculos/' };
     let globalTop10Config = { pinned: [], hidden: [] };
 
     const PROVS = ["CABA", "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán"];
     const SEO_DATA = { provincias: {}, radios: {} };
 
-    // Función global para crear partículas (corazones/fuegos)
     function createParticles(x, y, emoji) {
         for(let i = 0; i < 6; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.innerText = emoji;
-            p.style.left = x + 'px';
-            p.style.top = y + 'px';
-            p.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
-            p.style.setProperty('--dy', (Math.random() * -80 - 20) + 'px');
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 800);
+            const p = document.createElement('div'); p.className = 'particle'; p.innerText = emoji; p.style.left = x + 'px'; p.style.top = y + 'px';
+            p.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px'); p.style.setProperty('--dy', (Math.random() * -80 - 20) + 'px');
+            document.body.appendChild(p); setTimeout(() => p.remove(), 800);
         }
     }
 
-    function makeHttps(url) {
-        if(!url) return '';
-        return url.replace(/^http:\/\//i, 'https://');
-    }
+    function makeHttps(url) { if(!url) return ''; return url.replace(/^http:\/\//i, 'https://'); }
 
     PROVS.forEach(p => {
         const slug = p.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
-        SEO_DATA.provincias[p] = {
-            url: `radios-de-${slug}-en-vivo`, title: `Radios de ${p} en Vivo | RadioAR Pro`, h1: `Radios de ${p} en Vivo`,
-            h2: `Escuchá las mejores emisoras de ${p} online`, desc: `Sintonizá las mejores radios de ${p} en vivo y en directo.`
-        };
+        SEO_DATA.provincias[p] = { url: `radios-de-${slug}-en-vivo`, title: `Radios de ${p} en Vivo | RadioAR Pro`, h1: `Radios de ${p} en Vivo`, h2: `Escuchá las mejores emisoras de ${p} online`, desc: `Sintonizá las mejores radios de ${p} en vivo y en directo.` };
     });
 
     function getRadioSEO(r) {
         const radioName = typeof r === 'string' ? r : r.name;
         const state = (typeof r === 'object' && r.state) ? r.state : 'Argentina';
         const slug = radioName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-        
         let tipo = "la mejor programación";
         if (typeof r === 'object' && r.tags) {
             const t = r.tags.toLowerCase();
-            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
-            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
-            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
+            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias";
+            else if (t.includes('sport') || t.includes('deporte')) tipo = "toda la pasión del deporte";
+            else if (t.includes('music') || t.includes('rock')) tipo = "la mejor selección musical";
         }
 
         if (!SEO_DATA.radios[radioName]) {
-            const defaultDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${radioName}. Sintonizá ${tipo} de ${state} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${radioName}: donde el sonido cobra vida, estés donde estés.`;
-            const defaultKeywords = `Escuchar ${radioName} en vivo online gratis, Radio ${radioName} ${state}, Transmisión en directo ${radioName} online`;
-
             SEO_DATA.radios[radioName] = { 
-                url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, 
-                h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, 
-                desc: (typeof r === 'object' && (r.description)) ? r.description : defaultDesc,
-                keywords: (typeof r === 'object' && (r.meta_info)) ? r.meta_info : defaultKeywords
+                url: `radio-${slug}-en-vivo`, title: `${radioName} en Vivo | RadioAR Pro`, h1: `${radioName} en Vivo`, h2: `Estás escuchando ${radioName} en directo`, 
+                desc: (typeof r === 'object' && (r.description)) ? r.description : `Descubrí en tiempo real todo lo que ofrece la radio online de ${radioName}.`,
+                keywords: (typeof r === 'object' && (r.meta_info)) ? r.meta_info : `Escuchar ${radioName} en vivo online`
             };
-        } else if (typeof r === 'object') {
-            if (r.description) SEO_DATA.radios[radioName].desc = r.description;
-            if (r.meta_info) SEO_DATA.radios[radioName].keywords = r.meta_info;
         }
         return SEO_DATA.radios[radioName];
     }
 
     function updateMetadata(seoObj, type, identifier) {
-        document.title = seoObj.title;
-        document.getElementById('meta-title').innerText = seoObj.title;
-        document.getElementById('meta-desc').setAttribute("content", seoObj.desc);
-        
-        const metaKeywords = document.getElementById('meta-keywords');
-        if (metaKeywords && seoObj.keywords) {
-            metaKeywords.setAttribute("content", seoObj.keywords);
-        }
-
-        document.getElementById('viewLabel').innerText = seoObj.h1;
-        document.getElementById('viewSub').innerText = seoObj.h2;
+        document.title = seoObj.title; document.getElementById('meta-title').innerText = seoObj.title; document.getElementById('meta-desc').setAttribute("content", seoObj.desc);
+        const metaKeywords = document.getElementById('meta-keywords'); if (metaKeywords && seoObj.keywords) { metaKeywords.setAttribute("content", seoObj.keywords); }
+        document.getElementById('viewLabel').innerText = seoObj.h1; document.getElementById('viewSub').innerText = seoObj.h2;
         window.history.pushState({type: type, id: identifier}, seoObj.title, `#/${seoObj.url}`);
     }
 
     let homeTapCount = 0; let homeTapTimer = null;
     function handleHomeTap() {
         homeTapCount++; clearTimeout(homeTapTimer);
-        if (homeTapCount >= 5) { 
-            if (isSuperAdmin) { openAdminPanel(); }
-            homeTapCount = 0; 
-        } 
+        if (homeTapCount >= 5) { if (isSuperAdmin) { openAdminPanel(); } homeTapCount = 0; } 
         else { homeTapTimer = setTimeout(() => { homeTapCount = 0; }, 2000); }
         resetToHome();
     }
 
     function resetToHome() {
-        document.getElementById('viewLabel').innerText = "Explorar";
-        document.getElementById('viewSub').innerText = "Descubre la radio de otra manera.";
-        document.title = "RadioAR Pro | Radios en vivo Argentina y el Mundo";
+        document.getElementById('viewLabel').innerText = "Explorar"; document.getElementById('viewSub').innerText = "Descubre la radio de otra manera."; document.title = "RadioAR Pro";
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
-        
-        closeRadioView();
-        displayedRadios = [...allRadios];
-        currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-        
+        closeRadioView(); displayedRadios = [...allRadios]; currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
         document.getElementById('sectTop').style.display = 'block';
-        if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) {
-            document.getElementById('sectTendencias').style.display = 'block';
-        }
-
+        if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; }
         document.getElementById('mainScroll').scrollTop = 0;
     }
 
     window.addEventListener('popstate', (event) => {
-        if (event.state) {
-            if (event.state.type === 'prov') filterP(event.state.id, true);
-            else if (event.state.type === 'radio') play(event.state.id, true);
-            else resetToHome();
-        } else resetToHome();
+        if (event.state) { if (event.state.type === 'prov') filterP(event.state.id, true); else if (event.state.type === 'radio') play(event.state.id, true); else resetToHome(); } else resetToHome();
     });
 
-    /* --- LÓGICA DE CLIMA Y NOTICIAS --- */
     async function fetchWeather(prov) {
-        const widget = document.getElementById('radio-weather-widget');
-        const wrapper = document.getElementById('radio-news-wrapper');
-        const tempEl = document.getElementById('radio-weather-temp');
-        
+        const widget = document.getElementById('radio-weather-widget'); const wrapper = document.getElementById('radio-news-wrapper'); const tempEl = document.getElementById('radio-weather-temp');
         const coords = provCoords[prov] || provCoords["CABA"];
-        
-        wrapper.classList.remove('hidden');
-        wrapper.classList.add('flex');
-        widget.classList.remove('hidden');
-        widget.classList.add('flex');
-        tempEl.innerText = "...";
-        
+        wrapper.classList.remove('hidden'); wrapper.classList.add('flex'); widget.classList.remove('hidden'); widget.classList.add('flex'); tempEl.innerText = "...";
         try {
             const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
             const data = await res.json();
-            if(data.current_weather) {
-                tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`;
-            } else {
-                tempEl.innerText = "--°C"; 
-            }
-        } catch(e) {
-            tempEl.innerText = "--°C";
-        }
+            if(data.current_weather) { tempEl.innerText = `${Math.round(data.current_weather.temperature)}°C`; } else { tempEl.innerText = "--°C"; }
+        } catch(e) { tempEl.innerText = "--°C"; }
     }
 
     function startAutoScrollTicker() {
         if(tickerReq) cancelAnimationFrame(tickerReq);
-        const scroller = document.getElementById('radio-news-ticker-scroll');
-        const content = document.getElementById('radio-news-content');
-        
+        const scroller = document.getElementById('radio-news-ticker-scroll'), content = document.getElementById('radio-news-content');
         function step() {
             if (!isTickerDragging && scroller && content) {
                 const speedConf = parseInt(globalNewsConfig.speed) || 30;
-                let stepPx = 45 / speedConf; 
-                
-                scroller.scrollLeft += stepPx;
-                
-                if (scroller.scrollLeft >= content.scrollWidth / 2) {
-                    scroller.scrollLeft -= content.scrollWidth / 2; 
-                }
+                let stepPx = 45 / speedConf; scroller.scrollLeft += stepPx;
+                if (scroller.scrollLeft >= content.scrollWidth / 2) { scroller.scrollLeft -= content.scrollWidth / 2; }
             }
             tickerReq = requestAnimationFrame(step);
         }
@@ -1549,661 +1462,218 @@
     }
 
     function setupTickerDrag() {
-        const scroller = document.getElementById('radio-news-ticker-scroll');
-        if(!scroller) return;
-        
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        const startDrag = (e) => {
-            isDown = true;
-            isTickerDragging = true;
-            scroller.classList.add('cursor-grabbing');
-            scroller.classList.remove('cursor-grab');
-            startX = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft;
-            scrollLeft = scroller.scrollLeft;
-        };
-
-        const endDrag = () => {
-            isDown = false;
-            isTickerDragging = false;
-            scroller.classList.add('cursor-grab');
-            scroller.classList.remove('cursor-grabbing');
-        };
-
-        const doDrag = (e) => {
-            if (!isDown) return;
-            const x = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft;
-            const walk = (startX - x) * 1.5; 
-            scroller.scrollLeft = scrollLeft + walk; 
-        };
-
-        scroller.addEventListener('mousedown', startDrag);
-        scroller.addEventListener('mouseleave', endDrag);
-        scroller.addEventListener('mouseup', endDrag);
-        scroller.addEventListener('mousemove', doDrag);
-
-        scroller.addEventListener('touchstart', startDrag, {passive: true});
-        scroller.addEventListener('touchend', endDrag);
-        scroller.addEventListener('touchmove', doDrag, {passive: true});
-        
+        const scroller = document.getElementById('radio-news-ticker-scroll'); if(!scroller) return;
+        let isDown = false, startX, scrollLeft;
+        const startDrag = (e) => { isDown = true; isTickerDragging = true; scroller.classList.add('cursor-grabbing'); scroller.classList.remove('cursor-grab'); startX = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft; scrollLeft = scroller.scrollLeft; };
+        const endDrag = () => { isDown = false; isTickerDragging = false; scroller.classList.add('cursor-grab'); scroller.classList.remove('cursor-grabbing'); };
+        const doDrag = (e) => { if (!isDown) return; const x = (e.pageX || e.touches[0].pageX) - scroller.offsetLeft; const walk = (startX - x) * 1.5; scroller.scrollLeft = scrollLeft + walk; };
+        scroller.addEventListener('mousedown', startDrag); scroller.addEventListener('mouseleave', endDrag); scroller.addEventListener('mouseup', endDrag); scroller.addEventListener('mousemove', doDrag);
+        scroller.addEventListener('touchstart', startDrag, {passive: true}); scroller.addEventListener('touchend', endDrag); scroller.addEventListener('touchmove', doDrag, {passive: true});
         startAutoScrollTicker();
     }
 
     function fetchRadioNews(tags, province) {
-        const wrapper = document.getElementById('radio-news-wrapper');
-        const tickerWrap = document.getElementById('radio-news-ticker');
-        const tickerContent = document.getElementById('radio-news-content');
-        
-        if (globalNewsConfig.enabled === false || globalNewsConfig.enabled === "false") {
-            tickerWrap.classList.add('hidden');
-            if(document.getElementById('radio-weather-widget').classList.contains('hidden')) {
-                wrapper.classList.add('hidden');
-                wrapper.classList.remove('flex');
-            }
-            return;
-        }
-
-        wrapper.classList.remove('hidden');
-        wrapper.classList.add('flex');
-        tickerWrap.classList.remove('hidden');
-        tickerContent.innerHTML = "Cargando información en vivo...";
-        
-        const t = (tags || "").toLowerCase();
-        const p = (province || "").trim();
-        let isSport = t.includes('sport') || t.includes('deporte') || t.includes('futbol') || t.includes('boca') || t.includes('river') || t.includes('partido');
-        let isMusic = t.includes('music') || t.includes('musica') || t.includes('pop') || t.includes('rock') || t.includes('retro');
-        let isNews = t.includes('news') || t.includes('noticias') || t.includes('informacion');
-        
-        let rssUrls = [];
-        let promises = [];
-
-        const addUrls = (configField, defaultUrl) => {
-            if (Array.isArray(configField) && configField.length > 0) {
-                rssUrls.push(...configField);
-            } else if (typeof configField === 'string' && configField !== '') {
-                rssUrls.push(configField);
-            } else {
-                rssUrls.push(defaultUrl);
-            }
-        };
+        const wrapper = document.getElementById('radio-news-wrapper'), tickerWrap = document.getElementById('radio-news-ticker'), tickerContent = document.getElementById('radio-news-content');
+        if (globalNewsConfig.enabled === false || globalNewsConfig.enabled === "false") { tickerWrap.classList.add('hidden'); if(document.getElementById('radio-weather-widget').classList.contains('hidden')) { wrapper.classList.add('hidden'); wrapper.classList.remove('flex'); } return; }
+        wrapper.classList.remove('hidden'); wrapper.classList.add('flex'); tickerWrap.classList.remove('hidden'); tickerContent.innerHTML = "Cargando información en vivo...";
+        const t = (tags || "").toLowerCase(), p = (province || "").trim();
+        let isSport = t.includes('sport') || t.includes('deporte'); let isMusic = t.includes('music') || t.includes('rock'); let isNews = t.includes('news') || t.includes('noticias');
+        let rssUrls = [], promises = [];
+        const addUrls = (configField, defaultUrl) => { if (Array.isArray(configField) && configField.length > 0) { rssUrls.push(...configField); } else if (typeof configField === 'string' && configField !== '') { rssUrls.push(configField); } else { rssUrls.push(defaultUrl); } };
 
         if (isSport) {
-            const espnPromise = fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/arg.1/scoreboard')
-                .then(res => res.json())
-                .then(data => {
-                    let scoresHtml = [];
-                    if(data.events && data.events.length > 0) {
-                        data.events.forEach(ev => {
-                            try {
-                                const c1 = ev.competitions[0].competitors[0];
-                                const c2 = ev.competitions[0].competitors[1];
-                                let status = ev.status.type.shortDetail || "";
-                                let isScheduled = ev.status.type.name === "STATUS_SCHEDULED";
-                                
-                                if (isScheduled && ev.date) {
-                                    const matchDate = new Date(ev.date);
-                                    status = matchDate.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' hs';
-                                } else {
-                                    const statusMap = {
-                                        "FT": "Final",
-                                        "HT": "Entretiempo",
-                                        "Postponed": "Postergado",
-                                        "Canceled": "Cancelado",
-                                        "Delayed": "Demorado"
-                                    };
-                                    for (const [en, es] of Object.entries(statusMap)) {
-                                        if (status.includes(en)) {
-                                            status = status.replace(en, es);
-                                        }
-                                    }
-                                }
-                                
-                                let goalsText = "⚽ Detalles del Partido:&#10;";
-                                let hasGoals = false;
-                                if (ev.competitions[0].details && ev.competitions[0].details.length > 0) {
-                                    ev.competitions[0].details.forEach(d => {
-                                        if (d.scoringPlay || (d.type && d.type.text && d.type.text.toLowerCase().includes("goal"))) {
-                                            let min = d.clock && d.clock.displayValue ? d.clock.displayValue + "'" : "";
-                                            let teamId = d.team && d.team.id ? d.team.id : null;
-                                            
-                                            let teamName = "Equipo";
-                                            if (teamId === c1.team.id) {
-                                                teamName = c1.team.shortDisplayName || c1.team.abbreviation;
-                                            } else if (teamId === c2.team.id) {
-                                                teamName = c2.team.shortDisplayName || c2.team.abbreviation;
-                                            } else if (d.team && d.team.shortDisplayName) {
-                                                teamName = d.team.shortDisplayName;
-                                            }
-                                            
-                                            let player = d.participants && d.participants[0] && d.participants[0].athlete ? d.participants[0].athlete.shortName : "";
-                                            
-                                            if (player) {
-                                                goalsText += `• ${player} (${teamName}) ${min}&#10;`;
-                                            } else {
-                                                goalsText += `• Gol de ${teamName} ${min}&#10;`;
-                                            }
-                                            hasGoals = true;
-                                        }
-                                    });
-                                }
-                                
-                                if (!hasGoals) {
-                                    if ((c1.score && c1.score !== "0") || (c2.score && c2.score !== "0")) {
-                                        goalsText += "Goles aún no procesados en el resumen.";
-                                    } else if (isScheduled) {
-                                        goalsText += "El partido aún no ha comenzado.";
-                                    } else {
-                                        goalsText += "Sin goles por el momento.";
-                                    }
-                                }
-                                
-                                const safeGoalsText = goalsText.replace(/'/g, "&apos;").replace(/"/g, '&quot;');
-                                
-                                const scoreStr = `<span class="inline-flex items-center gap-2 mx-2 bg-black/20 hover:bg-black/50 cursor-pointer px-3 py-1 rounded-lg border border-white/10 transition-colors" title="${safeGoalsText}" onclick="alert(this.title)">
-                                    <img src="${c2.team.logo}" class="h-4 w-4 object-contain">
-                                    <span class="font-bold tracking-wide">${c2.team.shortDisplayName} ${c2.score || '0'} - ${c1.score || '0'} ${c1.team.shortDisplayName}</span>
-                                    <img src="${c1.team.logo}" class="h-4 w-4 object-contain">
-                                    <span class="text-[10px] text-yellow-400 ml-1">(${status})</span>
-                                </span>`;
-                                scoresHtml.push(scoreStr);
-                            } catch(e){}
-                        });
-                    }
-                    return scoresHtml.join(' ');
-                }).catch(() => "");
+            const espnPromise = fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/arg.1/scoreboard').then(res => res.json()).then(data => {
+                let scoresHtml = [];
+                if(data.events && data.events.length > 0) {
+                    data.events.forEach(ev => {
+                        try {
+                            const c1 = ev.competitions[0].competitors[0], c2 = ev.competitions[0].competitors[1];
+                            let status = ev.status.type.shortDetail || "";
+                            const scoreStr = `<span class="inline-flex items-center gap-2 mx-2 bg-black/20 px-3 py-1 rounded-lg border border-white/10"><img src="${c2.team.logo}" class="h-4 w-4 object-contain"><span class="font-bold tracking-wide">${c2.team.shortDisplayName} ${c2.score || '0'} - ${c1.score || '0'} ${c1.team.shortDisplayName}</span><img src="${c1.team.logo}" class="h-4 w-4 object-contain"></span>`;
+                            scoresHtml.push(scoreStr);
+                        } catch(e){}
+                    });
+                }
+                return scoresHtml.join(' ');
+            }).catch(() => "");
             promises.push(espnPromise);
-            
             addUrls(globalNewsConfig.sport, 'https://www.ole.com.ar/rss/ultimas-noticias/');
-            rssUrls.push(`https://news.google.com/rss/search?q=deportes+futbol+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
-        } else if (isMusic) {
-            addUrls(globalNewsConfig.music, 'https://www.clarin.com/rss/espectaculos/');
-            rssUrls.push(`https://news.google.com/rss/search?q=musica+espectaculos+argentina+estrenos&hl=es-419&gl=AR&ceid=AR:es-419`);
-        } else {
-            if (p && p !== "Comunidad" && p !== "Global" && PROVS.includes(p)) {
-                rssUrls.push(`https://news.google.com/rss/search?q=noticias+provincia+${encodeURIComponent(p)}+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
-            }
-            if (isNews) {
-                rssUrls.push(`https://news.google.com/rss/search?q=ultimas+noticias+argentina&hl=es-419&gl=AR&ceid=AR:es-419`);
-            }
-            addUrls(globalNewsConfig.general, 'https://www.clarin.com/rss/lo-ultimo/');
-        }
+        } else if (isMusic) { addUrls(globalNewsConfig.music, 'https://www.clarin.com/rss/espectaculos/'); } 
+        else { addUrls(globalNewsConfig.general, 'https://www.clarin.com/rss/lo-ultimo/'); }
 
-        rssUrls = [...new Set(rssUrls)].slice(0, 8);
-
-        rssUrls.forEach(url => {
-            promises.push(
-                fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
-                .then(res => res.json())
-                .then(data => {
-                    if(data.status === 'ok' && data.items) {
-                        return data.items.slice(0, 10).map(item => item.title);
-                    }
-                    return [];
-                }).catch(() => [])
-            );
-        });
+        rssUrls = [...new Set(rssUrls)].slice(0, 5);
+        rssUrls.forEach(url => { promises.push( fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`).then(res => res.json()).then(data => { if(data.status === 'ok' && data.items) { return data.items.slice(0, 10).map(item => item.title); } return []; }).catch(() => []) ); });
 
         Promise.all(promises).then(results => {
-            let finalHtml = "";
-            let headlines = [];
-            
-            results.forEach(res => {
-                if (typeof res === 'string' && res !== "") {
-                    finalHtml += res + " &nbsp;&nbsp; ⚡ &nbsp;&nbsp; "; 
-                } else if (Array.isArray(res)) {
-                    headlines = headlines.concat(res);
-                }
-            });
-
-            if(headlines.length > 0) {
-                headlines = headlines.filter((item, index) => headlines.indexOf(item) === index); 
-                finalHtml += headlines.join(' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ');
-            }
-            
-            if(finalHtml !== "") {
-                const fullString = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; ';
-                tickerContent.innerHTML = fullString + fullString;
-            } else {
-                tickerContent.innerText = "Bienvenido a RadioAR Pro. Transmitiendo en vivo...";
-            }
-        }).catch(() => {
-            tickerContent.innerText = "Transmitiendo en vivo desde Argentina 🌎";
-        });
+            let finalHtml = "", headlines = [];
+            results.forEach(res => { if (typeof res === 'string' && res !== "") { finalHtml += res + " &nbsp;&nbsp; ⚡ &nbsp;&nbsp; "; } else if (Array.isArray(res)) { headlines = headlines.concat(res); } });
+            if(headlines.length > 0) { headlines = headlines.filter((item, index) => headlines.indexOf(item) === index); finalHtml += headlines.join(' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; '); }
+            if(finalHtml !== "") { const fullString = finalHtml + ' &nbsp;&nbsp; ⚡ &nbsp;&nbsp; '; tickerContent.innerHTML = fullString + fullString; } else { tickerContent.innerText = "Transmisión en vivo..."; }
+        }).catch(() => { tickerContent.innerText = "Transmitiendo en vivo desde Argentina 🌎"; });
     }
 
-    /* --- VISTA DE RADIO (SINGLE VIEW) --- */
     function openRadioView(r) {
-        document.getElementById('sectTop').style.display = 'none';
-        document.getElementById('sectTendencias').style.display = 'none';
-        document.getElementById('gridTitleContainer').style.display = 'none';
-        document.getElementById('gridMain').style.display = 'none';
-        document.getElementById('loadMoreTrigger').style.display = 'none';
-        document.getElementById('moodFiltersContainer').style.display = 'none';
-
-        const sView = document.getElementById('singleRadioView');
-        sView.classList.remove('hidden');
-
-        document.getElementById('detail-title').innerText = r.name;
-        document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
-        
-        let tipo = "la mejor programación";
-        if (r.tags) {
-            const t = r.tags.toLowerCase();
-            if (t.includes('news') || t.includes('noticias')) tipo = "las últimas noticias, análisis confiable y la cobertura más completa";
-            else if (t.includes('sport') || t.includes('deporte') || t.includes('futbol')) tipo = "toda la pasión del deporte, transmisiones en vivo y el mejor análisis";
-            else if (t.includes('music') || t.includes('rock') || t.includes('pop') || t.includes('cumbia')) tipo = "la mejor selección musical y entretenimiento";
-        }
-        
-        const stateStr = r.state ? r.state : 'Argentina';
-        const generatedDesc = `Descubrí en tiempo real todo lo que ofrece la radio online de ${r.name}. Sintonizá ${tipo} de ${stateStr} y el mundo, todo en un solo lugar. Conectate desde cualquier dispositivo y viví una experiencia dinámica, ágil y siempre al día. ${r.name}: donde el sonido cobra vida, estés donde estés.`;
-        
-        document.getElementById('detail-desc').innerText = r.description || generatedDesc;
-
-        const webBtn = document.getElementById('detail-website');
-        const site = makeHttps(r.homepage || r.website);
-        if (site) { webBtn.href = site; webBtn.classList.remove('hidden'); } 
-        else { webBtn.classList.add('hidden'); }
-
-        const tagsContainer = document.getElementById('detail-tags');
-        tagsContainer.innerHTML = '';
-        
-        if(r.state) {
-            const stateBtn = document.createElement('button');
-            stateBtn.className = 'px-3 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded-full text-[10px] font-bold border border-blue-500/30 uppercase tracking-wide transition-colors shadow-sm';
-            stateBtn.innerText = '📍 ' + r.state;
-            stateBtn.onclick = () => filterP(r.state);
-            tagsContainer.appendChild(stateBtn);
-        }
-
-        if (r.tags) {
-            const tagArray = r.tags.split(',').map(t => t.trim()).filter(t => t);
-            tagArray.slice(0, 5).forEach(t => {
-                const s = document.createElement('button');
-                s.className = 'px-3 py-1 bg-zinc-800/80 hover:bg-white hover:text-black rounded-full text-[10px] font-bold text-zinc-300 border border-zinc-700/50 uppercase tracking-wide transition-all shadow-sm';
-                s.innerText = '#' + t;
-                s.onclick = () => {
-                    const searchInput = document.getElementById('masterSearch');
-                    searchInput.value = t; searchInput.dispatchEvent(new Event('input'));
-                };
-                tagsContainer.appendChild(s);
-            });
-        }
-        
-        // --- NUEVO BOTÓN DE APOYANOS ---
-        const supportBtn = document.createElement('button');
-        supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase tracking-wide transition-colors shadow-sm flex items-center gap-1 ml-1';
-        supportBtn.innerHTML = '☕ Apóyanos';
-        supportBtn.onclick = () => {
-            const alias = window.globalDonationAlias || "radio.alias.mp";
-            if(navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(alias);
-                alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado al portapapeles.");
-            } else {
-                alert("¡Gracias por tu apoyo! ❤️\nAlias para donar: " + alias);
-            }
-        };
-        tagsContainer.appendChild(supportBtn);
-        // -------------------------------
-        
-        fetchRadioNews(r.tags, r.state);
-        fetchWeather(r.state);
-        document.getElementById('mainScroll').scrollTop = 0;
+        document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none'; document.getElementById('gridTitleContainer').style.display = 'none'; document.getElementById('gridMain').style.display = 'none'; document.getElementById('loadMoreTrigger').style.display = 'none'; document.getElementById('moodFiltersContainer').style.display = 'none';
+        const sView = document.getElementById('singleRadioView'); sView.classList.remove('hidden');
+        document.getElementById('detail-title').innerText = r.name; document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
+        document.getElementById('detail-desc').innerText = r.description || `Sintonizá ${r.name} en directo.`;
+        const webBtn = document.getElementById('detail-website'), site = makeHttps(r.homepage || r.website);
+        if (site) { webBtn.href = site; webBtn.classList.remove('hidden'); } else { webBtn.classList.add('hidden'); }
+        const tagsContainer = document.getElementById('detail-tags'); tagsContainer.innerHTML = '';
+        if(r.state) { const stateBtn = document.createElement('button'); stateBtn.className = 'px-3 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded-full text-[10px] font-bold border border-blue-500/30 uppercase'; stateBtn.innerText = '📍 ' + r.state; stateBtn.onclick = () => filterP(r.state); tagsContainer.appendChild(stateBtn); }
+        const supportBtn = document.createElement('button'); supportBtn.className = 'px-3 py-1 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-400 rounded-full text-[10px] font-bold border border-yellow-500/30 uppercase flex items-center gap-1 ml-1'; supportBtn.innerHTML = '☕ Apóyanos';
+        supportBtn.onclick = () => { const alias = window.globalDonationAlias || "radio.alias.mp"; if(navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(alias); alert("¡Gracias por tu apoyo! ❤️\nEl alias (" + alias + ") ha sido copiado."); } else { alert("Alias para donar: " + alias); } }; tagsContainer.appendChild(supportBtn);
+        fetchRadioNews(r.tags, r.state); fetchWeather(r.state); document.getElementById('mainScroll').scrollTop = 0;
     }
 
     function closeRadioView() {
         document.getElementById('singleRadioView').classList.add('hidden');
-        
-        document.getElementById('gridTitleContainer').style.display = 'flex';
-        document.getElementById('gridMain').style.display = 'grid';
-        document.getElementById('loadMoreTrigger').style.display = 'flex';
-        document.getElementById('moodFiltersContainer').style.display = 'block';
-
-        if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') {
-            document.getElementById('sectTop').style.display = 'block';
-            if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) {
-                document.getElementById('sectTendencias').style.display = 'block';
-            }
-        }
+        document.getElementById('gridTitleContainer').style.display = 'flex'; document.getElementById('gridMain').style.display = 'grid'; document.getElementById('loadMoreTrigger').style.display = 'flex'; document.getElementById('moodFiltersContainer').style.display = 'block';
+        if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') { document.getElementById('sectTop').style.display = 'block'; if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; } }
     }
 
-    /* --- LÓGICA MODO RELAX --- */
-    const relaxSources = {
-        'rain': 'https://cdn.pixabay.com/audio/2025/11/15/audio_3f7ff9f3e2.mp3', 
-        'thunder': 'https://cdn.pixabay.com/audio/2022/02/07/audio_1393bdaae1.mp3',
-        'roof': 'https://cdn.pixabay.com/audio/2024/02/13/audio_9996ca8efa.mp3',
-        'fire': 'https://cdn.pixabay.com/audio/2024/07/05/audio_cb6e14bf87.mp3'
-    };
-
+    const relaxSources = { 'rain': 'https://cdn.pixabay.com/audio/2025/11/15/audio_3f7ff9f3e2.mp3', 'thunder': 'https://cdn.pixabay.com/audio/2022/02/07/audio_1393bdaae1.mp3', 'roof': 'https://cdn.pixabay.com/audio/2024/02/13/audio_9996ca8efa.mp3', 'fire': 'https://cdn.pixabay.com/audio/2024/07/05/audio_cb6e14bf87.mp3' };
     function playRelax(mode, btn) {
         if (!audio.paused) audio.pause();
         document.querySelectorAll('.relax-btn').forEach(b => { b.classList.remove('active-relax'); b.querySelector('span:first-child').classList.add('grayscale'); });
-        btn.classList.add('active-relax'); btn.querySelector('span:first-child').classList.remove('grayscale');
-        document.getElementById('stop-relax-btn').classList.remove('hidden');
-
-        relaxAudio.src = relaxSources[mode]; relaxAudio.volume = document.getElementById('p-vol').value; relaxAudio.loop = true; 
-        relaxAudio.play().catch(e => console.error("Modo relax bloqueado:", e));
-        
-        document.getElementById('p-name').innerText = "Modo Relax (Loop 8 Hrs)";
-        document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=Relax&background=1DB954&color=fff";
-        pStat.innerText = "ESCUCHANDO AMBIENTE"; pDot.className = "w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_#3b82f6]";
-        pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; 
+        btn.classList.add('active-relax'); btn.querySelector('span:first-child').classList.remove('grayscale'); document.getElementById('stop-relax-btn').classList.remove('hidden');
+        relaxAudio.src = relaxSources[mode]; relaxAudio.volume = document.getElementById('p-vol').value; relaxAudio.loop = true; relaxAudio.play().catch(e => console.error(e));
+        document.getElementById('p-name').innerText = "Modo Relax (Loop)"; document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=Relax&background=1DB954&color=fff";
+        pStat.innerText = "ESCUCHANDO"; pDot.className = "w-2 h-2 rounded-full bg-blue-500 animate-pulse"; pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; 
     }
 
     function stopRelax() {
         if (!relaxAudio.paused) relaxAudio.pause();
         relaxAudio.src = ""; document.getElementById('stop-relax-btn').classList.add('hidden');
         document.querySelectorAll('.relax-btn').forEach(b => { b.classList.remove('active-relax'); b.querySelector('span:first-child').classList.add('grayscale'); });
-
-        if (currentStation) {
-            document.getElementById('p-name').innerText = currentStation.name;
-            document.getElementById('p-img').src = makeHttps(currentStation.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentStation.name)}&background=333`;
-            pStat.innerText = "PAUSADO"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
-        } else {
-            document.getElementById('p-name').innerText = "Selecciona una radio"; document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=R&background=333";
-            pStat.innerText = "OFFLINE"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600";
-        }
+        if (currentStation) { document.getElementById('p-name').innerText = currentStation.name; document.getElementById('p-img').src = makeHttps(currentStation.favicon); pStat.innerText = "PAUSADO"; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; } else { document.getElementById('p-name').innerText = "Selecciona"; document.getElementById('p-img').src = "https://ui-avatars.com/api/?name=R"; pStat.innerText = "OFFLINE"; }
         pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
     }
 
-    const onlineManager = {
-        maxOnline: 195860, currentOnline: 39300,
-        init() { this.updateCounter(); setInterval(() => this.updateCounter(), 4000); },
-        updateCounter() {
-            const fluctuation = Math.floor(Math.random() * 300 - 100);
-            this.currentOnline = Math.min(this.maxOnline, this.currentOnline + fluctuation);
-            document.getElementById('onlineCounter').innerText = `● ${this.currentOnline.toLocaleString()} ESCUCHANDO AHORA`;
-        }
-    };
+    const onlineManager = { maxOnline: 195860, currentOnline: 39300, init() { this.updateCounter(); setInterval(() => this.updateCounter(), 4000); }, updateCounter() { const fluctuation = Math.floor(Math.random() * 300 - 100); this.currentOnline = Math.min(this.maxOnline, this.currentOnline + fluctuation); document.getElementById('onlineCounter').innerText = `● ${this.currentOnline.toLocaleString()} ESCUCHANDO`; } };
 
     function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        localStorage.setItem('RAR_THEME', isLight ? 'light' : 'dark');
-        document.getElementById('moon-icon').classList.toggle('hidden', isLight);
-        document.getElementById('sun-icon').classList.toggle('hidden', !isLight);
+        document.body.classList.toggle('light-mode'); const isLight = document.body.classList.contains('light-mode'); localStorage.setItem('RAR_THEME', isLight ? 'light' : 'dark');
+        document.getElementById('moon-icon').classList.toggle('hidden', isLight); document.getElementById('sun-icon').classList.toggle('hidden', !isLight);
     }
 
-    // --- ECUALIZADOR 5 BANDAS Y MODO KARAOKE ---
-    let eqInitialized = false, eqFilters = {};
-    window.karaokeFilter = null;
-    let isKaraokeOn = false;
-
+    let eqInitialized = false, eqFilters = {}; window.karaokeFilter = null; let isKaraokeOn = false;
     function initEQ() {
         if (eqInitialized) return;
         try {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioCtx = new AudioContext(); 
-            const source = audioCtx.createMediaElementSource(audio);
-            
-            // 5 Bandas
+            const AudioContext = window.AudioContext || window.webkitAudioContext; const audioCtx = new AudioContext(); const source = audioCtx.createMediaElementSource(audio);
             eqFilters.f60 = audioCtx.createBiquadFilter(); eqFilters.f60.type = "lowshelf"; eqFilters.f60.frequency.value = 60; eqFilters.f60.gain.value = document.getElementById('eq-60').value;
             eqFilters.f230 = audioCtx.createBiquadFilter(); eqFilters.f230.type = "peaking"; eqFilters.f230.frequency.value = 230; eqFilters.f230.Q.value = 1; eqFilters.f230.gain.value = document.getElementById('eq-230').value;
             eqFilters.f910 = audioCtx.createBiquadFilter(); eqFilters.f910.type = "peaking"; eqFilters.f910.frequency.value = 910; eqFilters.f910.Q.value = 1; eqFilters.f910.gain.value = document.getElementById('eq-910').value;
             eqFilters.f3600 = audioCtx.createBiquadFilter(); eqFilters.f3600.type = "peaking"; eqFilters.f3600.frequency.value = 3600; eqFilters.f3600.Q.value = 1; eqFilters.f3600.gain.value = document.getElementById('eq-3600').value;
             eqFilters.f14000 = audioCtx.createBiquadFilter(); eqFilters.f14000.type = "highshelf"; eqFilters.f14000.frequency.value = 14000; eqFilters.f14000.gain.value = document.getElementById('eq-14000').value;
-            
-            // Karaoke Mode (Vocal Reducer)
-            window.karaokeFilter = audioCtx.createBiquadFilter();
-            window.karaokeFilter.type = "peaking";
-            window.karaokeFilter.frequency.value = 1000; // Frecuencias típicas de la voz
-            window.karaokeFilter.Q.value = 0.5;
-            window.karaokeFilter.gain.value = 0; // Apagado por defecto
-
-            source.connect(eqFilters.f60); 
-            eqFilters.f60.connect(eqFilters.f230); 
-            eqFilters.f230.connect(eqFilters.f910); 
-            eqFilters.f910.connect(eqFilters.f3600); 
-            eqFilters.f3600.connect(eqFilters.f14000); 
-            eqFilters.f14000.connect(window.karaokeFilter);
-            window.karaokeFilter.connect(audioCtx.destination);
-            
+            window.karaokeFilter = audioCtx.createBiquadFilter(); window.karaokeFilter.type = "peaking"; window.karaokeFilter.frequency.value = 1000; window.karaokeFilter.Q.value = 0.5; window.karaokeFilter.gain.value = 0;
+            source.connect(eqFilters.f60); eqFilters.f60.connect(eqFilters.f230); eqFilters.f230.connect(eqFilters.f910); eqFilters.f910.connect(eqFilters.f3600); eqFilters.f3600.connect(eqFilters.f14000); eqFilters.f14000.connect(window.karaokeFilter); window.karaokeFilter.connect(audioCtx.destination);
             eqInitialized = true;
-        } catch (e) { console.warn("Ecualizador bloqueado por el navegador.", e); }
+        } catch (e) { console.warn("EQ bloqueado.", e); }
     }
-
     function updateEQ(band, val) { if (eqFilters['f'+band]) eqFilters['f'+band].gain.value = parseFloat(val); }
-    function resetEQ() { 
-        ['eq-60', 'eq-230', 'eq-910', 'eq-3600', 'eq-14000'].forEach(id => { 
-            document.getElementById(id).value = 0; 
-            updateEQ(id.replace('eq-', ''), 0); 
-        }); 
-    }
-
+    function resetEQ() { ['eq-60', 'eq-230', 'eq-910', 'eq-3600', 'eq-14000'].forEach(id => { document.getElementById(id).value = 0; updateEQ(id.replace('eq-', ''), 0); }); }
     function toggleKaraoke() {
-        if(!eqInitialized) initEQ();
-        isKaraokeOn = !isKaraokeOn;
-        if(window.karaokeFilter) {
-            window.karaokeFilter.gain.value = isKaraokeOn ? -30 : 0; 
-        }
+        if(!eqInitialized) initEQ(); isKaraokeOn = !isKaraokeOn;
+        if(window.karaokeFilter) { window.karaokeFilter.gain.value = isKaraokeOn ? -30 : 0; }
         const btn = document.getElementById('p-karaoke');
-        if(isKaraokeOn) {
-            btn.classList.add('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
-            alert("🎤 Modo Karaoke Activado: Atenuando voces principales.");
-        } else {
-            btn.classList.remove('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]');
-            alert("🎵 Modo Karaoke Desactivado.");
-        }
+        if(isKaraokeOn) { btn.classList.add('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]'); alert("🎤 Modo Karaoke Activado"); } 
+        else { btn.classList.remove('text-fuchsia-400', 'border-fuchsia-400', 'shadow-[0_0_10px_#d946ef]'); alert("🎵 Modo Karaoke Desactivado."); }
     }
 
-    function openWorldRadios() {
-        const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
-        modal.classList.remove('hidden'); void modal.offsetWidth; 
-        modal.classList.remove('opacity-0'); content.classList.remove('scale-95');
-    }
-    function closeWorldRadios() {
-        const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent');
-        modal.classList.add('opacity-0'); content.classList.add('scale-95');
-        setTimeout(() => modal.classList.add('hidden'), 300);
-    }
+    function openWorldRadios() { const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent'); modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }
+    function closeWorldRadios() { const modal = document.getElementById('worldModal'), content = document.getElementById('worldModalContent'); modal.classList.add('opacity-0'); content.classList.add('scale-95'); setTimeout(() => modal.classList.add('hidden'), 300); }
 
-    /* --- RENDER TOP 10 EFECTIVO (MANUAL + API) --- */
     window.renderActualTop10 = function() {
         if (!window.rawApiTop10 || allRadios.length === 0) return;
-        let pinnedRadios = [];
-        let hiddenIds = globalTop10Config.hidden || [];
-        let pinnedIds = globalTop10Config.pinned || [];
-        
-        pinnedIds.forEach(id => {
-            let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id);
-            if(r) pinnedRadios.push(r);
-        });
-
-        let apiRadiosFiltered = window.rawApiTop10.filter(r => 
-            !hiddenIds.includes(r.stationuuid) && 
-            !pinnedIds.includes(r.stationuuid)
-        );
-
+        let pinnedRadios = []; let hiddenIds = globalTop10Config.hidden || []; let pinnedIds = globalTop10Config.pinned || [];
+        pinnedIds.forEach(id => { let r = allRadios.find(x => x.original_uuid === id || x.stationuuid === id || x.fb_key === id); if(r) pinnedRadios.push(r); });
+        let apiRadiosFiltered = window.rawApiTop10.filter(r => !hiddenIds.includes(r.stationuuid) && !pinnedIds.includes(r.stationuuid) );
         window.currentActiveTop10 = [...pinnedRadios, ...apiRadiosFiltered].slice(0, 10);
         renderGrid(window.currentActiveTop10, 'gridTop');
-        
         if(window.renderAdminTop10) window.renderAdminTop10();
     }
 
     const loadCountryData = async (country) => {
-        document.getElementById('radioCount').innerText = "CARGANDO TOP...";
-        document.getElementById('gridMain').innerHTML = ""; 
-        document.getElementById('gridTop').innerHTML = "";
-        document.getElementById('gridTendencias').innerHTML = "";
-        displayedRadios = []; allRadios = []; currentOffset = 0;
-
+        document.getElementById('radioCount').innerText = "CARGANDO TOP..."; document.getElementById('gridMain').innerHTML = ""; document.getElementById('gridTop').innerHTML = ""; document.getElementById('gridTendencias').innerHTML = ""; displayedRadios = []; allRadios = []; currentOffset = 0;
         try {
-            const cacheKeyTop = `RAR_API_${country}_TOP`;
-            const cacheKeyAll = `RAR_API_${country}_ALL`;
-            const cacheTimeKey = `RAR_API_${country}_TIME`;
-            const now = Date.now();
-            
-            const cachedTop = localStorage.getItem(cacheKeyTop);
-            const cachedAll = localStorage.getItem(cacheKeyAll);
-            const cachedTime = localStorage.getItem(cacheTimeKey);
-
+            const cacheKeyTop = `RAR_API_${country}_TOP`, cacheKeyAll = `RAR_API_${country}_ALL`, cacheTimeKey = `RAR_API_${country}_TIME`, now = Date.now();
+            const cachedTop = localStorage.getItem(cacheKeyTop), cachedAll = localStorage.getItem(cacheKeyAll), cachedTime = localStorage.getItem(cacheTimeKey);
             let top10 = [];
-
-            if (cachedTop && cachedTime && (now - cachedTime < 3600000)) {
-                top10 = JSON.parse(cachedTop);
-            } else {
-                const resTop = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=10`);
-                top10 = await resTop.json();
-                localStorage.setItem(cacheKeyTop, JSON.stringify(top10));
-            }
-
-            window.rawApiTop10 = top10;
-            
-            allRadios = [...window.firebaseRadios, ...top10];
-            displayedRadios = [...allRadios];
+            if (cachedTop && cachedTime && (now - cachedTime < 3600000)) { top10 = JSON.parse(cachedTop); } 
+            else { const resTop = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=10`); top10 = await resTop.json(); localStorage.setItem(cacheKeyTop, JSON.stringify(top10)); }
+            window.rawApiTop10 = top10; allRadios = [...window.firebaseRadios, ...top10]; displayedRadios = [...allRadios];
             renderGrid(displayedRadios, 'gridMain');
-            
-            if(window.renderActualTop10) window.renderActualTop10();
-            if(window.renderActualTendencias) window.renderActualTendencias();
-
-            document.getElementById('sectTop').style.display = 'block';
-            document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
-
+            if(window.renderActualTop10) window.renderActualTop10(); if(window.renderActualTendencias) window.renderActualTendencias();
+            document.getElementById('sectTop').style.display = 'block'; document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
             setTimeout(async () => {
                 let apiRadios = [];
-                if (cachedAll && cachedTime && (now - cachedTime < 3600000)) {
-                    apiRadios = JSON.parse(cachedAll);
-                } else {
-                    const resAll = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=1000`);
-                    apiRadios = await resAll.json();
-                    localStorage.setItem(cacheKeyAll, JSON.stringify(apiRadios));
-                    localStorage.setItem(cacheTimeKey, now.toString());
-                }
-
-                globalApiRadios = apiRadios;
-                window.triggerGridRefresh(); 
+                if (cachedAll && cachedTime && (now - cachedTime < 3600000)) { apiRadios = JSON.parse(cachedAll); } 
+                else { const resAll = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${country}?order=clickcount&reverse=true&limit=1000`); apiRadios = await resAll.json(); localStorage.setItem(cacheKeyAll, JSON.stringify(apiRadios)); localStorage.setItem(cacheTimeKey, now.toString()); }
+                globalApiRadios = apiRadios; window.triggerGridRefresh(); 
             }, 50); 
-
-        } catch (e) { 
-            document.getElementById('radioCount').innerText = "ERROR DE CARGA"; 
-            console.error(e); 
-        }
+        } catch (e) { document.getElementById('radioCount').innerText = "ERROR"; }
     };
 
     window.triggerGridRefresh = function() {
         const fbOriginalIds = window.firebaseRadios.map(f => f.original_uuid).filter(id => id);
         const filteredApi = globalApiRadios.filter(a => !fbOriginalIds.includes(a.stationuuid));
-        
         allRadios = [...window.firebaseRadios, ...filteredApi];
-        
-        if(window.renderActualTop10) window.renderActualTop10();
-        if(window.renderActualTendencias) window.renderActualTendencias();
-
+        if(window.renderActualTop10) window.renderActualTop10(); if(window.renderActualTendencias) window.renderActualTendencias();
         if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
-            if (document.getElementById('singleRadioView').classList.contains('hidden')) {
-                displayedRadios = [...allRadios];
-                document.getElementById('gridMain').innerHTML = "";
-                currentOffset = 0; loadMoreRadios();
-            }
+            if (document.getElementById('singleRadioView').classList.contains('hidden')) { displayedRadios = [...allRadios]; document.getElementById('gridMain').innerHTML = ""; currentOffset = 0; loadMoreRadios(); }
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
         }
-        
         if(typeof renderAdminRadiosList === 'function') { renderAdminRadiosList(); }
     };
 
     function shareRadio(e, uuid) {
-        e.stopPropagation(); 
-        const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || { name: uuid };
-        const seoData = getRadioSEO(r); 
-        const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`;
-        const text = `¡Estoy escuchando ${r.name} en RadioAR Pro! 🌎 Escuchala en vivo acá:`;
-        if (navigator.share) navigator.share({title: seoData.title, text: text, url: urlToShare}).catch(err => console.log('Error compartiendo:', err));
-        else { navigator.clipboard.writeText(`${text} ${urlToShare}`); alert(`Enlace de ${r.name} copiado al portapapeles.`); }
+        e.stopPropagation(); const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || { name: uuid };
+        const seoData = getRadioSEO(r); const urlToShare = `${window.location.origin}${window.location.pathname}#/${seoData.url}`; const text = `¡Estoy escuchando ${r.name} en RadioAR Pro!`;
+        if (navigator.share) navigator.share({title: seoData.title, text: text, url: urlToShare}); else { navigator.clipboard.writeText(`${text} ${urlToShare}`); alert(`Enlace copiado`); }
     }
-    
-    function shareWeb() {
-        if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); }
-    }
+    function shareWeb() { if (navigator.share) navigator.share({title: 'RadioAR Pro', url: window.location.href}); else { navigator.clipboard.writeText(window.location.href); alert("Copiado"); } }
 
     window.boostTrend = function(e, id) {
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        let isBoosted = boosts.includes(id);
-
-        if (!isBoosted) {
-            if(window.updateTendenciasClicks) window.updateTendenciasClicks(id);
-            boosts.push(id);
-            localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts));
-            btn.classList.add('is-fav');
-            
-            const rect = btn.getBoundingClientRect();
-            createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '🔥');
-        } else {
-            boosts = boosts.filter(x => x !== id);
-            localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts));
-            btn.classList.remove('is-fav');
-        }
+        e.stopPropagation(); const btn = e.currentTarget; let isBoosted = boosts.includes(id);
+        if (!isBoosted) { if(window.updateTendenciasClicks) window.updateTendenciasClicks(id); boosts.push(id); localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts)); btn.classList.add('is-fav'); const rect = btn.getBoundingClientRect(); createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '🔥'); } 
+        else { boosts = boosts.filter(x => x !== id); localStorage.setItem('RAR_BOOSTS', JSON.stringify(boosts)); btn.classList.remove('is-fav'); }
     };
 
     function toggleCustomCat() {
-        const select = document.getElementById('mCategoria');
-        const customInput = document.getElementById('mCategoriaCustom');
-        if (select.value === 'otra') { customInput.classList.remove('hidden'); customInput.required = true; } 
-        else { customInput.classList.add('hidden'); customInput.required = false; customInput.value = ''; }
+        const select = document.getElementById('mCategoria'), customInput = document.getElementById('mCategoriaCustom');
+        if (select.value === 'otra') { customInput.classList.remove('hidden'); customInput.required = true; } else { customInput.classList.add('hidden'); customInput.required = false; customInput.value = ''; }
     }
 
-    function openAdminPanel() { 
-        document.getElementById('adminPanel').classList.remove('hidden'); 
-        if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList();
-        if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10();
-        if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias();
-    }
-    
-    document.addEventListener('keydown', (e) => { 
-        if (e.shiftKey && e.key === 'M') { 
-            if (isSuperAdmin) { openAdminPanel(); }
-        } 
-    });
+    function openAdminPanel() { document.getElementById('adminPanel').classList.remove('hidden'); if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10(); if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias(); }
+    document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { if (isSuperAdmin) { openAdminPanel(); } } });
 
     window.switchAdminTab = function(tab) {
-        const tabR = document.getElementById('tabRadios'); const tabC = document.getElementById('tabCats'); 
-        const tabA = document.getElementById('tabAds'); const tabN = document.getElementById('tabNews');
-        const tabF = document.getElementById('tabFirebase'); const tabT = document.getElementById('tabTop10');
-        const tabTen = document.getElementById('tabTendencias');
-        const tabU = document.getElementById('tabUsers');
-        const tabP = document.getElementById('tabPayments');
-        const tabTh = document.getElementById('tabThemes');
-        
-        const btnR = document.getElementById('tabBtnRadios'); const btnC = document.getElementById('tabBtnCats'); 
-        const btnA = document.getElementById('tabBtnAds'); const btnN = document.getElementById('tabBtnNews');
-        const btnF = document.getElementById('tabBtnFirebase'); const btnT = document.getElementById('tabBtnTop10');
-        const btnTen = document.getElementById('tabBtnTendencias');
-        const btnU = document.getElementById('tabBtnUsers');
-        const btnP = document.getElementById('tabBtnPayments');
-        const btnTh = document.getElementById('tabBtnThemes');
-
+        const tabs = ['tabAdRequests','tabRadios', 'tabCats', 'tabAds', 'tabNews', 'tabFirebase', 'tabTop10', 'tabTendencias', 'tabUsers', 'tabPayments', 'tabThemes'];
+        const btns = ['tabBtnAdRequests','tabBtnRadios', 'tabBtnCats', 'tabBtnAds', 'tabBtnNews', 'tabBtnFirebase', 'tabBtnTop10', 'tabBtnTendencias', 'tabBtnUsers', 'tabBtnPayments', 'tabBtnThemes'];
         const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
         const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
-        tabR.classList.add('hidden'); tabC.classList.add('hidden'); tabA.classList.add('hidden'); tabN.classList.add('hidden'); tabF.classList.add('hidden'); tabT.classList.add('hidden'); tabTen.classList.add('hidden');
-        if(tabU) tabU.classList.add('hidden');
-        if(tabP) tabP.classList.add('hidden');
-        if(tabTh) tabTh.classList.add('hidden');
+        tabs.forEach(t => { const el = document.getElementById(t); if(el) el.classList.add('hidden'); });
+        btns.forEach(b => { const el = document.getElementById(b); if(el) el.className = inactClass; });
 
-        btnR.className = inactClass; btnC.className = inactClass; btnA.className = inactClass; btnN.className = inactClass; btnF.className = inactClass; btnT.className = inactClass; btnTen.className = inactClass;
-        if(btnU) btnU.className = inactClass;
-        if(btnP) btnP.className = inactClass;
-        if(btnTh) btnTh.className = inactClass;
+        const activeTab = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+        const activeBtn = document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+        if(activeTab) activeTab.classList.remove('hidden');
+        if(activeBtn) {
+            if(tab === 'adRequests') activeBtn.className = "flex-shrink-0 flex-1 text-white bg-green-600 rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
+            else activeBtn.className = actClass;
+        }
 
-        if(tab === 'radios') { tabR.classList.remove('hidden'); btnR.className = actClass; if(typeof renderAdminRadiosList === 'function') renderAdminRadiosList(); } 
-        else if (tab === 'cats') { tabC.classList.remove('hidden'); btnC.className = actClass; } 
-        else if (tab === 'ads') { tabA.classList.remove('hidden'); btnA.className = actClass; }
-        else if (tab === 'news') { tabN.classList.remove('hidden'); btnN.className = actClass; }
-        else if (tab === 'firebase') { tabF.classList.remove('hidden'); btnF.className = actClass; }
-        else if (tab === 'top10') { tabT.classList.remove('hidden'); btnT.className = actClass; if(typeof window.renderAdminTop10 === 'function') window.renderAdminTop10(); }
-        else if (tab === 'tendencias') { tabTen.classList.remove('hidden'); btnTen.className = actClass; if(typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias(); }
-        else if (tab === 'users') { if(tabU) tabU.classList.remove('hidden'); if(btnU) btnU.className = actClass; }
-        else if (tab === 'payments') { if(tabP) tabP.classList.remove('hidden'); if(btnP) btnP.className = actClass; }
-        else if (tab === 'themes') { if(tabTh) tabTh.classList.remove('hidden'); if(btnTh) btnTh.className = actClass; }
+        if(tab === 'radios' && typeof renderAdminRadiosList === 'function') renderAdminRadiosList();
+        if(tab === 'top10' && typeof window.renderAdminTop10 === 'function') window.renderAdminTop10();
+        if(tab === 'tendencias' && typeof window.renderAdminTendencias === 'function') window.renderAdminTendencias();
     };
 
     function updateMediaSession(r) {
       if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial',
-          artwork: [{ src: makeHttps(r.favicon) || 'https://ui-avatars.com/api/?name=R&background=333&size=512', sizes: '512x512', type: 'image/png' }]
-        });
+        navigator.mediaSession.metadata = new MediaMetadata({ title: r.name, artist: 'RadioAR Pro 🌎', album: r.state || 'Radio Mundial', artwork: [{ src: makeHttps(r.favicon) || 'https://ui-avatars.com/api/?name=R', sizes: '512x512', type: 'image/png' }] });
         navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause());
       }
     }
@@ -2212,28 +1682,33 @@
       if(!relaxAudio.paused) stopRelax(); 
       const r = allRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid) || displayedRadios.find(x => x.original_uuid === uuid || x.stationuuid === uuid || x.fb_key === uuid);
       if(!r) return;
-      
       initEQ(); currentStation = r;
       if(!skipPush) updateMetadata(getRadioSEO(r), 'radio', uuid);
-      
       openRadioView(r);
-
-      document.getElementById('p-name').innerText = r.name;
-      document.getElementById('p-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
+      document.getElementById('p-name').innerText = r.name; document.getElementById('p-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=333`;
       pDot.className = "w-2 h-2 rounded-full bg-yellow-500 animate-pulse"; pStat.innerText = "Conectando...";
-      
-      audio.src = r.url_resolved || r.url;
-      audio.play().then(() => updateMediaSession(r)).catch(err => { pStat.innerText = "Error"; });
+      audio.src = r.url_resolved || r.url; audio.play().then(() => updateMediaSession(r)).catch(err => { pStat.innerText = "Error"; });
     }
 
     function renderGrid(data, id, append = false) {
       const container = document.getElementById(id); 
-      if (!append) container.innerHTML = "";
+      if (!append) {
+          container.innerHTML = "";
+          // INYECCIÓN DE LA TARJETA PROMOCIONAL ÉPICA (INVERSE THEME)
+          const adDiv = document.createElement('div');
+          adDiv.className = "ad-promo-card";
+          adDiv.onclick = window.openAdContactModal;
+          adDiv.innerHTML = `
+            <div class="ad-promo-icon">🚀</div>
+            <div class="font-black text-[13px] uppercase tracking-widest leading-tight">¡Destacá tu Radio Aquí!</div>
+            <div class="text-[9px] font-bold uppercase mt-2 opacity-80 border border-current px-2 py-1 rounded-md">Contratar Posición</div>
+          `;
+          container.appendChild(adDiv);
+      }
       data.forEach(r => {
         const primaryId = r.original_uuid || r.stationuuid || r.fb_key;
         const isFav = favs.includes(primaryId) || favs.includes(r.stationuuid) || favs.includes(r.fb_key);
         const isBoosted = boosts.includes(primaryId) || boosts.includes(r.stationuuid) || boosts.includes(r.fb_key);
-        
         const safeFavicon = makeHttps(r.favicon);
         const div = document.createElement('div');
         div.className = "r-card";
@@ -2264,38 +1739,32 @@
         else { document.getElementById('loadMoreTrigger').innerText = "Has llegado al final"; }
     }
 
-    function setupInfiniteScroll() {
-        const trigger = document.getElementById('loadMoreTrigger');
-        const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMoreRadios(); }, { rootMargin: "200px" });
-        observer.observe(trigger);
-    }
+    function setupInfiniteScroll() { const trigger = document.getElementById('loadMoreTrigger'); const observer = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) loadMoreRadios(); }, { rootMargin: "200px" }); observer.observe(trigger); }
 
     let mediaRecorder, recordedChunks = [];
     const btnRecord = document.getElementById('p-record'), dotRecord = document.getElementById('rec-dot');
     btnRecord.onclick = () => { (!mediaRecorder || mediaRecorder.state === 'inactive') ? startRecording() : stopRecording(); };
 
     function startRecording() {
-        if (audio.paused || !audio.src) { alert("Debes reproducir una radio primero para poder grabar."); return; }
+        if (audio.paused || !audio.src) { alert("Reproduce una radio para grabar."); return; }
         try {
             const stream = audio.captureStream ? audio.captureStream() : audio.mozCaptureStream ? audio.mozCaptureStream() : null;
-            if (!stream) { alert("Tu navegador no soporta la grabación nativa."); return; }
+            if (!stream) { alert("Grabación no soportada."); return; }
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
             mediaRecorder.onstop = () => {
                 const blob = new Blob(recordedChunks, { type: 'audio/webm' }), url = URL.createObjectURL(blob);
                 const a = document.createElement('a'); a.style.display = 'none'; a.href = url; a.download = `Grabacion_RadioAR_${new Date().getTime()}.webm`;
-                document.body.appendChild(a); a.click(); setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
-                recordedChunks = [];
+                document.body.appendChild(a); a.click(); setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100); recordedChunks = [];
             };
             mediaRecorder.start();
             dotRecord.classList.replace('bg-zinc-500', 'bg-red-500'); dotRecord.classList.add('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.add('border-red-500');
-        } catch (err) { alert("Error al intentar grabar. (Posible bloqueo por CORS)."); }
+        } catch (err) { alert("Error (Posible bloqueo CORS)."); }
     }
 
     function stopRecording() {
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-            mediaRecorder.stop();
-            dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.remove('border-red-500');
+            mediaRecorder.stop(); dotRecord.classList.replace('bg-red-500', 'bg-zinc-500'); dotRecord.classList.remove('shadow-[0_0_8px_#ef4444]', 'animate-pulse'); btnRecord.classList.remove('border-red-500');
         }
     }
 
@@ -2308,9 +1777,7 @@
       });
       onlineManager.init(); setupControls(); setupInfiniteScroll(); setupTickerDrag();
       loadCountryData('argentina'); setupAlarmClock();
-      
-      window.hideKaraoke();
-      window.applyEQLimits(); // Inicia ocultando bandas extra
+      window.hideKaraoke(); window.applyEQLimits(); 
     }
 
     function setupAlarmClock() {
@@ -2359,48 +1826,26 @@
     }
 
     function filterByMood(mood, btn) {
-      closeRadioView();
-      document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
-      if(mood === 'all') { 
-          displayedRadios = [...allRadios]; 
-          document.getElementById('sectTop').style.display = 'block'; 
-          if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) document.getElementById('sectTendencias').style.display = 'block';
-      } 
+      closeRadioView(); document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
+      if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) document.getElementById('sectTendencias').style.display = 'block'; } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
           let searchTerms = keywords[mood] || [mood];
           displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
-          document.getElementById('sectTop').style.display = 'none';
-          document.getElementById('sectTendencias').style.display = 'none';
+          document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
     }
 
     function toggleF(e, primaryId, stationUuid, fbKey) {
-      e.stopPropagation(); 
-      const ids = [primaryId, stationUuid, fbKey].filter(Boolean);
-      const isFav = ids.some(id => favs.includes(id));
-      
-      if (isFav) {
-          favs = favs.filter(x => !ids.includes(x));
-      } else {
-          favs.push(primaryId);
-          const rect = e.currentTarget.getBoundingClientRect();
-          createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '💙');
-      }
-      
-      localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); 
-      e.currentTarget.classList.toggle('is-fav', !isFav);
+      e.stopPropagation(); const ids = [primaryId, stationUuid, fbKey].filter(Boolean); const isFav = ids.some(id => favs.includes(id));
+      if (isFav) { favs = favs.filter(x => !ids.includes(x)); } else { favs.push(primaryId); const rect = e.currentTarget.getBoundingClientRect(); createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '💙'); }
+      localStorage.setItem('RAR_FAVS', JSON.stringify(favs)); e.currentTarget.classList.toggle('is-fav', !isFav);
     }
 
     function sideScroll(id, val) { document.getElementById(id).scrollBy({ left: val, behavior: 'smooth' }); }
     function toggleChat() { document.getElementById('chatSidebar').classList.toggle('chat-open'); }
-    function triggerZapping() { 
-        if(allRadios.length > 0) {
-            const randomRadio = allRadios[Math.floor(Math.random()*allRadios.length)];
-            play(randomRadio.fb_key || randomRadio.stationuuid); 
-        }
-    }
+    function triggerZapping() { if(allRadios.length > 0) { const randomRadio = allRadios[Math.floor(Math.random()*allRadios.length)]; play(randomRadio.fb_key || randomRadio.stationuuid); } }
 
     init();
   </script>
@@ -2410,116 +1855,105 @@
     import { getDatabase, ref, push, update, onChildAdded, serverTimestamp, query, limitToLast, remove, onValue, get, child, set } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-    const defaultFbConfig = {
-      apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk",
-      authDomain: "radioarpro.firebaseapp.com",
-      databaseURL: "https://radioarpro-default-rtdb.firebaseio.com",
-      projectId: "radioarpro",
-      storageBucket: "radioarpro.firebasestorage.app",
-      messagingSenderId: "608025447862",
-      appId: "1:608025447862:web:a9a20c36a5ca86f6ca8517",
-      measurementId: "G-051Z1FBHEK"
-    };
-
+    const defaultFbConfig = { apiKey: "AIzaSyCZF-ekJShtKX5k4M-q5naJmqActscRmuk", authDomain: "radioarpro.firebaseapp.com", databaseURL: "https://radioarpro-default-rtdb.firebaseio.com", projectId: "radioarpro", storageBucket: "radioarpro.firebasestorage.app", messagingSenderId: "608025447862", appId: "1:608025447862:web:a9a20c36a5ca86f6ca8517" };
     const savedFbConfig = JSON.parse(localStorage.getItem('RAR_FIREBASE_CONFIG'));
     const firebaseConfig = savedFbConfig || defaultFbConfig;
 
     const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const db = getDatabase(app); const auth = getAuth(app); const provider = new GoogleAuthProvider();
     
-    const chatRef = ref(db, 'chat_comunidad');
-    const radioRef = ref(db, 'radios_comunidad');
-    const catRef = ref(db, 'categorias_comunidad');
-    const adsRef = ref(db, 'settings_comunidad/ads');
-    const newsRef = ref(db, 'settings_comunidad/news');
-    const top10Ref = ref(db, 'settings_comunidad/top10');
-    const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
-    const paymentsRef = ref(db, 'settings_comunidad/payments'); 
-    const themesRef = ref(db, 'settings_comunidad/themes');
+    const chatRef = ref(db, 'chat_comunidad'); const radioRef = ref(db, 'radios_comunidad'); const catRef = ref(db, 'categorias_comunidad');
+    const adsRef = ref(db, 'settings_comunidad/ads'); const newsRef = ref(db, 'settings_comunidad/news');
+    const top10Ref = ref(db, 'settings_comunidad/top10'); const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
+    const paymentsRef = ref(db, 'settings_comunidad/payments'); const themesRef = ref(db, 'settings_comunidad/themes');
+    const adRequestsRef = ref(db, 'ad_requests'); // NUEVA REFERENCIA DE SOLICITUDES DE ADS
     
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
 
-    const ADMIN_PASSWORD = "Moniyjere11@"; 
-    let sessionUnsubscribe = null;
-    let globalThemesConfig = { gold: '', diamond: '' };
+    const ADMIN_PASSWORD = "Moniyjere11@"; let sessionUnsubscribe = null; let globalThemesConfig = { gold: '', diamond: '' };
 
-    // --- REAPLICAR THEMES CUSTOM ---
-    window.reapplyUserTheme = function() {
-        const container = document.getElementById('custom-premium-html-container');
-        if(!container) return;
-        
-        if (window.currentPremiumStatus === 'diamond') {
-            container.innerHTML = globalThemesConfig.diamond || '';
-        } else if (window.currentPremiumStatus === 'gold') {
-            container.innerHTML = globalThemesConfig.gold || '';
-        } else {
-            container.innerHTML = '';
-        }
-
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-            newScript.text = oldScript.text;
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-    };
-
-    onValue(themesRef, (snapshot) => {
-        const data = snapshot.val();
-        if(data) {
-            globalThemesConfig = data;
-            if(document.getElementById('htmlGold')) document.getElementById('htmlGold').value = data.gold || '';
-            if(document.getElementById('htmlDiamond')) document.getElementById('htmlDiamond').value = data.diamond || '';
-            window.reapplyUserTheme();
-        }
-    });
-
-    document.getElementById('adminThemesForm')?.addEventListener('submit', function(e) {
+    // --- MANEJO FORMULARIO SOLICITUDES PUBLICIDAD ---
+    document.getElementById('adContactForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const pass = prompt("Contraseña de Administrador para Configuración de Themes:");
-        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
-        
         const data = {
-            gold: document.getElementById('htmlGold').value,
-            diamond: document.getElementById('htmlDiamond').value
+            name: document.getElementById('adContactName').value.trim(),
+            radio: document.getElementById('adContactRadio').value.trim(),
+            email: document.getElementById('adContactEmail').value.trim(),
+            message: document.getElementById('adContactMsg').value.trim(),
+            timestamp: serverTimestamp()
         };
-        
-        update(ref(db, 'settings_comunidad'), { themes: data }).then(() => {
-            alert("¡Themes (HTML Exclusivo) guardados correctamente!");
+        push(adRequestsRef, data).then(() => {
+            alert("¡Solicitud enviada con éxito! Nos contactaremos pronto para asignar tu lugar especial.");
+            window.closeAdContactModal();
+            document.getElementById('adContactForm').reset();
         }).catch(err => alert("Error: " + err.message));
     });
 
-    window.iniciarSesion = () => {
-        signInWithPopup(auth, provider).then((result) => {
-            const user = result.user;
-            verificarOCrearUsuario(user);
-        }).catch((error) => console.error("Error en login:", error));
+    onValue(adRequestsRef, (snapshot) => {
+        const list = document.getElementById('adminAdRequestsList');
+        const count = document.getElementById('adReqCount');
+        if(!list) return;
+        list.innerHTML = '';
+
+        if (snapshot.exists()) {
+            let reqs = [];
+            snapshot.forEach(child => { reqs.push({ key: child.key, ...child.val() }); });
+            reqs.reverse(); // Más recientes arriba
+            count.innerText = reqs.length;
+
+            reqs.forEach(req => {
+                const dateObj = new Date(req.timestamp || Date.now());
+                const dateStr = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString();
+                const div = document.createElement('div');
+                div.className = 'bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50';
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h5 class="text-sm font-bold text-white">${req.radio}</h5>
+                            <p class="text-[10px] text-green-400 font-bold">${req.name} &bull; <a href="mailto:${req.email}" class="underline">${req.email}</a></p>
+                        </div>
+                        <button onclick="deleteAdRequest('${req.key}')" class="text-red-400 hover:text-red-300 text-[10px] font-bold px-2 py-1 bg-red-400/10 rounded">Eliminar</button>
+                    </div>
+                    <p class="text-xs text-zinc-300 bg-zinc-900 p-2 rounded">${req.message || 'Sin mensaje adicional.'}</p>
+                    <p class="text-[9px] text-zinc-500 mt-2 text-right">${dateStr}</p>
+                `;
+                list.appendChild(div);
+            });
+        } else {
+            count.innerText = "0";
+            list.innerHTML = '<div class="text-zinc-500 text-[10px] text-center p-4 border border-dashed border-zinc-800 rounded-xl">No hay solicitudes pendientes de publicidad.</div>';
+        }
+    });
+
+    window.deleteAdRequest = function(key) {
+        const pass = prompt("Contraseña de Administrador para eliminar solicitud:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        remove(ref(db, 'ad_requests/' + key));
     };
 
+    window.reapplyUserTheme = function() {
+        const container = document.getElementById('custom-premium-html-container'); if(!container) return;
+        if (window.currentPremiumStatus === 'diamond') { container.innerHTML = globalThemesConfig.diamond || ''; } else if (window.currentPremiumStatus === 'gold') { container.innerHTML = globalThemesConfig.gold || ''; } else { container.innerHTML = ''; }
+        const scripts = container.querySelectorAll('script'); scripts.forEach(oldScript => { const newScript = document.createElement('script'); Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value)); newScript.text = oldScript.text; oldScript.parentNode.replaceChild(newScript, oldScript); });
+    };
+
+    onValue(themesRef, (snapshot) => { const data = snapshot.val(); if(data) { globalThemesConfig = data; if(document.getElementById('htmlGold')) document.getElementById('htmlGold').value = data.gold || ''; if(document.getElementById('htmlDiamond')) document.getElementById('htmlDiamond').value = data.diamond || ''; window.reapplyUserTheme(); } });
+
+    document.getElementById('adminThemesForm')?.addEventListener('submit', function(e) {
+        e.preventDefault(); const pass = prompt("Contraseña de Administrador para Configuración de Themes:"); if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        const data = { gold: document.getElementById('htmlGold').value, diamond: document.getElementById('htmlDiamond').value };
+        update(ref(db, 'settings_comunidad'), { themes: data }).then(() => { alert("¡Themes guardados correctamente!"); }).catch(err => alert("Error: " + err.message));
+    });
+
+    window.iniciarSesion = () => { signInWithPopup(auth, provider).then((result) => { verificarOCrearUsuario(result.user); }).catch((error) => console.error(error)); };
     window.cerrarSesion = () => { signOut(auth); };
 
     function verificarOCrearUsuario(user) {
         const userRef = ref(db, `users/${user.uid}`);
         get(userRef).then((snapshot) => {
             const sessionToken = crypto.randomUUID();
-            if (!snapshot.exists()) {
-                set(userRef, {
-                    nombre: user.displayName,
-                    email: user.email,
-                    foto: user.photoURL,
-                    isPro: false,
-                    isDiamond: false,
-                    fechaRegistro: new Date().toISOString(),
-                    sesion_activa: sessionToken
-                });
-            } else {
-                update(userRef, { sesion_activa: sessionToken });
-            }
-            vigilarSesionUnica(user.uid, sessionToken);
+            if (!snapshot.exists()) { set(userRef, { nombre: user.displayName, email: user.email, foto: user.photoURL, isPro: false, isDiamond: false, fechaRegistro: new Date().toISOString(), sesion_activa: sessionToken }); } else { update(userRef, { sesion_activa: sessionToken }); }vigilarSesionUnica(user.uid, sessionToken);
         });
     }
 
@@ -2563,13 +1997,12 @@
             if(document.getElementById('userAvatar')) document.getElementById('userAvatar').src = user.photoURL;
             if(document.getElementById('mobileUserAvatar')) document.getElementById('mobileUserAvatar').src = user.photoURL;
 
-            // Revisar si es PRO (GOLD) o DIAMOND
             onValue(ref(db, `users/${user.uid}`), (snapshot) => {
                 const data = snapshot.val();
                 if(data && data.isDiamond) {
                     window.currentPremiumStatus = 'diamond';
-                    window.showKaraoke(); // MUESTRA KARAOKE
-                    window.applyEQLimits(); // 5 BANDAS
+                    window.showKaraoke(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.add('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
@@ -2577,8 +2010,8 @@
                     if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
                 } else if(data && data.isPro) {
                     window.currentPremiumStatus = 'gold';
-                    window.hideKaraoke(); // OCULTA KARAOKE
-                    window.applyEQLimits(); // 3 BANDAS
+                    window.hideKaraoke(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-diamond'); mainLogoText.classList.add('logo-oro'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
@@ -2587,8 +2020,8 @@
                     document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
                 } else {
                     window.currentPremiumStatus = 'free';
-                    window.hideKaraoke(); // OCULTA KARAOKE
-                    window.applyEQLimits(); // 3 BANDAS
+                    window.hideKaraoke(); 
+                    window.applyEQLimits(); 
                     if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
@@ -2600,7 +2033,7 @@
             });
 
         } else {
-            isSuperAdmin = false; // Apaga el modo admin
+            isSuperAdmin = false; 
 
             if(sessionUnsubscribe) { sessionUnsubscribe(); sessionUnsubscribe = null; }
             if(authButtonsWrapper) authButtonsWrapper.classList.remove('hidden');
@@ -2623,7 +2056,6 @@
         }
     });
 
-    // PANEL ADMIN: GESTIÓN DE USUARIOS
     onValue(ref(db, 'users'), (snapshot) => {
         const adminList = document.getElementById('adminUsersList');
         if(!adminList) return;
@@ -2693,7 +2125,7 @@
     document.getElementById('fbMessagingSenderId').value = firebaseConfig.messagingSenderId || "";
     document.getElementById('fbAppId').value = firebaseConfig.appId || "";
 
-    document.getElementById('adminFirebaseForm').addEventListener('submit', function(e) {
+    document.getElementById('adminFirebaseForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const pass = prompt("Contraseña de Administrador para Configurar Base de Datos:");
         if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
@@ -2785,7 +2217,6 @@
             if(r) pinnedRadios.push(r);
         });
 
-        // Ordenar por clicks
         let clicksArray = Object.entries(globalClicks)
             .filter(([id]) => !hiddenIds.includes(id) && !pinnedIds.includes(id))
             .sort((a, b) => b[1] - a[1]) // descendente
@@ -2861,19 +2292,17 @@
                 const id = r.original_uuid || r.stationuuid || r.fb_key;
                 const isPinned = globalTendenciasConfig.pinned.includes(id);
                 const clicks = globalClicks[id] || 0;
-                html += `
-                    <div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">🔥 ${clicks} fueguitos (mes)</p>
-                            </div>
+                html += `<div draggable="true" ondragstart="tenDragStart(event, '${id}')" ondragover="tenDragOver(event)" ondragleave="tenDragLeave(event)" ondrop="tenDrop(event, '${id}')" ondragend="tenDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                    <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                        <span class="text-orange-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                        <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="truncate">
+                            <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-orange-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                            <p class="text-[9px] text-zinc-500 truncate mt-0.5">🔥 ${clicks} fueguitos (mes)</p>
                         </div>
-                        <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
                     </div>
-                `;
+                    <button onclick="removeFromTendencias('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                </div>`;
             });
         }
         list.innerHTML = html;
@@ -2887,15 +2316,14 @@
         const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
         resDiv.innerHTML = found.map(r => {
             const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
+            return `<div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTendencias('${id}')">
                 <div class="flex items-center gap-2 truncate">
                     <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
                     <span class="text-xs text-white font-bold truncate">${r.name}</span>
                 </div>
                 <span class="text-[10px] bg-orange-600 text-black font-bold px-2 py-1 rounded">Añadir</span>
-            </div>
-        `}).join('');
+            </div>`
+        }).join('');
     };
 
     window.addToTendencias = function(id) {
@@ -3004,19 +2432,17 @@
             window.currentActiveTop10.forEach((r, idx) => {
                 const id = r.original_uuid || r.stationuuid || r.fb_key;
                 const isPinned = globalTop10Config.pinned.includes(id);
-                html += `
-                    <div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
-                        <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
-                            <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
-                            <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                            <div class="truncate">
-                                <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
-                                <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
-                            </div>
+                html += `<div draggable="true" ondragstart="topDragStart(event, '${id}')" ondragover="topDragOver(event)" ondragleave="topDragLeave(event)" ondrop="topDrop(event, '${id}')" ondragend="topDragEnd(event)" data-id="${id}" class="flex justify-between items-center bg-zinc-800/50 p-2 rounded-xl border border-zinc-700/50 cursor-grab active:cursor-grabbing transition-all mb-2">
+                    <div class="flex items-center gap-3 overflow-hidden pointer-events-none">
+                        <span class="text-yellow-500 font-black text-sm w-4 text-center">${idx+1}</span>
+                        <img src="${makeHttps(r.favicon)}" class="w-8 h-8 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="truncate">
+                            <p class="text-xs font-bold text-white truncate">${r.name} ${isPinned ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">FIJADA</span>' : ''}</p>
+                            <p class="text-[9px] text-zinc-500 truncate mt-0.5">${id}</p>
                         </div>
-                        <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
                     </div>
-                `;
+                    <button onclick="removeFromTop10('${id}', ${isPinned})" class="text-red-400 hover:text-red-300 text-xs font-bold px-3 py-2 hover:bg-red-400/10 rounded-lg transition-colors pointer-events-auto">Quitar</button>
+                </div>`;
             });
         }
         list.innerHTML = html;
@@ -3030,15 +2456,14 @@
         const found = allRadios.filter(r => r.name.toLowerCase().includes(q)).slice(0, 10);
         resDiv.innerHTML = found.map(r => {
             const id = r.original_uuid || r.stationuuid || r.fb_key;
-            return `
-            <div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
+            return `<div class="flex justify-between items-center bg-zinc-800 p-2 rounded-lg cursor-pointer hover:bg-zinc-700 transition-colors" onclick="addToTop10('${id}')">
                 <div class="flex items-center gap-2 truncate">
                     <img src="${makeHttps(r.favicon)}" class="w-6 h-6 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
                     <span class="text-xs text-white font-bold truncate">${r.name}</span>
                 </div>
                 <span class="text-[10px] bg-yellow-600 text-black font-bold px-2 py-1 rounded">Añadir al Top</span>
-            </div>
-        `}).join('');
+            </div>`
+        }).join('');
     };
 
     window.addToTop10 = function(id) {
@@ -3482,6 +2907,6 @@
             remove(ref(db, 'radios_comunidad/' + key)).then(() => { alert("Radio eliminada exitosamente."); });
         }
     };
-</script>
+  </script>
 </body>
 </html>
