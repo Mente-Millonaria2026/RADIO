@@ -19,34 +19,31 @@
             --text-dim: #535353; --absent: #7a7a7a; --key-bg: #d3d6da;
         }
 
-        /* Aseguramos que el contenedor base ocupe exactamente el 100% sin generar scroll */
-        html, body {
-            margin: 0; 
-            padding: 0;
-            width: 100%; 
+        /* html y body configurados para permitir scroll si falta espacio vertical */
+        html {
             height: 100%;
-            overflow: hidden;
-            touch-action: manipulation; /* Optimización para móviles */
         }
 
         body {
             background-color: var(--bg); 
             color: var(--text);
             font-family: var(--font); 
+            margin: 0; 
+            padding: 0;
             display: flex;
             flex-direction: column; 
             align-items: center; 
+            min-height: 100%; /* Toma al menos el alto total del panel */
+            overflow-y: auto; /* ACTIVA LA BARRA DE DESPLAZAMIENTO SI ES NECESARIO */
+            overflow-x: hidden;
             transition: background-color 0.3s, color 0.3s;
             box-sizing: border-box;
-            /* Usa dvh para compensar la barra de navegación en móviles, con fallback a 100% */
-            height: 100dvh;
-            max-height: 100%;
         }
 
         header { 
             width: 100%; 
             max-width: 500px; 
-            padding: clamp(10px, 2vh, 15px); 
+            padding: 15px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -55,31 +52,36 @@
         
         #challenge-banner {
             display: none; width: 100%; background: var(--spotify-green);
-            color: white; padding: clamp(6px, 1.5vh, 10px); text-align: center; font-weight: bold;
-            font-size: clamp(0.7rem, 2.5vw, 0.85rem); z-index: 100;
+            color: white; padding: 10px; text-align: center; font-weight: bold;
+            font-size: 0.85rem; z-index: 100;
         }
 
-        /* Tablero totalmente fluido basado en el tamaño del contenedor */
+        .stats-container {
+            display: flex; gap: 15px; background: var(--card); padding: 8px 25px; 
+            border-radius: 30px; margin-bottom: 10px; font-size: 0.9rem;
+        }
+
+        /* El tablero se adapta al ancho y mantiene las proporciones cuadradas */
         #game-board { 
             display: grid; 
-            gap: min(1.5vw, 8px); 
-            width: 100%; 
-            max-width: min(85vw, 400px);
-            margin: auto; 
-            padding: clamp(5px, 2vh, 10px);
+            gap: 8px; 
+            width: 100%;
+            max-width: 380px; /* Evita que sea gigantesco en pantallas anchas */
+            margin: auto; /* Lo centra perfectamente en el espacio sobrante vertical */
+            padding: 20px 15px;
             justify-content: center;
             box-sizing: border-box;
         }
         
         .tile { 
             width: 100%; 
-            aspect-ratio: 1; /* Mantiene la proporción cuadrada siempre */
+            aspect-ratio: 1; /* Mantiene la proporción cuadrada automáticamente */
             background: var(--tile); 
             border-radius: 4px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: min(6vw, 4vh, 2rem); /* El texto escala dinámicamente */
+            font-size: clamp(1.2rem, 6vw, 2rem); /* La letra se achica y agranda sola */
             font-weight: bold; 
             text-transform: uppercase;
             border: 2px solid transparent;
@@ -90,11 +92,11 @@
         .tile[data-state="present"] { background: var(--present); color: white; }
         .tile[data-state="absent"] { background: var(--absent); color: white; }
 
-        /* Teclado adaptable a la altura y ancho restante */
+        /* Teclado adaptable en la base */
         #keyboard { 
             width: 100%; 
             max-width: 550px; 
-            padding: clamp(4px, 1vh, 8px); 
+            padding: 10px 5px 25px 5px; /* Padding extra abajo para la barra de scroll */
             margin-top: auto; 
             box-sizing: border-box; 
         }
@@ -103,24 +105,29 @@
             display: flex; 
             justify-content: center; 
             gap: clamp(2px, 1vw, 4px); 
-            margin-bottom: clamp(4px, 1vh, 6px); 
+            margin-bottom: 6px; 
             width: 100%; 
         }
         
         .key { 
             background: var(--key-bg); border: none; color: var(--text); 
             border-radius: 4px; 
-            height: clamp(38px, 7vh, 55px); /* Se achica si falta espacio vertical */
+            height: clamp(45px, 8vh, 55px); 
             flex: 1; font-weight: bold; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             outline: none;
-            font-size: clamp(0.7rem, 2.5vw, 1rem); /* Letras más pequeñas en pantallas estrechas */
+            font-size: clamp(0.7rem, 2.5vw, 1rem);
             padding: 0;
             user-select: none;
         }
         .key.wide { flex: 1.6; font-size: clamp(0.6rem, 2vw, 0.75rem); }
 
-        #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        #overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+            z-index: 200; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; padding: 20px; overflow-y: auto; 
+        }
+        
         .btn-main { background: var(--spotify-green); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 0.9rem; width: 80%; max-width: 300px; }
         .btn-sec { background: transparent; color: white; border: 1px solid white; padding: 10px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.8rem; width: 80%; max-width: 300px; }
     </style>
@@ -137,7 +144,7 @@
     <button onclick="toggleTheme()" id="themeBtn" style="background:none; border:1px solid var(--text-dim); color:var(--text); padding:4px 10px; border-radius:15px; font-size:0.7rem; cursor:pointer; outline: none;">TEMA</button>
 </header>
 
-<div style="display:flex; gap:15px; background:var(--card); padding:8px 25px; border-radius:30px; margin-bottom: clamp(5px, 2vh, 10px); font-size: clamp(0.8rem, 2.5vw, 0.9rem);">
+<div class="stats-container">
     <div><span id="ui-level" style="color:var(--spotify-green); font-weight:bold;">5L</span> <small>NIVEL</small></div>
     <div style="width:1px; background:var(--absent);"></div>
     <div><span id="ui-score" style="font-weight:bold;">0</span> <small>PTS</small></div>
