@@ -95,50 +95,19 @@
     }
     .btn-diamond:hover { transform: scale(1.02); filter: brightness(1.1); }
     
-    /* --- TEMAS REMERA EXCLUSIVOS --- */
-    body.remera-gold { background: #000; color: #74ACDF; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
-    body.remera-gold .main-view { background: radial-gradient(circle at 10% 10%, rgba(30, 58, 138, 0.4) 0%, rgba(0,0,0,0) 50%), radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.4) 0%, rgba(0,0,0,0) 50%), radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.2) 0%, rgba(0,0,0,0) 80%); }
-    body.remera-gold .logo-text, body.remera-gold .viewLabel { color: #F6B40E; text-shadow: 0 2px 10px rgba(246, 180, 14, 0.5); }
-    body.remera-gold .epic-logo { color: #F6B40E; }
-    body.remera-gold .search-input:focus { border-color: #F6B40E; box-shadow: 0 0 10px rgba(246, 180, 14, 0.3); }
-    body.remera-gold .btn-zapping { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: #fff; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-    body.remera-gold .r-card { background: rgba(0,0,0,0.8); border: 1px solid #111; backdrop-filter: blur(5px); transition: all 0.3s; }
-    body.remera-gold .r-card:hover { border-color: #3b82f6; box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); transform: translateY(-5px); }
-    body.remera-gold .pill.active { background: #F6B40E; color: #000; }
-    body.remera-gold .player-bar { background: rgba(0, 0, 0, 0.95); border-top-color: #F6B40E; }
-    body.remera-gold .btn-premium { background: linear-gradient(135deg, #F6B40E 0%, #d49800 100%); color: #000; animation: pulseGold 2s infinite; }
-    body.remera-gold .chat-msg .bg-zinc-900 { background-color: rgba(0,0,0,0.8) !important; color: #fff !important; border-color: #111 !important; }
-    body.remera-gold .eq-icon .eq-bar:nth-child(1), body.remera-gold .eq-icon .eq-bar:nth-child(3) { background-color: #F6B40E; }
+    /* THEMES CYBERPUNK/ESPACIAL/SYNTH/AURORA/CRYSTAL/GOLD-EPIC */
+    body.theme-gold-epic { background: #0a0800; color: #fdf6e3; --arg-blue: #F6B40E; }
+    body.theme-gold-epic .main-view { background: radial-gradient(circle at 50% 0%, #332200 0%, #0a0800 80%); }
+    body.theme-gold-epic .sidebar, body.theme-gold-epic .chat-sidebar, body.theme-gold-epic .mobile-header, body.theme-gold-epic .prov-nav-wrapper { background: rgba(10, 8, 0, 0.95); border-color: #F6B40E; box-shadow: 0 0 15px rgba(246, 180, 14, 0.1); backdrop-filter: blur(12px); }
+    body.theme-gold-epic .r-card { background: linear-gradient(145deg, #1a1400, #0a0800); border: 1px solid #4d3a00; transition: all 0.3s; }
+    body.theme-gold-epic .r-card:hover { border-color: #F6B40E; box-shadow: 0 0 25px rgba(246, 180, 14, 0.4); transform: translateY(-5px); }
+    body.theme-gold-epic .player-bar { background: rgba(10, 8, 0, 0.98); border-top: 1px solid #F6B40E; box-shadow: 0 -5px 25px rgba(246, 180, 14, 0.25); z-index: 2000;}
+    body.theme-gold-epic .btn-premium { background: linear-gradient(135deg, #F6B40E 0%, #ffdf70 100%); color: #000; box-shadow: 0 4px 20px rgba(246, 180, 14, 0.6); }
+    body.theme-gold-epic .btn-zapping { background: linear-gradient(135deg, #F6B40E 0%, #ffdf70 100%); color: #000; box-shadow: 0 4px 20px rgba(246, 180, 14, 0.6); }
+    body.theme-gold-epic .pill { color: #F6B40E; border-color: #4d3a00; background: rgba(246, 180, 14, 0.1); }
+    body.theme-gold-epic .pill.active { background: #F6B40E; color: #000; border-color: #F6B40E; box-shadow: 0 0 15px rgba(246, 180, 14, 0.6); }
+    body.theme-gold-epic .search-input:focus { border-color: #F6B40E; box-shadow: 0 0 10px rgba(246, 180, 14, 0.3); }
 
-    body.remera-diamond { background: #f0f9ff; color: #1e3a8a; --arg-blue: #74ACDF; --arg-gold: #F6B40E; }
-    body.remera-diamond .main-view { background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%); position: relative; }
-    body.remera-diamond .sidebar, body.remera-diamond .chat-sidebar, body.remera-diamond .mobile-header, body.remera-diamond .prov-nav-wrapper { background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(240,249,255,0.95) 100%); border-color: #74ACDF; backdrop-filter: blur(15px); }
-    body.remera-diamond .logo-text, body.remera-diamond .viewLabel { color: #1e3a8a; text-shadow: 0 2px 10px rgba(30, 58, 138, 0.5); }
-    body.remera-diamond .epic-logo { color: #1e3a8a; }
-    body.remera-diamond .sticky-controls { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 8px 32px 0 rgba(30, 58, 138, 0.05); border-radius: 24px; padding: 15px; margin-top: 10px; }
-    body.remera-diamond .search-input { background: rgba(255, 255, 255, 0.8); border-color: #74ACDF; color: #1e3a8a; }
-    body.remera-diamond .search-input:focus { background: #fff; border-color: #1e3a8a; box-shadow: 0 0 10px rgba(116, 172, 223, 0.4); }
-    body.remera-diamond .btn-zapping { background: linear-gradient(135deg, #74ACDF 0%, #1e3a8a 100%); color: #fff; box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3); border: 1px solid rgba(255,255,255,0.2); }
-    body.remera-diamond .btn-zapping:hover { box-shadow: 0 6px 20px rgba(30, 58, 138, 0.5); transform: scale(1.02); filter: brightness(1.1); }
-    body.remera-diamond .r-card { background: rgba(255,255,255,0.9); border: 1px solid #e2e8f0; backdrop-filter: blur(5px); transition: all 0.3s; }
-    body.remera-diamond .r-card:hover { border-color: #74ACDF; box-shadow: 0 0 25px rgba(116, 172, 223, 0.5); transform: translateY(-5px); }
-    body.remera-diamond .pill { background: #fff; color: #1e3a8a; border-color: #e2e8f0; }
-    body.remera-diamond .pill.active { background: #74ACDF; color: #fff; border-color: #74ACDF; }
-    body.remera-diamond .player-bar { background: rgba(255, 255, 255, 0.95); border-top-color: #74ACDF; color: #1e3a8a; }
-    body.remera-diamond #p-play { background: #1e3a8a; color: #fff; }
-    body.remera-diamond .btn-diamond { background: linear-gradient(135deg, #00f2fe 0%, #f093fb 100%); color: white; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4); animation: pulseDiamond 3s infinite; }
-    body.remera-diamond .chat-msg .bg-zinc-900 { background-color: rgba(255,255,255,0.9) !important; color: #1e3a8a !important; border-color: #e2e8f0 !important; }
-    body.remera-diamond .chat-sidebar .bg-\[\#050505\] { background-color: #f0f9ff !important; border-top-color: #e2e8f0 !important; }
-    body.remera-diamond .news-ticker-badge { background: #74ACDF; }
-    body.remera-diamond .news-ticker-scroller { color: #1e3a8a; }
-    body.remera-diamond .eq-icon .eq-bar:nth-child(1), body.remera-diamond .eq-icon .eq-bar:nth-child(3) { background-color: #74ACDF; }
-    body.remera-diamond .arg-flag-mini { border-color: rgba(30, 58, 138, 0.2); }
-    body.remera-diamond .mobile-header { border-bottom-color: #74ACDF; }
-    body.remera-diamond .sidebar { border-right-color: #74ACDF; }
-    body.remera-diamond .chat-sidebar { border-left-color: #74ACDF; }
-    @keyframes pulseDiamond { 0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(240, 147, 251, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); } }
-
-    /* THEMES CYBERPUNK/ESPACIAL/SYNTH/AURORA/CRYSTAL */
     body.theme-cyberpunk { font-family: 'Orbitron', sans-serif; background: #090909; color: #00ffcc; text-shadow: 0 0 2px rgba(0,255,204,0.3); }
     body.theme-cyberpunk .main-view { background: radial-gradient(circle at 50% 0%, #1a0033 0%, #050505 80%); }
     body.theme-cyberpunk .sidebar, body.theme-cyberpunk .chat-sidebar, body.theme-cyberpunk .mobile-header, body.theme-cyberpunk .prov-nav-wrapper { background: rgba(5,5,5,0.95); border-color: #ff003c; backdrop-filter: blur(12px); box-shadow: 0 0 10px rgba(255,0,60,0.2); }
@@ -570,7 +539,7 @@
               <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="masterSearch" placeholder="¿Qué quieres escuchar hoy?" class="search-input">
             </div>
-            <button id="diamond-theme-btn" onclick="cycleDiamondTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current hover:text-cyan-400 transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Épico (Diamond)">
+            <button id="premium-theme-btn" onclick="cyclePremiumTheme()" class="hidden theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0 shadow-[0_0_10px_rgba(0,242,254,0.1)]" title="Cambiar Tema Premium">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
             </button>
             <button onclick="toggleTheme()" class="theme-btn w-[46px] h-[46px] rounded-[16px] bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-current transition-all flex-shrink-0" title="Alternar Modo Claro / Oscuro">
@@ -606,7 +575,8 @@
                   </span>
                   <h2 id="detail-title" class="text-2xl md:text-4xl font-black tracking-tighter text-white drop-shadow-lg mb-1 truncate w-full"></h2>
                   
-                  <p id="detail-desc" class="text-zinc-300 font-medium text-xs md:text-sm max-w-2xl mb-2"></p>
+                  <p id="detail-desc" class="text-zinc-300 font-medium text-xs md:text-sm max-w-2xl mt-1 leading-relaxed"></p>
+                  <div id="detail-hashtags" class="flex flex-wrap gap-2 mt-3 mb-3"></div>
                   
                   <a id="detail-website" target="_blank" rel="noopener noreferrer" class="hidden text-[10px] md:text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors underline mb-3 w-max flex items-center gap-1">
                       <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.45 2-1v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Visitar Web Oficial
@@ -696,25 +666,26 @@
     </aside>
   </div>
 
-  <div id="game-overlay" class="hidden fixed inset-0 z-[1500] pointer-events-none flex items-center justify-center p-4 sm:p-10 transition-all duration-300">
-      <div id="game-window" class="pointer-events-auto w-full max-w-4xl bg-zinc-950 border border-zinc-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300" style="height: 70vh;">
-          <div class="bg-zinc-900 border-b border-zinc-800 p-3 flex justify-between items-center" id="game-header">
-              <div class="flex items-center gap-2">
-                  <span id="game-icon" class="text-lg">🎮</span>
-                  <span id="game-title" class="text-xs font-bold text-white uppercase tracking-wider">Juego</span>
-              </div>
-              <div class="flex items-center gap-3">
-                  <button onclick="toggleMinimizeGame()" class="w-6 h-6 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 transition" title="Minimizar / Restaurar">
-                      <svg id="game-min-icon" width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
-                  </button>
-                  <button onclick="closeGameOverlay()" class="w-6 h-6 rounded-full bg-red-500/20 hover:bg-red-500/40 text-red-400 flex items-center justify-center transition" title="Cerrar">
-                      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                  </button>
-              </div>
+  <div id="game-window" class="hidden fixed z-[4000] bg-zinc-950 border border-zinc-700 rounded-[1rem] shadow-2xl overflow-hidden flex-col transition-all duration-300" style="width: 100%; max-width: 56rem; height: 70vh; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <div class="bg-zinc-900 border-b border-zinc-800 p-3 flex justify-between items-center cursor-move select-none" id="game-header">
+          <div class="flex items-center gap-2 pointer-events-none">
+              <span id="game-icon" class="text-lg">🎮</span>
+              <span id="game-title" class="text-xs font-bold text-white uppercase tracking-wider">Juego</span>
           </div>
-          <div class="flex-1 bg-black relative w-full h-full" id="game-content-area">
-              <iframe id="game-iframe" src="" class="w-full h-full border-0"></iframe>
+          <div class="flex items-center gap-3">
+              <button onclick="toggleFullscreenGame()" class="w-6 h-6 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 transition" title="Pantalla Completa">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+              </button>
+              <button onclick="toggleMinimizeGame()" class="w-6 h-6 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 transition" title="Minimizar / Restaurar">
+                  <svg id="game-min-icon" width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+              </button>
+              <button onclick="closeGameOverlay()" class="w-6 h-6 rounded-full bg-red-500/20 hover:bg-red-500/40 text-red-400 flex items-center justify-center transition" title="Cerrar">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
           </div>
+      </div>
+      <div class="flex-1 bg-black relative w-full h-full" id="game-content-area">
+          <iframe id="game-iframe" src="" class="w-full h-full border-0"></iframe>
       </div>
   </div>
 
@@ -779,8 +750,8 @@
                   <p class="text-[11px] text-zinc-400 mb-4 font-bold uppercase tracking-widest">Plan Base</p>
                   <ul class="text-sm text-zinc-300 space-y-3 mb-8 flex-1 font-medium">
                       <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Sin publicidad en la web</li>
+                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Tema Épico Gold Exclusivo</li>
                       <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Logo dorado en tu perfil</li>
-                      <li class="flex items-center gap-2"><span class="text-green-500">✔</span> Soporte prioritario</li>
                   </ul>
                   <div class="flex flex-col gap-3">
                       <button onclick="procesarPago('mercadopago', 'gold')" class="w-full bg-[#009EE3] hover:bg-[#0088cc] text-white font-bold py-3 rounded-xl transition shadow-lg text-sm flex justify-center items-center gap-2">
@@ -1316,39 +1287,107 @@
 
     // --- NUEVO: FUNCIONES DE OVERLAY PARA JUEGOS ---
     let isGameMinimized = false;
+    let isGameFullscreen = false;
+    
+    // Lógica para arrastrar la ventana del juego
+    const gameHeader = document.getElementById('game-header');
+    const gameWindow = document.getElementById('game-window');
+    let isDraggingGame = false, gOffsetX, gOffsetY;
+
+    gameHeader.addEventListener('mousedown', (e) => {
+        if(e.target.closest('button') || isGameFullscreen || isGameMinimized) return; // No arrastrar si presiona un botón o está maximizado/minimizado
+        isDraggingGame = true;
+        gOffsetX = e.clientX - gameWindow.getBoundingClientRect().left;
+        gOffsetY = e.clientY - gameWindow.getBoundingClientRect().top;
+        gameWindow.style.transition = 'none'; // Quitar transición para arrastre suave
+    });
+    document.addEventListener('mousemove', (e) => {
+        if(!isDraggingGame) return;
+        gameWindow.style.left = `${e.clientX - gOffsetX}px`;
+        gameWindow.style.top = `${e.clientY - gOffsetY}px`;
+        gameWindow.style.transform = 'none'; // Limpiar la traducción originaria
+        gameWindow.style.margin = '0';
+    });
+    document.addEventListener('mouseup', () => {
+        if(isDraggingGame) {
+            isDraggingGame = false;
+            gameWindow.style.transition = 'all 0.3s';
+        }
+    });
 
     window.toggleMinimizeGame = function() {
         const contentArea = document.getElementById('game-content-area');
-        const windowEl = document.getElementById('game-window');
         const minIcon = document.getElementById('game-min-icon');
         
         isGameMinimized = !isGameMinimized;
         if (isGameMinimized) {
+            if(isGameFullscreen) window.toggleFullscreenGame(); // Salir de fullscreen si está activo
+            
             contentArea.classList.add('hidden');
-            windowEl.style.height = 'auto';
-            // Icono de maximizar
+            // Bajar arriba del reproductor a la derecha
+            gameWindow.style.height = 'auto';
+            gameWindow.style.width = '300px';
+            gameWindow.style.top = 'auto';
+            gameWindow.style.bottom = '100px'; 
+            gameWindow.style.left = 'auto';
+            gameWindow.style.right = '20px';
+            gameWindow.style.transform = 'none';
+            gameWindow.style.borderRadius = '1rem';
+            
             minIcon.innerHTML = '<path d="M19 13H5v-2h14v2z"/><path d="M12 4l-5 5h10l-5-5z"/>'; 
         } else {
             contentArea.classList.remove('hidden');
-            windowEl.style.height = '70vh';
-            // Icono de minimizar
+            // Restaurar centro
+            gameWindow.style.height = '70vh';
+            gameWindow.style.width = '100%';
+            gameWindow.style.maxWidth = '56rem';
+            gameWindow.style.top = '50%';
+            gameWindow.style.left = '50%';
+            gameWindow.style.bottom = 'auto';
+            gameWindow.style.right = 'auto';
+            gameWindow.style.transform = 'translate(-50%, -50%)';
             minIcon.innerHTML = '<path d="M19 13H5v-2h14v2z"/>'; 
         }
     };
 
+    window.toggleFullscreenGame = function() {
+        if(isGameMinimized) window.toggleMinimizeGame(); // Si está minimizado, primero lo restaura
+        
+        isGameFullscreen = !isGameFullscreen;
+        if (isGameFullscreen) {
+            gameWindow.style.height = '100vh';
+            gameWindow.style.width = '100vw';
+            gameWindow.style.maxWidth = 'none';
+            gameWindow.style.top = '0';
+            gameWindow.style.left = '0';
+            gameWindow.style.transform = 'none';
+            gameWindow.style.borderRadius = '0';
+        } else {
+            // Restaurar normal
+            gameWindow.style.height = '70vh';
+            gameWindow.style.width = '100%';
+            gameWindow.style.maxWidth = '56rem';
+            gameWindow.style.top = '50%';
+            gameWindow.style.left = '50%';
+            gameWindow.style.transform = 'translate(-50%, -50%)';
+            gameWindow.style.borderRadius = '1rem';
+        }
+    }
+
     window.closeGameOverlay = function() {
-        document.getElementById('game-overlay').classList.add('hidden');
+        gameWindow.classList.add('hidden');
+        gameWindow.classList.remove('flex');
         document.getElementById('game-iframe').src = '';
     };
 
     window.openGameOverlay = function(type) {
         document.getElementById('games-menu').classList.add('hidden');
-        const overlay = document.getElementById('game-overlay');
         const iframe = document.getElementById('game-iframe');
         const title = document.getElementById('game-title');
         const icon = document.getElementById('game-icon');
         
-        overlay.classList.remove('hidden');
+        gameWindow.classList.remove('hidden');
+        gameWindow.classList.add('flex');
         if(isGameMinimized) window.toggleMinimizeGame(); // Restaurar si estaba minimizado
         
         if(type === 'wordle') {
@@ -1461,13 +1500,23 @@
     };
 
     let diamondThemeIndex = 0;
+    let goldThemeIndex = 0;
     const diamondThemes = ['', 'theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal'];
-    window.cycleDiamondTheme = function() {
-        if (window.currentPremiumStatus !== 'diamond') return;
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
-        diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
-        const newTheme = diamondThemes[diamondThemeIndex];
-        if (newTheme) document.body.classList.add(newTheme);
+    const goldThemes = ['', 'theme-gold-epic'];
+    
+    window.cyclePremiumTheme = function() {
+        if (window.currentPremiumStatus === 'free') return;
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
+        
+        if (window.currentPremiumStatus === 'diamond') {
+            diamondThemeIndex = (diamondThemeIndex + 1) % diamondThemes.length;
+            const newTheme = diamondThemes[diamondThemeIndex];
+            if (newTheme) document.body.classList.add(newTheme);
+        } else if (window.currentPremiumStatus === 'gold') {
+            goldThemeIndex = (goldThemeIndex + 1) % goldThemes.length;
+            const newTheme = goldThemes[goldThemeIndex];
+            if (newTheme) document.body.classList.add(newTheme);
+        }
     };
     
     window.mostrarModalPago = function() {
@@ -1517,13 +1566,15 @@
         if(document.getElementById('mobLogoText')) { document.getElementById('mobLogoText').classList.remove('logo-diamond'); document.getElementById('mobLogoText').classList.add('logo-oro'); }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
-        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+        
+        // MOSTRAR BOTON DE TEMA PARA GOLD
+        if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
         
         // MOSTRAR BLOQUEO GYM MODO
         const gymLock = document.getElementById('gym-diamond-lock');
         if(gymLock) gymLock.classList.remove('hidden');
 
-        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
+        document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
         window.currentPremiumStatus = 'gold'; window.hideKaraoke(); window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
         alert("Has ingresado al modo Demo GOLD."); window.cerrarSesion = () => { window.location.reload(); };
@@ -1546,12 +1597,15 @@
         if(document.getElementById('mobLogoText')) { document.getElementById('mobLogoText').classList.remove('logo-oro'); document.getElementById('mobLogoText').classList.add('logo-diamond'); }
         if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
         if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
-        if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+        
+        // MOSTRAR BOTON DE TEMA PARA DIAMOND
+        if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
         
         // QUITAR BLOQUEO GYM MODO
         const gymLock = document.getElementById('gym-diamond-lock');
         if(gymLock) gymLock.classList.add('hidden');
 
+        document.body.classList.remove('theme-gold-epic');
         window.currentPremiumStatus = 'diamond'; window.showKaraoke(); window.applyEQLimits();
         if(typeof window.reapplyUserTheme === 'function') window.reapplyUserTheme();
         alert("💎 Has ingresado al modo Demo DIAMOND."); window.cerrarSesion = () => { window.location.reload(); };
@@ -1715,11 +1769,35 @@
         }).catch(() => { tickerContent.innerText = "Transmitiendo en vivo desde Argentina 🌎"; });
     }
 
+    // --- NUEVA FUNCION DE FILTRADO POR HASHTAG ---
+    window.filterByTag = function(tag) {
+        const searchInput = document.getElementById('masterSearch');
+        searchInput.value = tag;
+        searchInput.dispatchEvent(new Event('input'));
+        closeRadioView();
+    };
+
     function openRadioView(r) {
         document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none'; document.getElementById('gridTitleContainer').style.display = 'none'; document.getElementById('gridMain').style.display = 'none'; document.getElementById('loadMoreTrigger').style.display = 'none'; document.getElementById('moodFiltersContainer').style.display = 'none';
         const sView = document.getElementById('singleRadioView'); sView.classList.remove('hidden');
         document.getElementById('detail-title').innerText = r.name; document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
-        document.getElementById('detail-desc').innerText = r.description || `Sintonizá ${r.name} en directo.`;
+        
+        // MANEJO MEJORADO DE DESCRIPCIONES Y HASHTAGS
+        const descEl = document.getElementById('detail-desc');
+        const hashEl = document.getElementById('detail-hashtags');
+        const safeTags = (r.tags || "").toLowerCase();
+        
+        const extraDesc = safeTags.includes('news') || safeTags.includes('noticias') ? 'Mantente informado al instante con las últimas noticias y actualidad.' : 
+                          safeTags.includes('sport') || safeTags.includes('futbol') ? 'Sigue toda la pasión del deporte y los mejores debates en un solo lugar.' : 
+                          'Disfruta de la mejor selección musical y el mejor entretenimiento sin interrupciones.';
+                          
+        descEl.innerText = (r.description || `Sintonizá ${r.name} en directo.`) + ' ' + extraDesc + ' Ideal para acompañarte donde vayas.';
+        
+        let tagsArr = (r.tags || "").split(',').map(t=>t.trim()).filter(t=>t);
+        if(tagsArr.length === 0) tagsArr = ['radio', 'envivo', 'musica', 'hits', 'argentina'];
+        // Tomamos máximo 5 y generamos los botones funcionales
+        hashEl.innerHTML = tagsArr.slice(0,5).map(t => `<span class="cursor-pointer text-[10px] md:text-xs font-bold text-[var(--arg-blue)] hover:text-white transition bg-blue-900/30 px-2.5 py-1 rounded-md border border-blue-500/30 shadow-sm" onclick="filterByTag('${t}')">#${t.replace(/\s+/g,'')}</span>`).join('');
+        
         const webBtn = document.getElementById('detail-website'), site = makeHttps(r.homepage || r.website);
         if (site) { webBtn.href = site; webBtn.classList.remove('hidden'); } else { webBtn.classList.add('hidden'); }
         const tagsContainer = document.getElementById('detail-tags'); tagsContainer.innerHTML = '';
@@ -2211,7 +2289,7 @@
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.add('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
-                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.remove('hidden');
+                    if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
                     
                     // QUITAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
@@ -2225,13 +2303,13 @@
                     if(mobLogoText) { mobLogoText.classList.remove('logo-diamond'); mobLogoText.classList.add('logo-oro'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.add('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
-                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
                     
                     // MOSTRAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
                     if(gymLock) gymLock.classList.remove('hidden');
 
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
                 } else {
                     window.currentPremiumStatus = 'free';
                     window.hideKaraoke(); 
@@ -2240,13 +2318,13 @@
                     if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
                     if(document.getElementById('btnPremium')) document.getElementById('btnPremium').classList.remove('hidden');
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
-                    if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
+                    if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.add('hidden');
                     
                     // MOSTRAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
                     if(gymLock) gymLock.classList.remove('hidden');
 
-                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
+                    document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
                 }
                 window.reapplyUserTheme();
             });
@@ -2265,8 +2343,8 @@
             if(mainLogoText) { mainLogoText.classList.remove('logo-oro'); mainLogoText.classList.remove('logo-diamond'); }
             if(mobLogoText) { mobLogoText.classList.remove('logo-oro'); mobLogoText.classList.remove('logo-diamond'); }
             
-            if(document.getElementById('diamond-theme-btn')) document.getElementById('diamond-theme-btn').classList.add('hidden');
-            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal');
+            if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.add('hidden');
+            document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
             
             // MOSTRAR BLOQUEO GYM MODO POR DEFECTO
             const gymLock = document.getElementById('gym-diamond-lock');
