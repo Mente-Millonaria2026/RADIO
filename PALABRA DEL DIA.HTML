@@ -32,30 +32,32 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Contenedor fluido. Define los límites máximos y cómo se reparte el espacio */
         #app-container {
             display: flex;
             flex-direction: column; 
             width: 100%;
-            max-width: 500px;
-            height: 100%;
+            max-width: 600px;
+            height: 100dvh;
             margin: 0 auto;
             box-sizing: border-box;
-            padding-bottom: 5px;
+            padding: 1dvh 3vw 2dvh 3vw;
+            gap: 1.5dvh; /* Separación dinámica entre secciones */
         }
 
         header { 
-            width: 100%; 
-            padding: 10px 15px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-sizing: border-box;
             flex: 0 0 auto;
+            width: 100%;
         }
         
+        #app-title { font-weight: 900; font-size: clamp(1.2rem, 4vw, 1.8rem); }
+
         .header-buttons {
             display: flex;
-            gap: 12px;
+            gap: clamp(6px, 2vw, 12px);
             align-items: center;
         }
 
@@ -65,44 +67,54 @@
             transition: color 0.3s, transform 0.2s; display: flex;
             align-items: center; justify-content: center;
         }
-        .mode-btn svg { width: 22px; height: 22px; }
+        .mode-btn svg { width: clamp(18px, 5vw, 24px); height: clamp(18px, 5vw, 24px); }
         .mode-btn.active { color: var(--spotify-green); transform: scale(1.15); }
         .mode-btn:hover:not(.active) { color: var(--text); }
 
         .btn-theme {
             background: transparent; border: 1px solid var(--text-dim); 
             color: var(--text); padding: 4px 8px; border-radius: 15px; 
-            font-size: 0.65rem; cursor: pointer; outline: none;
+            font-size: clamp(0.6rem, 2vw, 0.8rem); cursor: pointer; outline: none;
         }
 
         #challenge-banner {
             display: none; width: 100%; background: var(--spotify-green);
             color: white; padding: 8px; text-align: center; font-weight: bold;
-            font-size: 0.75rem; z-index: 100; flex: 0 0 auto;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem); z-index: 100; flex: 0 0 auto;
+            border-radius: 8px;
         }
 
         .stats-container {
-            display: flex; gap: 10px; background: var(--card); padding: 6px 15px; 
-            border-radius: 30px; margin: 0 auto 10px auto; font-size: 0.75rem; 
-            align-items: center; flex: 0 0 auto;
+            display: flex; gap: clamp(8px, 2vw, 15px); background: var(--card); 
+            padding: 8px 15px; border-radius: 30px; margin: 0 auto; 
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem); align-items: center; flex: 0 0 auto;
         }
 
+        /* El Wrapper absorbe todo el espacio restante */
         #board-wrapper {
-            flex: 1 1 auto; display: flex; justify-content: center;
-            align-items: center; width: 100%; min-height: 0; 
-            padding: 5px 15px; box-sizing: border-box;
+            flex: 1 1 0; 
+            display: flex; 
+            justify-content: center;
+            align-items: center; 
+            width: 100%; 
+            min-height: 0; /* Crucial para evitar que el grid empuje hacia abajo */
         }
 
+        /* GRID EXPERTO: Mantiene la proporción matemáticamente */
         #game-board { 
-            display: grid; gap: 4px; width: 100%;
-            max-width: calc((100dvh - 280px) * (var(--cols) / 6)); 
-            margin: auto;
+            display: grid; 
+            gap: clamp(2px, 1vmin, 6px);
+            /* Proporción mágica: Ancho (Columnas) / Alto (6 filas) */
+            aspect-ratio: var(--cols) / 6; 
+            max-width: 100%;
+            max-height: 100%;
         }
         
         .tile { 
-            width: 100%; aspect-ratio: 1; background: var(--tile); 
+            width: 100%; height: 100%; 
+            background: var(--tile); 
             border-radius: 5px; display: flex; align-items: center; 
-            justify-content: center; font-size: clamp(1rem, 4.5vmin, 1.8rem); 
+            justify-content: center; font-size: clamp(1rem, 4.5vmin, 2.2rem); 
             font-weight: bold; text-transform: uppercase; box-sizing: border-box;
             user-select: none;
         }
@@ -111,33 +123,32 @@
         .tile[data-state="present"] { background: var(--present); color: white; border: none; }
         .tile[data-state="absent"] { background: var(--absent); color: white; border: none; }
 
-        /* Teclado Altamente Responsivo */
+        /* Teclado Responsivo */
         #keyboard { 
             width: 100%; 
-            max-width: 480px; /* Evita que se estire demasiado en tablets/PC */
-            margin: 0 auto;   /* Centrado perfecto */
-            padding: 5px 8px; 
-            box-sizing: border-box; 
             flex: 0 0 auto; 
+            display: flex;
+            flex-direction: column;
+            gap: clamp(4px, 1dvh, 8px);
         }
         .kb-row { 
-            display: flex; justify-content: center; gap: clamp(3px, 1vw, 6px); 
-            margin-bottom: 6px; width: 100%; 
+            display: flex; justify-content: center; gap: clamp(4px, 1vw, 6px); 
+            width: 100%; 
         }
         .key { 
             background: var(--key-bg); border: none; color: var(--text); 
             border-radius: 5px; 
-            height: clamp(40px, 7dvh, 60px); /* Altura dinámica ajustada al viewport */
+            height: clamp(45px, 7dvh, 65px); 
             flex: 1; font-weight: bold; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             outline: none; 
-            font-size: clamp(0.7rem, 3.5vw, 1.1rem); /* Fuente autoajustable */
+            font-size: clamp(0.7rem, 3.5vw, 1.2rem); 
             padding: 0;
             user-select: none; touch-action: manipulation; 
             transition: transform 0.1s ease, background-color 0.2s; 
         }
-        .key:active { transform: scale(0.92); } /* Efecto de presión */
-        .key.wide { flex: 1.5; font-size: clamp(0.6rem, 2.5vw, 0.85rem); }
+        .key:active { transform: scale(0.92); } 
+        .key.wide { flex: 1.5; font-size: clamp(0.6rem, 2.8vw, 0.9rem); }
 
         .modal-overlay { 
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
@@ -148,7 +159,6 @@
         .btn-main { background: var(--spotify-green); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.85rem; width: 100%; max-width: 250px; }
         .btn-sec { background: transparent; color: white; border: 1px solid white; padding: 10px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.8rem; width: 100%; max-width: 250px; }
         
-        /* Leaderboard & Name Input UI */
         .input-group { margin: 15px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
         .input-group input { padding: 10px; border-radius: 5px; border: 1px solid var(--text-dim); background: var(--bg); color: var(--text); text-align: center; font-weight: bold; font-size: 1rem; width: 80%; max-width: 200px;}
         
@@ -166,7 +176,7 @@
     </div>
 
     <header>
-        <div id="app-title" style="font-weight:900; font-size: 1.2rem;">PALABRA<span style="color:var(--spotify-green)">PRO</span></div>
+        <div id="app-title">PALABRA<span style="color:var(--spotify-green)">PRO</span></div>
         <div class="header-buttons">
             <button class="mode-btn active" id="btn-PALABRA" onclick="setMode('PALABRA')" title="Palabra">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
@@ -229,7 +239,6 @@
 </div>
 
 <script>
-    // DICCIONARIOS EN ESPAÑOL. Nivel 1, 2 y 3.
     const DICTIONARY = {
         "PALABRA": {
             1: ["NUBES", "VALOR", "CIELO", "FUEGO", "PLAYA", "LIMON", "PIANO", "TEXTO"],
@@ -249,11 +258,11 @@
     };
 
     let gameMode = "PALABRA"; 
-    let currentLevel = 1; // 1, 2, 3
-    let targetPhrase = ""; // Ej: "TREN AL SUR"
-    let targetWord = ""; // Ej: "TRENALSUR" (sin espacios para validar letras)
+    let currentLevel = 1; 
+    let targetPhrase = ""; 
+    let targetWord = ""; 
     let guesses = []; 
-    let currentGuess = ""; // Solo letras sin espacio
+    let currentGuess = ""; 
     let score = 0;
     let friendScore = null;
     let isGameFinished = false;
@@ -277,7 +286,6 @@
         loadGameState();
     }
 
-    // GESTIÓN DE GUARDADO DE PROGRESO (Anti-Refresco)
     function saveGameState() {
         const state = {
             date: todayStr, level: currentLevel, guesses: guesses, score: score, finished: isGameFinished
@@ -294,7 +302,6 @@
             if (isGameFinished) { renderBoard(); finishGame(guesses[guesses.length-1] === targetWord, true); }
             else { renderBoard(); resetKeyboard(); updateKeyboardColors(); }
         } else {
-            // Empezar de cero
             currentLevel = 1; guesses = []; score = 0; isGameFinished = false;
             startNewLevel();
         }
@@ -329,7 +336,7 @@
         const daySeed = Math.floor(new Date().setHours(0,0,0,0) / 86400000);
         const list = DICTIONARY[gameMode][currentLevel];
         targetPhrase = list[daySeed % list.length].toUpperCase();
-        targetWord = targetPhrase.replace(/\s/g, ''); // Elimina espacios
+        targetWord = targetPhrase.replace(/\s/g, ''); 
         document.documentElement.style.setProperty('--cols', targetPhrase.length);
         
         document.getElementById('ui-level').textContent = 'NIVEL ' + currentLevel;
@@ -342,21 +349,22 @@
         renderBoard(); resetKeyboard(); saveGameState();
     }
 
-    // RENDERIZADO AVANZADO (Intercala letras del usuario respetando espacios de la frase)
     function renderBoard() {
         const board = document.getElementById('game-board'); 
         board.innerHTML = "";
+        // Definición estructurada del grid basada en filas y columnas
         board.style.gridTemplateColumns = `repeat(${targetPhrase.length}, 1fr)`;
+        board.style.gridTemplateRows = `repeat(6, 1fr)`; 
         
         for (let i = 0; i < 6; i++) {
-            let letterIdx = 0; // Índice que rastrea solo letras, ignorando espacios
+            let letterIdx = 0; 
             for (let j = 0; j < targetPhrase.length; j++) {
                 const tile = document.createElement('div'); 
                 
                 if (targetPhrase[j] === " ") {
-                    tile.className = 'tile space'; // Espacio invisible
+                    tile.className = 'tile space'; 
                     board.appendChild(tile);
-                    continue; // Pasa al siguiente recuadro sin aumentar letterIdx
+                    continue; 
                 }
                 
                 tile.className = 'tile';
@@ -423,10 +431,10 @@
     function submitGuess() {
         const guess = currentGuess; 
         guesses.push(guess);
-        saveGameState(); // Guarda tras cada intento
+        saveGameState(); 
         
         if (guess === targetWord) {
-            score += (currentLevel * 30) + ((6 - guesses.length) * 10); // Multiplicador por nivel
+            score += (currentLevel * 30) + ((6 - guesses.length) * 10); 
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
             
             if (currentLevel < 3) { 
@@ -463,14 +471,12 @@
                 }
                 msgEl.innerHTML = baseMsg;
                 
-                // Mostrar input para Leaderboard si sacó puntos
                 if(score > 0 && !friendScore) { nameSect.style.display = 'flex'; }
             }
             updateTimer(); setInterval(updateTimer, 1000);
         }, 600); 
     }
 
-    // --- LEADERBOARD LOGIC ---
     function saveToLeaderboard() {
         const nameInput = document.getElementById('player-name').value.trim();
         if(!nameInput) return alert('Por favor ingresa un nombre corto.');
@@ -479,8 +485,8 @@
             {name: 'ProGamer', score: 350}, {name: 'Sofia_99', score: 280}, {name: 'Matias', score: 150}
         ];
         lb.push({ name: nameInput, score: score });
-        lb.sort((a, b) => b.score - a.score); // Ordena de mayor a menor
-        lb = lb.slice(0, 10); // Guarda top 10
+        lb.sort((a, b) => b.score - a.score); 
+        lb = lb.slice(0, 10); 
         localStorage.setItem('palabraPro_leaderboard', JSON.stringify(lb));
         
         document.getElementById('name-entry-section').style.display = 'none';
@@ -502,7 +508,7 @@
             lbList.appendChild(li);
         });
         
-        document.getElementById('overlay').style.display = 'none'; // Cierra overlay si estaba
+        document.getElementById('overlay').style.display = 'none'; 
         lbModal.style.display = 'flex';
     }
 
@@ -528,7 +534,6 @@
         document.getElementById('themeBtn').blur();
     }
 
-    // TECLADO DINÁMICO
     const layout = [["Q","W","E","R","T","Y","U","I","O","P"], ["A","S","D","F","G","H","J","K","L","Ñ"], ["ENTER","Z","X","C","V","B","N","M","DEL"]];
     layout.forEach((row, i) => {
         const rEl = document.getElementById('kb' + (i+1));
@@ -543,7 +548,7 @@
 
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); handleInput('ENTER'); }
-        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); /* Ignora barra espaciadora */ }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); }
         else { handleInput(e.key.toUpperCase()); }
     });
 
