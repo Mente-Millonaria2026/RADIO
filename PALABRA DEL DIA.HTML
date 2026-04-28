@@ -32,7 +32,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Contenedor fluido. Define los límites máximos y cómo se reparte el espacio */
         #app-container {
             display: flex;
             flex-direction: column; 
@@ -42,7 +41,7 @@
             margin: 0 auto;
             box-sizing: border-box;
             padding: 1dvh 3vw 2dvh 3vw;
-            gap: 1.5dvh; /* Separación dinámica entre secciones */
+            gap: 1.5dvh;
         }
 
         header { 
@@ -55,11 +54,7 @@
         
         #app-title { font-weight: 900; font-size: clamp(1.2rem, 4vw, 1.8rem); }
 
-        .header-buttons {
-            display: flex;
-            gap: clamp(6px, 2vw, 12px);
-            align-items: center;
-        }
+        .header-buttons { display: flex; gap: clamp(6px, 2vw, 12px); align-items: center; }
 
         .mode-btn {
             background: transparent; border: none; color: var(--text-dim);
@@ -90,31 +85,33 @@
             font-size: clamp(0.7rem, 2.5vw, 0.85rem); align-items: center; flex: 0 0 auto;
         }
 
-        /* El Wrapper absorbe todo el espacio restante */
         #board-wrapper {
             flex: 1 1 0; 
             display: flex; 
             justify-content: center;
             align-items: center; 
             width: 100%; 
-            min-height: 0; /* Crucial para evitar que el grid empuje hacia abajo */
+            min-height: 0;
+            padding: 0 5px;
         }
 
-        /* GRID EXPERTO: Mantiene la proporción matemáticamente */
+        /* GRID CORREGIDO */
         #game-board { 
             display: grid; 
-            gap: clamp(2px, 1vmin, 6px);
-            /* Proporción mágica: Ancho (Columnas) / Alto (6 filas) */
-            aspect-ratio: var(--cols) / 6; 
-            max-width: 100%;
-            max-height: 100%;
+            gap: clamp(3px, 1vmin, 6px);
+            width: 100%;
+            /* Esta fórmula matemática impide que los 6 intentos empujen el teclado hacia abajo */
+            /* Restamos ~300px que es lo que ocupan el header, teclado y margins */
+            max-width: calc((100dvh - 300px) * (var(--cols) / 6)); 
+            margin: auto;
         }
         
         .tile { 
-            width: 100%; height: 100%; 
+            width: 100%; 
+            aspect-ratio: 1; /* <-- ¡ESTO DEVUELVE LOS CUADRADOS PERFECTOS! */
             background: var(--tile); 
             border-radius: 5px; display: flex; align-items: center; 
-            justify-content: center; font-size: clamp(1rem, 4.5vmin, 2.2rem); 
+            justify-content: center; font-size: clamp(1.2rem, 5vmin, 2rem); 
             font-weight: bold; text-transform: uppercase; box-sizing: border-box;
             user-select: none;
         }
@@ -123,7 +120,6 @@
         .tile[data-state="present"] { background: var(--present); color: white; border: none; }
         .tile[data-state="absent"] { background: var(--absent); color: white; border: none; }
 
-        /* Teclado Responsivo */
         #keyboard { 
             width: 100%; 
             flex: 0 0 auto; 
@@ -352,9 +348,10 @@
     function renderBoard() {
         const board = document.getElementById('game-board'); 
         board.innerHTML = "";
-        // Definición estructurada del grid basada en filas y columnas
+        
+        // CORRECCIÓN JS: Solo dictamos las columnas. Las filas se adaptan automáticamente
+        // gracias al aspect-ratio de las celdas (.tile)
         board.style.gridTemplateColumns = `repeat(${targetPhrase.length}, 1fr)`;
-        board.style.gridTemplateRows = `repeat(6, 1fr)`; 
         
         for (let i = 0; i < 6; i++) {
             let letterIdx = 0; 
