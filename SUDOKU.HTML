@@ -9,7 +9,7 @@
     <style>
         :root {
             --bg: #121212; --card: #181818; --tile: #282828; --text: #ffffff;
-            --text-dim: #b3b3b3; --spotify-green: #1DB954; --correct: #1DB954; /* Spotify Green */
+            --text-dim: #b3b3b3; --spotify-green: #1DB954; --correct: #1DB954; 
             --error: #e91429; --highlight: #3a3a3a; --highlight-related: #2a2a2a;
             --font: 'Circular Sp', sans-serif, -apple-system, BlinkMacSystemFont;
             --key-bg: #3e3e3e; --grid-line: #444;
@@ -32,7 +32,7 @@
         #app-container {
             display: flex; flex-direction: column; width: 100%;
             max-width: 550px; height: 100dvh; margin: 0 auto;
-            padding: 1dvh 2vw 2dvh 2vw; gap: 1dvh;
+            padding: 2dvh 3vw 2dvh 3vw; gap: 1.5dvh;
         }
 
         header { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; width: 100%; }
@@ -64,15 +64,21 @@
         }
 
         #game-board {
-            display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);
-            width: 100%; max-width: 500px; aspect-ratio: 1; /* Cuadrado perfecto siempre */
+            display: grid; 
+            grid-template-columns: repeat(9, 1fr); 
+            grid-template-rows: repeat(9, 1fr);
+            width: 100%; 
+            /* LA SOLUCIÓN: Calculamos el alto de la pantalla (100dvh) y le restamos lo que ocupan el header, teclado y margins (~280px) */
+            max-width: min(500px, calc(100dvh - 280px)); 
+            aspect-ratio: 1; /* Cuadrado perfecto siempre */
             background-color: var(--grid-line); gap: 1px;
             border: 2px solid var(--spotify-green); border-radius: 5px; overflow: hidden;
+            margin: auto;
         }
 
         .cell {
             background-color: var(--tile); display: flex; align-items: center; justify-content: center;
-            font-size: clamp(1.2rem, 6vmin, 2rem); font-weight: 600; cursor: pointer;
+            font-size: clamp(1rem, 5vmin, 1.8rem); font-weight: 600; cursor: pointer;
             color: var(--text); transition: background-color 0.1s; user-select: none;
         }
 
@@ -93,12 +99,12 @@
         #keyboard {
             width: 100%; flex: 0 0 auto; display: grid; 
             grid-template-columns: repeat(5, 1fr); gap: clamp(4px, 1.5vw, 8px);
-            padding-bottom: 5px;
+            padding-bottom: 1dvh;
         }
 
         .key {
             background: var(--key-bg); border: none; color: var(--text); border-radius: 8px; 
-            height: clamp(45px, 7dvh, 60px); font-weight: bold; cursor: pointer; 
+            height: clamp(40px, 6.5dvh, 55px); font-weight: bold; cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
             font-size: clamp(1.2rem, 4vw, 1.5rem); transition: transform 0.1s, background 0.2s;
         }
