@@ -12,6 +12,7 @@
             --text-dim: #b3b3b3; --spotify-green: #1DB954; --correct: #1ed760;
             --present: #c2a118; --absent: #3e3e3e; --font: 'Circular Sp', sans-serif;
             --key-bg: #3e3e3e;
+            --cols: 5; /* Variable clave para adaptar el ancho del tablero */
         }
 
         [data-theme="light"] {
@@ -35,11 +36,11 @@
             display: flex;
             flex-direction: column; 
             width: 100%;
-            max-width: 650px; /* Un poco más amplio para PC */
+            max-width: 600px; /* Ancho máximo para PC */
             height: 100dvh;
             margin: 0 auto;
             box-sizing: border-box;
-            padding: 1dvh 2vw 2dvh 2vw; /* Optimizamos padding lateral para celulares */
+            padding: 1dvh 3vw 2dvh 3vw;
             gap: 1.5dvh;
         }
 
@@ -91,31 +92,26 @@
             align-items: center; 
             width: 100%; 
             min-height: 0;
-            padding: 0; /* Espacio liberado para maximizar celdas */
+            padding: 0 5px;
         }
 
+        /* GRID CORREGIDO: Formula adaptativa que asegura cuadrados perfectos */
         #game-board { 
             display: grid; 
-            gap: clamp(3px, 1.5vmin, 6px); /* Gap dinámico mejorado */
+            gap: clamp(3px, 1vmin, 6px);
             width: 100%;
-            height: 100%; /* Toma todo el espacio disponible del wrapper */
-            max-width: 600px; /* Límite para que no se deforme exageradamente en PC anchos */
-            max-height: 480px; /* Límite de alto para PC */
+            /* Restamos 300px de UI y multiplicamos por la proporción para que no se salga de pantalla */
+            max-width: calc((100dvh - 300px) * (var(--cols) / 6)); 
             margin: auto;
         }
         
         .tile { 
             width: 100%; 
-            height: 100%; /* Se adapta nativamente a las fracciones del grid (1fr) */
+            aspect-ratio: 1; /* Esto garantiza que SIEMPRE sean cuadrados */
             background: var(--tile); 
-            border-radius: 5px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: clamp(1.2rem, 5vmin, 2.5rem); /* Aumento del tamaño de fuente */
-            font-weight: bold; 
-            text-transform: uppercase; 
-            box-sizing: border-box;
+            border-radius: 5px; display: flex; align-items: center; 
+            justify-content: center; font-size: clamp(1rem, 4vmin, 2rem); 
+            font-weight: bold; text-transform: uppercase; box-sizing: border-box;
             user-select: none;
         }
         .tile.space { background: transparent !important; border: none !important; box-shadow: none !important; }
@@ -129,7 +125,6 @@
             display: flex;
             flex-direction: column;
             gap: clamp(4px, 1dvh, 8px);
-            padding-bottom: 5px;
         }
         .kb-row { 
             display: flex; justify-content: center; gap: clamp(4px, 1vw, 6px); 
@@ -138,7 +133,7 @@
         .key { 
             background: var(--key-bg); border: none; color: var(--text); 
             border-radius: 5px; 
-            height: clamp(40px, 6.5dvh, 60px); /* Ligeramente ajustado para dar más aire al tablero */
+            height: clamp(45px, 7dvh, 65px); 
             flex: 1; font-weight: bold; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             outline: none; 
@@ -151,9 +146,11 @@
         .key.wide { flex: 1.5; font-size: clamp(0.6rem, 2.8vw, 0.9rem); }
 
         .modal-overlay { 
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+            display: none; position: fixed; inset: 0; 
+            background: rgba(18, 18, 18, 0.96); /* Un fondo oscuro suave, no negro puro, para que no parezca roto */
             z-index: 200; flex-direction: column; align-items: center; justify-content: center; 
             text-align: center; padding: 20px; 
+            backdrop-filter: blur(4px);
         }
         
         .btn-main { background: var(--spotify-green); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.85rem; width: 100%; max-width: 250px; }
@@ -294,14 +291,31 @@
     }
 
     function loadGameState() {
-        const saved = JSON.parse(localStorage.getItem(`palabraPro_${gameMode}_state`));
-        if (saved && saved.date === todayStr && !friendScore) {
-            currentLevel = saved.level; guesses = saved.guesses || []; 
-            score = saved.score; isGameFinished = saved.finished;
-            prepareLevelLogic();
-            if (isGameFinished) { renderBoard(); finishGame(guesses[guesses.length-1] === targetWord, true); }
-            else { renderBoard(); resetKeyboard(); updateKeyboardColors(); }
-        } else {
+        // Envolvemos en try/catch para evitar la "pantalla negra" si hay error en el localStorage
+        try {
+            const saved = JSON.parse(localStorage.getItem(`palabraPro_${gameMode}_state`));
+            if (saved && saved.date === todayStr && !friendScore) {
+                currentLevel = saved.level || 1; 
+                guesses = saved.guesses || []; 
+                score = saved.score || 0; 
+                isGameFinished = saved.finished || false;
+                
+                prepareLevelLogic();
+                
+                if (isGameFinished) { 
+                    renderBoard(); 
+                    // Revisar si ganamos en la última jugada guardada
+                    const won = (guesses.length > 0 && guesses[guesses.length-1] === targetWord);
+                    finishGame(won, true); 
+                } else { 
+                    renderBoard(); resetKeyboard(); updateKeyboardColors(); 
+                }
+            } else {
+                currentLevel = 1; guesses = []; score = 0; isGameFinished = false;
+                startNewLevel();
+            }
+        } catch (error) {
+            console.error("Error cargando partida:", error);
             currentLevel = 1; guesses = []; score = 0; isGameFinished = false;
             startNewLevel();
         }
@@ -338,6 +352,9 @@
         targetPhrase = list[daySeed % list.length].toUpperCase();
         targetWord = targetPhrase.replace(/\s/g, ''); 
         
+        // Pasamos la cantidad de columnas al CSS para calcular el ancho perfecto
+        document.documentElement.style.setProperty('--cols', targetPhrase.length);
+        
         document.getElementById('ui-level').textContent = 'NIVEL ' + currentLevel;
         document.getElementById('ui-score').textContent = score;
     }
@@ -352,11 +369,8 @@
         const board = document.getElementById('game-board'); 
         board.innerHTML = "";
         
-        // CORRECCIÓN JS PRINCIPAL:
-        // Le indicamos al Grid tanto la cantidad de columnas como de filas exactas.
-        // Esto permite que las casillas ocupen todo el alto disponible del contenedor.
+        // Solo indicamos columnas. Al tener aspect-ratio: 1, las filas se arman solas como cuadrados
         board.style.gridTemplateColumns = `repeat(${targetPhrase.length}, 1fr)`;
-        board.style.gridTemplateRows = `repeat(6, 1fr)`;
         
         for (let i = 0; i < 6; i++) {
             let letterIdx = 0; 
@@ -460,7 +474,7 @@
 
             if (justLoading) {
                 titleEl.textContent = "¡VUELVE MAÑANA!";
-                msgEl.textContent = `Ya completaste el desafío diario. Tu puntaje fue: ${score}`;
+                msgEl.innerHTML = `Ya completaste el desafío de hoy.<br><br>La respuesta era: <br><b style="font-size:1.2rem; color:var(--text);">${targetPhrase}</b><br><br>Tu puntaje: <b>${score}</b>`;
                 nameSect.style.display = 'none';
             } else {
                 titleEl.textContent = win ? "¡LOGRADO!" : "FIN DEL JUEGO";
