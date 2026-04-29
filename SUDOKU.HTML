@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Sudoku Pro | Desafío Diario</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #121212; --card: #181818; --tile: #282828; --text: #ffffff;
+            --text-dim: #b3b3b3; --spotify-green: #1DB954; --correct: #1DB954; /* Spotify Green */
+            --error: #e91429; --highlight: #3a3a3a; --highlight-related: #2a2a2a;
+            --font: 'Circular Sp', sans-serif, -apple-system, BlinkMacSystemFont;
+            --key-bg: #3e3e3e; --grid-line: #444;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f9fa; --card: #ffffff; --tile: #ffffff; --text: #121212;
+            --text-dim: #535353; --key-bg: #e0e0e0; --grid-line: #ccc;
+            --highlight: #d1e7dd; --highlight-related: #e2e3e5;
+        }
+
+        * { box-sizing: border-box; touch-action: manipulation; }
+
+        html, body {
+            height: 100%; height: 100dvh; margin: 0; padding: 0;
+            overflow: hidden; background-color: var(--bg); color: var(--text);
+            font-family: var(--font); transition: background-color 0.3s, color 0.3s;
+        }
+
+        #app-container {
+            display: flex; flex-direction: column; width: 100%;
+            max-width: 550px; height: 100dvh; margin: 0 auto;
+            padding: 1dvh 2vw 2dvh 2vw; gap: 1dvh;
+        }
+
+        header { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; width: 100%; }
+        #app-title { font-weight: 900; font-size: clamp(1.2rem, 5vw, 1.8rem); letter-spacing: -0.5px; }
+        
+        .header-buttons { display: flex; gap: clamp(6px, 2vw, 10px); align-items: center; }
+
+        .diff-btn {
+            background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim);
+            padding: 4px 10px; border-radius: 15px; font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+            font-weight: bold; cursor: pointer; transition: all 0.2s;
+        }
+        .diff-btn.active { background: var(--spotify-green); color: white; border-color: var(--spotify-green); }
+
+        .btn-theme {
+            background: transparent; border: 1px solid var(--text-dim); color: var(--text);
+            padding: 4px 8px; border-radius: 15px; font-size: 0.8rem; cursor: pointer;
+        }
+
+        .stats-container {
+            display: flex; justify-content: space-between; background: var(--card); 
+            padding: 10px 20px; border-radius: 20px; font-size: clamp(0.8rem, 3vw, 0.95rem); 
+            align-items: center; flex: 0 0 auto; font-weight: bold;
+        }
+
+        #board-wrapper {
+            flex: 1 1 0; display: flex; justify-content: center; align-items: center; 
+            width: 100%; min-height: 0; padding: 0;
+        }
+
+        #game-board {
+            display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);
+            width: 100%; max-width: 500px; aspect-ratio: 1; /* Cuadrado perfecto siempre */
+            background-color: var(--grid-line); gap: 1px;
+            border: 2px solid var(--spotify-green); border-radius: 5px; overflow: hidden;
+        }
+
+        .cell {
+            background-color: var(--tile); display: flex; align-items: center; justify-content: center;
+            font-size: clamp(1.2rem, 6vmin, 2rem); font-weight: 600; cursor: pointer;
+            color: var(--text); transition: background-color 0.1s; user-select: none;
+        }
+
+        /* Bordes gruesos para los bloques 3x3 */
+        .cell:nth-child(3n) { border-right: 2px solid var(--spotify-green); }
+        .cell:nth-child(9n) { border-right: none; }
+        .cell:nth-child(n+19):nth-child(-n+27),
+        .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--spotify-green); }
+
+        /* Estados de celdas */
+        .cell.fixed { font-weight: 900; color: var(--text-dim); }
+        .cell.user-input { color: var(--spotify-green); }
+        .cell.error { color: var(--error); background-color: rgba(233, 20, 41, 0.2) !important; }
+        .cell.selected { background-color: var(--highlight) !important; }
+        .cell.related { background-color: var(--highlight-related); }
+        .cell.same-number { background-color: var(--highlight); font-weight: 900;}
+
+        #keyboard {
+            width: 100%; flex: 0 0 auto; display: grid; 
+            grid-template-columns: repeat(5, 1fr); gap: clamp(4px, 1.5vw, 8px);
+            padding-bottom: 5px;
+        }
+
+        .key {
+            background: var(--key-bg); border: none; color: var(--text); border-radius: 8px; 
+            height: clamp(45px, 7dvh, 60px); font-weight: bold; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(1.2rem, 4vw, 1.5rem); transition: transform 0.1s, background 0.2s;
+        }
+        .key:active { transform: scale(0.92); }
+        .key.action-btn { background: var(--card); font-size: clamp(0.8rem, 3vw, 1rem); }
+
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(18, 18, 18, 0.95); 
+            z-index: 200; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; padding: 20px; backdrop-filter: blur(5px);
+        }
+        
+        .btn-main { background: var(--spotify-green); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; max-width: 250px; font-size: 0.9rem;}
+    </style>
+</head>
+<body data-theme="dark">
+
+<div id="app-container">
+    <header>
+        <div id="app-title">SUDOKU<span style="color:var(--spotify-green)">PRO</span></div>
+        <div class="header-buttons">
+            <button class="diff-btn active" onclick="setDifficulty('Fácil')">FÁCIL</button>
+            <button class="diff-btn" onclick="setDifficulty('Medio')">MEDIO</button>
+            <button class="diff-btn" onclick="setDifficulty('Difícil')">DIFÍCIL</button>
+            <button onclick="toggleTheme()" class="btn-theme">🌗</button>
+        </div>
+    </header>
+
+    <div class="stats-container">
+        <div style="color:var(--error)">Errores: <span id="error-count">0</span>/3</div>
+        <div style="color:var(--spotify-green)" id="timer-display">00:00</div>
+    </div>
+
+    <div id="board-wrapper">
+        <div id="game-board"></div>
+    </div>
+
+    <div id="keyboard">
+        </div>
+</div>
+
+<div id="overlay" class="modal-overlay">
+    <h1 id="over-title" style="color:white; margin-bottom:5px; font-size: 2rem;"></h1>
+    <p id="over-msg" style="color:var(--text-dim); margin-bottom: 20px; font-size: 1.1rem;"></p>
+    
+    <button class="btn-main" onclick="shareResult()">COMPARTIR RESULTADO 🔗</button>
+    <button class="btn-main" style="background:#282828;" onclick="document.getElementById('overlay').style.display='none'">VER TABLERO</button>
+
+    <div style="font-size: 0.8rem; color: #aaa; margin-top: 30px;">PRÓXIMO DESAFÍO EN:</div>
+    <div id="countdown" style="font-size:2rem; font-weight:900; color:var(--spotify-green);">00:00:00</div>
+</div>
+
+<script>
+    // Configuración del juego
+    const CONFIG = {
+        'Fácil': { clues: 45 },
+        'Medio': { clues: 35 },
+        'Difícil': { clues: 25 }
+    };
+
+    let difficulty = 'Fácil';
+    let solutionGrid = [];
+    let puzzleGrid = []; // Lo que ve el usuario (0 = vacío)
+    let userGrid = [];   // Lo que el usuario escribe
+    let selectedCell = null;
+    let errors = 0;
+    let timeElapsed = 0;
+    let timerInterval = null;
+    let isGameOver = false;
+
+    // PRNG (Generador de números pseudoaleatorios basado en semilla)
+    function mulberry32(a) {
+        return function() {
+            var t = a += 0x6D2B79F5;
+            t = Math.imul(t ^ t >>> 15, t | 1);
+            t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        }
+    }
+
+    // Generador de Semilla Diaria
+    function getDailySeed(diff) {
+        const today = new Date();
+        const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}-${diff}`;
+        let hash = 0;
+        for (let i = 0; i < dateString.length; i++) {
+            hash = Math.imul(31, hash) + dateString.charCodeAt(i) | 0;
+        }
+        return hash;
+    }
+
+    // Tablero base válido de Sudoku
+    const baseGrid = [
+        [4,3,5, 2,6,9, 7,8,1], [6,8,2, 5,7,1, 4,9,3], [1,9,7, 8,3,4, 5,6,2],
+        [8,2,6, 1,9,5, 3,4,7], [3,7,4, 6,8,2, 9,1,5], [9,5,1, 7,4,3, 6,2,8],
+        [5,1,9, 3,2,6, 8,7,4], [2,4,8, 9,5,7, 1,3,6], [7,6,3, 4,1,8, 2,5,9]
+    ];
+
+    function generateDailySudoku() {
+        const random = mulberry32(getDailySeed(difficulty));
+        
+        // 1. Crear copia del grid base
+        let grid = baseGrid.map(row => [...row]);
+
+        // 2. Mezclar los números del 1 al 9
+        let nums = [1,2,3,4,5,6,7,8,9];
+        for(let i = nums.length - 1; i > 0; i--) {
+            const j = Math.floor(random() * (i + 1));
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+        }
+        
+        // Aplicar el mapeo de números
+        for(let r=0; r<9; r++) {
+            for(let c=0; c<9; c++) {
+                grid[r][c] = nums[grid[r][c] - 1];
+            }
+        }
+
+        // 3. Mezclar filas dentro de sus bloques 3x3
+        for (let block = 0; block < 3; block++) {
+            let rows = [block*3, block*3+1, block*3+2];
+            for(let i=2; i>0; i--) {
+                const j = Math.floor(random() * (i + 1));
+                [grid[rows[i]], grid[rows[j]]] = [grid[rows[j]], grid[rows[i]]];
+            }
+        }
+
+        solutionGrid = grid.flat();
+        
+        // 4. Crear el puzzle aplicando la dificultad (escondiendo números)
+        puzzleGrid = [...solutionGrid];
+        let cells = Array.from({length: 81}, (_, i) => i);
+        
+        // Mezclar las posiciones a borrar
+        for(let i = cells.length - 1; i > 0; i--) {
+            const j = Math.floor(random() * (i + 1));
+            [cells[i], cells[j]] = [cells[j], cells[i]];
+        }
+
+        const cellsToRemove = 81 - CONFIG[difficulty].clues;
+        for(let i=0; i<cellsToRemove; i++) {
+            puzzleGrid[cells[i]] = 0;
+        }
+
+        userGrid = [...puzzleGrid];
+    }
+
+    function init() {
+        buildKeyboard();
+        loadGameState();
+        setInterval(updateCountdown, 1000);
+    }
+
+    function setDifficulty(diff) {
+        difficulty = diff;
+        document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        loadGameState();
+    }
+
+    function saveGameState() {
+        const state = {
+            date: new Date().toDateString(),
+            difficulty: difficulty, userGrid: userGrid, errors: errors,
+            time: timeElapsed, isGameOver: isGameOver
+        };
+        localStorage.setItem(`sudokuPro_state_${difficulty}`, JSON.stringify(state));
+    }
+
+    function loadGameState() {
+        const saved = JSON.parse(localStorage.getItem(`sudokuPro_state_${difficulty}`));
+        const todayStr = new Date().toDateString();
+
+        if (saved && saved.date === todayStr) {
+            userGrid = saved.userGrid; errors = saved.errors;
+            timeElapsed = saved.time; isGameOver = saved.isGameOver;
+            // Regeneramos la solución pero cargamos el progreso del usuario
+            generateDailySudoku(); 
+        } else {
+            errors = 0; timeElapsed = 0; isGameOver = false; selectedCell = null;
+            generateDailySudoku();
+        }
+
+        updateUI();
+        clearInterval(timerInterval);
+        if (!isGameOver) timerInterval = setInterval(tickTimer, 1000);
+        else showGameOverModal(errors < 3);
+    }
+
+    function updateUI() {
+        document.getElementById('error-count').textContent = errors;
+        document.getElementById('timer-display').textContent = formatTime(timeElapsed);
+        renderBoard();
+    }
+
+    function renderBoard() {
+        const board = document.getElementById('game-board');
+        board.innerHTML = '';
+        
+        for (let i = 0; i < 81; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            
+            const r = Math.floor(i / 9);
+            const c = i % 9;
+
+            // Mostrar valor
+            if (userGrid[i] !== 0) {
+                cell.textContent = userGrid[i];
+                if (puzzleGrid[i] !== 0) cell.classList.add('fixed');
+                else cell.classList.add('user-input');
+                
+                // Marcar como error si no coincide con la solución
+                if (userGrid[i] !== solutionGrid[i]) cell.classList.add('error');
+            }
+
+            // Clases de selección y resaltado
+            if (selectedCell !== null && !isGameOver) {
+                const sr = Math.floor(selectedCell / 9);
+                const sc = selectedCell % 9;
+                
+                if (i === selectedCell) {
+                    cell.classList.add('selected');
+                } else if (r === sr || c === sc || (Math.floor(r/3) === Math.floor(sr/3) && Math.floor(c/3) === Math.floor(sc/3))) {
+                    cell.classList.add('related');
+                }
+
+                // Resaltar números iguales en todo el tablero
+                if (userGrid[i] !== 0 && userGrid[i] === userGrid[selectedCell]) {
+                    cell.classList.add('same-number');
+                }
+            }
+
+            cell.onclick = () => selectCell(i);
+            board.appendChild(cell);
+        }
+    }
+
+    function selectCell(index) {
+        if (isGameOver) return;
+        selectedCell = index;
+        renderBoard();
+    }
+
+    function inputNumber(num) {
+        if (isGameOver || selectedCell === null) return;
+        if (puzzleGrid[selectedCell] !== 0) return; // No se puede editar celda fija
+
+        if (num === 'DEL') {
+            userGrid[selectedCell] = 0;
+        } else {
+            const val = parseInt(num);
+            userGrid[selectedCell] = val;
+            
+            // Chequear si es un error al momento de ingresar
+            if (val !== solutionGrid[selectedCell]) {
+                errors++;
+                if (errors >= 3) {
+                    isGameOver = true;
+                    saveGameState();
+                    showGameOverModal(false);
+                }
+            } else {
+                checkWinCondition();
+            }
+        }
+        
+        saveGameState();
+        updateUI();
+    }
+
+    function checkWinCondition() {
+        if (userGrid.every((val, i) => val === solutionGrid[i])) {
+            isGameOver = true;
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 } });
+            saveGameState();
+            showGameOverModal(true);
+        }
+    }
+
+    function buildKeyboard() {
+        const kb = document.getElementById('keyboard');
+        kb.innerHTML = '';
+        for (let i = 1; i <= 9; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'key'; btn.textContent = i;
+            btn.onclick = () => inputNumber(i);
+            kb.appendChild(btn);
+        }
+        const delBtn = document.createElement('button');
+        delBtn.className = 'key action-btn'; delBtn.innerHTML = '⌫';
+        delBtn.onclick = () => inputNumber('DEL');
+        kb.appendChild(delBtn);
+    }
+
+    // Teclado físico
+    window.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '9') inputNumber(e.key);
+        else if (e.key === 'Backspace' || e.key === 'Delete') inputNumber('DEL');
+        // Navegación con flechas
+        else if (selectedCell !== null) {
+            let r = Math.floor(selectedCell / 9), c = selectedCell % 9;
+            if (e.key === 'ArrowUp' && r > 0) selectCell(selectedCell - 9);
+            else if (e.key === 'ArrowDown' && r < 8) selectCell(selectedCell + 9);
+            else if (e.key === 'ArrowLeft' && c > 0) selectCell(selectedCell - 1);
+            else if (e.key === 'ArrowRight' && c < 8) selectCell(selectedCell + 1);
+        }
+    });
+
+    function tickTimer() { timeElapsed++; document.getElementById('timer-display').textContent = formatTime(timeElapsed); }
+    function formatTime(secs) { return `${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`; }
+
+    function showGameOverModal(win) {
+        clearInterval(timerInterval);
+        setTimeout(() => {
+            const overlay = document.getElementById('overlay');
+            const title = document.getElementById('over-title');
+            const msg = document.getElementById('over-msg');
+            
+            overlay.style.display = 'flex';
+            if (win) {
+                title.textContent = "¡SUDOKU RESUELTO!";
+                title.style.color = "var(--correct)";
+                msg.innerHTML = `Nivel: <b>${difficulty}</b><br>Tiempo: <b>${formatTime(timeElapsed)}</b><br>Errores: <b>${errors}/3</b>`;
+            } else {
+                title.textContent = "FIN DEL JUEGO";
+                title.style.color = "var(--error)";
+                msg.innerHTML = `Alcanzaste los 3 errores permitidos en nivel <b>${difficulty}</b>. ¡Vuelve a intentarlo mañana!`;
+            }
+        }, 500);
+    }
+
+    function shareResult() {
+        const win = errors < 3;
+        const text = `Sudoku Pro Diario - ${difficulty}\n${win ? '✅ Resuelto en' : '❌ Fallado en'} ${formatTime(timeElapsed)}\nErrores: ${errors}/3\n¡Juega aquí!`;
+        navigator.clipboard.writeText(text).then(() => alert('¡Copiado al portapapeles!'));
+    }
+
+    function updateCountdown() {
+        const now = new Date();
+        const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const diff = tomorrow - now;
+        const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+        const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+        const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+        document.getElementById('countdown').textContent = `${h}:${m}:${s}`;
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    init();
+</script>
+</body>
+</html>
