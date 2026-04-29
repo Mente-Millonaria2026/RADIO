@@ -32,7 +32,7 @@
         #app-container {
             display: flex; flex-direction: column; width: 100%;
             max-width: 550px; height: 100dvh; margin: 0 auto;
-            padding: 2dvh 3vw 2dvh 3vw; gap: 1.5dvh;
+            padding: 2dvh 4vw; gap: 1.5dvh;
         }
 
         header { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; width: 100%; }
@@ -55,12 +55,13 @@
         .stats-container {
             display: flex; justify-content: space-between; background: var(--card); 
             padding: 8px 20px; border-radius: 20px; font-size: clamp(0.8rem, 3vw, 0.95rem); 
-            align-items: center; flex: 0 0 auto; font-weight: bold; margin-bottom: 1dvh;
+            align-items: center; flex: 0 0 auto; font-weight: bold; margin-bottom: 0.5dvh;
         }
 
         #board-wrapper {
             flex: 1 1 0; display: flex; justify-content: center; align-items: center; 
             width: 100%; min-height: 0; padding: 0;
+            overflow: hidden; /* Asegura que nada se salga del contenedor flex */
         }
 
         #game-board {
@@ -68,8 +69,8 @@
             grid-template-columns: repeat(9, 1fr); 
             grid-template-rows: repeat(9, 1fr);
             width: 100%; 
-            /* Modificado: Tope máximo más pequeño (450px) para ganar armonía visual */
-            max-width: min(450px, calc(100dvh - 270px)); 
+            /* LA SOLUCIÓN DEFINITIVA: Limita el tamaño a un 52% del alto de la pantalla, garantizando que NUNCA pise el teclado */
+            max-width: min(450px, 52dvh); 
             aspect-ratio: 1; 
             background-color: var(--grid-line); gap: 1px;
             border: 2px solid var(--spotify-green); border-radius: 5px; overflow: hidden;
@@ -78,8 +79,9 @@
 
         .cell {
             background-color: var(--tile); display: flex; align-items: center; justify-content: center;
-            font-size: clamp(1rem, 5vmin, 1.8rem); font-weight: 600; cursor: pointer;
+            font-size: clamp(1rem, 4.5vmin, 1.8rem); font-weight: 600; cursor: pointer;
             color: var(--text); transition: background-color 0.1s; user-select: none;
+            width: 100%; height: 100%;
         }
 
         .cell:nth-child(3n) { border-right: 2px solid var(--spotify-green); }
@@ -97,21 +99,20 @@
         #keyboard {
             width: 100%; flex: 0 0 auto; display: grid; 
             grid-template-columns: repeat(5, 1fr); gap: clamp(4px, 1.5vw, 8px);
-            padding-bottom: 1dvh;
-            max-width: 450px; /* Alineado al ancho máximo del tablero */
+            padding-bottom: 2dvh; /* Más espacio abajo para dispositivos con barra de navegación nativa */
+            max-width: 450px; 
             margin: 0 auto;
         }
 
         .key {
             background: var(--key-bg); border: none; color: var(--text); border-radius: 8px; 
-            /* Modificado: Teclas más delgadas y bajitas */
-            height: clamp(35px, 5.5dvh, 48px); font-weight: bold; cursor: pointer; 
+            height: clamp(40px, 6dvh, 52px); font-weight: bold; cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
-            font-size: clamp(1rem, 4vw, 1.3rem); transition: transform 0.1s, background 0.2s;
+            font-size: clamp(1.1rem, 4vw, 1.4rem); transition: transform 0.1s, background 0.2s;
             outline: none;
         }
         .key:active { transform: scale(0.92); }
-        .key.action-btn { background: var(--card); font-size: clamp(0.8rem, 3vw, 1rem); }
+        .key.action-btn { background: var(--card); font-size: clamp(0.9rem, 3vw, 1.1rem); }
 
         .modal-overlay {
             display: none; position: fixed; inset: 0; background: rgba(18, 18, 18, 0.95); 
@@ -267,7 +268,6 @@
     }
 
     function loadGameState() {
-        // Bloque TRY-CATCH para evitar que la pantalla quede negra si hay error
         try {
             const saved = JSON.parse(localStorage.getItem(`sudokuPro_state_${difficulty}`));
             const todayStr = new Date().toDateString();
@@ -282,11 +282,10 @@
                 resetStateAndGenerate();
             }
         } catch (error) {
-            console.error("Error al cargar la partida. Reiniciando tablero.", error);
             resetStateAndGenerate();
         }
 
-        document.getElementById('overlay').style.display = 'none'; // Forzar limpieza del modal
+        document.getElementById('overlay').style.display = 'none'; 
         updateUI();
         clearInterval(timerInterval);
         if (!isGameOver) timerInterval = setInterval(tickTimer, 1000);
