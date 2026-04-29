@@ -25,13 +25,15 @@
             overflow: hidden; background-color: var(--bg); color: var(--text);
             font-family: var(--font); transition: background-color 0.3s, color 0.3s;
             display: flex; justify-content: center; align-items: center;
+            /* Previene selecciones accidentales que congelan la pantalla en móviles */
+            -webkit-user-select: none; user-select: none;
         }
 
         #app-container {
             display: flex; flex-direction: column; width: 100%;
             max-width: 500px; height: 100dvh; max-height: 900px;
             margin: 0 auto; box-sizing: border-box;
-            padding: 10px 15px; gap: 10px;
+            padding: 8px 12px; gap: 8px;
         }
 
         header { 
@@ -45,7 +47,7 @@
 
         .mode-btn {
             background: transparent; border: none; color: var(--text-dim);
-            cursor: pointer; padding: 5px; outline: none;
+            cursor: pointer; padding: 4px; outline: none;
             transition: color 0.3s, transform 0.2s; display: flex;
             align-items: center; justify-content: center;
         }
@@ -75,46 +77,50 @@
         #board-wrapper {
             flex-grow: 1; display: flex; justify-content: center;
             align-items: center; width: 100%; min-height: 0; padding: 0;
+            overflow: hidden; /* Evita que crezca más de la cuenta */
         }
 
-        /* Fórmula de candado para que NUNCA se desborde, ajustado por cantidad de columnas */
+        /* Fórmula estricta: Garantiza que los cuadrados se achiquen automáticamente si falta altura */
         #game-board { 
-            display: grid; gap: 5px; width: 100%;
-            max-width: min(100%, calc((100dvh - 240px) * (var(--cols) / 6)));
+            display: grid; gap: 4px; width: 100%;
+            aspect-ratio: calc(var(--cols) / 6); /* Proporción perfecta basada en letras */
+            max-height: calc(100dvh - 230px); /* Límite de altura: Protege teclado y menús */
+            max-width: calc((100dvh - 230px) * (var(--cols) / 6)); /* Límite de ancho correspondiente */
             margin: auto;
         }
         
         .tile { 
             width: 100%; aspect-ratio: 1; background: var(--tile);
             border-radius: 5px; display: flex; align-items: center; 
-            justify-content: center; font-size: min(5vmin, 2rem); 
+            justify-content: center; font-size: min(4.5vmin, 1.8rem); 
             font-weight: bold; text-transform: uppercase; box-sizing: border-box;
-            user-select: none;
         }
         .tile.space { background: transparent !important; border: none !important; box-shadow: none !important; }
         .tile[data-state="correct"] { background: var(--correct); color: white; border: none; }
         .tile[data-state="present"] { background: var(--present); color: white; border: none; }
         .tile[data-state="absent"] { background: var(--absent); color: white; border: none; }
 
+        /* Teclado más compacto y asegurado al frente */
         #keyboard { 
             width: 100%; flex-shrink: 0; display: flex; flex-direction: column;
-            gap: 6px; padding-bottom: max(5px, env(safe-area-inset-bottom));
+            gap: 4px; padding-bottom: max(2px, env(safe-area-inset-bottom));
             max-width: 500px; margin: 0 auto;
+            position: relative; z-index: 10; /* Asegura que ningún contenedor transparente lo bloquee */
         }
         
-        .kb-row { display: flex; justify-content: center; gap: 5px; width: 100%; }
+        .kb-row { display: flex; justify-content: center; gap: 4px; width: 100%; }
         
         .key { 
             background: var(--key-bg); border: none; color: var(--text); 
-            border-radius: 5px; height: clamp(40px, 6dvh, 50px); 
+            border-radius: 4px; height: clamp(35px, 6dvh, 45px); /* Más bajo */
             flex: 1; font-weight: bold; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; outline: none; font-size: 1.1rem; 
-            padding: 0; user-select: none; touch-action: manipulation; 
+            justify-content: center; outline: none; font-size: 1.05rem; 
+            padding: 0; touch-action: manipulation; 
             transition: transform 0.1s ease, background-color 0.2s;
         }
         .key:active { transform: scale(0.92); } 
-        .key.wide { flex: 1.5; font-size: 0.85rem; }
-        .key.action-btn { background: var(--card); font-size: 1.1rem; }
+        .key.wide { flex: 1.5; font-size: 0.8rem; }
+        .key.action-btn { background: var(--card); font-size: 1rem; } /* Botones Borrar y Enter en gris */
 
         .modal-overlay { 
             display: none; position: fixed; inset: 0; background: rgba(18, 18, 18, 0.96); 
@@ -252,16 +258,23 @@
         loadGameState();
     }
 
+    // Safeguard: Evita bloqueos si el navegador no permite localStorage
     function saveGameState() {
-        const state = {
-            date: todayStr, level: currentLevel, guesses: guesses, score: score, finished: isGameFinished
-        };
-        localStorage.setItem(`palabraPro_${gameMode}_state`, JSON.stringify(state));
+        try {
+            const state = {
+                date: todayStr, level: currentLevel, guesses: guesses, score: score, finished: isGameFinished
+            };
+            localStorage.setItem(`palabraPro_${gameMode}_state`, JSON.stringify(state));
+        } catch (error) {
+            console.warn("Navegador bloqueó el guardado local. El juego funcionará pero no recordará el progreso al recargar.");
+        }
     }
 
     function loadGameState() {
         try {
-            const saved = JSON.parse(localStorage.getItem(`palabraPro_${gameMode}_state`));
+            const savedData = localStorage.getItem(`palabraPro_${gameMode}_state`);
+            const saved = savedData ? JSON.parse(savedData) : null;
+            
             if (saved && saved.date === todayStr && !friendScore) {
                 currentLevel = saved.level || 1; 
                 guesses = saved.guesses || []; 
@@ -320,7 +333,7 @@
         targetPhrase = list[daySeed % list.length].toUpperCase();
         targetWord = targetPhrase.replace(/\s/g, '');
         
-        // Ajusta las columnas en CSS para el ancho perfecto
+        // Ajusta las columnas en CSS para el cálculo matemático perfecto
         document.documentElement.style.setProperty('--cols', targetPhrase.length);
         document.getElementById('ui-level').textContent = 'NIVEL ' + currentLevel;
         document.getElementById('ui-score').textContent = score;
@@ -400,10 +413,11 @@
         });
     }
 
-    // Aquí se corrige el botón borrar en pantalla reconociendo el símbolo ⌫
     function handleInput(key) {
-        if(document.getElementById('overlay').style.display === 'flex') return;
+        // Evita que siga escribiendo si la pantalla final está activa
         if(isGameFinished) return;
+        const overlayElement = document.getElementById('overlay');
+        if(window.getComputedStyle(overlayElement).display !== 'none') return;
         
         if(key === 'ENTER') { 
             if(currentGuess.length === targetWord.length) submitGuess(); 
@@ -533,13 +547,14 @@
     layout.forEach((row, i) => {
         const rEl = document.getElementById('kb' + (i+1));
         row.forEach(k => {
-            const b = document.createElement('button'); b.textContent = k; 
+            // Se usa "type=button" explícito para evitar recargas fantasma en móviles
+            const b = document.createElement('button'); 
+            b.type = 'button';
+            b.textContent = k; 
             b.className = 'key' + (k.length > 1 || k === '⌫' ? ' wide' : '');
             
-            // Asignar clase visual para los botones de acción
             if (k === 'ENTER' || k === '⌫') b.classList.add('action-btn');
-            
-            if(k !== 'ENTER' && k !== '⌫') b.id = `key-${k}`;
+            if (k !== 'ENTER' && k !== '⌫') b.id = `key-${k}`;
            
             b.onclick = (e) => { e.preventDefault(); handleInput(k); b.blur(); }; 
             rEl.appendChild(b);
