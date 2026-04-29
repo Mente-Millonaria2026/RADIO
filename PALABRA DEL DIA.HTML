@@ -12,7 +12,6 @@
             --text-dim: #b3b3b3; --spotify-green: #1DB954; --correct: #1ed760;
             --present: #c2a118; --absent: #3e3e3e; --font: 'Circular Sp', sans-serif;
             --key-bg: #3e3e3e;
-            --cols: 5; 
         }
 
         [data-theme="light"] {
@@ -36,11 +35,11 @@
             display: flex;
             flex-direction: column; 
             width: 100%;
-            max-width: 600px;
+            max-width: 650px; /* Un poco más amplio para PC */
             height: 100dvh;
             margin: 0 auto;
             box-sizing: border-box;
-            padding: 1dvh 3vw 2dvh 3vw;
+            padding: 1dvh 2vw 2dvh 2vw; /* Optimizamos padding lateral para celulares */
             gap: 1.5dvh;
         }
 
@@ -92,27 +91,31 @@
             align-items: center; 
             width: 100%; 
             min-height: 0;
-            padding: 0 5px;
+            padding: 0; /* Espacio liberado para maximizar celdas */
         }
 
-        /* GRID CORREGIDO */
         #game-board { 
             display: grid; 
-            gap: clamp(3px, 1vmin, 6px);
+            gap: clamp(3px, 1.5vmin, 6px); /* Gap dinámico mejorado */
             width: 100%;
-            /* Esta fórmula matemática impide que los 6 intentos empujen el teclado hacia abajo */
-            /* Restamos ~300px que es lo que ocupan el header, teclado y margins */
-            max-width: calc((100dvh - 300px) * (var(--cols) / 6)); 
+            height: 100%; /* Toma todo el espacio disponible del wrapper */
+            max-width: 600px; /* Límite para que no se deforme exageradamente en PC anchos */
+            max-height: 480px; /* Límite de alto para PC */
             margin: auto;
         }
         
         .tile { 
             width: 100%; 
-            aspect-ratio: 1; /* <-- ¡ESTO DEVUELVE LOS CUADRADOS PERFECTOS! */
+            height: 100%; /* Se adapta nativamente a las fracciones del grid (1fr) */
             background: var(--tile); 
-            border-radius: 5px; display: flex; align-items: center; 
-            justify-content: center; font-size: clamp(1.2rem, 5vmin, 2rem); 
-            font-weight: bold; text-transform: uppercase; box-sizing: border-box;
+            border-radius: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: clamp(1.2rem, 5vmin, 2.5rem); /* Aumento del tamaño de fuente */
+            font-weight: bold; 
+            text-transform: uppercase; 
+            box-sizing: border-box;
             user-select: none;
         }
         .tile.space { background: transparent !important; border: none !important; box-shadow: none !important; }
@@ -126,6 +129,7 @@
             display: flex;
             flex-direction: column;
             gap: clamp(4px, 1dvh, 8px);
+            padding-bottom: 5px;
         }
         .kb-row { 
             display: flex; justify-content: center; gap: clamp(4px, 1vw, 6px); 
@@ -134,7 +138,7 @@
         .key { 
             background: var(--key-bg); border: none; color: var(--text); 
             border-radius: 5px; 
-            height: clamp(45px, 7dvh, 65px); 
+            height: clamp(40px, 6.5dvh, 60px); /* Ligeramente ajustado para dar más aire al tablero */
             flex: 1; font-weight: bold; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             outline: none; 
@@ -333,7 +337,6 @@
         const list = DICTIONARY[gameMode][currentLevel];
         targetPhrase = list[daySeed % list.length].toUpperCase();
         targetWord = targetPhrase.replace(/\s/g, ''); 
-        document.documentElement.style.setProperty('--cols', targetPhrase.length);
         
         document.getElementById('ui-level').textContent = 'NIVEL ' + currentLevel;
         document.getElementById('ui-score').textContent = score;
@@ -349,9 +352,11 @@
         const board = document.getElementById('game-board'); 
         board.innerHTML = "";
         
-        // CORRECCIÓN JS: Solo dictamos las columnas. Las filas se adaptan automáticamente
-        // gracias al aspect-ratio de las celdas (.tile)
+        // CORRECCIÓN JS PRINCIPAL:
+        // Le indicamos al Grid tanto la cantidad de columnas como de filas exactas.
+        // Esto permite que las casillas ocupen todo el alto disponible del contenedor.
         board.style.gridTemplateColumns = `repeat(${targetPhrase.length}, 1fr)`;
+        board.style.gridTemplateRows = `repeat(6, 1fr)`;
         
         for (let i = 0; i < 6; i++) {
             let letterIdx = 0; 
