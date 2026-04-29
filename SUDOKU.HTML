@@ -24,69 +24,77 @@
         * { box-sizing: border-box; touch-action: manipulation; }
 
         html, body {
-            height: 100%; height: 100dvh; margin: 0; padding: 0;
-            overflow: hidden; background-color: var(--bg); color: var(--text);
+            height: 100%; 
+            height: 100dvh; 
+            margin: 0; padding: 0;
+            overflow: hidden; /* Evita cualquier scroll o corte raro */
+            background-color: var(--bg); color: var(--text);
             font-family: var(--font); transition: background-color 0.3s, color 0.3s;
-            display: flex; justify-content: center; align-items: center;
         }
 
         #app-container {
             display: flex; flex-direction: column; width: 100%;
-            max-width: 500px; height: 100dvh; max-height: 900px;
-            padding: 15px; gap: 15px; justify-content: space-between;
+            max-width: 500px; height: 100%; margin: 0 auto;
+            padding: 8px 12px; gap: 8px; /* Espaciado ultra reducido */
         }
 
-        header { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; width: 100%; }
-        #app-title { font-weight: 900; font-size: clamp(1.2rem, 5vw, 1.8rem); letter-spacing: -0.5px; }
+        /* --- REDUCCIÓN DE LA PARTE SUPERIOR --- */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            flex-shrink: 0; /* Nunca se achica */
+            width: 100%; 
+        }
+        #app-title { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; margin: 0; }
         
-        .header-buttons { display: flex; gap: clamp(6px, 2vw, 10px); align-items: center; }
+        .header-buttons { display: flex; gap: 6px; align-items: center; }
 
         .diff-btn {
             background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim);
-            padding: 4px 10px; border-radius: 15px; font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+            padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; /* Más chico */
             font-weight: bold; cursor: pointer; transition: all 0.2s;
         }
         .diff-btn.active { background: var(--spotify-green); color: white; border-color: var(--spotify-green); }
 
         .btn-theme {
             background: transparent; border: 1px solid var(--text-dim); color: var(--text);
-            padding: 4px 8px; border-radius: 15px; font-size: 0.8rem; cursor: pointer;
+            padding: 2px 6px; border-radius: 12px; font-size: 0.75rem; cursor: pointer;
         }
 
         .stats-container {
             display: flex; justify-content: space-between; background: var(--card); 
-            padding: 10px 20px; border-radius: 20px; font-size: clamp(0.8rem, 3vw, 0.95rem); 
-            align-items: center; flex: 0 0 auto; font-weight: bold;
+            padding: 6px 15px; border-radius: 12px; font-size: 0.85rem; 
+            align-items: center; flex-shrink: 0; font-weight: bold;
         }
 
+        /* --- TABLERO AJUSTADO MATEMÁTICAMENTE --- */
         #board-wrapper {
-            flex: 1 1 auto;
+            flex-grow: 1; /* Ocupa el espacio del medio */
             display: flex; justify-content: center; align-items: center; 
-            width: 100%; min-height: 0; padding: 0;
+            width: 100%; min-height: 0; /* Fundamental para evitar desbordes */
+            padding: 0;
         }
 
         #game-board {
             display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);
-            width: 100%; 
-            max-width: min(100%, 60vh); /* Clave para PC: Limita el tamaño según la altura disponible */
-            aspect-ratio: 1; /* Mantiene siempre el cuadrado perfecto */
+            /* Candado matemático: Nunca será más ancho que el 100% ni más alto que el 65% de la pantalla */
+            width: min(100%, 65vh); 
+            height: min(100%, 65vh); 
+            aspect-ratio: 1;
             background-color: var(--grid-line); gap: 1px; margin: 0 auto;
             border: 2px solid var(--spotify-green); border-radius: 5px; overflow: hidden;
         }
 
         .cell {
             background-color: var(--tile); display: flex; align-items: center; justify-content: center;
-            font-size: min(5vmin, 1.6rem); font-weight: 600; cursor: pointer;
+            font-size: min(4.5vmin, 1.4rem); font-weight: 600; cursor: pointer;
             color: var(--text); transition: background-color 0.1s; user-select: none;
         }
 
-        /* Bordes gruesos para los bloques 3x3 */
         .cell:nth-child(3n) { border-right: 2px solid var(--spotify-green); }
         .cell:nth-child(9n) { border-right: none; }
         .cell:nth-child(n+19):nth-child(-n+27),
         .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--spotify-green); }
 
-        /* Estados de celdas */
         .cell.fixed { font-weight: 900; color: var(--text-dim); }
         .cell.user-input { color: var(--spotify-green); }
         .cell.error { color: var(--error); background-color: rgba(233, 20, 41, 0.2) !important; }
@@ -94,22 +102,23 @@
         .cell.related { background-color: var(--highlight-related); }
         .cell.same-number { background-color: var(--highlight); font-weight: 900;}
 
+        /* --- REDUCCIÓN DEL TECLADO --- */
         #keyboard {
-            width: 100%; flex: 0 0 auto; display: grid; 
-            grid-template-columns: repeat(5, 1fr); gap: 8px;
-            padding-bottom: env(safe-area-inset-bottom, 5px); 
-            max-width: min(100%, 60vh); /* Que el teclado no sea más ancho que el tablero */
-            margin: 0 auto;
+            width: 100%; flex-shrink: 0; display: grid; 
+            grid-template-columns: repeat(5, 1fr); gap: 5px; /* Menos gap */
+            padding-bottom: max(5px, env(safe-area-inset-bottom)); 
+            max-width: 400px; margin: 0 auto; /* Centrado y contenido */
         }
 
         .key {
-            background: var(--key-bg); border: none; color: var(--text); border-radius: 8px; 
-            height: clamp(40px, 6dvh, 55px); font-weight: bold; cursor: pointer; 
+            background: var(--key-bg); border: none; color: var(--text); border-radius: 6px; 
+            height: 38px; /* Altura del teclado reducida drásticamente */ 
+            font-weight: bold; cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; transition: transform 0.1s, background 0.2s;
+            font-size: 1.1rem; transition: transform 0.1s, background 0.2s;
         }
         .key:active { transform: scale(0.92); }
-        .key.action-btn { font-size: 1.5rem; } /* Vuelve a ser gris, hereda de .key */
+        .key.action-btn { font-size: 1.2rem; } /* Botón DEL en gris clásico */
 
         .modal-overlay {
             display: none; position: fixed; inset: 0; background: rgba(18, 18, 18, 0.95); 
@@ -350,7 +359,6 @@
 
             userGrid[selectedCell] = val;
             
-            // Si el número ingresado es incorrecto, sumar error
             if (val !== solutionGrid[selectedCell]) {
                 errors++;
                 if (errors >= 3) {
