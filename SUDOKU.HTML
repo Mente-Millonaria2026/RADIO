@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sudoku Pro | Desafío Diario</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     
@@ -32,11 +32,11 @@
         #app-container {
             display: flex; flex-direction: column; width: 100%;
             max-width: 550px; height: 100dvh; margin: 0 auto;
-            padding: 2dvh 4vw; gap: 1.5dvh;
+            padding: 10px 15px; gap: 10px;
         }
 
         header { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; width: 100%; }
-        #app-title { font-weight: 900; font-size: clamp(1.2rem, 5vw, 1.8rem); letter-spacing: -0.5px; margin: 0; }
+        #app-title { font-weight: 900; font-size: clamp(1.2rem, 5vw, 1.8rem); letter-spacing: -0.5px; }
         
         .header-buttons { display: flex; gap: clamp(6px, 2vw, 10px); align-items: center; }
 
@@ -49,49 +49,42 @@
 
         .btn-theme {
             background: transparent; border: 1px solid var(--text-dim); color: var(--text);
-            padding: 4px 8px; border-radius: 15px; font-size: 0.8rem; cursor: pointer; outline: none;
+            padding: 4px 8px; border-radius: 15px; font-size: 0.8rem; cursor: pointer;
         }
 
         .stats-container {
             display: flex; justify-content: space-between; background: var(--card); 
-            padding: 8px 20px; border-radius: 20px; font-size: clamp(0.8rem, 3vw, 0.95rem); 
-            align-items: center; flex: 0 0 auto; font-weight: bold; margin-bottom: 0;
+            padding: 10px 20px; border-radius: 20px; font-size: clamp(0.8rem, 3vw, 0.95rem); 
+            align-items: center; flex: 0 0 auto; font-weight: bold;
         }
 
         #board-wrapper {
-            flex: 1 1 0; display: flex; justify-content: center; align-items: center; 
-            width: 100%; min-height: 0; padding: 0;
-            overflow: hidden; 
+            flex: 1 1 auto; /* Permite que el contenedor crezca o se encoja */
+            display: flex; justify-content: center; align-items: center; 
+            width: 100%; min-height: 0; /* Crucial para evitar que se desborde */
+            padding: 0;
         }
 
         #game-board {
-            display: grid; 
-            grid-template-columns: repeat(9, 1fr); 
-            grid-template-rows: repeat(9, 1fr);
-            
-            /* LÍMITE INFALIBLE: Ancho total, pero el ALTO MÁXIMO reserva 300px exactos para el teclado y encabezado */
-            width: 100%; 
-            max-width: 450px; 
-            max-height: calc(100dvh - 300px); 
-            aspect-ratio: 1; 
-            
-            background-color: var(--grid-line); gap: 1px;
+            display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);
+            width: 100%; max-width: 100%; max-height: 100%; aspect-ratio: 1; /* Cuadrado perfecto adaptativo */
+            background-color: var(--grid-line); gap: 1px; margin: auto;
             border: 2px solid var(--spotify-green); border-radius: 5px; overflow: hidden;
-            margin: auto;
         }
 
         .cell {
             background-color: var(--tile); display: flex; align-items: center; justify-content: center;
-            font-size: clamp(0.9rem, 4.5vmin, 1.8rem); font-weight: 600; cursor: pointer;
+            font-size: min(6vmin, 1.8rem); font-weight: 600; cursor: pointer;
             color: var(--text); transition: background-color 0.1s; user-select: none;
-            width: 100%; height: 100%;
         }
 
+        /* Bordes gruesos para los bloques 3x3 */
         .cell:nth-child(3n) { border-right: 2px solid var(--spotify-green); }
         .cell:nth-child(9n) { border-right: none; }
         .cell:nth-child(n+19):nth-child(-n+27),
         .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--spotify-green); }
 
+        /* Estados de celdas */
         .cell.fixed { font-weight: 900; color: var(--text-dim); }
         .cell.user-input { color: var(--spotify-green); }
         .cell.error { color: var(--error); background-color: rgba(233, 20, 41, 0.2) !important; }
@@ -101,22 +94,18 @@
 
         #keyboard {
             width: 100%; flex: 0 0 auto; display: grid; 
-            grid-template-columns: repeat(5, 1fr); gap: clamp(4px, 1vw, 6px);
-            padding-bottom: 2dvh; 
-            max-width: 450px; 
-            margin: 0 auto;
+            grid-template-columns: repeat(5, 1fr); gap: 6px;
+            padding-bottom: env(safe-area-inset-bottom, 5px); /* Soporte para notch en iOS */
         }
 
         .key {
-            background: var(--key-bg); border: none; color: var(--text); border-radius: 8px; 
-            /* TECLADO MÁS CHICO: Topa en 45px de alto */
-            height: clamp(35px, 5.5dvh, 45px); font-weight: bold; cursor: pointer; 
+            background: var(--key-bg); border: none; color: var(--text); border-radius: 6px; 
+            height: 45px; /* Teclado más compacto */ font-weight: bold; cursor: pointer; 
             display: flex; align-items: center; justify-content: center;
-            font-size: clamp(1rem, 4vw, 1.3rem); transition: transform 0.1s, background 0.2s;
-            outline: none;
+            font-size: 1.2rem; transition: transform 0.1s, background 0.2s;
         }
         .key:active { transform: scale(0.92); }
-        .key.action-btn { background: var(--card); font-size: clamp(0.85rem, 3vw, 1rem); }
+        .key.action-btn { background: rgba(233, 20, 41, 0.15); color: var(--error); font-size: 1.4rem; border: 1px solid rgba(233, 20, 41, 0.3); }
 
         .modal-overlay {
             display: none; position: fixed; inset: 0; background: rgba(18, 18, 18, 0.95); 
@@ -165,6 +154,7 @@
 </div>
 
 <script>
+    // Configuración del juego
     const CONFIG = {
         'Fácil': { clues: 45 },
         'Medio': { clues: 35 },
@@ -181,6 +171,7 @@
     let timerInterval = null;
     let isGameOver = false;
 
+    // PRNG (Generador de números pseudoaleatorios basado en semilla)
     function mulberry32(a) {
         return function() {
             var t = a += 0x6D2B79F5;
@@ -190,6 +181,7 @@
         }
     }
 
+    // Generador de Semilla Diaria
     function getDailySeed(diff) {
         const today = new Date();
         const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}-${diff}`;
@@ -200,6 +192,7 @@
         return hash;
     }
 
+    // Tablero base válido de Sudoku
     const baseGrid = [
         [4,3,5, 2,6,9, 7,8,1], [6,8,2, 5,7,1, 4,9,3], [1,9,7, 8,3,4, 5,6,2],
         [8,2,6, 1,9,5, 3,4,7], [3,7,4, 6,8,2, 9,1,5], [9,5,1, 7,4,3, 6,2,8],
@@ -272,33 +265,22 @@
     }
 
     function loadGameState() {
-        try {
-            const saved = JSON.parse(localStorage.getItem(`sudokuPro_state_${difficulty}`));
-            const todayStr = new Date().toDateString();
+        const saved = JSON.parse(localStorage.getItem(`sudokuPro_state_${difficulty}`));
+        const todayStr = new Date().toDateString();
 
-            if (saved && saved.date === todayStr && saved.userGrid && saved.userGrid.length === 81) {
-                userGrid = saved.userGrid; 
-                errors = saved.errors || 0;
-                timeElapsed = saved.time || 0; 
-                isGameOver = saved.isGameOver || false;
-                generateDailySudoku(); 
-            } else {
-                resetStateAndGenerate();
-            }
-        } catch (error) {
-            resetStateAndGenerate();
+        if (saved && saved.date === todayStr) {
+            userGrid = saved.userGrid; errors = saved.errors;
+            timeElapsed = saved.time; isGameOver = saved.isGameOver;
+            generateDailySudoku(); 
+        } else {
+            errors = 0; timeElapsed = 0; isGameOver = false; selectedCell = null;
+            generateDailySudoku();
         }
 
-        document.getElementById('overlay').style.display = 'none'; 
         updateUI();
         clearInterval(timerInterval);
         if (!isGameOver) timerInterval = setInterval(tickTimer, 1000);
         else showGameOverModal(errors < 3);
-    }
-
-    function resetStateAndGenerate() {
-        errors = 0; timeElapsed = 0; isGameOver = false; selectedCell = null;
-        generateDailySudoku();
     }
 
     function updateUI() {
@@ -354,14 +336,17 @@
 
     function inputNumber(num) {
         if (isGameOver || selectedCell === null) return;
-        if (puzzleGrid[selectedCell] !== 0) return; 
+        if (puzzleGrid[selectedCell] !== 0) return; // No se puede editar celda fija
 
         if (num === 'DEL') {
-            userGrid[selectedCell] = 0;
+            userGrid[selectedCell] = 0; // Vacía la celda
         } else {
             const val = parseInt(num);
+            if (userGrid[selectedCell] === val) return; // Si ya tiene ese número, no hace nada
+
             userGrid[selectedCell] = val;
             
+            // Si el número ingresado es incorrecto, sumar error
             if (val !== solutionGrid[selectedCell]) {
                 errors++;
                 if (errors >= 3) {
@@ -393,15 +378,17 @@
         for (let i = 1; i <= 9; i++) {
             const btn = document.createElement('button');
             btn.className = 'key'; btn.textContent = i;
-            btn.onclick = () => { inputNumber(i); btn.blur(); };
+            btn.onclick = () => inputNumber(i);
             kb.appendChild(btn);
         }
+        // Botón de Borrar (DEL)
         const delBtn = document.createElement('button');
         delBtn.className = 'key action-btn'; delBtn.innerHTML = '⌫';
-        delBtn.onclick = () => { inputNumber('DEL'); delBtn.blur(); };
+        delBtn.onclick = () => inputNumber('DEL');
         kb.appendChild(delBtn);
     }
 
+    // Eventos de teclado físico
     window.addEventListener('keydown', (e) => {
         if (e.key >= '1' && e.key <= '9') inputNumber(e.key);
         else if (e.key === 'Backspace' || e.key === 'Delete') inputNumber('DEL');
@@ -456,7 +443,6 @@
     function toggleTheme() {
         const body = document.body;
         body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        document.querySelector('.btn-theme').blur();
     }
 
     init();
