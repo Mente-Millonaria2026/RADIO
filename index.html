@@ -600,6 +600,14 @@
         </div>
       </div>
 
+      <section id="sectDestacada" class="mb-14 hidden">
+          <div class="flex items-center gap-3 mb-4">
+              <span class="section-bar" style="background:#eab308; box-shadow: 0 0 12px rgba(234,179,8,0.6);"></span>
+              <h3 class="text-xl font-bold">Radio Destacada ⭐</h3>
+          </div>
+          <div id="destacadaCardContainer" class="w-full"></div>
+      </section>
+
       <section id="sectTop" class="mb-14" style="display: block;">
         <div class="flex items-center gap-3 mb-6"><span class="section-bar bar-green"></span><h3 class="text-xl font-bold">Top 10 Más Escuchados</h3></div>
         <div class="carousel-wrapper">
@@ -817,6 +825,7 @@
           <button onclick="switchAdminTab('ads')" id="tabBtnAds" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">💰 Ads</button>
           <button onclick="switchAdminTab('payments')" id="tabBtnPayments" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all border border-blue-500/30">💳 Pagos</button>
           <button onclick="switchAdminTab('themes')" id="tabBtnThemes" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🎨 Themes</button>
+          <button onclick="switchAdminTab('destacada')" id="tabBtnDestacada" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">⭐ Dest</button>
           <button onclick="switchAdminTab('firebase')" id="tabBtnFirebase" class="flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all">🔥 DB</button>
       </div>
 
@@ -901,6 +910,23 @@
           </div>
       </div>
       
+      <div id="tabDestacada" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
+          <form id="adminDestacadaForm" class="space-y-4 flex-shrink-0">
+              <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
+                  <b>⭐ Radio Destacada / Sponsor:</b> Configura la emisora que aparecerá patrocinada en el inicio.
+              </div>
+              <div>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">ID de la Radio (UUID o FB Key)</label>
+                  <input type="text" id="destacadaId" placeholder="Ej: fb_123456789" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
+              </div>
+              <div>
+                  <label class="text-xs font-bold text-zinc-400 uppercase">Título Personalizado (Opcional)</label>
+                  <input type="text" id="destacadaTitle" placeholder="Ej: La Radio del Mes" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
+              </div>
+              <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Destacada</button>
+          </form>
+      </div>
+
       <div id="tabTop10" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <div class="mb-4 flex-shrink-0">
               <label class="text-xs font-bold text-yellow-500 uppercase">Añadir al Top 10</label>
@@ -1099,7 +1125,7 @@
                         🎮 Zona Play
                     </span>
                 </div>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-2 gap-2 mt-2">
                     <button onclick="openGameOverlay('wordle')" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group hover:border-blue-500">
                         <span class="text-xl transition-all">🔠</span>
                         <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">PALABRAS</span>
@@ -1107,6 +1133,14 @@
                     <button onclick="openGameOverlay('sudoku')" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group hover:border-purple-500">
                         <span class="text-xl transition-all">🔢</span>
                         <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Sudoku</span>
+                    </button>
+                    <button onclick="openGameOverlay('tetris')" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group hover:border-green-500">
+                        <span class="text-xl transition-all">🧱</span>
+                        <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Tetris</span>
+                    </button>
+                    <button onclick="openGameOverlay('snake')" class="relax-btn flex flex-col items-center justify-center gap-1.5 border p-3 rounded-xl group hover:border-yellow-500">
+                        <span class="text-xl transition-all">🐍</span>
+                        <span class="text-[9px] text-zinc-500 font-bold uppercase text-center w-full truncate transition-all">Snake</span>
                     </button>
                 </div>
             </div>
@@ -1393,13 +1427,19 @@
         if(type === 'wordle') {
             title.innerText = 'Palabra del Dia (Wordle)';
             icon.innerText = '🎵';
-            // AQUI PONES TU ENLACE GITHUB PARA EL WORDLE
             iframe.src = './PALABRA%20DEL%20DIA.HTML'; 
         } else if(type === 'sudoku') {
             title.innerText = 'Sudoku Vector Minimalista';
             icon.innerText = '🔢';
-            // AQUI PONES TU ENLACE GITHUB PARA EL SUDOKU
             iframe.src = './SUDOKU.HTML';
+        } else if(type === 'tetris') {
+            title.innerText = 'Tetris Clásico';
+            icon.innerText = '🧱';
+            iframe.src = './TETRIS.HTML';
+        } else if(type === 'snake') {
+            title.innerText = 'Snake Retro';
+            icon.innerText = '🐍';
+            iframe.src = './SNAKE.HTML';
         }
     };
 
@@ -1684,6 +1724,8 @@
         document.getElementById('viewLabel').innerText = "Explorar"; document.getElementById('viewSub').innerText = "Descubre la radio de otra manera."; document.title = "RadioAR Pro";
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
         closeRadioView(); displayedRadios = [...allRadios]; currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
+        
+        if (window.globalDestacadaConfig && window.globalDestacadaConfig.id) { document.getElementById('sectDestacada').style.display = 'block'; }
         document.getElementById('sectTop').style.display = 'block';
         if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; }
         document.getElementById('mainScroll').scrollTop = 0;
@@ -1778,7 +1820,7 @@
     };
 
     function openRadioView(r) {
-        document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none'; document.getElementById('gridTitleContainer').style.display = 'none'; document.getElementById('gridMain').style.display = 'none'; document.getElementById('loadMoreTrigger').style.display = 'none'; document.getElementById('moodFiltersContainer').style.display = 'none';
+        document.getElementById('sectDestacada').style.display = 'none'; document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none'; document.getElementById('gridTitleContainer').style.display = 'none'; document.getElementById('gridMain').style.display = 'none'; document.getElementById('loadMoreTrigger').style.display = 'none'; document.getElementById('moodFiltersContainer').style.display = 'none';
         const sView = document.getElementById('singleRadioView'); sView.classList.remove('hidden');
         document.getElementById('detail-title').innerText = r.name; document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
         
@@ -1810,7 +1852,11 @@
     function closeRadioView() {
         document.getElementById('singleRadioView').classList.add('hidden');
         document.getElementById('gridTitleContainer').style.display = 'flex'; document.getElementById('gridMain').style.display = 'grid'; document.getElementById('loadMoreTrigger').style.display = 'flex'; document.getElementById('moodFiltersContainer').style.display = 'block';
-        if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') { document.getElementById('sectTop').style.display = 'block'; if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; } }
+        if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') { 
+            if(window.globalDestacadaConfig && window.globalDestacadaConfig.id) document.getElementById('sectDestacada').style.display = 'block';
+            document.getElementById('sectTop').style.display = 'block'; 
+            if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; } 
+        }
     }
 
     const relaxSources = { 'rain': 'https://cdn.pixabay.com/audio/2025/11/15/audio_3f7ff9f3e2.mp3', 'thunder': 'https://cdn.pixabay.com/audio/2022/02/07/audio_1393bdaae1.mp3', 'roof': 'https://cdn.pixabay.com/audio/2024/02/13/audio_9996ca8efa.mp3', 'fire': 'https://cdn.pixabay.com/audio/2024/07/05/audio_cb6e14bf87.mp3' };
@@ -1888,6 +1934,7 @@
             window.rawApiTop10 = top10; allRadios = [...window.firebaseRadios, ...top10]; displayedRadios = [...allRadios];
             renderGrid(displayedRadios, 'gridMain');
             if(window.renderActualTop10) window.renderActualTop10(); if(window.renderActualTendencias) window.renderActualTendencias();
+            if(window.renderActualDestacada) window.renderActualDestacada();
             document.getElementById('sectTop').style.display = 'block'; document.getElementById('radioCount').innerText = "CARGANDO CATÁLOGO...";
             setTimeout(async () => {
                 let apiRadios = [];
@@ -1903,6 +1950,7 @@
         const filteredApi = globalApiRadios.filter(a => !fbOriginalIds.includes(a.stationuuid));
         allRadios = [...window.firebaseRadios, ...filteredApi];
         if(window.renderActualTop10) window.renderActualTop10(); if(window.renderActualTendencias) window.renderActualTendencias();
+        if(window.renderActualDestacada) window.renderActualDestacada();
         if(document.getElementById('viewLabel').innerText === "Explorar" && document.getElementById('masterSearch').value === "") {
             if (document.getElementById('singleRadioView').classList.contains('hidden')) { displayedRadios = [...allRadios]; document.getElementById('gridMain').innerHTML = ""; currentOffset = 0; loadMoreRadios(); }
             document.getElementById('radioCount').innerText = `${allRadios.length} RADIOS DISPONIBLES`;
@@ -1932,8 +1980,8 @@
     document.addEventListener('keydown', (e) => { if (e.shiftKey && e.key === 'M') { if (isSuperAdmin) { openAdminPanel(); } } });
 
     window.switchAdminTab = function(tab) {
-        const tabs = ['tabAdRequests','tabRadios', 'tabCats', 'tabAds', 'tabNews', 'tabFirebase', 'tabTop10', 'tabTendencias', 'tabUsers', 'tabPayments', 'tabThemes'];
-        const btns = ['tabBtnAdRequests','tabBtnRadios', 'tabBtnCats', 'tabBtnAds', 'tabBtnNews', 'tabBtnFirebase', 'tabBtnTop10', 'tabBtnTendencias', 'tabBtnUsers', 'tabBtnPayments', 'tabBtnThemes'];
+        const tabs = ['tabAdRequests','tabRadios', 'tabCats', 'tabAds', 'tabNews', 'tabFirebase', 'tabTop10', 'tabTendencias', 'tabUsers', 'tabPayments', 'tabThemes', 'tabDestacada'];
+        const btns = ['tabBtnAdRequests','tabBtnRadios', 'tabBtnCats', 'tabBtnAds', 'tabBtnNews', 'tabBtnFirebase', 'tabBtnTop10', 'tabBtnTendencias', 'tabBtnUsers', 'tabBtnPayments', 'tabBtnThemes', 'tabBtnDestacada'];
         const actClass = "flex-shrink-0 flex-1 bg-zinc-700 text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all shadow-md";
         const inactClass = "flex-shrink-0 flex-1 text-zinc-400 hover:text-white rounded-lg px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all";
 
@@ -2080,7 +2128,7 @@
       closeRadioView();
       displayedRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
-      document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
+      document.getElementById('sectDestacada').style.display = 'none'; document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
       document.getElementById('mainScroll').scrollTop = 0;
     }
 
@@ -2089,19 +2137,23 @@
       closeRadioView();
       displayedRadios = allRadios.filter(r => favs.includes(r.original_uuid) || favs.includes(r.stationuuid) || favs.includes(r.fb_key));
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); 
-      document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
+      document.getElementById('sectDestacada').style.display = 'none'; document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
     }
 
     function setupControls() {
       document.getElementById('p-play').onclick = () => { if(!relaxAudio.paused) { stopRelax(); return; } if(!eqInitialized && currentStation) initEQ(); audio.paused ? audio.play() : audio.pause(); };
       document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
-      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
+      audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6Mv14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
       audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
       document.getElementById('masterSearch').oninput = (e) => {
         closeRadioView();
         const term = e.target.value.toLowerCase(); 
         displayedRadios = allRadios.filter(r => (r.name + " " + (r.tags||"") + " " + (r.state||"")).toLowerCase().includes(term));
         currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); 
+        
+        if (window.globalDestacadaConfig && window.globalDestacadaConfig.id) {
+            document.getElementById('sectDestacada').style.display = term ? 'none' : 'block';
+        }
         document.getElementById('sectTop').style.display = term ? 'none' : 'block';
         document.getElementById('sectTendencias').style.display = (term || !(window.currentActiveTendencias && window.currentActiveTendencias.length > 0)) ? 'none' : 'block';
       };
@@ -2109,12 +2161,19 @@
 
     function filterByMood(mood, btn) {
       closeRadioView(); document.querySelectorAll('#moodFilters .pill').forEach(p => p.classList.remove('active')); btn.classList.add('active');
-      if(mood === 'all') { displayedRadios = [...allRadios]; document.getElementById('sectTop').style.display = 'block'; if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) document.getElementById('sectTendencias').style.display = 'block'; } 
+      if(mood === 'all') { 
+          displayedRadios = [...allRadios]; 
+          if(window.globalDestacadaConfig && window.globalDestacadaConfig.id) document.getElementById('sectDestacada').style.display = 'block';
+          document.getElementById('sectTop').style.display = 'block'; 
+          if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) document.getElementById('sectTendencias').style.display = 'block'; 
+      } 
       else {
           const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
           let searchTerms = keywords[mood] || [mood];
           displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
-          document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
+          document.getElementById('sectDestacada').style.display = 'none';
+          document.getElementById('sectTop').style.display = 'none'; 
+          document.getElementById('sectTendencias').style.display = 'none';
       }
       currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
     }
@@ -2148,7 +2207,8 @@
     const adsRef = ref(db, 'settings_comunidad/ads'); const newsRef = ref(db, 'settings_comunidad/news');
     const top10Ref = ref(db, 'settings_comunidad/top10'); const tendenciasRef = ref(db, 'settings_comunidad/tendencias');
     const paymentsRef = ref(db, 'settings_comunidad/payments'); const themesRef = ref(db, 'settings_comunidad/themes');
-    const adRequestsRef = ref(db, 'ad_requests'); // NUEVA REFERENCIA DE SOLICITUDES DE ADS
+    const destacadaRef = ref(db, 'settings_comunidad/destacada'); // REFERENCIA DESTACADA
+    const adRequestsRef = ref(db, 'ad_requests'); 
     
     const currentMonthStr = new Date().toISOString().slice(0, 7); 
     const clicksRef = ref(db, `tendencias_clicks/${currentMonthStr}`);
@@ -2214,6 +2274,70 @@
         remove(ref(db, 'ad_requests/' + key));
     };
 
+    // --- RADIO DESTACADA / SPONSOR LOGIC ---
+    window.globalDestacadaConfig = { id: '', title: '' };
+
+    onValue(destacadaRef, (snapshot) => {
+        const data = snapshot.val() || { id: '', title: '' };
+        window.globalDestacadaConfig = data;
+        
+        if(document.getElementById('destacadaId')) document.getElementById('destacadaId').value = data.id || '';
+        if(document.getElementById('destacadaTitle')) document.getElementById('destacadaTitle').value = data.title || '';
+        
+        if(window.renderActualDestacada) window.renderActualDestacada();
+    });
+
+    document.getElementById('adminDestacadaForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = prompt("Contraseña de Administrador para Configurar la Radio Destacada:");
+        if (pass !== ADMIN_PASSWORD) return alert("Acceso denegado.");
+        
+        const data = {
+            id: document.getElementById('destacadaId').value.trim(),
+            title: document.getElementById('destacadaTitle').value.trim()
+        };
+        
+        update(ref(db, 'settings_comunidad'), { destacada: data }).then(() => {
+            alert("Radio destacada guardada con éxito.");
+        }).catch(err => alert("Error: " + err.message));
+    });
+
+    window.renderActualDestacada = function() {
+        const container = document.getElementById('destacadaCardContainer');
+        const sect = document.getElementById('sectDestacada');
+        if(!container || !sect) return;
+
+        if(window.globalDestacadaConfig && window.globalDestacadaConfig.id && allRadios.length > 0) {
+            const r = allRadios.find(x => x.original_uuid === window.globalDestacadaConfig.id || x.stationuuid === window.globalDestacadaConfig.id || x.fb_key === window.globalDestacadaConfig.id);
+            if(r) {
+                sect.style.display = 'block';
+                const titleEl = sect.querySelector('h3');
+                if(titleEl) titleEl.innerText = window.globalDestacadaConfig.title || 'Radio Destacada ⭐';
+                
+                const primaryId = r.original_uuid || r.stationuuid || r.fb_key;
+                const safeFavicon = r.favicon ? r.favicon.replace(/^http:\/\//i, 'https://') : `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff`;
+                
+                container.innerHTML = `
+                    <div class="r-card w-full flex items-center gap-4 p-4 border border-yellow-500/30 bg-yellow-500/5 hover:border-yellow-500/60 transition-all cursor-pointer rounded-[14px]" style="min-width: 100%; max-width: 100%;" onclick="play('${primaryId}')">
+                        <img loading="lazy" src="${safeFavicon}" class="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover shadow-[0_0_15px_rgba(234,179,8,0.2)]" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
+                        <div class="flex-1 overflow-hidden text-left">
+                            <div class="font-black text-lg md:text-xl truncate text-white" style="text-shadow: 0 0 10px rgba(234,179,8,0.3);">${r.name}</div>
+                            <div class="text-[10px] md:text-xs text-yellow-500 font-bold uppercase mt-1 tracking-widest">Patrocinado • ${r.state || 'Radio Live'}</div>
+                            <p class="text-[10px] text-zinc-400 mt-1 hidden sm:block truncate">${r.tags || 'La mejor programación'}</p>
+                        </div>
+                        <button class="bg-gradient-to-r from-yellow-600 to-yellow-500 text-black px-4 md:px-6 py-2.5 rounded-xl font-bold text-[10px] md:text-xs uppercase shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-transform hover:scale-105 hidden md:block">
+                            Escuchar Ahora
+                        </button>
+                    </div>
+                `;
+            } else {
+                sect.style.display = 'none';
+            }
+        } else {
+            sect.style.display = 'none';
+        }
+    };
+
     window.reapplyUserTheme = function() {
         const container = document.getElementById('custom-premium-html-container'); if(!container) return;
         if (window.currentPremiumStatus === 'diamond') { container.innerHTML = globalThemesConfig.diamond || ''; } else if (window.currentPremiumStatus === 'gold') { container.innerHTML = globalThemesConfig.gold || ''; } else { container.innerHTML = ''; }
@@ -2264,7 +2388,7 @@
         const mobLogoText = document.getElementById('mobLogoText');
         
         if (user) {
-            isSuperAdmin = (user.uid === ADMIN_UID); // Detecta si es el admin maestro
+            isSuperAdmin = (user.uid === ADMIN_UID);
 
             if(authButtonsWrapper) authButtonsWrapper.classList.add('hidden');
             if(mobileAuthButtonsWrapper) mobileAuthButtonsWrapper.classList.add('hidden');
@@ -2291,7 +2415,6 @@
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
                     
-                    // QUITAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
                     if(gymLock) gymLock.classList.add('hidden');
 
@@ -2305,7 +2428,6 @@
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.add('hidden');
                     if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.remove('hidden');
                     
-                    // MOSTRAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
                     if(gymLock) gymLock.classList.remove('hidden');
 
@@ -2320,7 +2442,6 @@
                     if(document.getElementById('btnMobilePremiumLogged')) document.getElementById('btnMobilePremiumLogged').classList.remove('hidden');
                     if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.add('hidden');
                     
-                    // MOSTRAR BLOQUEO GYM MODO
                     const gymLock = document.getElementById('gym-diamond-lock');
                     if(gymLock) gymLock.classList.remove('hidden');
 
@@ -2346,7 +2467,6 @@
             if(document.getElementById('premium-theme-btn')) document.getElementById('premium-theme-btn').classList.add('hidden');
             document.body.classList.remove('theme-cyberpunk', 'theme-synthwave', 'theme-espacial', 'theme-aurora', 'theme-crystal', 'theme-gold-epic');
             
-            // MOSTRAR BLOQUEO GYM MODO POR DEFECTO
             const gymLock = document.getElementById('gym-diamond-lock');
             if(gymLock) gymLock.classList.remove('hidden');
 
