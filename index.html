@@ -2198,7 +2198,7 @@
         function setupControls() {
           document.getElementById('p-play').onclick = () => { if(!relaxAudio.paused) { stopRelax(); return; } if(!eqInitialized && currentStation) initEQ(); audio.paused ? audio.play() : audio.pause(); };
           document.getElementById('p-vol').oninput = (e) => { audio.volume = e.target.value; relaxAudio.volume = e.target.value; };
-          audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6Mv14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
+          audio.onplay = () => { pIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; pDot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#1DB954]"; pStat.innerText = "EN VIVO"; };
           audio.onpause = () => { pIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; pDot.className = "w-2 h-2 rounded-full bg-zinc-600"; pStat.innerText = "PAUSADO"; };
           document.getElementById('masterSearch').oninput = (e) => {
             closeRadioView();
