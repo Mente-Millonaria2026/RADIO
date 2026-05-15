@@ -568,7 +568,7 @@
           </div>
 
           <div class="spotify-header p-4 md:p-6 rounded-3xl flex flex-row items-start gap-4 md:gap-6 mt-2 relative">
-              <img id="detail-img" src="" class="w-20 h-20 md:w-28 md:h-28 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] object-cover flex-shrink-0" />
+              <img id="detail-img" src="" class="w-20 h-20 md:w-28 md:h-28 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] object-cover flex-shrink-0 cursor-pointer" />
               <div class="flex flex-col items-start text-left flex-1 min-w-0">
                   <span class="text-[10px] md:text-xs font-black text-white bg-red-600 px-2 py-1 rounded mb-2 uppercase tracking-widest flex items-center gap-1 shadow-lg w-max">
                       <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> EN VIVO
@@ -895,6 +895,15 @@
                 <input type="text" id="mCategoriaCustom" placeholder="Ej: noticias, cumbia, pop..." class="hidden w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
             </div>
             <input type="text" id="mTags" placeholder="Tags adicionales (rock, 24hrs, etc)" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-blue-500">
+            
+            <div class="flex flex-col gap-2 border border-zinc-700 bg-zinc-800/50 rounded-xl p-3">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="mDestacada" class="w-4 h-4 accent-yellow-500 rounded">
+                    <span class="text-sm font-bold text-yellow-500 uppercase tracking-wide">⭐ Destacar en su categoría/provincia</span>
+                </label>
+                <p class="text-[10px] text-zinc-400">Si se activa, esta radio aparecerá como patrocinada cuando los usuarios filtren por su provincia o categoría asignada.</p>
+            </div>
+
             <div class="flex gap-2">
                 <button type="submit" id="submitRadioBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg text-sm">Subir Radio</button>
                 <button type="button" id="cancelRadioBtn" onclick="cancelRadioEdit()" class="hidden bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 px-4 rounded-xl transition-all text-sm">✕</button>
@@ -913,7 +922,7 @@
       <div id="tabDestacada" class="hidden flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4 pr-1">
           <form id="adminDestacadaForm" class="space-y-4 flex-shrink-0">
               <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl mb-2 text-xs text-yellow-200">
-                  <b>⭐ Radio Destacada / Sponsor:</b> Configura la emisora que aparecerá patrocinada en el inicio.
+                  <b>⭐ Radio Destacada / Sponsor (Global):</b> Configura la emisora que aparecerá patrocinada en el inicio para todos los usuarios. Para destacar en provincias/categorías, edita la radio en la pestaña "Radios".
               </div>
               <div>
                   <label class="text-xs font-bold text-zinc-400 uppercase">ID de la Radio (UUID o FB Key)</label>
@@ -923,7 +932,7 @@
                   <label class="text-xs font-bold text-zinc-400 uppercase">Título Personalizado (Opcional)</label>
                   <input type="text" id="destacadaTitle" placeholder="Ej: La Radio del Mes" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-yellow-500 mt-1">
               </div>
-              <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Destacada</button>
+              <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-3 rounded-xl transition-all shadow-lg text-sm mt-4">Guardar Destacada Global</button>
           </form>
       </div>
 
@@ -1772,7 +1781,7 @@
         window.history.pushState({type: 'home'}, "RadioAR Pro", window.location.pathname);
         closeRadioView(); displayedRadios = [...allRadios]; currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
         
-        if (window.globalDestacadaConfig && window.globalDestacadaConfig.id) { document.getElementById('sectDestacada').style.display = 'block'; }
+        if(window.renderActualDestacada) window.renderActualDestacada();
         document.getElementById('sectTop').style.display = 'block';
         if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; }
         document.getElementById('mainScroll').scrollTop = 0;
@@ -1869,7 +1878,11 @@
     function openRadioView(r) {
         document.getElementById('sectDestacada').style.display = 'none'; document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none'; document.getElementById('gridTitleContainer').style.display = 'none'; document.getElementById('gridMain').style.display = 'none'; document.getElementById('loadMoreTrigger').style.display = 'none'; document.getElementById('moodFiltersContainer').style.display = 'none';
         const sView = document.getElementById('singleRadioView'); sView.classList.remove('hidden');
-        document.getElementById('detail-title').innerText = r.name || 'Radio'; document.getElementById('detail-img').src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name || 'R')}&background=222&color=fff`;
+        document.getElementById('detail-title').innerText = r.name || 'Radio'; 
+        
+        const detailImg = document.getElementById('detail-img');
+        detailImg.src = makeHttps(r.favicon) || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name || 'R')}&background=222&color=fff`;
+        detailImg.onclick = () => document.getElementById('p-play').click();
         
         // MANEJO MEJORADO DE DESCRIPCIONES Y HASHTAGS
         const descEl = document.getElementById('detail-desc');
@@ -1900,7 +1913,7 @@
             document.getElementById('singleRadioView').classList.add('hidden');
             document.getElementById('gridTitleContainer').style.display = 'flex'; document.getElementById('gridMain').style.display = 'grid'; document.getElementById('loadMoreTrigger').style.display = 'flex'; document.getElementById('moodFiltersContainer').style.display = 'block';
             if(document.getElementById('masterSearch').value === '' && document.querySelector('#moodFilters .pill.active').innerText === 'Todo') { 
-                if(window.globalDestacadaConfig && window.globalDestacadaConfig.id) document.getElementById('sectDestacada').style.display = 'block';
+                if(window.renderActualDestacada) window.renderActualDestacada();
                 document.getElementById('sectTop').style.display = 'block'; 
                 if(window.currentActiveTendencias && window.currentActiveTendencias.length > 0) { document.getElementById('sectTendencias').style.display = 'block'; } 
             }
@@ -2073,6 +2086,9 @@
               if (err.name === 'NotAllowedError') {
                   pStat.innerText = "DALE PLAY";
                   pDot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
+                  const playBtn = document.getElementById('p-play');
+                  playBtn.classList.add('animate-bounce', 'ring-4', 'ring-red-500');
+                  setTimeout(() => playBtn.classList.remove('animate-bounce', 'ring-4', 'ring-red-500'), 5000);
               } else {
                   pStat.innerText = "Error"; 
               }
@@ -2090,7 +2106,7 @@
               adDiv.innerHTML = `
                 <div class="ad-promo-icon">🚀</div>
                 <div class="font-black text-[13px] uppercase tracking-widest leading-tight">¡Destacá tu Radio Aquí!</div>
-                <div class="text-[9px] font-bold uppercase mt-2 opacity-80 border border-current px-2 py-1 rounded-md">Contratar Posición</div>
+                <div class="text-[9px] font-bold uppercase mt-2 opacity-80 border border-current px-2 py-1rounded-md">Contratar Posición</div>
               `;
               container.appendChild(adDiv);
           }
@@ -2099,9 +2115,21 @@
             const isFav = favs.includes(primaryId) || favs.includes(r.stationuuid) || favs.includes(r.fb_key);
             const isBoosted = boosts.includes(primaryId) || boosts.includes(r.stationuuid) || boosts.includes(r.fb_key);
             const safeFavicon = makeHttps(r.favicon);
+            
+            // Checkeo de Destacada
+            const isDestacada = r.mDestacada === true;
+            
             const div = document.createElement('div');
-            div.className = "r-card";
+            div.className = "r-card relative";
+            
+            let badgeHtml = '';
+            if (isDestacada) {
+                div.classList.add('border-yellow-500/50', 'bg-yellow-500/5');
+                badgeHtml = '<div class="absolute top-0 right-0 bg-yellow-500 text-black text-[8px] font-black px-2 py-0.5 rounded-bl-lg rounded-tr-lg z-10 shadow-md">PATROCINADO</div>';
+            }
+
             div.innerHTML = `
+              ${badgeHtml}
               <div class="card-actions">
                 <button class="action-btn" onclick="shareRadio(event, '${primaryId}')" title="Compartir radio">
                   <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
@@ -2115,7 +2143,7 @@
               </div>
               <div onclick="play('${primaryId}')">
                 <img loading="lazy" src="${safeFavicon}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
-                <div class="font-bold text-sm truncate">${r.name}</div>
+                <div class="font-bold text-sm truncate ${isDestacada ? 'text-yellow-500' : ''}">${r.name}</div>
                 <div class="text-[10px] text-zinc-500 font-bold uppercase mt-1">${r.state || 'Radio Live'}</div>
               </div>`;
             container.appendChild(div);
@@ -2185,7 +2213,16 @@
         function filterP(p, skipPush = false) {
           if(!skipPush && SEO_DATA.provincias[p]) updateMetadata(SEO_DATA.provincias[p], 'prov', p);
           closeRadioView();
-          displayedRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
+          
+          // Modificación para ordenar destacadas primero en provincias
+          let pRadios = allRadios.filter(r => (r.state || "").toLowerCase().includes(p.toLowerCase()));
+          pRadios.sort((a, b) => {
+              if (a.mDestacada && !b.mDestacada) return -1;
+              if (!a.mDestacada && b.mDestacada) return 1;
+              return 0;
+          });
+          
+          displayedRadios = pRadios;
           currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios();
           document.getElementById('sectDestacada').style.display = 'none'; document.getElementById('sectTop').style.display = 'none'; document.getElementById('sectTendencias').style.display = 'none';
           document.getElementById('mainScroll').scrollTop = 0;
@@ -2207,7 +2244,16 @@
           document.getElementById('masterSearch').oninput = (e) => {
             closeRadioView();
             const term = e.target.value.toLowerCase(); 
-            displayedRadios = allRadios.filter(r => (r.name + " " + (r.tags||"") + " " + (r.state||"")).toLowerCase().includes(term));
+            
+            // Modificación: Las destacadas aparecen primero en búsquedas generales también
+            let filteredR = allRadios.filter(r => (r.name + " " + (r.tags||"") + " " + (r.state||"")).toLowerCase().includes(term));
+            filteredR.sort((a, b) => {
+              if (a.mDestacada && !b.mDestacada) return -1;
+              if (!a.mDestacada && b.mDestacada) return 1;
+              return 0;
+            });
+            
+            displayedRadios = filteredR;
             currentOffset = 0; renderGrid([], 'gridMain', false); loadMoreRadios(); 
             
             if (window.globalDestacadaConfig && window.globalDestacadaConfig.id) {
@@ -2229,7 +2275,18 @@
           else {
               const keywords = { mate: ['folclore', 'folklore', 'tango', 'chamame', 'popular'], estudiar: ['chill', 'jazz', 'clásica', 'lofi', 'relax'], sport: ['futbol', 'deporte', 'racing', 'river', 'boca', 'la red'], retro: ['80s', '90s', 'retro', 'oldies', 'aspen'] };
               let searchTerms = keywords[mood] || [mood];
-              displayedRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
+              
+              let catRadios = allRadios.filter(r => searchTerms.some(term => (r.name + " " + r.tags).toLowerCase().includes(term))); 
+              
+              // Ordenar por destacadas primero
+              catRadios.sort((a, b) => {
+                  if (a.mDestacada && !b.mDestacada) return -1;
+                  if (!a.mDestacada && b.mDestacada) return 1;
+                  return 0;
+              });
+              
+              displayedRadios = catRadios;
+              
               document.getElementById('sectDestacada').style.display = 'none';
               document.getElementById('sectTop').style.display = 'none'; 
               document.getElementById('sectTendencias').style.display = 'none';
@@ -3238,6 +3295,9 @@
             if (cat) finalTags += " " + cat; 
 
             const originalUuid = document.getElementById('mOriginalUuid').value;
+            
+            // Recoger estado del checkbox de Destacada
+            const isDestacada = document.getElementById('mDestacada').checked;
 
             const data = {
                 name: document.getElementById('mName').value,
@@ -3250,6 +3310,7 @@
                 tags: finalTags.trim() || 'Comunidad',
                 state: prov || 'Comunidad',
                 original_uuid: originalUuid || null,
+                mDestacada: isDestacada, // NUEVO CAMPO DESTACADA GUARDADO EN DB
                 timestamp: serverTimestamp()
             };
 
@@ -3293,6 +3354,9 @@
             toRender.forEach(r => {
                 const isFb = r.fb_key ? true : false;
                 const itemId = r.original_uuid || r.stationuuid || r.fb_key;
+                
+                // Mostrar badge de destacada en el admin
+                const destBadge = r.mDestacada ? '<span class="text-[9px] bg-yellow-600 text-black px-1 py-0.5 rounded ml-1 font-bold">⭐ DESTACADA</span>' : '';
 
                 const item = document.createElement('div');
                 item.className = 'flex justify-between items-center bg-zinc-800/50 hover:bg-zinc-800 p-3 rounded-xl border border-zinc-700/50 transition-colors';
@@ -3300,7 +3364,7 @@
                     <div class="flex items-center gap-3 overflow-hidden">
                         <img src="${makeHttps(r.favicon)}" class="w-10 h-10 rounded bg-zinc-900 object-cover flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=222&color=fff'">
                         <div class="truncate">
-                            <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'}</p>
+                            <p class="text-sm font-bold text-white truncate">${r.name} ${isFb ? '<span class="text-[9px] bg-blue-600 text-white px-1 py-0.5 rounded ml-1 font-bold">MANUAL</span>' : '<span class="text-[9px] bg-zinc-600 text-white px-1 py-0.5 rounded ml-1 font-bold">API</span>'} ${destBadge}</p>
                             <p class="text-[10px] text-zinc-400 truncate mt-0.5">${r.url || r.url_resolved}</p>
                         </div>
                     </div>
@@ -3342,6 +3406,9 @@
             document.getElementById('mDescription').value = r.description || "";
             document.getElementById('mMetaInfo').value = r.meta_info || "";
             document.getElementById('mProvincia').value = r.state || "";
+            
+            // Asignar el checkbox de Destacada
+            document.getElementById('mDestacada').checked = r.mDestacada === true;
 
             let cleanTags = r.tags || "";
             const selectCat = document.getElementById('mCategoria');
@@ -3374,6 +3441,7 @@
             document.getElementById('mOriginalUuid').value = '';
             document.getElementById('manualRadioForm')?.reset();
             document.getElementById('mCategoriaCustom').classList.add('hidden');
+            document.getElementById('mDestacada').checked = false; // reset
             const submitBtn = document.getElementById('submitRadioBtn');
             if(submitBtn) submitBtn.innerText = "Subir Radio";
             document.getElementById('cancelRadioBtn')?.classList.add('hidden');
