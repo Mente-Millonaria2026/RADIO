@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Snake Pro | Clásico Arcade</title>
+    
+    <!-- Librerías Externas -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <!-- SDK de Firebase Compat (Realtime Database) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
+    
+    <style>
+        :root {
+            --bg: #121212; --card: #181818; --tile: #282828; --text: #ffffff;
+            --text-dim: #b3b3b3; --spotify-green: #1DB954; --font: 'Circular Sp', sans-serif;
+            --key-bg: #333; --absent: #3e3e3e;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f9fa; --card: #ffffff; --tile: #e9ecef; --text: #121212;
+            --text-dim: #535353; --key-bg: #d3d6da;
+        }
+
+        html, body {
+            height: 100%; height: 100dvh; margin: 0; padding: 0; overflow: hidden; 
+            background-color: var(--bg); color: var(--text); font-family: var(--font); 
+            touch-action: none; /* Previene scroll accidental al deslizar en el juego */
+        }
+
+        #app-container {
+            display: flex; flex-direction: column; width: 100%; max-width: 500px;
+            height: 100%; margin: 0 auto; box-sizing: border-box;
+        }
+
+        header { padding: 5px 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .header-buttons { display: flex; align-items: center; gap: 10px; }
+
+        .stats-container {
+            display: flex; gap: 8px; background: var(--card); padding: 4px 12px; 
+            border-radius: 20px; margin: 0 auto 5px auto; font-size: 0.7rem; align-items: center; justify-content: center;
+        }
+
+        #board-wrapper {
+            flex: 1 1 auto; display: flex; justify-content: center;
+            align-items: center; width: 100%; padding: 5px;
+            position: relative; overflow: hidden;
+        }
+
+        /* FIX DEFINITIVO: Tablero sólido que no colapsa */
+        #game-board { 
+            display: grid; 
+            grid-template-columns: repeat(20, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            gap: 1px; 
+            width: 100%; 
+            max-width: 350px; 
+            height: auto;
+            aspect-ratio: 1 / 1; /* Cuadrado perfecto */
+            background: var(--absent); border: 2px solid var(--key-bg); margin: auto;
+            position: relative;
+        }
+        
+        .tile { width: 100%; height: 100%; background: var(--tile); border-radius: 2px;}
+        
+        /* ESTILOS OPTIMIZADOS PARA RENDIMIENTO */
+        .tile-food { background-color: #ff2121 !important; box-shadow: 0 0 10px #ff2121, inset 0 0 5px rgba(0,0,0,0.5); border-radius: 50% !important; }
+        .tile-snake-head { background-color: var(--spotify-green) !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); border-radius: 4px; }
+        .tile-snake-body { background-color: #1ed760 !important; box-shadow: inset 0 0 8px rgba(0,0,0,0.3); }
+
+        /* Controles en una sola fila (Ahorra espacio vertical) */
+        #controls { 
+            width: 100%; max-width: 300px; margin: 0 auto; padding: 5px 0 10px 0; 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px; flex: 0 0 auto;
+        }
+
+        .control-btn {
+            background: var(--key-bg); border: none; color: var(--text); 
+            border-radius: 4px; height: 35px; font-size: 1.2rem; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; outline: none;
+            font-weight: bold;
+        }
+        .control-btn:active { background: var(--spotify-green); color: white; transform: scale(0.95); }
+
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); 
+            z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        
+        .modal-content {
+            background: var(--card); padding: 20px; border-radius: 15px; 
+            width: 85%; max-width: 350px; border: 2px solid var(--key-bg);
+        }
+
+        .btn-main { background: var(--spotify-green); color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 80%; max-width: 250px;}
+        .btn-share { background: #00a8ff; }
+        
+        #player-name {
+            background: var(--key-bg); border: 2px solid var(--text-dim); color: var(--text);
+            padding: 10px; border-radius: 8px; margin-top: 15px; margin-bottom: 5px; font-size: 1.1rem;
+            text-align: center; outline: none; width: 75%; max-width: 230px; font-weight: bold;
+        }
+        #player-name:focus { border-color: var(--spotify-green); }
+        #high-score-display { color: #ffd700; margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
+        
+        .leaderboard-list {
+            text-align: left; margin: 15px 0; max-height: 40vh; overflow-y: auto;
+            padding-left: 0; list-style: none; font-size: 0.95rem;
+        }
+        .leaderboard-list li {
+            background: var(--bg); margin-bottom: 5px; padding: 8px 12px;
+            border-radius: 6px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .medal { font-size: 1.2rem; width: 25px; text-align: center; display: inline-block; }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div id="app-container">
+    <header>
+        <div style="font-weight:900; font-size: 1rem;">SNAKE<span style="color:var(--spotify-green)">PRO</span></div>
+        <div class="header-buttons">
+            <button onclick="showLeaderboard()" style="background:none; border:none; font-size:1.3rem; cursor:pointer;" title="Top 10 Global">🏆</button>
+            <button onclick="toggleTheme()" style="background:none; border:1px solid var(--text-dim); color:var(--text); border-radius:8px; font-size:0.6rem; cursor:pointer; padding: 3px 6px;">MODO</button>
+        </div>
+    </header>
+
+    <div class="stats-container">
+        <div><span id="ui-score" style="font-weight:bold; font-size: 1rem;">0</span> <small>PTS</small></div>
+        <div style="width:1px; height:10px; background:var(--absent);"></div>
+        <div>⏱️ <span id="ui-time" style="font-weight:bold;">00:00</span></div>
+    </div>
+
+    <div id="board-wrapper">
+        <div id="game-board"></div>
+    </div>
+
+    <!-- Controles en una sola fila -->
+    <div id="controls">
+        <button class="control-btn" onclick="changeDirection('LEFT')">◀</button>
+        <button class="control-btn" onclick="changeDirection('UP')">▲</button>
+        <button class="control-btn" onclick="changeDirection('DOWN')">▼</button>
+        <button class="control-btn" onclick="changeDirection('RIGHT')">▶</button>
+    </div>
+</div>
+
+<!-- MODAL GAME OVER -->
+<div id="overlay" class="modal-overlay">
+    <h1 id="over-title" style="color:white; margin:0;">GAME OVER</h1>
+    <p id="over-msg" style="color:var(--text-dim); margin-top: 5px; font-size:1.2rem; font-weight:bold;"></p>
+    
+    <input type="text" id="player-name" placeholder="Tu Nombre o Apodo" maxlength="15" autocomplete="off" />
+    
+    <button class="btn-main btn-share" id="btn-save-score" onclick="saveAndShare()">GUARDAR EN TOP Y COMPARTIR</button>
+    <button class="btn-main" onclick="resetGame()">VOLVER A JUGAR</button>
+
+    <div id="high-score-display"></div>
+</div>
+
+<!-- MODAL TOP 10 (LEADERBOARD) -->
+<div id="leaderboard-overlay" class="modal-overlay">
+    <div class="modal-content">
+        <h2 style="margin-top:0; color: var(--spotify-green); margin-bottom: 5px;">🏆 TOP 10 GLOBAL</h2>
+        <p style="margin: 0; font-size: 0.8rem; color: var(--text-dim);">La serpiente más grande y rápida gana</p>
+        <ul id="leaderboard-list" class="leaderboard-list">
+            <!-- Items de Firebase aquí -->
+        </ul>
+        <button class="btn-main" style="width: 100%; margin-top: 5px;" onclick="closeLeaderboard()">CERRAR Y VOLVER</button>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // CONFIGURACIÓN DE FIREBASE
+    // ==========================================
+    const firebaseConfig = {
+        apiKey: "PEGA_AQUI_TU_API_KEY",
+        authDomain: "PEGA_AQUI_TU_AUTH_DOMAIN",
+        databaseURL: "PEGA_AQUI_TU_DATABASE_URL", 
+        projectId: "PEGA_AQUI_TU_PROJECT_ID",
+        storageBucket: "PEGA_AQUI_TU_STORAGE_BUCKET",
+        messagingSenderId: "PEGA_AQUI_TU_MESSAGING_SENDER_ID",
+        appId: "PEGA_AQUI_TU_APP_ID"
+    };
+    
+    let database = null;
+    
+    // FIX: Intentar iniciar Firebase, si falla (porque no pusiste las claves aún) el juego corre igual
+    try {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        database = firebase.database();
+    } catch (e) {
+        console.warn("⚠️ Firebase no está configurado correctamente. El juego funcionará pero no guardará el TOP 10.");
+    }
+
+    // ==========================================
+    // LÓGICA DEL JUEGO Y VARIABLES GLOBALES
+    // ==========================================
+    const COLS = 20; const ROWS = 20;
+    
+    let snake = [];
+    let food = {};
+    let direction = 'RIGHT';
+    let nextDirection = 'RIGHT'; 
+    let cells = []; // Matriz virtual para rendimiento extremo
+    
+    let score = 0; 
+    let dropInterval = 220; // Velocidad inicial (ms)
+    let lastTime = 0;
+    let animationId; 
+    let isGameOver = false; 
+    let isPaused = false;
+    let scoreAlreadySaved = false; 
+
+    // Variables de Tiempo
+    let gameStartTime = 0;
+    let pausedTimeTotal = 0;
+    let pauseStart = 0;
+    let totalGameTimeSeconds = 0;
+
+    function formatTime(totalSeconds) {
+        const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        const s = (totalSeconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    // --- SISTEMA TOP 10 CON FIREBASE ---
+    async function showLeaderboard() {
+        if (!isGameOver) { 
+            isPaused = true; 
+            pauseStart = Date.now(); 
+        }
+        
+        document.getElementById('leaderboard-overlay').style.display = 'flex';
+        const listEl = document.getElementById('leaderboard-list');
+        
+        if (!database) {
+            listEl.innerHTML = '<li style="justify-content:center; color:#ff4d4d;">Firebase no configurado. Pon tus claves para ver el TOP 10.</li>';
+            return;
+        }
+
+        listEl.innerHTML = '<li style="justify-content:center; color:var(--text-dim);">Conectando con el servidor... ⌛</li>';
+
+        try {
+            const snapshot = await database.ref("snake_records").orderByChild("score").limitToLast(50).once('value');
+
+            if (!snapshot.exists()) {
+                listEl.innerHTML = '<li style="justify-content:center; color:var(--text-dim);">Aún no hay récords globales. ¡Sé el primero!</li>';
+                return;
+            }
+
+            let records = [];
+            snapshot.forEach(child => { records.push(child.val()); });
+
+            records.sort((a, b) => {
+                if (b.score === a.score) {
+                    return a.time - b.time; 
+                }
+                return b.score - a.score;
+            });
+
+            records = records.slice(0, 10);
+
+            let html = '';
+            records.forEach((entry, index) => {
+                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `<span style="color:var(--text-dim)">#${index+1}</span>`;
+                html += `<li>
+                    <div><span class="medal">${medal}</span> <span style="font-weight:bold;">${entry.name}</span></div>
+                    <div style="text-align:right;">
+                        <div style="color:var(--spotify-green); font-weight:bold;">${entry.score} pts</div>
+                        <div style="font-size:0.7rem; color:var(--text-dim);">⏱️ ${formatTime(entry.time)}</div>
+                    </div>
+                </li>`;
+            });
+            listEl.innerHTML = html;
+        } catch (error) {
+            console.error("Error cargando Firebase:", error);
+            listEl.innerHTML = '<li style="justify-content:center; color:#ff4d4d;">Error de conexión. Revisa consola.</li>';
+        }
+    }
+
+    function closeLeaderboard() {
+        document.getElementById('leaderboard-overlay').style.display = 'none';
+        if (!isGameOver) {
+            pausedTimeTotal += (Date.now() - pauseStart);
+            isPaused = false;
+            requestAnimationFrame(t => { lastTime = t; update(t); });
+        }
+    }
+
+    // --- LÓGICA DEL JUEGO SNAKE ---
+    function initBoard() {
+        const boardEl = document.getElementById('game-board');
+        boardEl.innerHTML = '';
+        cells = [];
+        
+        for (let r = 0; r < ROWS; r++) {
+            let row = [];
+            for (let c = 0; c < COLS; c++) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                boardEl.appendChild(tile);
+                row.push(tile); // Guardar en matriz bidimensional
+            }
+            cells.push(row);
+        }
+    }
+
+    function placeFood() {
+        let valid = false;
+        while (!valid) {
+            food = {
+                x: Math.floor(Math.random() * COLS),
+                y: Math.floor(Math.random() * ROWS)
+            };
+            valid = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+        }
+    }
+
+    function draw() {
+        // Limpiamos las clases de comida y serpiente
+        document.querySelectorAll('.tile-food, .tile-snake-head, .tile-snake-body').forEach(el => {
+            el.className = 'tile';
+        });
+
+        // Verificación de seguridad antes de dibujar la comida
+        if (cells[food.y] && cells[food.y][food.x]) {
+            cells[food.y][food.x].classList.add('tile-food');
+        }
+
+        // Verificación de seguridad antes de dibujar la serpiente
+        snake.forEach((segment, index) => {
+            if (cells[segment.y] && cells[segment.y][segment.x]) {
+                if (index === 0) {
+                    cells[segment.y][segment.x].classList.add('tile-snake-head');
+                } else {
+                    cells[segment.y][segment.x].classList.add('tile-snake-body');
+                }
+            }
+        });
+    }
+
+    function changeDirection(newDir) {
+        if (isPaused || isGameOver) return;
+        
+        if (newDir === 'UP' && direction !== 'DOWN') nextDirection = 'UP';
+        if (newDir === 'DOWN' && direction !== 'UP') nextDirection = 'DOWN';
+        if (newDir === 'LEFT' && direction !== 'RIGHT') nextDirection = 'LEFT';
+        if (newDir === 'RIGHT' && direction !== 'LEFT') nextDirection = 'RIGHT';
+    }
+
+    function moveSnake() {
+        direction = nextDirection;
+        let head = { ...snake[0] };
+
+        if (direction === 'UP') head.y--;
+        if (direction === 'DOWN') head.y++;
+        if (direction === 'LEFT') head.x--;
+        if (direction === 'RIGHT') head.x++;
+
+        // Chocar con paredes
+        if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) {
+            gameOver();
+            return;
+        }
+
+        // Chocar con cuerpo
+        if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+            gameOver();
+            return;
+        }
+
+        snake.unshift(head); 
+
+        // Comer
+        if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            document.getElementById('ui-score').textContent = score;
+            
+            // Aumenta velocidad, capado a 60ms para no ser injugable
+            dropInterval = Math.max(60, 220 - Math.floor(score / 50) * 10);
+            
+            placeFood();
+        } else {
+            snake.pop(); 
+        }
+    }
+
+    function gameOver() {
+        isGameOver = true; 
+        cancelAnimationFrame(animationId);
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('over-msg').innerHTML = `Lograste: ${score} pts <br> Tiempo: ${formatTime(totalGameTimeSeconds)}`;
+
+        let lastName = localStorage.getItem('snakeProLastName') || '';
+        document.getElementById('player-name').value = lastName;
+
+        let displayEl = document.getElementById('high-score-display');
+        
+        if (!database) {
+            displayEl.innerHTML = "Récord local guardado. (Firebase no configurado)";
+            displayEl.style.color = "#ffd700";
+            document.getElementById('btn-save-score').innerText = "COMPARTIR (Sin Top Global)";
+        } else {
+            displayEl.innerHTML = "Subí tu récord al servidor global 👇";
+            displayEl.style.color = "#ffd700";
+            document.getElementById('btn-save-score').disabled = false;
+            document.getElementById('btn-save-score').innerText = "GUARDAR EN TOP Y COMPARTIR";
+        }
+    }
+
+    async function saveAndShare() {
+        let name = document.getElementById('player-name').value.trim() || 'Un Jugador';
+        localStorage.setItem('snakeProLastName', name);
+        let btn = document.getElementById('btn-save-score');
+
+        // Solo intentar subir a Firebase si está configurado
+        if (database && score > 0 && !scoreAlreadySaved) {
+            btn.innerText = "GUARDANDO...";
+            btn.disabled = true;
+            try {
+                await database.ref("snake_records").push({
+                    name: name,
+                    score: score,
+                    time: totalGameTimeSeconds,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+                scoreAlreadySaved = true;
+                document.getElementById('high-score-display').innerHTML = `¡Tu récord fue guardado en el TOP MUNDIAL! 🌍`;
+                document.getElementById('high-score-display').style.color = "#1ed760";
+            } catch (error) {
+                console.error("Error al guardar:", error);
+                document.getElementById('high-score-display').innerHTML = `❌ Error al conectar a Firebase.`;
+                document.getElementById('high-score-display').style.color = "#ff4d4d";
+                btn.disabled = false;
+                btn.innerText = "INTENTAR DE NUEVO";
+                return;
+            }
+        }
+
+        const shareText = `¡Soy ${name} y logré ${score} puntos en ${formatTime(totalGameTimeSeconds)} en Snake Pro! 🐍 ¿Te animás a entrar al Top 10 Global?`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({ title: 'Snake Pro', text: shareText, url: shareUrl }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(`${shareText} Juega aquí: ${shareUrl}`).then(() => {
+                alert('¡Texto y Link copiados!');
+            });
+        }
+        btn.innerText = "¡COMPARTIDO!";
+    }
+
+    function resetGame() {
+        document.getElementById('overlay').style.display = 'none';
+        initBoard();
+        
+        snake = [
+            {x: 10, y: 10},
+            {x: 9, y: 10},
+            {x: 8, y: 10}
+        ];
+        direction = 'RIGHT';
+        nextDirection = 'RIGHT';
+        
+        score = 0; 
+        dropInterval = 220; 
+        isGameOver = false; 
+        isPaused = false; 
+        scoreAlreadySaved = false;
+        
+        gameStartTime = Date.now();
+        pausedTimeTotal = 0;
+        totalGameTimeSeconds = 0;
+        document.getElementById('ui-time').textContent = "00:00";
+        document.getElementById('ui-score').textContent = "0";
+
+        placeFood();
+        draw(); 
+        
+        requestAnimationFrame(t => { lastTime = t; update(t); });
+    }
+
+    function update(time = 0) {
+        if (isGameOver || isPaused) return;
+        const deltaTime = time - lastTime; 
+        
+        let currentPlayed = Math.floor((Date.now() - gameStartTime - pausedTimeTotal) / 1000);
+        if(currentPlayed !== totalGameTimeSeconds) {
+            totalGameTimeSeconds = currentPlayed;
+            document.getElementById('ui-time').textContent = formatTime(totalGameTimeSeconds);
+        }
+
+        if (deltaTime > dropInterval) {
+            moveSnake();
+            if(!isGameOver) draw();
+            lastTime = time;
+        }
+        
+        animationId = requestAnimationFrame(update);
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    // --- SISTEMA DE SWIPE (TACTIL) ---
+    let touchStartX = 0; let touchStartY = 0;
+    const boardWrapper = document.getElementById('board-wrapper');
+    
+    boardWrapper.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, {passive: true});
+
+    boardWrapper.addEventListener('touchend', e => {
+        let touchEndX = e.changedTouches[0].screenX;
+        let touchEndY = e.changedTouches[0].screenY;
+        handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+    }, {passive: true});
+
+    function handleSwipe(startX, startY, endX, endY) {
+        let dx = endX - startX;
+        let dy = endY - startY;
+        
+        if (Math.abs(dx) > Math.abs(dy)) { 
+            if (Math.abs(dx) > 30) changeDirection(dx > 0 ? 'RIGHT' : 'LEFT');
+        } else {
+            if (Math.abs(dy) > 30) changeDirection(dy > 0 ? 'DOWN' : 'UP');
+        }
+    }
+
+    // --- CONTROLES TECLADO ---
+    document.addEventListener('keydown', e => {
+        if (document.activeElement.id === 'player-name') return; 
+        if (isGameOver || isPaused) return; 
+        
+        if (e.keyCode === 38 || e.keyCode === 87) changeDirection('UP'); 
+        if (e.keyCode === 40 || e.keyCode === 83) changeDirection('DOWN'); 
+        if (e.keyCode === 37 || e.keyCode === 65) changeDirection('LEFT'); 
+        if (e.keyCode === 39 || e.keyCode === 68) changeDirection('RIGHT'); 
+    });
+
+    // Iniciar
+    initBoard();
+    resetGame();
+</script>
+</body>
+</html>

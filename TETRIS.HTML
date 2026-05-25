@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Tetris Pro | Explosivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #121212; --card: #181818; --tile: #282828; --text: #ffffff;
+            --text-dim: #b3b3b3; --spotify-green: #1DB954; --font: 'Circular Sp', sans-serif;
+            --key-bg: #333; --absent: #3e3e3e;
+            --cols: 10; --rows: 20;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f9fa; --card: #ffffff; --tile: #e9ecef; --text: #121212;
+            --text-dim: #535353; --key-bg: #d3d6da;
+        }
+
+        html, body {
+            height: 100%; height: 100dvh; margin: 0; padding: 0; overflow: hidden; 
+            background-color: var(--bg); color: var(--text); font-family: var(--font); 
+        }
+
+        #app-container {
+            display: flex; flex-direction: column; width: 100%; max-width: 500px;
+            height: 100%; margin: 0 auto; box-sizing: border-box;
+        }
+
+        header { padding: 5px 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .header-buttons { display: flex; align-items: center; gap: 10px; }
+
+        .stats-container {
+            display: flex; gap: 8px; background: var(--card); padding: 4px 12px; 
+            border-radius: 20px; margin: 0 auto 5px auto; font-size: 0.7rem; align-items: center;
+        }
+
+        #board-wrapper {
+            flex: 1 1 auto; display: flex; justify-content: center;
+            align-items: center; width: 100%; min-height: 0; padding: 5px;
+            position: relative;
+        }
+
+        #game-board { 
+            display: grid; grid-template-columns: repeat(var(--cols), 1fr);
+            grid-template-rows: repeat(var(--rows), 1fr);
+            gap: 1px; height: 100%; aspect-ratio: 10 / 20;
+            background: var(--absent); border: 2px solid var(--key-bg); margin: auto;
+            position: relative;
+        }
+        
+        .tile { width: 100%; height: 100%; background: var(--tile); transition: background 0.1s; }
+
+        #controls { 
+            width: 100%; max-width: 250px; margin: 0 auto; padding: 5px 0 10px 0; 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px; flex: 0 0 auto;
+        }
+
+        .control-btn {
+            background: var(--key-bg); border: none; color: var(--text); 
+            border-radius: 4px; height: 35px; font-size: 1.1rem; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; outline: none;
+            font-weight: bold;
+        }
+        .control-btn:active { background: var(--spotify-green); color: white; transform: scale(0.95); }
+
+        .line-explode { animation: explode 0.3s forwards; }
+        @keyframes explode {
+            0% { transform: scale(1); filter: brightness(2); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .super-msg {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 900;
+            text-align: center;
+            text-shadow: 0 0 20px #00ffff, 0 0 10px #00ffff;
+            z-index: 300;
+            animation: popMsg 0.8s forwards;
+            pointer-events: none;
+        }
+        @keyframes popMsg {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        .diff-tag { font-weight: 900; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; }
+        .diff-easy { background: #1ed760; color: #000; }
+        .diff-medium { background: #c2a118; color: #000; }
+        .diff-pro { background: #e1306c; color: #fff; }
+
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); 
+            z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        
+        .modal-content {
+            background: var(--card); padding: 20px; border-radius: 15px; 
+            width: 85%; max-width: 350px; border: 2px solid var(--key-bg);
+        }
+
+        .btn-main { background: var(--spotify-green); color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 80%; max-width: 250px;}
+        .btn-share { background: #00a8ff; }
+        
+        #player-name {
+            background: var(--key-bg); border: 2px solid var(--text-dim); color: var(--text);
+            padding: 10px; border-radius: 8px; margin-top: 15px; margin-bottom: 5px; font-size: 1.1rem;
+            text-align: center; outline: none; width: 75%; max-width: 230px; font-weight: bold;
+        }
+        #player-name:focus { border-color: var(--spotify-green); }
+        #high-score-display { color: #ffd700; margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
+        
+        .leaderboard-list {
+            text-align: left; margin: 15px 0; max-height: 40vh; overflow-y: auto;
+            padding-left: 0; list-style: none; font-size: 0.95rem;
+        }
+        .leaderboard-list li {
+            background: var(--bg); margin-bottom: 5px; padding: 8px 12px;
+            border-radius: 6px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .medal { font-size: 1.2rem; width: 25px; text-align: center; display: inline-block; }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div id="app-container">
+    <header>
+        <div style="font-weight:900; font-size: 1rem;">TETRIS<span style="color:var(--spotify-green)">PRO</span></div>
+        <div class="header-buttons">
+            <button onclick="showLeaderboard()" style="background:none; border:none; font-size:1.3rem; cursor:pointer;" title="Top 10 Récords">🏆</button>
+            <button onclick="toggleTheme()" style="background:none; border:1px solid var(--text-dim); color:var(--text); border-radius:8px; font-size:0.6rem; cursor:pointer; padding: 3px 6px;">MODO</button>
+        </div>
+    </header>
+
+    <div class="stats-container">
+        <div id="diff-label" class="diff-tag diff-easy">FÁCIL</div>
+        <div><span id="ui-level" style="font-weight:bold;">LVL 1</span></div>
+        <div style="width:1px; height:10px; background:var(--absent);"></div>
+        <div><span id="ui-score" style="font-weight:bold;">0</span> <small>PTS</small></div>
+    </div>
+
+    <div id="board-wrapper">
+        <div id="game-board"></div>
+    </div>
+
+    <div id="controls">
+        <button class="control-btn" onclick="rotate()">↻</button>
+        <button class="control-btn" onclick="move(-1)">←</button>
+        <button class="control-btn" onclick="drop()">↓</button>
+        <button class="control-btn" onclick="move(1)">→</button>
+    </div>
+</div>
+
+<!-- MODAL GAME OVER -->
+<div id="overlay" class="modal-overlay">
+    <h1 id="over-title" style="color:white; margin:0;">GAME OVER</h1>
+    <p id="over-msg" style="color:var(--text-dim); margin-top: 5px; font-size:1.2rem; font-weight:bold;"></p>
+    
+    <input type="text" id="player-name" placeholder="Tu Nombre o Apodo" maxlength="15" autocomplete="off" />
+    
+    <button class="btn-main btn-share" onclick="saveAndShare()">COMPARTIR Y GUARDAR</button>
+    <button class="btn-main" onclick="resetGame()">VOLVER A JUGAR</button>
+
+    <div id="high-score-display"></div>
+</div>
+
+<!-- MODAL TOP 10 (LEADERBOARD) -->
+<div id="leaderboard-overlay" class="modal-overlay">
+    <div class="modal-content">
+        <h2 style="margin-top:0; color: var(--spotify-green); margin-bottom: 5px;">🏆 TOP 10 MUNDIAL</h2>
+        <p style="margin: 0; font-size: 0.8rem; color: var(--text-dim);">Mejores récords locales</p>
+        <ul id="leaderboard-list" class="leaderboard-list">
+            <!-- Items del top 10 generados por JS -->
+        </ul>
+        <button class="btn-main" style="width: 100%; margin-top: 5px;" onclick="closeLeaderboard()">CERRAR Y VOLVER</button>
+    </div>
+</div>
+
+<script>
+    const COLS = 10; const ROWS = 20;
+    
+    const ALL_SHAPES = [
+        [], 
+        [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], // 1: I
+        [[1,0,0],[1,1,1],[0,0,0]],                 // 2: J
+        [[0,0,1],[1,1,1],[0,0,0]],                 // 3: L
+        [[1,1],[1,1]],                             // 4: O
+        [[0,1,1],[1,1,0],[0,0,0]],                 // 5: S
+        [[0,1,0],[1,1,1],[0,0,0]],                 // 6: T
+        [[1,1,0],[0,1,1],[0,0,0]]                  // 7: Z
+    ];
+    
+    const COLORS = ['var(--tile)', '#00ecff', '#0048ff', '#ff8d00', '#ffe600', '#1ed760', '#9d00ff', '#ff2121', '#ffffff'];
+
+    let board = []; let score = 0; let lines = 0; let level = 1; let piece = null;
+    let dropCounter = 0; let dropInterval = 1200; let lastTime = 0;
+    let animationId; let isGameOver = false; let isAnimating = false; let isPaused = false;
+    let scoreAlreadySaved = false; // Bloqueo Anti-Spam de guardado
+    
+    let pieceBag = [];
+
+    // --- SISTEMA TOP 10 (LEADERBOARD) ---
+    function getTop10() {
+        let top10 = JSON.parse(localStorage.getItem('tetrisProTop10')) || [];
+        
+        // Parche de migración: Si existe un récord viejo de la versión anterior, pasarlo al Top 10
+        if (top10.length === 0 && localStorage.getItem('tetrisProHighScore')) {
+            top10.push({
+                name: localStorage.getItem('tetrisProHighName') || 'Jugador',
+                score: parseInt(localStorage.getItem('tetrisProHighScore')),
+                level: 1
+            });
+            localStorage.setItem('tetrisProTop10', JSON.stringify(top10));
+        }
+        return top10;
+    }
+
+    function saveToTop10(name, currentScore, currentLevel) {
+        if (currentScore <= 0 || scoreAlreadySaved) return;
+        
+        let top10 = getTop10();
+        top10.push({ name: name, score: currentScore, level: currentLevel });
+        
+        // Ordenar de mayor a menor y dejar solo los 10 mejores
+        top10.sort((a, b) => b.score - a.score);
+        top10 = top10.slice(0, 10);
+        
+        localStorage.setItem('tetrisProTop10', JSON.stringify(top10));
+        scoreAlreadySaved = true; // Evitar que siga guardando si toca el botón muchas veces
+    }
+
+    function showLeaderboard() {
+        if (!isGameOver) isPaused = true; // Pausar el juego si está jugando
+        
+        document.getElementById('leaderboard-overlay').style.display = 'flex';
+        const listEl = document.getElementById('leaderboard-list');
+        const top10 = getTop10();
+        
+        if (top10.length === 0) {
+            listEl.innerHTML = '<li style="justify-content:center; color:var(--text-dim);">Aún no hay récords. ¡Sé el primero!</li>';
+        } else {
+            let html = '';
+            top10.forEach((entry, i) => {
+                let medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `<span style="color:var(--text-dim)">#${i+1}</span>`;
+                html += `<li>
+                    <div><span class="medal">${medal}</span> <span style="font-weight:bold;">${entry.name}</span></div>
+                    <div style="text-align:right;">
+                        <div style="color:var(--spotify-green); font-weight:bold;">${entry.score} pts</div>
+                        <div style="font-size:0.7rem; color:var(--text-dim);">Lvl ${entry.level}</div>
+                    </div>
+                </li>`;
+            });
+            listEl.innerHTML = html;
+        }
+    }
+
+    function closeLeaderboard() {
+        document.getElementById('leaderboard-overlay').style.display = 'none';
+        if (!isGameOver) {
+            // Reanudar juego fluido
+            isPaused = false;
+            requestAnimationFrame(t => {
+                lastTime = t;
+                update(t);
+            });
+        }
+    }
+
+    // --- LÓGICA DEL JUEGO ---
+    function initBoard() {
+        const boardEl = document.getElementById('game-board');
+        boardEl.innerHTML = '';
+        board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                tile.id = `cell-${r}-${c}`;
+                boardEl.appendChild(tile);
+            }
+        }
+    }
+
+    function updateSpeed() {
+        if (level <= 22) {
+            dropInterval = Math.max(800, 1200 - ((level - 1) * 15));
+        } else if (level <= 44) {
+            dropInterval = Math.max(350, 750 - ((level - 23) * 20));
+        } else {
+            dropInterval = Math.max(50, 250 - ((level - 45) * 5));
+        }
+    }
+
+    function getNextPieceType() {
+        if (Math.random() < 0.07) return 8;
+
+        if (pieceBag.length === 0) {
+            pieceBag = [1, 2, 3, 4, 5, 6, 7];
+            for (let i = pieceBag.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pieceBag[i], pieceBag[j]] = [pieceBag[j], pieceBag[i]]; 
+            }
+        }
+        return pieceBag.pop();
+    }
+
+    function createPiece() {
+        const typeId = getNextPieceType();
+        
+        if (typeId === 8) {
+            return { matrix: [[8]], pos: { x: 4, y: 0 }, type: 8 };
+        }
+
+        let maxColors = 4;
+        if (level > 22 && level <= 44) maxColors = 5;
+        if (level > 44) maxColors = 7; 
+
+        const colorId = Math.floor(Math.random() * maxColors) + 1;
+        const matrixTemplate = ALL_SHAPES[typeId];
+        const matrix = matrixTemplate.map(row => 
+            row.map(val => val !== 0 ? colorId : 0)
+        );
+
+        return { matrix: matrix, pos: { x: 3, y: 0 }, type: typeId };
+    }
+
+    function draw() {
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                const cell = document.getElementById(`cell-${r}-${c}`);
+                if(cell) {
+                    cell.style.backgroundColor = COLORS[board[r][c]];
+                    cell.style.boxShadow = board[r][c] ? 'inset 0 0 8px rgba(0,0,0,0.3)' : 'none';
+                }
+            }
+        }
+        if (piece) {
+            piece.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0 && piece.pos.y + y >= 0 && piece.pos.y + y < ROWS) {
+                        const cell = document.getElementById(`cell-${piece.pos.y + y}-${piece.pos.x + x}`);
+                        if(cell) {
+                            cell.style.backgroundColor = COLORS[value];
+                            if (value === 8) {
+                                cell.style.boxShadow = '0 0 12px #ffffff, inset 0 0 5px #000000';
+                            } else {
+                                cell.style.boxShadow = 'inset 0 0 8px rgba(0,0,0,0.4)';
+                            }
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+    function collide(board, piece) {
+        if (!piece) return false;
+        const [m, o] = [piece.matrix, piece.pos];
+        for (let y = 0; y < m.length; y++) {
+            for (let x = 0; x < m[y].length; x++) {
+                if (m[y][x] !== 0) {
+                    let boardRow = board[y + o.y];
+                    if (!boardRow || boardRow[x + o.x] !== 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function merge(board, piece) {
+        piece.matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) board[y + piece.pos.y][x + piece.pos.x] = value;
+            });
+        });
+    }
+
+    function activateSuperPower() {
+        isAnimating = true;
+        const rowsToExplode = [ROWS - 1, ROWS - 2];
+        
+        rowsToExplode.forEach(y => {
+            for(let x = 0; x < COLS; x++) {
+                const cell = document.getElementById(`cell-${y}-${x}`);
+                if(cell) cell.classList.add('line-explode');
+            }
+        });
+
+        const msg = document.createElement('div');
+        msg.className = 'super-msg';
+        msg.innerHTML = "¡SUPER<br>PODER!";
+        document.getElementById('board-wrapper').appendChild(msg);
+
+        confetti({ particleCount: 200, spread: 120, origin: { y: 0.8 }, colors: ['#ffffff', '#00ffff', '#ff00ff'] });
+
+        setTimeout(() => {
+            board.pop(); board.pop();
+            board.unshift(Array(COLS).fill(0)); board.unshift(Array(COLS).fill(0));
+            
+            score += 500;
+            level = Math.floor(score / 1000) + 1;
+            updateSpeed();
+            
+            rowsToExplode.forEach(y => {
+                for(let x = 0; x < COLS; x++) {
+                    const cell = document.getElementById(`cell-${y}-${x}`);
+                    if(cell) cell.classList.remove('line-explode');
+                }
+            });
+            
+            msg.remove(); updateUI();
+            
+            piece = createPiece();
+            if (collide(board, piece)) gameOver();
+            
+            isAnimating = false; draw();
+        }, 500);
+    }
+
+    function clearLines() {
+        let linesCount = 0;
+        let rowsToExplode = [];
+
+        for (let y = ROWS - 1; y >= 0; y--) {
+            if (board[y].every(value => value !== 0)) {
+                rowsToExplode.push(y);
+                linesCount++;
+            }
+        }
+
+        if (linesCount > 0) {
+            isAnimating = true;
+
+            rowsToExplode.forEach(y => {
+                for(let x=0; x<COLS; x++) {
+                    const cell = document.getElementById(`cell-${y}-${x}`);
+                    if(cell) cell.classList.add('line-explode');
+                }
+            });
+
+            confetti({ particleCount: 50 * linesCount, spread: 70, origin: { y: 0.8 } });
+
+            setTimeout(() => {
+                rowsToExplode.forEach(y => {
+                    board.splice(y, 1);
+                    board.unshift(Array(COLS).fill(0));
+                });
+                
+                const lineScores = [0, 100, 300, 500, 800]; 
+                score += lineScores[linesCount] * level;
+                lines += linesCount;
+                
+                level = Math.floor(score / 1000) + 1;
+                updateSpeed();
+                
+                rowsToExplode.forEach(y => {
+                    for(let x=0; x<COLS; x++) {
+                        const cell = document.getElementById(`cell-${y}-${x}`);
+                        if(cell) cell.classList.remove('line-explode');
+                    }
+                });
+                
+                updateUI();
+                
+                piece = createPiece();
+                if (collide(board, piece)) gameOver();
+                
+                isAnimating = false; draw();
+            }, 300);
+            return true;
+        }
+        return false;
+    }
+
+    function rotate() {
+        if (isAnimating || !piece || piece.type === 8 || isPaused) return; 
+        const m = piece.matrix;
+        const clonedMatrix = JSON.parse(JSON.stringify(m));
+        
+        for (let y = 0; y < clonedMatrix.length; y++) {
+            for (let x = 0; x < y; x++) {
+                [clonedMatrix[x][y], clonedMatrix[y][x]] = [clonedMatrix[y][x], clonedMatrix[x][y]];
+            }
+        }
+        clonedMatrix.forEach(row => row.reverse());
+        
+        const previousMatrix = piece.matrix;
+        piece.matrix = clonedMatrix;
+        
+        if (collide(board, piece)) {
+            piece.matrix = previousMatrix;
+        }
+        draw();
+    }
+
+    function drop() {
+        if (isAnimating || !piece || isPaused) return;
+        piece.pos.y++;
+        if (collide(board, piece)) {
+            piece.pos.y--;
+            if (piece.type === 8) {
+                piece = null; activateSuperPower();
+            } else {
+                merge(board, piece);
+                piece = null;
+                const cleared = clearLines();
+                if (!cleared) {
+                    piece = createPiece();
+                    if (collide(board, piece)) gameOver();
+                }
+            }
+        }
+        dropCounter = 0; draw();
+    }
+
+    function move(dir) {
+        if (isAnimating || !piece || isPaused) return;
+        piece.pos.x += dir;
+        if (collide(board, piece)) piece.pos.x -= dir;
+        draw();
+    }
+
+    function updateUI() {
+        const diffTag = document.getElementById('diff-label');
+        if (level <= 22) {
+            diffTag.textContent = "FÁCIL"; diffTag.className = "diff-tag diff-easy";
+        } else if (level <= 44) {
+            diffTag.textContent = "MEDIO"; diffTag.className = "diff-tag diff-medium";
+        } else {
+            diffTag.textContent = "PRO"; diffTag.className = "diff-tag diff-pro";
+        }
+        document.getElementById('ui-level').textContent = `LVL ${level}`;
+        document.getElementById('ui-score').textContent = score;
+    }
+
+    function gameOver() {
+        isGameOver = true; cancelAnimationFrame(animationId);
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('over-msg').innerHTML = `Lograste: ${score} pts <br> Nivel: ${level}`;
+
+        let lastName = localStorage.getItem('tetrisProLastName') || '';
+        document.getElementById('player-name').value = lastName;
+
+        const top10 = getTop10();
+        let isTop10 = score > 0 && (top10.length < 10 || score > top10[top10.length - 1].score);
+        
+        let displayEl = document.getElementById('high-score-display');
+        if (isTop10) {
+            displayEl.innerHTML = "🌟 ¡LOGRASTE ENTRAR AL TOP 10! 🌟";
+            displayEl.style.color = "#1ed760";
+        } else if (top10.length > 0) {
+            displayEl.innerHTML = `Récord #1: ${top10[0].score} pts por ${top10[0].name}`;
+            displayEl.style.color = "#ffd700";
+        } else {
+            displayEl.innerHTML = "¡Sé el primero en dejar tu récord!";
+            displayEl.style.color = "#ffd700";
+        }
+    }
+
+    function saveAndShare() {
+        let name = document.getElementById('player-name').value.trim() || 'Un Jugador';
+        localStorage.setItem('tetrisProLastName', name);
+
+        // Guardar el récord en el Top 10
+        saveToTop10(name, score, level);
+        
+        if(score > 0) {
+            document.getElementById('high-score-display').innerHTML = `¡Tu récord fue guardado en el TOP 10!`;
+            document.getElementById('high-score-display').style.color = "#1ed760";
+        }
+
+        // Compartir
+        const shareText = `¡Soy ${name} y logré ${score} puntos (Nivel ${level}) en Tetris Pro Explosivo! 💣 ¿Te animás a entrar al Top 10?`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Tetris Pro Explosivo',
+                text: shareText,
+                url: shareUrl
+            }).catch((error) => console.log('Error compartiendo', error));
+        } else {
+            navigator.clipboard.writeText(`${shareText} Juega aquí: ${shareUrl}`).then(() => {
+                alert('¡Texto y Link copiados! Pégalo en tu WhatsApp o Redes Sociales.');
+            });
+        }
+    }
+
+    function resetGame() {
+        document.getElementById('overlay').style.display = 'none';
+        initBoard();
+        score = 0; lines = 0; level = 1; dropInterval = 1200; 
+        isGameOver = false; isAnimating = false; isPaused = false; scoreAlreadySaved = false;
+        pieceBag = []; 
+        piece = createPiece(); 
+        updateUI(); 
+        requestAnimationFrame(t => { lastTime = t; update(t); });
+    }
+
+    function update(time = 0) {
+        if (isGameOver || isPaused) return;
+        const deltaTime = time - lastTime; lastTime = time;
+        
+        if (!isAnimating) {
+            dropCounter += deltaTime;
+            if (dropCounter > dropInterval) drop();
+        }
+        
+        draw();
+        animationId = requestAnimationFrame(update);
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    document.addEventListener('keydown', e => {
+        if (document.activeElement.id === 'player-name') return; // Bloquear si está escribiendo nombre
+        if (isAnimating || isGameOver || isPaused) return; // Bloquear si está pausado o en menú
+        
+        if (e.keyCode === 37) move(-1);
+        if (e.keyCode === 39) move(1);
+        if (e.keyCode === 40) drop();
+        if (e.keyCode === 38) rotate();
+    });
+
+    initBoard();
+    resetGame();
+</script>
+</body>
+</html>
