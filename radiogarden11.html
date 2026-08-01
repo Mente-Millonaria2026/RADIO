@@ -259,6 +259,22 @@
     }
     .option-btn span { font-size: 1.8rem; }
     .option-btn:hover { background: rgba(29, 185, 84, 0.15); border-color: #1DB954; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(29,185,84,0.2);}
+    .flight-panel { padding: 20px 24px 0; }
+    .flight-btn {
+      width: 100%; justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14); color: #fff;
+      padding: 12px 14px; border-radius: 14px; font-size: 0.95rem; font-weight: 600;
+      letter-spacing: 0.2px; transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .flight-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.14); }
+    .flight-mode-btn {
+      width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08); color: #fff;
+      display: flex; align-items: center; justify-content: center; transition: background 0.2s ease;
+    }
+    .flight-mode-btn:hover { background: rgba(255,255,255,0.16); }
+    .flight-mode-btn svg { width: 24px; height: 24px; fill: #fff; }
     
     .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #888; font-size: 1.5rem; cursor: pointer; transition: 0.2s;}
     .close-modal:hover { color: #fff; transform: scale(1.1);}
@@ -268,8 +284,11 @@
        ========================================= */
     #loader {
       position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease-out;
+      background: radial-gradient(circle at center, rgba(29,185,84,0.18), rgba(0,0,0,0.98));
+      z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-out;
     }
+    #loader img { width: 100px; height: auto; display: block; margin-bottom: 18px; }
+    #loader p { color: #ddd; font-size: 0.95rem; letter-spacing: 0.3px; margin-top: 10px; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     @media (max-width: 800px) {
@@ -288,7 +307,10 @@
 </head>
 <body>
 
-  <div id="loader"><div class="sync-spinner" style="width: 50px; height: 50px; border-width: 3px;"></div></div>
+  <div id="loader">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='52' fill='none' stroke='%231DB954' stroke-width='8' stroke-opacity='0.35'/%3E%3Cpath d='M60 26l14 44-14-8-14 8z' fill='%231DB954'/%3E%3C/svg%3E" alt="Cargando" />
+    <p>Cargando rápido el mapa...</p>
+  </div>
 
   <div id="ai-modal" class="modal-overlay">
     <div class="custom-card">
@@ -342,6 +364,9 @@
 
     <div class="rp-content" id="rp-content">
       <div class="region-header" id="region-header-title">Región... <span><button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span></div>
+      <div class="flight-panel">
+        <button class="option-btn flight-btn" onclick="flyRandomStation()">✈️ Avión</button>
+      </div>
       <div class="list-container" id="radio-list"><p style='color:#666; padding:15px; text-align:center;'>Desliza el mapa para descubrir emisoras.</p></div>
     </div>
   </aside>
@@ -369,6 +394,9 @@
       <button class="timer-btn" id="btn-timer" onclick="toggleModal('timer-modal')">
         <div class="timer-badge" id="timer-badge">15</div>
         <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      </button>
+      <button class="ctrl-icon flight-mode-btn" onclick="flyRandomStation()" title="Vuelo Mundial">
+        <svg viewBox="0 0 24 24"><path d="M2.5 19.5l4.8-1.7 5.9-5.9-3.3-3.3 1.4-1.4 3.3 3.3 5.9-5.9L21.5 2.5l-3.2 8.7L12 13.5 5.7 5.8 2.5 19.5z"/></svg>
       </button>
       <button class="dots-btn" onclick="toggleRightPanel()">...</button>
       <button class="sparkle-btn" onclick="toggleModal('ai-modal')"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg></button>
@@ -581,11 +609,12 @@
 
       async init() {
         document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Cargando Argentina...';
-        const arStations = await this.fetchAPI("/stations/search", { countrycode: "AR", hidebroken: true, limit: 10000 });
+        const globalPromise = this.fetchAPI("/stations/search", { hidebroken: true, limit: 22000, order: 'clickcount' });
+        const arStations = await this.fetchAPI("/stations/search", { countrycode: "AR", hidebroken: true, limit: 8000, order: 'clickcount' });
         await this.processAndRender(arStations, false);
 
         document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Analizando América...';
-        const allStations = await this.fetchAPI("/stations/search", { hidebroken: true, limit: 100000 });
+        const allStations = await globalPromise;
 
         const americasCodes = ['BR','CL','UY','PY','BO','PE','EC','CO','VE','MX','US','CA','CR','PA','DO','GT','HN','SV','NI','CU','PR','HT','JM'];
         const americaStations = [];
@@ -597,10 +626,15 @@
             else restStations.push(st);
         });
 
-        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Renderizando América...';
+        document.getElementById('top-badge').innerHTML = '🌎 América lista; red global cargando en segundo plano.';
+        document.getElementById('top-status-text').innerText = 'Explora ya mientras terminan de aparecer emisoras mundiales.';
         await this.processAndRender(americaStations, false);
 
-        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Sincronizando Global...';
+        this.loadGlobalInBackground(restStations);
+      }
+
+      async loadGlobalInBackground(restStations) {
+        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Completando red mundial...';
         await this.processAndRender(restStations, true);
       }
     }
@@ -734,6 +768,17 @@
       if(filtered.length === 0) filtered = masterStations;
       const rStation = filtered[Math.floor(Math.random() * filtered.length)];
       flyToStation(rStation.lat, rStation.lng); lockAndPlayStation(rStation, filtered);
+    }
+
+    function flyRandomStation() {
+      if (masterStations.length === 0) return;
+      const worldStations = masterStations.filter(st => typeof st.lat === 'number' && typeof st.lng === 'number');
+      if (worldStations.length === 0) return;
+      const randomIndex = Math.floor(Math.random() * worldStations.length);
+      const randomStation = worldStations[randomIndex];
+      document.getElementById('top-status-text').innerText = '✈️ Vuelo mundial: sintonizando frecuencia aleatoria...';
+      flyToStation(randomStation.lat, randomStation.lng);
+      lockAndPlayStation(randomStation, worldStations);
     }
 
     function switchTab(tabId, element) {
