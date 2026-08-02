@@ -3,305 +3,647 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RadioAR Pro - Studio Edition | Global Network</title>
+  <title>RadioAR Pro - Studio Edition v4.0 | Next-Gen Global Network</title>
   
+  <!-- NASA WorldWind 3D Globe -->
   <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
   
   <style>
     /* =========================================
-       1. RESET Y BASE (GLASSMORPHISM)
+       1. RESET Y SISTEMA DE DISEÑO (FUTURISTIC GLASS)
        ========================================= */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
     
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --primary: #1DB954;
+      --primary-glow: rgba(29, 185, 84, 0.4);
+      --primary-soft: rgba(29, 185, 84, 0.15);
+      --bg-dark: #070709;
+      --glass-bg: rgba(15, 17, 21, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text-main: #FFFFFF;
+      --text-muted: #8E939E;
+      --danger: #FF5252;
+    }
+
     body, html { 
       width: 100vw; height: 100vh; overflow: hidden; 
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #000; color: #fff;
+      background-color: var(--bg-dark); color: var(--text-main);
       user-select: none; -webkit-user-select: none;
     }
 
-    #globeViz { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10; cursor: grab; display: block; }
+    #globeViz { 
+      position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; 
+      z-index: 10; cursor: grab; display: block; 
+    }
     #globeViz:active { cursor: grabbing; }
 
     /* =========================================
-       2. MIRA CENTRAL (CROSSHAIR)
+       2. MIRA HUD FUTURISTA (CROSSHAIR PRO)
        ========================================= */
     .crosshair-container {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       z-index: 40; pointer-events: none; display: flex; align-items: center; justify-content: center;
     }
     .crosshair {
-      width: 80px; height: 80px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%;
-      position: relative; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 76px; height: 76px;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      border-radius: 50%; position: relative;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .crosshair::before {
+      content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+      width: 2px; height: 12px; background: rgba(255,255,255,0.4);
     }
     .crosshair::after {
       content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 4px; height: 4px; background: rgba(255,255,255,0.8); border-radius: 50%;
+      width: 6px; height: 6px; background: rgba(255,255,255,0.9); border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
     }
     .crosshair.locked {
-      border-color: rgba(29, 185, 84, 0.8); transform: scale(1.1);
-      box-shadow: 0 0 30px rgba(29, 185, 84, 0.2) inset, 0 0 15px rgba(29, 185, 84, 0.4);
+      border-color: var(--primary); transform: scale(1.15);
+      box-shadow: 0 0 35px rgba(29, 185, 84, 0.28) inset, 0 0 20px rgba(29, 185, 84, 0.45);
     }
-    .crosshair.locked::after { background: #1DB954; box-shadow: 0 0 8px #1DB954;}
+    .crosshair.locked::after {
+      background: var(--primary);
+      box-shadow: 0 0 14px var(--primary);
+    }
 
     /* =========================================
-       3. TOP BAR (Barra Superior)
+       3. TOP BAR
        ========================================= */
     .top-bar {
-      position: absolute; top: 0; left: 0; width: 100%; height: 70px;
+      position: absolute; top: 0; left: 0; width: 100%; height: 68px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 50; 
-      background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+      padding: 0 32px; z-index: 50; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(7, 7, 9, 0.94) 0%, rgba(7, 7, 9, 0.6) 60%, rgba(0, 0, 0, 0) 100%);
+    }
+    .top-bar > * { pointer-events: auto; }
+    
+    .brand { 
+      font-size: 1.38rem; font-weight: 800; letter-spacing: -0.5px; 
+      display: flex; align-items: center; gap: 8px; color: #fff;
+    }
+    .brand span { color: var(--primary); font-weight: 400; }
+    .brand .pro-tag {
+      font-size: 0.68rem; background: linear-gradient(135deg, #1DB954, #117834);
+      color: #000; font-weight: 800; padding: 3px 8px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      box-shadow: 0 0 12px rgba(29,185,84,0.4);
     }
     
-    .brand { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; display: flex; align-items: center; gap: 5px;}
-    .brand span { color: #1DB954; font-style: italic; font-weight: 400;}
-    
-    .status-container { display: flex; align-items: center; gap: 20px; flex-grow: 1; margin-left: 50px;}
+    .status-container { 
+      display: flex; align-items: center; gap: 16px; 
+      background: rgba(18, 20, 26, 0.75);
+      border: 1px solid var(--glass-border);
+      padding: 6px 16px; border-radius: 30px;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
     .status-badge { 
-      background: rgba(29, 185, 84, 0.1); border: 1px solid rgba(29, 185, 84, 0.3);
-      padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; color: #1DB954;
-      display: flex; align-items: center; gap: 8px; font-weight: 500;
-      transition: all 0.3s ease;
+      font-size: 0.82rem; color: var(--primary);
+      display: flex; align-items: center; gap: 8px; font-weight: 600;
+      white-space: nowrap;
     }
-    .status-text { color: #aaa; font-size: 0.9rem; font-weight: 400; transition: color 0.3s; }
+    .status-text { 
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 400; 
+      border-left: 1px solid rgba(255,255,255,0.12); padding-left: 14px;
+      white-space: nowrap;
+    }
     
     .sync-spinner {
       width: 14px; height: 14px; border: 2px solid rgba(29, 185, 84, 0.3);
-      border-top-color: #1DB954; border-radius: 50%; animation: spin 1s linear infinite;
+      border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;
     }
 
     /* =========================================
-       4. PANEL FLOTANTE DERECHO (UI Panel)
+       4. BOTÓN FLOTANTE LATERAL PARA DESPLAZAR MENÚ
+       ========================================= */
+    .toggle-panel-btn-floating {
+      position: absolute; top: 80px; right: 20px; z-index: 60;
+      background: rgba(15, 17, 21, 0.95); border: 1.5px solid var(--primary);
+      border-radius: 12px; width: 44px; height: 44px; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(29,185,84,0.25);
+      transition: all 0.25s ease;
+    }
+    .toggle-panel-btn-floating:hover {
+      background: var(--primary); color: #000;
+      transform: scale(1.06);
+    }
+    .toggle-panel-btn-floating svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* =========================================
+       5. PANEL FLOTANTE DERECHO (UI PANEL PRO)
        ========================================= */
     .right-panel {
-      position: absolute; top: 80px; right: 30px; width: 360px; height: calc(100vh - 200px);
-      background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      border-radius: 16px; z-index: 50; display: flex; flex-direction: column;
-      border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+      position: absolute; top: 76px; right: 24px; width: 400px; 
+      height: calc(100vh - 188px);
+      background: var(--glass-bg); 
+      backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+      border-radius: 20px; z-index: 50; display: flex; flex-direction: column;
+      border: 1px solid var(--glass-border); 
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      overflow: hidden;
     }
-    .right-panel.hidden { transform: translateX(400px); opacity: 0; pointer-events: none; }
+    .right-panel.hidden { 
+      transform: translateX(440px); opacity: 0; pointer-events: none; 
+    }
 
     .rp-header { 
-      padding: 20px 24px; background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 18px 22px; background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .rp-header h3 { margin: 0; font-size: 1.15rem; color: #fff; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-    .rp-header p { margin: 6px 0 0; font-size: 0.85rem; color: #a0a0a0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+    .rp-header h3 { 
+      margin: 0; font-size: 1.15rem; color: #fff; font-weight: 700; 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
+    .rp-header p { 
+      margin: 4px 0 0; font-size: 0.83rem; color: var(--text-muted); 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
 
     .rp-tabs {
-      display: flex; justify-content: space-between; padding: 12px 20px;
-      background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+      padding: 8px 10px; background: rgba(0, 0, 0, 0.45); 
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .tab-item {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: #888; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      color: var(--text-muted); font-size: 0.72rem; font-weight: 600; 
+      cursor: pointer; transition: all 0.2s ease;
+      padding: 8px 4px; border-radius: 10px; text-align: center;
     }
-    .tab-item svg { width: 22px; height: 22px; fill: currentColor; }
-    .tab-item:hover { color: #bbb; }
-    .tab-item.active { color: #fff; }
+    .tab-item svg { width: 19px; height: 19px; fill: currentColor; }
+    .tab-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .tab-item.active { 
+      color: var(--primary); background: rgba(29, 185, 84, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(29, 185, 84, 0.3);
+    }
 
     .rp-content { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
     
     .region-header {
-      padding: 15px 24px; display: flex; justify-content: space-between; align-items: center;
-      font-size: 1rem; font-weight: 600; color: #fff;
+      padding: 14px 20px; display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.95rem; font-weight: 700; color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
-    .region-header span { display: flex; align-items: center; gap: 10px; color: #888; font-weight: 400; font-size: 0.85rem;}
+    .region-header span { 
+      display: flex; align-items: center; gap: 10px; color: var(--text-muted); 
+      font-weight: 500; font-size: 0.82rem;
+    }
     
     .close-panel-btn { 
-      background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 28px; height: 28px; 
-      color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+      background: rgba(255,255,255,0.08); border: none; border-radius: 8px; 
+      width: 28px; height: 28px; color: #fff; 
+      display: flex; align-items: center; justify-content: center; 
+      cursor: pointer; transition: 0.2s; font-size: 0.9rem;
     }
-    .close-panel-btn:hover { background: #1DB954; color: #000; }
+    .close-panel-btn:hover { background: var(--primary); color: #000; }
 
-    .list-container { flex-grow: 1; overflow-y: auto; padding: 0 16px 20px; }
-    .list-container::-webkit-scrollbar { width: 5px; }
-    .list-container::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+    /* =========================================
+       SCROLLBAR VERDE EN MODO ESCRITORIO
+       ========================================= */
+    .list-container { 
+      flex-grow: 1; overflow-y: auto; padding: 12px 14px 20px; 
+      scrollbar-width: thin; scrollbar-color: var(--primary) rgba(255, 255, 255, 0.05);
+    }
+    .list-container::-webkit-scrollbar { width: 8px; }
+    .list-container::-webkit-scrollbar-track { 
+      background: rgba(255,255,255,0.04); border-radius: 10px; 
+    }
+    .list-container::-webkit-scrollbar-thumb { 
+      background: var(--primary); border-radius: 10px; 
+      border: 2px solid var(--bg-dark);
+    }
+    .list-container::-webkit-scrollbar-thumb:hover {
+      background: #23df65;
+    }
 
+    /* RECUADROS DE LAS RADIOS MUCHO MÁS MARCADOS */
     .list-item {
-      padding: 14px 16px; border-radius: 10px; cursor: pointer; transition: all 0.2s;
-      display: flex; flex-direction: column; margin-bottom: 6px; border: 1px solid transparent;
+      padding: 12px 14px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
+      display: flex; flex-direction: column; margin-bottom: 8px; 
+      border: 1px solid rgba(29, 185, 84, 0.28);
+      background: rgba(255, 255, 255, 0.04);
       position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-    .list-item:hover { background: rgba(29, 185, 84, 0.08); border-color: rgba(29, 185, 84, 0.2); }
-    .list-item.playing { background: rgba(29, 185, 84, 0.15); border-color: rgba(29, 185, 84, 0.4); }
+    .list-item:hover { 
+      background: rgba(29, 185, 84, 0.12); 
+      border-color: rgba(29, 185, 84, 0.65);
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(29,185,84,0.15);
+    }
+    .list-item.playing { 
+      background: rgba(29, 185, 84, 0.22); 
+      border: 1.5px solid var(--primary);
+      box-shadow: 0 0 18px rgba(29, 185, 84, 0.35);
+    }
     
     .list-item-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-    .list-item strong { font-size: 0.95rem; color: #e0e0e0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500;}
-    .list-item.playing strong { color: #1DB954; }
-    .list-item small { font-size: 0.8rem; color: #888; }
+    .list-item strong { 
+      font-size: 0.94rem; color: #fff; white-space: nowrap; 
+      overflow: hidden; text-overflow: ellipsis; font-weight: 700;
+    }
+    .list-item.playing strong { color: var(--primary); }
+    .list-item small { 
+      font-size: 0.77rem; color: var(--text-muted); 
+      display: flex; align-items: center; justify-content: space-between; 
+    }
+    .list-item .time-tag { 
+      font-size: 0.7rem; color: var(--primary); font-family: 'JetBrains Mono', monospace;
+      background: rgba(29,185,84,0.14); padding: 2px 6px; border-radius: 5px; 
+    }
 
-    /* Ecualizador Visual */
-    .eq-bars { display: none; align-items: flex-end; gap: 2px; height: 12px; }
+    /* ECUALIZADOR VISUAL FUTURISTA */
+    .eq-bars { display: none; align-items: flex-end; gap: 2.5px; height: 14px; }
     .list-item.playing .eq-bars { display: flex; }
-    .eq-bar { width: 3px; background-color: #1DB954; border-radius: 2px; animation: eq-bounce 0.8s infinite ease-in-out alternate; }
-    .eq-bar:nth-child(2) { animation-delay: 0.2s; }
-    .eq-bar:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes eq-bounce { 0% { height: 3px; } 100% { height: 12px; } }
+    .eq-bar { 
+      width: 3px; background-color: var(--primary); border-radius: 2px; 
+      animation: eq-bounce 0.7s infinite ease-in-out alternate; 
+      box-shadow: 0 0 6px var(--primary);
+    }
+    .eq-bar:nth-child(2) { animation-delay: 0.18s; }
+    .eq-bar:nth-child(3) { animation-delay: 0.36s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.54s; }
+    @keyframes eq-bounce { 0% { height: 3px; } 100% { height: 14px; } }
 
-    /* ESTILOS DEL BUSCADOR EXPERTO CON CANTIDADES */
+    /* =========================================
+       6. BUSCADOR PRO POR PAÍS + GÉNEROS
+       ========================================= */
+    .search-pro-container { 
+      display: flex; flex-direction: column; gap: 10px; 
+      padding: 0 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); 
+    }
+    
     .search-input {
-      width: calc(100% - 32px); margin: 0 16px 10px; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(0,0,0,0.5); color: #fff; font-size: 0.9rem; outline: none; font-family: inherit;
+      width: 100%; padding: 11px 14px; border-radius: 12px; 
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.6); color: #fff; font-size: 0.88rem; 
+      outline: none; font-family: inherit; transition: all 0.2s;
     }
-    .search-input:focus { border-color: #1DB954; }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29,185,84,0.15); }
     
-    .search-filters { display: flex; flex-direction: column; gap: 8px; margin: 0 16px 15px; }
     .search-select {
-      width: 100%; padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
-      background-color: rgba(0,0,0,0.5); color: #fff; font-size: 0.85rem; outline: none; cursor: pointer;
-      appearance: none; font-family: inherit;
+      width: 100%; padding: 10px 14px; border-radius: 12px; 
+      border: 1px solid rgba(255,255,255,0.12);
+      background-color: rgba(0,0,0,0.6); color: #fff; font-size: 0.85rem; 
+      outline: none; cursor: pointer; appearance: none; font-family: inherit;
       background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-      background-repeat: no-repeat; background-position: right 12px top 50%; background-size: 10px auto;
+      background-repeat: no-repeat; background-position: right 14px top 50%; background-size: 10px auto;
     }
-    .search-select:focus { border-color: #1DB954; }
+    .search-select:focus { border-color: var(--primary); }
     .search-select:disabled { opacity: 0.4; cursor: not-allowed; }
-    .search-select option { background-color: #1a1a1a; color: #fff; }
+    .search-select option { background-color: #11141A; color: #fff; }
     
+    .genre-chips-scroll {
+      display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .genre-chips-scroll::-webkit-scrollbar { display: none; }
+    .genre-chip {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+      color: var(--text-muted); font-size: 0.75rem; font-weight: 600; 
+      padding: 6px 14px; border-radius: 20px;
+      cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    }
+    .genre-chip:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .genre-chip.active { 
+      background: var(--primary); color: #000; 
+      font-weight: 700; border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(29,185,84,0.4);
+    }
+
     .search-state-header {
-      padding: 8px 16px; margin: 10px 0 5px; color: #1DB954; font-size: 0.75rem; 
-      font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-      border-bottom: 1px solid rgba(29, 185, 84, 0.2);
+      padding: 10px 14px; margin: 12px 0 6px; color: var(--primary); 
+      font-size: 0.74rem; font-weight: 800; text-transform: uppercase; 
+      letter-spacing: 0.8px; border-bottom: 1px solid rgba(29, 185, 84, 0.25); 
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .search-state-header span {
+      background: rgba(29, 185, 84, 0.15); color: var(--primary); 
+      padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700;
+    }
+
+    .country-summary-bar {
+      margin: 6px 14px 10px; padding: 10px 14px; 
+      background: rgba(29, 185, 84, 0.12);
+      border: 1px solid rgba(29, 185, 84, 0.35); border-radius: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.84rem; color: var(--primary); font-weight: 700;
     }
 
     /* =========================================
-       5. BOTTOM BAR (Reproductor Inferior)
+       7. BOTÓN DE VUELO MUNDIAL CON VECTOR AVION
+       ========================================= */
+    .flight-panel { padding: 14px 14px 0; }
+    .flight-btn {
+      width: 100%; justify-content: center;
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.15), rgba(29, 185, 84, 0.05));
+      border: 1px solid rgba(29, 185, 84, 0.4); color: #fff;
+      padding: 12px 16px; border-radius: 14px; font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.3px; transition: all 0.25s ease;
+      cursor: pointer; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .flight-btn:hover { 
+      transform: translateY(-2px); 
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.3), rgba(29, 185, 84, 0.15));
+      border-color: var(--primary);
+      box-shadow: 0 8px 25px rgba(29, 185, 84, 0.3);
+    }
+    .flight-btn svg { width: 18px; height: 18px; fill: var(--primary); transition: transform 0.3s; }
+    .flight-btn:hover svg { transform: translateX(3px) translateY(-3px); }
+
+    /* =========================================
+       8. BOTTOM BAR (REPRODUCTOR INFERIOR)
        ========================================= */
     .bottom-bar {
-      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      width: 90%; max-width: 1400px; height: 90px; background: rgba(18, 18, 18, 0.9);
-      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-      border-radius: 16px; z-index: 50; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 30px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: 92%; max-width: 1380px; height: 88px; 
+      background: var(--glass-bg);
+      backdrop-filter: blur(36px); -webkit-backdrop-filter: blur(36px);
+      border-radius: 22px; z-index: 50; 
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; border: 1px solid var(--glass-border); 
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 0, 0, 0.5);
     }
 
-    .bb-left { display: flex; flex-direction: column; width: 25%; overflow: hidden; }
-    .bb-left h3 { margin: 0; font-size: 1.15rem; color: #fff; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-    .bb-left p { margin: 5px 0 0; font-size: 0.85rem; color: #a0a0a0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+    .bb-left { display: flex; flex-direction: column; width: 28%; overflow: hidden; }
+    .bb-left h3 { 
+      margin: 0; font-size: 1.15rem; color: #fff; font-weight: 700; 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
+    .bb-left p { 
+      margin: 4px 0 0; font-size: 0.83rem; color: var(--text-muted); 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
 
-    .bb-center { display: flex; align-items: center; justify-content: center; gap: 25px; width: 50%; }
+    .bb-center { display: flex; align-items: center; justify-content: center; gap: 20px; width: 44%; }
     
     .btn-fav {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.05); color: #fff; 
-      padding: 8px 16px; border-radius: 20px; font-family: inherit; font-size: 0.85rem; font-weight: 500; 
-      display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); 
+      color: #fff; padding: 8px 16px; border-radius: 30px; 
+      font-family: inherit; font-size: 0.84rem; font-weight: 600; 
+      display: flex; align-items: center; gap: 8px; cursor: pointer; 
+      transition: all 0.25s ease;
     }
-    .btn-fav:hover { background: rgba(255,255,255,0.15); }
-    .btn-fav svg { width: 16px; height: 16px; fill: transparent; stroke: #fff; stroke-width: 2;}
-    .btn-fav.active { background: rgba(29, 185, 84, 0.15); border-color: rgba(29, 185, 84, 0.3); color: #1DB954; }
-    .btn-fav.active svg { fill: #1DB954; stroke: #1DB954;}
+    .btn-fav:hover { background: rgba(255,255,255,0.12); transform: scale(1.03); }
+    .btn-fav svg { 
+      width: 18px; height: 18px; fill: transparent; stroke: #fff; 
+      stroke-width: 2; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .btn-fav.active { 
+      background: rgba(29, 185, 84, 0.18); 
+      border-color: rgba(29, 185, 84, 0.45); color: var(--primary); 
+    }
+    .btn-fav.active svg { 
+      fill: var(--primary); stroke: var(--primary); 
+      transform: scale(1.2); filter: drop-shadow(0 0 6px var(--primary));
+    }
 
-    .controls-wrapper { display: flex; align-items: center; gap: 20px; }
-    .ctrl-icon { background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;}
-    .ctrl-icon svg { width: 22px; height: 22px; fill: #a0a0a0; transition: fill 0.2s;}
-    .ctrl-icon:hover:not(:disabled) svg { fill: #1DB954; }
-    .ctrl-icon:disabled svg { fill: #333; cursor: not-allowed; }
+    .controls-wrapper { display: flex; align-items: center; gap: 16px; }
+    .ctrl-icon { 
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); 
+      border-radius: 50%; width: 40px; height: 40px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .ctrl-icon svg { width: 20px; height: 20px; fill: var(--text-muted); transition: fill 0.2s;}
+    .ctrl-icon:hover:not(:disabled) { background: rgba(255,255,255,0.12); }
+    .ctrl-icon:hover:not(:disabled) svg { fill: var(--primary); }
+    .ctrl-icon:disabled { opacity: 0.35; cursor: not-allowed; }
+    .ctrl-icon:disabled svg { fill: #444; }
 
-    .play-pause-btn { background: none; border: none; cursor: pointer; }
-    .play-pause-btn svg { width: 44px; height: 44px; fill: #fff; transition: transform 0.1s;}
-    .play-pause-btn:hover:not(:disabled) svg { transform: scale(1.05); fill: #1DB954; }
-    .play-pause-btn:disabled svg { fill: #444; cursor: not-allowed;}
+    .play-pause-btn { 
+      background: linear-gradient(135deg, #1DB954, #148c3e);
+      border: none; border-radius: 50%; width: 52px; height: 52px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(29,185,84,0.4);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .play-pause-btn svg { width: 26px; height: 26px; fill: #000; transition: transform 0.1s;}
+    .play-pause-btn:hover:not(:disabled) { transform: scale(1.08); box-shadow: 0 8px 25px rgba(29,185,84,0.6); }
+    .play-pause-btn:disabled { background: #2a2d35; box-shadow: none; cursor: not-allowed; }
+    .play-pause-btn:disabled svg { fill: #666; }
 
-    .vol-wrapper { display: flex; align-items: center; gap: 12px; width: 150px;}
-    .vol-wrapper svg { width: 20px; height: 20px; fill: #a0a0a0; }
+    .vol-wrapper { display: flex; align-items: center; gap: 10px; width: 140px;}
+    .vol-wrapper svg { width: 18px; height: 18px; fill: var(--text-muted); }
     input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer;}
     input[type=range]:focus { outline: none; }
-    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 5px; background: #444; border-radius: 3px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; background: #1DB954; margin-top: -4.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.5);}
+    input[type=range]::-webkit-slider-runnable-track { 
+      width: 100%; height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; 
+    }
+    input[type=range]::-webkit-slider-thumb { 
+      -webkit-appearance: none; height: 14px; width: 14px; border-radius: 50%; 
+      background: var(--primary); margin-top: -4.5px; 
+      box-shadow: 0 0 10px rgba(29,185,84,0.8);
+    }
 
-    .bb-right { display: flex; justify-content: flex-end; align-items: center; gap: 20px; width: 25%; }
+    .bb-right { display: flex; justify-content: flex-end; align-items: center; gap: 14px; width: 28%; }
     
-    /* Botones de acción */
-    .timer-btn, .sparkle-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: 0.3s;}
-    .timer-btn svg { width: 24px; height: 24px; fill: #a0a0a0; transition: 0.3s;}
-    .timer-btn:hover svg { fill: #fff; }
-    .timer-btn.active svg { fill: #1DB954; }
-    .timer-badge { position: absolute; top: -5px; right: -8px; background: #1DB954; color: #000; font-size: 0.65rem; font-weight: 700; padding: 2px 5px; border-radius: 10px; display: none; }
+    .timer-btn, .sparkle-btn, .share-btn, .flight-mode-btn { 
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); 
+      border-radius: 12px; width: 42px; height: 42px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; 
+      position: relative; transition: all 0.25s ease;
+    }
+    .timer-btn svg, .share-btn svg, .flight-mode-btn svg { 
+      width: 20px; height: 20px; fill: var(--text-muted); transition: 0.25s;
+    }
+    .timer-btn:hover, .share-btn:hover, .flight-mode-btn:hover, .sparkle-btn:hover {
+      background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2);
+    }
+    .timer-btn:hover svg, .share-btn:hover svg, .flight-mode-btn:hover svg { fill: #fff; }
+    .timer-btn.active { border-color: var(--primary); background: rgba(29,185,84,0.15); }
+    .timer-btn.active svg { fill: var(--primary); }
+    
+    .timer-badge { 
+      position: absolute; top: -5px; right: -6px; background: var(--primary); 
+      color: #000; font-size: 0.65rem; font-weight: 800; 
+      padding: 2px 6px; border-radius: 10px; display: none; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
     .timer-btn.active .timer-badge { display: block; }
 
-    .dots-btn { background: rgba(255,255,255,0.08); border: none; border-radius: 8px; width: 40px; height: 32px; color: #fff; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 0; padding-bottom: 10px; transition: 0.2s;}
-    .dots-btn:hover { background: #1DB954; color: #000; }
+    .dots-btn { 
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; width: 44px; height: 42px; color: #fff; 
+      font-size: 1.3rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; 
+      line-height: 0; padding-bottom: 8px; transition: 0.2s;
+    }
+    .dots-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); }
     
-    .sparkle-btn svg { width: 28px; height: 28px; fill: #fff; opacity: 0.8; transition: 0.3s;}
-    .sparkle-btn:hover svg { fill: #1DB954; opacity: 1; transform: scale(1.1) rotate(15deg); filter: drop-shadow(0 0 10px #1DB954);}
+    .sparkle-btn svg { width: 22px; height: 22px; fill: #fff; opacity: 0.9; transition: 0.3s;}
+    .sparkle-btn:hover svg { 
+      fill: var(--primary); opacity: 1; transform: scale(1.15) rotate(15deg); 
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
 
     /* =========================================
-       6. MODALES
+       9. MODALES FUTURISTAS (GLASS OVERLAY)
        ========================================= */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
+      background: rgba(5, 6, 8, 0.85); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       z-index: 1000; display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: 0.3s ease;
     }
     .modal-overlay.active { opacity: 1; pointer-events: all; }
     
     .custom-card {
-      background: rgba(15,15,15,0.95); border: 1px solid rgba(29, 185, 84, 0.4);
-      border-radius: 20px; padding: 40px; text-align: center; width: 90%; max-width: 450px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(29, 185, 84, 0.15);
-      transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      background: rgba(18, 20, 26, 0.96); border: 1px solid rgba(29, 185, 84, 0.45);
+      border-radius: 24px; padding: 36px 32px; text-align: center; 
+      width: 90%; max-width: 480px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.95), 0 0 50px rgba(29, 185, 84, 0.15);
+      transform: translateY(25px) scale(0.96); transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
     .modal-overlay.active .custom-card { transform: translateY(0) scale(1); }
     
-    .custom-card h2 { color: #fff; margin-bottom: 10px; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; gap: 10px;}
-    .custom-card h2 svg { fill: #1DB954; width: 28px; height: 28px; }
-    .custom-card p { color: #aaa; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;}
+    .custom-card h2 { 
+      color: #fff; margin-bottom: 10px; font-size: 1.45rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .custom-card h2 svg { fill: var(--primary); width: 26px; height: 26px; }
+    .custom-card p { 
+      color: var(--text-muted); margin-bottom: 26px; font-size: 0.9rem; line-height: 1.5; 
+    }
     
     .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .option-btn {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      padding: 15px; border-radius: 12px; color: #fff; font-size: 1rem; font-weight: 500;
-      cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      padding: 16px; border-radius: 14px; color: #fff; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s ease; 
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
     }
-    .option-btn span { font-size: 1.8rem; }
-    .option-btn:hover { background: rgba(29, 185, 84, 0.15); border-color: #1DB954; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(29,185,84,0.2);}
-    .flight-panel { padding: 20px 24px 0; }
-    .flight-btn {
-      width: 100%; justify-content: center;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14); color: #fff;
-      padding: 12px 14px; border-radius: 14px; font-size: 0.95rem; font-weight: 600;
-      letter-spacing: 0.2px; transition: transform 0.2s ease, background 0.2s ease;
+    .option-btn svg { width: 28px; height: 28px; fill: var(--primary); }
+    .option-btn:hover { 
+      background: rgba(29, 185, 84, 0.15); border-color: var(--primary); 
+      transform: translateY(-3px); box-shadow: 0 8px 20px rgba(29,185,84,0.25);
     }
-    .flight-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.14); }
-    .flight-mode-btn {
-      width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.08); color: #fff;
-      display: flex; align-items: center; justify-content: center; transition: background 0.2s ease;
-    }
-    .flight-mode-btn:hover { background: rgba(255,255,255,0.16); }
-    .flight-mode-btn svg { width: 24px; height: 24px; fill: #fff; }
     
-    .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #888; font-size: 1.5rem; cursor: pointer; transition: 0.2s;}
-    .close-modal:hover { color: #fff; transform: scale(1.1);}
+    .close-modal { 
+      position: absolute; top: 18px; right: 18px; background: transparent; 
+      border: none; color: var(--text-muted); font-size: 1.3rem; 
+      cursor: pointer; transition: 0.2s;
+    }
+    .close-modal:hover { color: #fff; transform: scale(1.1); }
+
+    .share-link-box {
+      display: flex; gap: 8px; margin-top: 18px; background: rgba(0,0,0,0.6);
+      padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+      align-items: center;
+    }
+    .share-link-box input {
+      background: transparent; border: none; color: #fff; width: 100%; 
+      font-size: 0.85rem; outline: none; font-family: 'JetBrains Mono', monospace;
+    }
+    .copy-btn {
+      background: var(--primary); color: #000; border: none; font-weight: 700;
+      padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.82rem;
+      transition: 0.2s;
+    }
+    .copy-btn:hover { background: #22db63; }
 
     /* =========================================
-       7. LOADER
+       10. LOADER INICIAL FUTURISTA
        ========================================= */
     #loader {
       position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, rgba(29,185,84,0.18), rgba(0,0,0,0.98));
-      z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-out;
+      background: radial-gradient(circle at center, rgba(29,185,84,0.18), #050608 80%);
+      z-index: 9999; display: flex; flex-direction: column; 
+      align-items: center; justify-content: center; transition: opacity 0.5s ease-out;
     }
-    #loader img { width: 100px; height: auto; display: block; margin-bottom: 18px; }
-    #loader p { color: #ddd; font-size: 0.95rem; letter-spacing: 0.3px; margin-top: 10px; }
+    #loader img { width: 90px; height: auto; display: block; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
+    #loader p { color: #ccc; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px; margin-top: 10px; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    @media (max-width: 800px) {
-      .top-bar { padding: 0 20px; } 
-      .status-container { display: none; } 
-      .bottom-bar { width: 100%; height: auto; flex-direction: column; padding: 20px 15px; gap: 15px; bottom: 0; border-radius: 24px 24px 0 0; }
-      .bb-left, .bb-center { width: 100%; justify-content: center; text-align: center; }
-      .bb-center { flex-wrap: wrap; }
-      .vol-wrapper { display: flex !important; width: 100%; justify-content: center; margin-top: 10px; }
-      input[type=range] { width: 180px; } 
-      .bb-right { position: absolute; top: 20px; right: 20px; width: auto; }
-      .right-panel { width: 100%; right: -100%; top: 70px; height: calc(100vh - 200px); border-radius: 0; background: rgba(10,10,10,0.95); }
-      .right-panel.mobile-active { right: 0; transform: none; opacity: 1; pointer-events: all; }
+    /* =========================================
+       11. DISEÑO RESPONSIVE (CELULARES / TABLETS)
+       - MENÚ COMPACTO SIN AMONTONAMIENTO -
+       ========================================= */
+    @media (max-width: 920px) {
+      .top-bar { 
+        height: 56px; padding: 0 14px; 
+        background: linear-gradient(to bottom, rgba(7,7,9,0.95) 0%, rgba(7,7,9,0.8) 100%);
+      } 
+      .brand { font-size: 1.1rem; }
+      .brand .pro-tag { font-size: 0.6rem; padding: 2px 6px; }
+      
+      .status-container { padding: 4px 10px; gap: 8px; }
+      .status-text { display: none; }
+      .status-badge { font-size: 0.72rem; }
+      
+      /* Ajuste del botón flotante en móvil */
+      .toggle-panel-btn-floating {
+        top: 68px; right: 12px;
+        width: 40px; height: 40px;
+      }
+      
+      /* Panel lateral como Drawer/Overlay mucho más pequeño y legible */
+      .right-panel { 
+        width: 88%; max-width: 320px; 
+        right: -100%; top: 60px; 
+        height: calc(100vh - 165px); 
+        border-radius: 16px 0 0 16px; 
+        background: rgba(10, 11, 14, 0.98); 
+        border: 1px solid var(--glass-border);
+        box-shadow: -10px 0 40px rgba(0,0,0,0.9);
+      }
+      .right-panel.mobile-active { 
+        right: 0; transform: none; opacity: 1; pointer-events: all; 
+      }
+
+      .rp-header { padding: 12px 16px; }
+      .rp-header h3 { font-size: 1rem; }
+      .rp-header p { font-size: 0.75rem; }
+      .rp-tabs { padding: 6px; gap: 2px; }
+      .tab-item { font-size: 0.68rem; padding: 6px 2px; }
+      .tab-item svg { width: 16px; height: 16px; }
+      
+      .list-container { padding: 8px 10px 14px; }
+      .list-item { padding: 10px 12px; margin-bottom: 6px; }
+      .list-item strong { font-size: 0.86rem; }
+      .list-item small { font-size: 0.72rem; }
+
+      .bottom-bar { 
+        width: 100%; max-width: none; height: auto; 
+        flex-direction: column; padding: 12px 14px; gap: 10px; 
+        bottom: 0; left: 0; transform: none;
+        border-radius: 20px 20px 0 0;
+        border-bottom: none; border-left: none; border-right: none;
+      }
+      .bb-left { width: 100%; text-align: center; }
+      .bb-left h3 { font-size: 0.95rem; }
+      .bb-left p { font-size: 0.72rem; }
+      
+      .bb-center { width: 100%; flex-wrap: wrap; justify-content: center; gap: 12px; }
+      
+      .vol-wrapper { display: flex !important; width: 100%; justify-content: center; margin-top: 2px; }
+      input[type=range] { width: 160px; } 
+      
+      .bb-right { 
+        position: absolute; top: -48px; right: 10px; 
+        width: auto; gap: 6px; background: rgba(15, 17, 21, 0.95);
+        padding: 5px 8px; border-radius: 14px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .right-panel { width: 90%; max-width: 290px; }
+      .btn-fav { padding: 5px 10px; font-size: 0.75rem; }
+      .controls-wrapper { gap: 10px; }
+      .play-pause-btn { width: 44px; height: 44px; }
+      .play-pause-btn svg { width: 20px; height: 20px; }
+      .ctrl-icon { width: 34px; height: 34px; }
     }
   </style>
 </head>
@@ -309,68 +651,134 @@
 
   <div id="loader">
     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='52' fill='none' stroke='%231DB954' stroke-width='8' stroke-opacity='0.35'/%3E%3Cpath d='M60 26l14 44-14-8-14 8z' fill='%231DB954'/%3E%3C/svg%3E" alt="Cargando" />
-    <p>Cargando rápido el mapa...</p>
+    <p>Sintonizando RadioAR Pro v4.0...</p>
   </div>
 
+  <!-- MODAL ORÁCULO IA -->
   <div id="ai-modal" class="modal-overlay">
     <div class="custom-card">
       <button class="close-modal" onclick="toggleModal('ai-modal')">✕</button>
-      <h2><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg> Oráculo IA</h2>
-      <p>La IA buscará entre miles de radios globales para encontrar tu vibra.</p>
+      <h2>
+        <svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg> 
+        Oráculo IA Studio
+      </h2>
+      <p>La inteligencia artificial analizará tus vibras auditivas y sintonizará automáticamente una frecuencia perfecta para vos en el planeta.</p>
       <div class="grid-options">
-        <button class="option-btn" onclick="playMoodRadio('energico')"><span>⚡</span> Enérgico</button>
-        <button class="option-btn" onclick="playMoodRadio('relax')"><span>🧘</span> Relax</button>
-        <button class="option-btn" onclick="playMoodRadio('melancolico')"><span>🌧️</span> Melancólico</button>
-        <button class="option-btn" onclick="playMoodRadio('fiestero')"><span>🎉</span> Fiestero</button>
+        <button class="option-btn" onclick="playMoodRadio('energico')">
+          <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+          Enérgico / Electro
+        </button>
+        <button class="option-btn" onclick="playMoodRadio('relax')">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+          Chill & Relax
+        </button>
+        <button class="option-btn" onclick="playMoodRadio('melancolico')">
+          <svg viewBox="0 0 24 24"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.79 6 9.14 0 3.63-2.65 6.2-6 6.2z"/></svg>
+          Melancólico / Soul
+        </button>
+        <button class="option-btn" onclick="playMoodRadio('fiestero')">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Fiesta & Club
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- MODAL TIMER -->
   <div id="timer-modal" class="modal-overlay">
     <div class="custom-card">
       <button class="close-modal" onclick="toggleModal('timer-modal')">✕</button>
-      <h2><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Sleep Timer</h2>
+      <h2>
+        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 
+        Sleep Timer Studio
+      </h2>
+      <p>Programá la desconexión automática del audio para dormir en paz.</p>
       <div class="grid-options">
         <button class="option-btn" onclick="setTimer(15)">15 min</button>
         <button class="option-btn" onclick="setTimer(30)">30 min</button>
         <button class="option-btn" onclick="setTimer(60)">60 min</button>
-        <button class="option-btn" onclick="cancelTimer()" style="color: #ff6b6b;">Apagar</button>
+        <button class="option-btn" onclick="cancelTimer()" style="color: #FF5252;">Apagar Timer</button>
       </div>
     </div>
   </div>
 
+  <!-- MODAL COMPARTIR PRO -->
+  <div id="share-modal" class="modal-overlay">
+    <div class="custom-card">
+      <button class="close-modal" onclick="toggleModal('share-modal')">✕</button>
+      <h2>
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg> 
+        Compartir Frecuencia
+      </h2>
+      <p id="share-modal-text">Copia el enlace de stream directo para enviarlo a tus amigos o integrarlo.</p>
+      <div class="share-link-box">
+        <input type="text" id="share-stream-url" readonly value="" />
+        <button class="copy-btn" onclick="copyStreamUrl()">Copiar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MIRA DE ENFOQUE HUD -->
   <div class="crosshair-container"><div class="crosshair" id="crosshair"></div></div>
   <canvas id="globeViz"></canvas>
 
+  <!-- BARRA SUPERIOR -->
   <header class="top-bar">
-    <div class="brand">RadioAR <span>Pro</span></div>
+    <div class="brand">RadioAR <span>Pro</span> <span class="pro-tag">Studio v4.0</span></div>
     <div class="status-container">
-      <div class="status-badge" id="top-badge"><div class="sync-spinner"></div> Iniciando Motor Global...</div>
-      <div class="status-text" id="top-status-text">Cargando módulos...</div>
+      <div class="status-badge" id="top-badge"><div class="sync-spinner"></div> Sintonizando Red Global...</div>
+      <div class="status-text" id="top-status-text">Cargando estaciones HD...</div>
     </div>
   </header>
 
+  <!-- BOTÓN FLOTANTE CON ICONO PARA DESPLAZAR/OCULTAR MENÚ -->
+  <button class="toggle-panel-btn-floating" onclick="toggleRightPanel()" title="Desplegar Panel">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+  </button>
+
+  <!-- PANEL DERECHO DE EXPLORACIÓN / BÚSQUEDA -->
   <aside class="right-panel" id="right-panel">
     <div class="rp-header">
       <h3 id="rp-title">Sintonizando...</h3>
-      <p id="rp-subtitle">Mueve el mapa para comenzar</p>
+      <p id="rp-subtitle">Mueve el planeta para explorar</p>
     </div>
     
     <div class="rp-tabs">
-      <div class="tab-item active" onclick="switchTab('explorar', this)"><svg viewBox="0 0 24 24"><path d="M12 10.9c-.61 0-1.1.49-1.1 1.1s.49 1.1 1.1 1.1c.61 0 1.1-.49 1.1-1.1s-.49-1.1-1.1-1.1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2.19 12.19L6 18l3.81-8.19L18 6l-3.81 8.19z"/></svg> Explorar</div>
-      <div class="tab-item" onclick="switchTab('favoritos', this)"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Favoritos</div>
-      <div class="tab-item" onclick="switchTab('buscar', this)"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg> Buscar</div>
+      <div class="tab-item active" onclick="switchTab('explorar', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 10.9c-.61 0-1.1.49-1.1 1.1s.49 1.1 1.1 1.1c.61 0 1.1-.49 1.1-1.1s-.49-1.1-1.1-1.1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2.19 12.19L6 18l3.81-8.19L18 6l-3.81 8.19z"/></svg>
+        Explorar
+      </div>
+      <div class="tab-item" onclick="switchTab('buscar', this)">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        Buscar
+      </div>
+      <div class="tab-item" onclick="switchTab('historial', this)">
+        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        Historial
+      </div>
+      <div class="tab-item" onclick="switchTab('favoritos', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        Favoritos
+      </div>
     </div>
 
     <div class="rp-content" id="rp-content">
-      <div class="region-header" id="region-header-title">Región... <span><button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span></div>
-      <div class="flight-panel">
-        <button class="option-btn flight-btn" onclick="flyRandomStation()">✈️ Avión</button>
+      <div class="region-header" id="region-header-title">
+        Región... <span><button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>
       </div>
-      <div class="list-container" id="radio-list"><p style='color:#666; padding:15px; text-align:center;'>Desliza el mapa para descubrir emisoras.</p></div>
+      <div class="flight-panel" id="flight-panel-box">
+        <button class="flight-btn" onclick="flyRandomStation()">
+          <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+          Vuelo Aleatorio Mundial
+        </button>
+      </div>
+      <div class="list-container" id="radio-list">
+        <p style='color:#666; padding:18px; text-align:center;'>Desliza el globo para sintonizar emisoras cercanas.</p>
+      </div>
     </div>
   </aside>
 
+  <!-- REPRODUCTOR INFERIOR (BOTTOM DOCK) -->
   <footer class="bottom-bar">
     <div class="bb-left">
       <h3 id="bb-title">Radar Inactivo...</h3>
@@ -378,12 +786,25 @@
     </div>
     
     <div class="bb-center">
-      <button class="btn-fav" id="btn-favorite" onclick="toggleFavorite()"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> Favorito</button>
+      <button class="btn-fav" id="btn-favorite" onclick="toggleFavorite()" title="Añadir a Favoritos">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg> 
+        Favorito
+      </button>
+      
       <div class="controls-wrapper">
-        <button class="ctrl-icon" id="btn-prev" disabled><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-        <button class="play-pause-btn" id="playBtn" disabled><svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-        <button class="ctrl-icon" id="btn-next" disabled><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+        <button class="ctrl-icon" id="btn-prev" disabled title="Emisora Anterior">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="play-pause-btn" id="playBtn" disabled title="Reproducir / Pausa">
+          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="ctrl-icon" id="btn-next" disabled title="Emisora Siguiente">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
       </div>
+      
       <div class="vol-wrapper">
         <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
         <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.8">
@@ -391,15 +812,20 @@
     </div>
 
     <div class="bb-right">
-      <button class="timer-btn" id="btn-timer" onclick="toggleModal('timer-modal')">
+      <button class="timer-btn" id="btn-timer" onclick="toggleModal('timer-modal')" title="Sleep Timer">
         <div class="timer-badge" id="timer-badge">15</div>
         <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
       </button>
-      <button class="ctrl-icon flight-mode-btn" onclick="flyRandomStation()" title="Vuelo Mundial">
-        <svg viewBox="0 0 24 24"><path d="M2.5 19.5l4.8-1.7 5.9-5.9-3.3-3.3 1.4-1.4 3.3 3.3 5.9-5.9L21.5 2.5l-3.2 8.7L12 13.5 5.7 5.8 2.5 19.5z"/></svg>
+      <button class="share-btn" onclick="openShareModal()" title="Compartir Emisora">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
       </button>
-      <button class="dots-btn" onclick="toggleRightPanel()">...</button>
-      <button class="sparkle-btn" onclick="toggleModal('ai-modal')"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg></button>
+      <button class="ctrl-icon flight-mode-btn" onclick="flyRandomStation()" title="Vuelo Mundial Aleatorio">
+        <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      </button>
+      <button class="dots-btn" onclick="toggleRightPanel()" title="Menú Panel">...</button>
+      <button class="sparkle-btn" onclick="toggleModal('ai-modal')" title="Oráculo IA Studio">
+        <svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+      </button>
     </div>
   </footer>
 
@@ -422,8 +848,11 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
-        if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 600); }
-      }, 1000);
+        if (loader) { 
+          loader.style.opacity = '0'; 
+          setTimeout(() => loader.style.display = 'none', 500); 
+        }
+      }, 900);
     });
 
     // =========================================
@@ -435,10 +864,12 @@
     let isPlaying = false;
     let currentStation = null;
     let favorites = JSON.parse(localStorage.getItem('radioFavorites')) || [];
+    let listeningHistory = JSON.parse(localStorage.getItem('radioHistoryPro')) || [];
     let activePlaylist = [];
     let activePlaylistIndex = -1;
     let visualPointsCount = 0; 
     let sleepTimerInterval = null, sleepTimerMinutes = 0;
+    let selectedGenreChip = 'Todos';
 
     const audioPlayer = document.getElementById('audio-player');
     const playBtn = document.getElementById('playBtn'), playIcon = document.getElementById('playIcon');
@@ -447,10 +878,21 @@
     const crosshair = document.getElementById('crosshair'), favBtn = document.getElementById('btn-favorite');
     const rightPanel = document.getElementById('right-panel'), radioList = document.getElementById('radio-list');
     const regionHeaderTitle = document.getElementById('region-header-title');
+    const flightPanelBox = document.getElementById('flight-panel-box');
 
     audioPlayer.volume = volSlider.value;
-    function toggleRightPanel() { window.innerWidth <= 800 ? rightPanel.classList.toggle('mobile-active') : rightPanel.classList.toggle('hidden'); }
-    function toggleModal(id) { document.getElementById(id).classList.toggle('active'); }
+    
+    function toggleRightPanel() { 
+      if (window.innerWidth <= 920) {
+        rightPanel.classList.toggle('mobile-active');
+      } else {
+        rightPanel.classList.toggle('hidden');
+      }
+    }
+    
+    function toggleModal(id) { 
+      document.getElementById(id).classList.toggle('active'); 
+    }
 
     // =========================================
     // 3. RENDERIZADO 3D (WORLDWIND)
@@ -467,7 +909,11 @@
     const dotCanvas = document.createElement('canvas');
     dotCanvas.width = 16; dotCanvas.height = 16;
     const ctx = dotCanvas.getContext('2d');
-    ctx.fillStyle = '#1DB954'; ctx.beginPath(); ctx.arc(8, 8, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#1DB954'; 
+    ctx.beginPath(); 
+    ctx.arc(8, 8, 8, 0, Math.PI * 2); 
+    ctx.fill();
+    
     const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
     placemarkAttributes.imageSource = new WorldWind.ImageSource(dotCanvas);
     placemarkAttributes.imageScale = 0.5;
@@ -478,10 +924,14 @@
     wwd.navigator.range = 3000000; 
     wwd.redraw();
 
-    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; wwd.redraw(); });
+    window.addEventListener('resize', () => { 
+      canvas.width = window.innerWidth; 
+      canvas.height = window.innerHeight; 
+      wwd.redraw(); 
+    });
 
     // =========================================
-    // 4. MOTOR ENTERPRISE: CARGA PROGRESIVA (AR -> AM -> WORLD)
+    // 4. MOTOR ENTERPRISE: CARGA PROGRESIVA
     // =========================================
     class GlobalRadioNetwork {
       constructor() {
@@ -567,6 +1017,7 @@
                 let isInherited = false;
                 const country = normalizeText(st.country);
                 const state = normalizeText(st.state);
+                const tags = st.tags || '';
 
                 if (lat === null || lat === undefined || lng === null || lng === undefined) {
                     if (country && state && coordsByState[`${country}-${state}`]) {
@@ -589,7 +1040,8 @@
                     cleanedData.push({
                         uuid: st.stationuuid, lat: finalLat, lng: finalLng,
                         name: st.name, country: country,
-                        state: state, streamUrl: st.url_resolved
+                        state: state, streamUrl: st.url_resolved,
+                        tags: tags
                     });
                 }
             });
@@ -598,7 +1050,7 @@
                 if (isFinal) {
                     document.getElementById('top-badge').innerHTML = '✅ Red Global 100% Sincronizada';
                     document.getElementById('top-badge').style.borderColor = '#1DB954';
-                    if(document.querySelector('.tab-item:nth-child(3)').classList.contains('active')) {
+                    if(document.querySelector('.tab-item:nth-child(2)').classList.contains('active')) {
                         loadAdvancedSearch();
                     }
                 }
@@ -692,13 +1144,27 @@
     canvas.addEventListener('mouseup', handleStopMove); canvas.addEventListener('touchend', handleStopMove);
     canvas.addEventListener('wheel', () => { handleStartMove(); clearTimeout(window.wheelTimer); window.wheelTimer = setTimeout(handleStopMove, 300); });
 
-    function flyToStation(lat, lng) { const position = new WorldWind.Position(lat, lng, 1200000); wwd.goTo(position); }
+    function flyToStation(lat, lng) { 
+      const position = new WorldWind.Position(lat, lng, 1200000); 
+      wwd.goTo(position); 
+    }
 
     // =========================================
-    // 6. MOTOR DE REPRODUCCIÓN
+    // 6. MOTOR DE REPRODUCCIÓN & HISTORIAL PRO
     // =========================================
+    function addToListeningHistory(station) {
+      if(!station || !station.uuid) return;
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      listeningHistory = listeningHistory.filter(item => item.uuid !== station.uuid);
+      listeningHistory.unshift({ ...station, playedAt: timeStr });
+      if(listeningHistory.length > 50) listeningHistory = listeningHistory.slice(0, 50);
+      localStorage.setItem('radioHistoryPro', JSON.stringify(listeningHistory));
+    }
+
     function lockAndPlayStation(station, contextPlaylist = []) {
       currentStation = station; crosshair.classList.add('locked');
+      addToListeningHistory(station);
       if (contextPlaylist.length > 0) activePlaylist = contextPlaylist;
       activePlaylistIndex = activePlaylist.findIndex(s => s.uuid === station.uuid);
       
@@ -710,6 +1176,7 @@
       document.getElementById('bb-subtitle').innerText = locStr;
 
       if(document.querySelector('.tab-item:nth-child(1)').classList.contains('active')) loadRegionList(station);
+      else if(document.querySelector('.tab-item:nth-child(3)').classList.contains('active')) loadHistoryList();
       else highlightCurrentInList();
 
       favorites.some(f => f.uuid === station.uuid) ? favBtn.classList.add('active') : favBtn.classList.remove('active');
@@ -737,7 +1204,10 @@
     });
     volSlider.addEventListener('input', (e) => { audioPlayer.volume = e.target.value; });
 
-    function updatePlayButton() { playIcon.innerHTML = isPlaying ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>' : '<path d="M8 5v14l11-7z"/>'; }
+    function updatePlayButton() { 
+      playIcon.innerHTML = isPlaying ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>' : '<path d="M8 5v14l11-7z"/>'; 
+    }
+    
     function updateEQVisuals() {
       document.querySelectorAll('.list-item').forEach(el => {
          if(!isPlaying) el.classList.remove('playing');
@@ -746,7 +1216,7 @@
     }
 
     // =========================================
-    // 7. FUNCIONES EXTRAS (Timer, IA)
+    // 7. FUNCIONES EXTRAS (Timer, IA, Share PRO)
     // =========================================
     function setTimer(minutes) {
         cancelTimer(); sleepTimerMinutes = minutes;
@@ -759,7 +1229,11 @@
         }, 60000);
         toggleModal('timer-modal');
     }
-    function cancelTimer() { clearInterval(sleepTimerInterval); document.getElementById('btn-timer').classList.remove('active'); if(document.getElementById('timer-modal').classList.contains('active')) toggleModal('timer-modal'); }
+    function cancelTimer() { 
+      clearInterval(sleepTimerInterval); 
+      document.getElementById('btn-timer').classList.remove('active'); 
+      if(document.getElementById('timer-modal').classList.contains('active')) toggleModal('timer-modal'); 
+    }
 
     function playMoodRadio(mood) {
       toggleModal('ai-modal'); if(masterStations.length === 0) return;
@@ -781,20 +1255,44 @@
       lockAndPlayStation(randomStation, worldStations);
     }
 
-    function switchTab(tabId, element) {
-      document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active')); element.classList.add('active');
-      if (tabId === 'explorar') currentStation ? loadRegionList(currentStation) : radioList.innerHTML = "<p style='color:#666; padding:15px; text-align:center;'>Sintoniza un punto en el mapa.</p>";
-      if (tabId === 'favoritos') loadFavoritesList();
-      if (tabId === 'buscar') loadAdvancedSearch();
+    function openShareModal() {
+      if(!currentStation) {
+        alert("Sintoniza una emisora primero para poder compartirla.");
+        return;
+      }
+      document.getElementById('share-modal-text').innerText = `${currentStation.name} (${currentStation.country})`;
+      document.getElementById('share-stream-url').value = currentStation.streamUrl;
+      toggleModal('share-modal');
     }
 
-    function renderListItems(array, fallbackMsg, targetContainer = radioList) {
-      if (array.length === 0) { targetContainer.innerHTML = `<p style='color:#666; padding:15px; font-size:0.9rem; text-align:center;'>${fallbackMsg}</p>`; return; }
+    function copyStreamUrl() {
+      const input = document.getElementById('share-stream-url');
+      input.select();
+      input.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(input.value);
+      alert("Enlace copiado al portapapeles.");
+    }
+
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active')); element.classList.add('active');
+      flightPanelBox.style.display = tabId === 'explorar' ? 'block' : 'none';
+      if (tabId === 'explorar') currentStation ? loadRegionList(currentStation) : radioList.innerHTML = "<p style='color:#666; padding:18px; text-align:center;'>Sintoniza un punto en el mapa.</p>";
+      if (tabId === 'buscar') loadAdvancedSearch();
+      if (tabId === 'historial') loadHistoryList();
+      if (tabId === 'favoritos') loadFavoritesList();
+    }
+
+    function renderListItems(array, fallbackMsg, targetContainer = radioList, showTime = false) {
+      if (array.length === 0) { 
+        targetContainer.innerHTML = `<p style='color:#666; padding:18px; font-size:0.9rem; text-align:center;'>${fallbackMsg}</p>`; 
+        return; 
+      }
       targetContainer.innerHTML = '';
       array.forEach(st => {
         const div = document.createElement('div'); div.dataset.uuid = st.uuid;
         div.className = `list-item ${currentStation && currentStation.uuid === st.uuid && isPlaying ? 'playing' : ''}`;
-        div.innerHTML = `<div class="list-item-title-row"><strong>${st.name}</strong><div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div></div><small>${st.state ? st.state + ', ' : ''}${st.country}</small>`;
+        const timeBadge = showTime && st.playedAt ? `<span class="time-tag">${st.playedAt}</span>` : '';
+        div.innerHTML = `<div class="list-item-title-row"><strong>${st.name}</strong><div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div></div><small><span>${st.state ? st.state + ', ' : ''}${st.country}</span> ${timeBadge}</small>`;
         div.onclick = () => { flyToStation(st.lat, st.lng); lockAndPlayStation(st, array); };
         targetContainer.appendChild(div);
       });
@@ -811,7 +1309,7 @@
     function loadRegionList(station) {
       const regionRadios = masterStations.filter(r => r.country === station.country && r.state === station.state).slice(0, 500);
       regionHeaderTitle.innerHTML = `Región <span>${regionRadios.length} emisoras <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
-      renderListItems(regionRadios, "No hay emisoras.");
+      renderListItems(regionRadios, "No hay emisoras en esta región.");
     }
 
     function toggleFavorite() {
@@ -823,14 +1321,19 @@
 
     function loadFavoritesList() {
       regionHeaderTitle.innerHTML = `Favoritos <span>${favorites.length} emisoras <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
-      renderListItems(favorites, "Guarda tus favoritas.");
+      renderListItems(favorites, "Guarda tus favoritas usando el botón de Corazón en el reproductor.");
+    }
+
+    function loadHistoryList() {
+      regionHeaderTitle.innerHTML = `Historial <span>${listeningHistory.length} recientes <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
+      renderListItems(listeningHistory, "Aún no has escuchado ninguna emisora en esta sesión.", radioList, true);
     }
 
     // =========================================
-    // 8. BUSCADOR PRO: SECTORIZACIÓN Y NORMALIZACIÓN
+    // 8. BUSCADOR PRO POR PAÍS CON TODOS LOS RESULTADOS + FILTRO POR GÉNERO
     // =========================================
     function loadAdvancedSearch() {
-      regionHeaderTitle.innerHTML = `Buscador <span>Global <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
+      regionHeaderTitle.innerHTML = `Buscador Pro <span>Global <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
       
       const countryCounts = {};
       masterStations.forEach(s => {
@@ -838,18 +1341,23 @@
       });
       const uniqueCountries = Object.keys(countryCounts).sort();
       
+      const genres = ['Todos', 'Rock', 'Pop', 'Noticias', 'Electrónica', 'Jazz', 'Deportes', 'Folklore', 'Clásica', 'Latin', 'Hits'];
+
       radioList.innerHTML = `
-        <div class="search-filters">
+        <div class="search-pro-container">
             <select id="countrySelect" class="search-select">
-                <option value="">🌍 Selecciona un País...</option>
+                <option value="">🌍 Selecciona un País para explorar...</option>
                 ${uniqueCountries.map(c => `<option value="${c}">${c} (${countryCounts[c]} radios)</option>`).join('')}
             </select>
             <select id="stateSelect" class="search-select" disabled>
-                <option value="">📍 Selecciona una Provincia/Ciudad...</option>
+                <option value="">📍 Selecciona Provincia/Ciudad...</option>
             </select>
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar emisora por nombre...">
+            <div class="genre-chips-scroll" id="genre-chips">
+                ${genres.map(g => `<div class="genre-chip ${g === selectedGenreChip ? 'active' : ''}" onclick="selectGenreChip('${g}')">${g}</div>`).join('')}
+            </div>
         </div>
-        <input type="text" id="searchInput" class="search-input" placeholder="O busca por nombre...">
-        <div id="searchResults"><p style='color:#666; padding:15px; font-size:0.9rem; text-align:center;'>Empieza a escribir o usa los filtros superiores.</p></div>
+        <div id="searchResults"><p style='color:#666; padding:18px; font-size:0.9rem; text-align:center;'>Elige un país de la lista o escribe para explorar.</p></div>
       `;
 
       const input = document.getElementById('searchInput');
@@ -857,46 +1365,70 @@
       const stateSelect = document.getElementById('stateSelect');
       const resultsDiv = document.getElementById('searchResults');
 
+      window.selectGenreChip = (genre) => {
+          selectedGenreChip = genre;
+          document.querySelectorAll('.genre-chip').forEach(ch => {
+              ch.classList.toggle('active', ch.innerText === genre);
+          });
+          performSearch();
+      };
+
       const performSearch = () => {
         const term = input.value.toLowerCase().trim(), selCountry = countrySelect.value, selState = stateSelect.value;
-        if (term.length < 2 && !selCountry && !selState) { resultsDiv.innerHTML = "<p style='color:#666; padding:15px; text-align:center;'>Empieza a escribir o usa filtros.</p>"; return; }
+        if (term.length < 2 && !selCountry && !selState && selectedGenreChip === 'Todos') { 
+            resultsDiv.innerHTML = "<p style='color:#666; padding:18px; text-align:center;'>Selecciona un país, género o escribe una radio.</p>"; 
+            return; 
+        }
         
         let matches = masterStations;
         if (selCountry) matches = matches.filter(s => s.country === selCountry);
         if (selState) matches = matches.filter(s => s.state === selState);
         if (term.length > 0) matches = matches.filter(s => (s.name || '').toLowerCase().includes(term));
+        if (selectedGenreChip !== 'Todos') {
+            const genreTerm = selectedGenreChip.toLowerCase();
+            matches = matches.filter(s => (s.tags || '').toLowerCase().includes(genreTerm) || (s.name || '').toLowerCase().includes(genreTerm));
+        }
         
-        // Ordenar y agrupar alfabéticamente por provincia, luego por nombre
         matches.sort((a, b) => {
-            const stateA = a.state || 'ZZZ'; // Las que no tienen provincia van al final
+            const stateA = a.state || 'ZZZ';
             const stateB = b.state || 'ZZZ';
             if (stateA < stateB) return -1;
             if (stateA > stateB) return 1;
             return (a.name || '').localeCompare(b.name || '');
         });
 
-        const limitedMatches = matches.slice(0, 500);
+        const maxDisplay = selCountry ? 5000 : 800;
+        const limitedMatches = matches.slice(0, maxDisplay);
+
         if (limitedMatches.length === 0) {
-            resultsDiv.innerHTML = `<p style='color:#666; padding:15px; font-size:0.9rem; text-align:center;'>No se encontraron emisoras.</p>`;
+            resultsDiv.innerHTML = `<p style='color:#666; padding:18px; font-size:0.9rem; text-align:center;'>No se encontraron emisoras que coincidan.</p>`;
             return;
         }
 
         resultsDiv.innerHTML = '';
+        
+        if (selCountry) {
+            const summary = document.createElement('div');
+            summary.className = 'country-summary-bar';
+            summary.innerHTML = `<span>🌍 ${selCountry}</span> <span>${limitedMatches.length} emisoras encontradas</span>`;
+            resultsDiv.appendChild(summary);
+        }
+
         let lastState = null;
 
         limitedMatches.forEach(st => {
-            // Generar cabecera divisoria si cambió de provincia (Sectorización)
             if (selCountry && !selState && st.state !== lastState) {
+                const stateRadiosCount = limitedMatches.filter(r => r.state === st.state).length;
                 const stateHeader = document.createElement('div');
                 stateHeader.className = 'search-state-header';
-                stateHeader.innerHTML = `📍 ${st.state || 'Desconocido'}`;
+                stateHeader.innerHTML = `<span>📍 ${st.state || 'Otras localidades'}</span> <span>${stateRadiosCount} radios</span>`;
                 resultsDiv.appendChild(stateHeader);
                 lastState = st.state;
             }
 
             const div = document.createElement('div'); div.dataset.uuid = st.uuid;
             div.className = `list-item ${currentStation && currentStation.uuid === st.uuid && isPlaying ? 'playing' : ''}`;
-            div.innerHTML = `<div class="list-item-title-row"><strong>${st.name}</strong><div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div></div><small>${st.state ? st.state + ', ' : ''}${st.country}</small>`;
+            div.innerHTML = `<div class="list-item-title-row"><strong>${st.name}</strong><div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div></div><small><span>${st.state ? st.state + ', ' : ''}${st.country}</span></small>`;
             div.onclick = () => { flyToStation(st.lat, st.lng); lockAndPlayStation(st, limitedMatches); };
             resultsDiv.appendChild(div);
         });
@@ -904,7 +1436,7 @@
 
       countrySelect.addEventListener('change', () => {
         const selCountry = countrySelect.value; 
-        stateSelect.innerHTML = '<option value="">📍 Selecciona una Provincia/Ciudad...</option>';
+        stateSelect.innerHTML = '<option value="">📍 Selecciona Provincia/Ciudad...</option>';
         
         if (selCountry) {
             const stateCounts = {};
