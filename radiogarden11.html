@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RadioAR Pro - Studio Edition v4.0 | Next-Gen Global Network</title>
+  <title>RadioAR Pro - Studio Edition v4.7 | Next-Gen Global Network</title>
+  
+  <!-- Optimización de Red: Preconexión a APIs y servidores de la NASA -->
+  <link rel="preconnect" href="https://files.worldwind.arc.nasa.gov" crossorigin>
+  <link rel="preconnect" href="https://de1.api.radio-browser.info" crossorigin>
+  <link rel="preconnect" href="https://at1.api.radio-browser.info" crossorigin>
+  <link rel="preconnect" href="https://nl1.api.radio-browser.info" crossorigin>
+  <link rel="dns-prefetch" href="https://files.worldwind.arc.nasa.gov">
   
   <!-- NASA WorldWind 3D Globe -->
   <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
@@ -26,6 +33,7 @@
       --text-main: #FFFFFF;
       --text-muted: #8E939E;
       --danger: #FF5252;
+      --cyan-glow: #00F2FE;
     }
 
     body, html { 
@@ -70,6 +78,15 @@
     .crosshair.locked::after {
       background: var(--primary);
       box-shadow: 0 0 14px var(--primary);
+    }
+    .crosshair.radar-pulse {
+      border-color: var(--cyan-glow);
+      animation: radarPulse 1.2s infinite ease-out;
+    }
+    @keyframes radarPulse {
+      0% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px var(--cyan-glow); }
+      50% { transform: scale(1.6); opacity: 0.6; box-shadow: 0 0 30px var(--cyan-glow); }
+      100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px var(--cyan-glow); }
     }
 
     /* =========================================
@@ -119,7 +136,7 @@
     }
 
     /* =========================================
-       4. BOTÓN FLOTANTE LATERAL PARA DESPLAZAR MENÚ
+       4. BOTÓN FLOTANTE LATERAL
        ========================================= */
     .toggle-panel-btn-floating {
       position: absolute; top: 80px; right: 20px; z-index: 60;
@@ -136,7 +153,7 @@
     .toggle-panel-btn-floating svg { width: 22px; height: 22px; fill: currentColor; }
 
     /* =========================================
-       5. PANEL FLOTANTE DERECHO (UI PANEL PRO)
+       5. PANEL FLOTANTE ARRASTRABLE (UI PANEL PRO)
        ========================================= */
     .right-panel {
       position: absolute; top: 76px; right: 24px; width: 400px; 
@@ -146,24 +163,35 @@
       border-radius: 20px; z-index: 50; display: flex; flex-direction: column;
       border: 1px solid var(--glass-border); 
       box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 0, 0, 0.4);
-      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
       overflow: hidden;
     }
     .right-panel.hidden { 
-      transform: translateX(440px); opacity: 0; pointer-events: none; 
+      opacity: 0; transform: scale(0.92); pointer-events: none; 
     }
 
     .rp-header { 
-      padding: 18px 22px; background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 22px; background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      cursor: grab;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.2s;
     }
+    .rp-header:active { cursor: grabbing; background: rgba(29, 185, 84, 0.08); }
+    
+    .rp-header-text { overflow: hidden; flex-grow: 1; }
     .rp-header h3 { 
-      margin: 0; font-size: 1.15rem; color: #fff; font-weight: 700; 
+      margin: 0; font-size: 1.12rem; color: #fff; font-weight: 700; 
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
     }
     .rp-header p { 
-      margin: 4px 0 0; font-size: 0.83rem; color: var(--text-muted); 
+      margin: 3px 0 0; font-size: 0.8rem; color: var(--text-muted); 
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
+    
+    .drag-indicator {
+      color: var(--text-muted); font-size: 1.1rem; letter-spacing: 2px;
+      padding-left: 10px; opacity: 0.7; pointer-events: none;
     }
 
     .rp-tabs {
@@ -219,11 +247,8 @@
       background: var(--primary); border-radius: 10px; 
       border: 2px solid var(--bg-dark);
     }
-    .list-container::-webkit-scrollbar-thumb:hover {
-      background: #23df65;
-    }
+    .list-container::-webkit-scrollbar-thumb:hover { background: #23df65; }
 
-    /* RECUADROS DE LAS RADIOS MUCHO MÁS MARCADOS */
     .list-item {
       padding: 12px 14px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
       display: flex; flex-direction: column; margin-bottom: 8px; 
@@ -279,7 +304,6 @@
       display: flex; flex-direction: column; gap: 10px; 
       padding: 0 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); 
     }
-    
     .search-input {
       width: 100%; padding: 11px 14px; border-radius: 12px; 
       border: 1px solid rgba(255,255,255,0.12);
@@ -338,14 +362,14 @@
     }
 
     /* =========================================
-       7. BOTÓN DE VUELO MUNDIAL CON VECTOR AVION
+       7. BOTONES DE ACCIÓN (VUELO + RADAR)
        ========================================= */
-    .flight-panel { padding: 14px 14px 0; }
+    .flight-panel { padding: 14px 14px 0; display: flex; gap: 8px; flex-direction: column; }
     .flight-btn {
       width: 100%; justify-content: center;
       background: linear-gradient(135deg, rgba(29, 185, 84, 0.15), rgba(29, 185, 84, 0.05));
       border: 1px solid rgba(29, 185, 84, 0.4); color: #fff;
-      padding: 12px 16px; border-radius: 14px; font-size: 0.9rem; font-weight: 700;
+      padding: 12px 16px; border-radius: 14px; font-size: 0.88rem; font-weight: 700;
       letter-spacing: 0.3px; transition: all 0.25s ease;
       cursor: pointer; display: flex; align-items: center; gap: 10px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -358,6 +382,23 @@
     }
     .flight-btn svg { width: 18px; height: 18px; fill: var(--primary); transition: transform 0.3s; }
     .flight-btn:hover svg { transform: translateX(3px) translateY(-3px); }
+
+    .radar-btn {
+      width: 100%; justify-content: center;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(0, 242, 254, 0.05));
+      border: 1px solid rgba(0, 242, 254, 0.4); color: #fff;
+      padding: 11px 16px; border-radius: 14px; font-size: 0.86rem; font-weight: 700;
+      letter-spacing: 0.3px; transition: all 0.25s ease;
+      cursor: pointer; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .radar-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(0, 242, 254, 0.15));
+      border-color: var(--cyan-glow);
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.3);
+    }
+    .radar-btn svg { width: 18px; height: 18px; fill: var(--cyan-glow); }
 
     /* =========================================
        8. BOTTOM BAR (REPRODUCTOR INFERIOR)
@@ -444,23 +485,25 @@
       box-shadow: 0 0 10px rgba(29,185,84,0.8);
     }
 
-    .bb-right { display: flex; justify-content: flex-end; align-items: center; gap: 14px; width: 28%; }
+    .bb-right { display: flex; justify-content: flex-end; align-items: center; gap: 10px; width: 28%; }
     
-    .timer-btn, .sparkle-btn, .share-btn, .flight-mode-btn { 
+    .timer-btn, .sparkle-btn, .share-btn, .flight-mode-btn, .cruise-btn, .spectrum-btn { 
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); 
       border-radius: 12px; width: 42px; height: 42px;
       cursor: pointer; display: flex; align-items: center; justify-content: center; 
       position: relative; transition: all 0.25s ease;
     }
-    .timer-btn svg, .share-btn svg, .flight-mode-btn svg { 
+    .timer-btn svg, .share-btn svg, .flight-mode-btn svg, .cruise-btn svg, .spectrum-btn svg { 
       width: 20px; height: 20px; fill: var(--text-muted); transition: 0.25s;
     }
-    .timer-btn:hover, .share-btn:hover, .flight-mode-btn:hover, .sparkle-btn:hover {
+    .timer-btn:hover, .share-btn:hover, .flight-mode-btn:hover, .sparkle-btn:hover, .cruise-btn:hover, .spectrum-btn:hover {
       background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2);
     }
-    .timer-btn:hover svg, .share-btn:hover svg, .flight-mode-btn:hover svg { fill: #fff; }
-    .timer-btn.active { border-color: var(--primary); background: rgba(29,185,84,0.15); }
-    .timer-btn.active svg { fill: var(--primary); }
+    .timer-btn:hover svg, .share-btn:hover svg, .flight-mode-btn:hover svg, .cruise-btn:hover svg, .spectrum-btn:hover svg { fill: #fff; }
+    .timer-btn.active, .cruise-btn.active, .spectrum-btn.active { 
+      border-color: var(--primary); background: rgba(29,185,84,0.18); 
+    }
+    .timer-btn.active svg, .cruise-btn.active svg, .spectrum-btn.active svg { fill: var(--primary); }
     
     .timer-badge { 
       position: absolute; top: -5px; right: -6px; background: var(--primary); 
@@ -486,7 +529,18 @@
     }
 
     /* =========================================
-       9. MODALES FUTURISTAS (GLASS OVERLAY)
+       9. ESPECTRO DE AUDIO WEB AUDIO API HUD
+       ========================================= */
+    #spectrum-canvas {
+      position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+      width: 80%; max-width: 900px; height: 100px;
+      pointer-events: none; z-index: 35; display: none;
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+    #spectrum-canvas.active { display: block; }
+
+    /* =========================================
+       10. MODALES FUTURISTAS
        ========================================= */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -552,21 +606,20 @@
     .copy-btn:hover { background: #22db63; }
 
     /* =========================================
-       10. LOADER INICIAL FUTURISTA
+       11. LOADER INICIAL
        ========================================= */
     #loader {
       position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
       background: radial-gradient(circle at center, rgba(29,185,84,0.18), #050608 80%);
       z-index: 9999; display: flex; flex-direction: column; 
-      align-items: center; justify-content: center; transition: opacity 0.5s ease-out;
+      align-items: center; justify-content: center; transition: opacity 0.4s ease-out;
     }
     #loader img { width: 90px; height: auto; display: block; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
     #loader p { color: #ccc; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px; margin-top: 10px; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     /* =========================================
-       11. DISEÑO RESPONSIVE (CELULARES / TABLETS)
-       - MENÚ COMPACTO SIN AMONTONAMIENTO -
+       12. DISEÑO RESPONSIVE
        ========================================= */
     @media (max-width: 920px) {
       .top-bar { 
@@ -580,13 +633,11 @@
       .status-text { display: none; }
       .status-badge { font-size: 0.72rem; }
       
-      /* Ajuste del botón flotante en móvil */
       .toggle-panel-btn-floating {
         top: 68px; right: 12px;
         width: 40px; height: 40px;
       }
       
-      /* Panel lateral como Drawer/Overlay mucho más pequeño y legible */
       .right-panel { 
         width: 88%; max-width: 320px; 
         right: -100%; top: 60px; 
@@ -651,7 +702,7 @@
 
   <div id="loader">
     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='52' fill='none' stroke='%231DB954' stroke-width='8' stroke-opacity='0.35'/%3E%3Cpath d='M60 26l14 44-14-8-14 8z' fill='%231DB954'/%3E%3C/svg%3E" alt="Cargando" />
-    <p>Sintonizando RadioAR Pro v4.0...</p>
+    <p>Sintonizando RadioAR Pro v4.7...</p>
   </div>
 
   <!-- MODAL ORÁCULO IA -->
@@ -721,10 +772,11 @@
   <!-- MIRA DE ENFOQUE HUD -->
   <div class="crosshair-container"><div class="crosshair" id="crosshair"></div></div>
   <canvas id="globeViz"></canvas>
+  <canvas id="spectrum-canvas"></canvas>
 
   <!-- BARRA SUPERIOR -->
   <header class="top-bar">
-    <div class="brand">RadioAR <span>Pro</span> <span class="pro-tag">Studio v4.0</span></div>
+    <div class="brand">RadioAR <span>Pro</span> <span class="pro-tag">Studio v4.7</span></div>
     <div class="status-container">
       <div class="status-badge" id="top-badge"><div class="sync-spinner"></div> Sintonizando Red Global...</div>
       <div class="status-text" id="top-status-text">Cargando estaciones HD...</div>
@@ -736,11 +788,14 @@
     <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
   </button>
 
-  <!-- PANEL DERECHO DE EXPLORACIÓN / BÚSQUEDA -->
+  <!-- PANEL DERECHO DE EXPLORACIÓN / BÚSQUEDA (ARRASTRABLE DESDE SU HEADER) -->
   <aside class="right-panel" id="right-panel">
-    <div class="rp-header">
-      <h3 id="rp-title">Sintonizando...</h3>
-      <p id="rp-subtitle">Mueve el planeta para explorar</p>
+    <div class="rp-header" id="rp-drag-header" title="Haz clic y arrastra para mover el menú">
+      <div class="rp-header-text">
+        <h3 id="rp-title">Sintonizando...</h3>
+        <p id="rp-subtitle">Mueve el planeta para explorar</p>
+      </div>
+      <div class="drag-indicator">⋮⋮</div>
     </div>
     
     <div class="rp-tabs">
@@ -767,6 +822,10 @@
         Región... <span><button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>
       </div>
       <div class="flight-panel" id="flight-panel-box">
+        <button class="radar-btn" onclick="activateGeoRadar()">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+          Escanear Radar Geo-Espacial (500km)
+        </button>
         <button class="flight-btn" onclick="flyRandomStation()">
           <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
           Vuelo Aleatorio Mundial
@@ -812,6 +871,12 @@
     </div>
 
     <div class="bb-right">
+      <button class="spectrum-btn" id="btn-spectrum" onclick="toggleSpectrumHUD()" title="Visualizador de Espectro Neón">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18h-2V3h2zm4 4v10h-2V7h2zm4 3v4h-2v-4h2zM6 7v10H4V7h2zM2 10v4H0v-4h2z"/></svg>
+      </button>
+      <button class="cruise-btn" id="btn-cruise" onclick="toggleAutoDJCruise()" title="Modo Auto-DJ Cruise (Escáner Mundial)">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </button>
       <button class="timer-btn" id="btn-timer" onclick="toggleModal('timer-modal')" title="Sleep Timer">
         <div class="timer-badge" id="timer-badge">15</div>
         <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -845,14 +910,16 @@
     // =========================================
     WorldWind.configuration.baseUrl = "https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/";
 
-    window.addEventListener('load', () => {
+    // Optimización: Ocultar el cargador en 300ms para un arranque instantáneo
+    window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
         if (loader) { 
           loader.style.opacity = '0'; 
-          setTimeout(() => loader.style.display = 'none', 500); 
+          setTimeout(() => loader.style.display = 'none', 400); 
         }
-      }, 900);
+      }, 350);
+      initDraggablePanel();
     });
 
     // =========================================
@@ -870,6 +937,14 @@
     let visualPointsCount = 0; 
     let sleepTimerInterval = null, sleepTimerMinutes = 0;
     let selectedGenreChip = 'Todos';
+
+    // Límite óptimo de marcadores 3D simultáneos para garantizar 60 FPS en WebGL
+    const MAX_WEBGL_PLACEMARKS = 3500;
+
+    let isCruiseMode = false;
+    let cruiseInterval = null;
+    let audioCtx = null, analyser = null, audioSourceNode = null;
+    let isSpectrumActive = false;
 
     const audioPlayer = document.getElementById('audio-player');
     const playBtn = document.getElementById('playBtn'), playIcon = document.getElementById('playIcon');
@@ -895,11 +970,77 @@
     }
 
     // =========================================
-    // 3. RENDERIZADO 3D (WORLDWIND)
+    // FUNCIONALIDAD DE ARRASTRE PARA PANEL DERECHO
+    // =========================================
+    function initDraggablePanel() {
+      const panel = document.getElementById('right-panel');
+      const header = document.getElementById('rp-drag-header');
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+
+      const startDrag = (e) => {
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+        isDragging = true;
+        panel.style.transition = 'none';
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        const rect = panel.getBoundingClientRect();
+        panel.style.right = 'auto';
+        panel.style.left = rect.left + 'px';
+        panel.style.top = rect.top + 'px';
+        
+        startX = clientX;
+        startY = clientY;
+        initialLeft = rect.left;
+        initialTop = rect.top;
+      };
+
+      const doDrag = (e) => {
+        if (!isDragging) return;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+        
+        let newLeft = initialLeft + dx;
+        let newTop = initialTop + dy;
+        
+        const maxLeft = window.innerWidth - panel.offsetWidth;
+        const maxTop = window.innerHeight - 60;
+        newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        newTop = Math.max(0, Math.min(newTop, maxTop));
+
+        panel.style.left = newLeft + 'px';
+        panel.style.top = newTop + 'px';
+      };
+
+      const stopDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      };
+
+      header.addEventListener('mousedown', startDrag);
+      window.addEventListener('mousemove', doDrag);
+      window.addEventListener('mouseup', stopDrag);
+
+      header.addEventListener('touchstart', startDrag, { passive: true });
+      window.addEventListener('touchmove', doDrag, { passive: false });
+      window.addEventListener('touchend', stopDrag);
+    }
+
+    // =========================================
+    // 3. RENDERIZADO 3D (WORLDWIND OPTIMIZADO)
     // =========================================
     const canvas = document.getElementById('globeViz');
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
     const wwd = new WorldWind.WorldWindow("globeViz");
+
+    // Capas PRO: Estrellas espaciales + Atmósfera + BMNG
+    wwd.addLayer(new WorldWind.StarFieldLayer());
     wwd.addLayer(new WorldWind.BMNGLayer());
     wwd.addLayer(new WorldWind.AtmosphereLayer());
 
@@ -916,12 +1057,12 @@
     
     const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
     placemarkAttributes.imageSource = new WorldWind.ImageSource(dotCanvas);
-    placemarkAttributes.imageScale = 0.5;
+    placemarkAttributes.imageScale = 0.55;
 
-    // Iniciar el mapa centrado en Argentina
-    wwd.navigator.lookAtLocation.latitude = -31.4135;
-    wwd.navigator.lookAtLocation.longitude = -64.1810;
-    wwd.navigator.range = 3000000; 
+    // Centrado preciso en Argentina con zoom óptimo
+    wwd.navigator.lookAtLocation.latitude = -34.6037;
+    wwd.navigator.lookAtLocation.longitude = -61.3810;
+    wwd.navigator.range = 2800000; 
     wwd.redraw();
 
     window.addEventListener('resize', () => { 
@@ -931,7 +1072,7 @@
     });
 
     // =========================================
-    // 4. MOTOR ENTERPRISE: CARGA PROGRESIVA
+    // 4. MOTOR ENTERPRISE OPTIMIZADO (POR ETAPAS: ARGENTINA -> AMÉRICA -> MUNDO)
     // =========================================
     class GlobalRadioNetwork {
       constructor() {
@@ -963,29 +1104,35 @@
 
       renderChunk(stationsArray, onComplete) {
         let currentIndex = 0;
-        const chunkSize = 1500; 
+        const chunkSize = 2500; 
+        
         const processChunk = () => {
+          const startTime = performance.now();
           const end = Math.min(currentIndex + chunkSize, stationsArray.length);
+          
           for (; currentIndex < end; currentIndex++) {
             const st = stationsArray[currentIndex];
             if (!masterSet.has(st.uuid)) {
               masterSet.add(st.uuid);
               masterStations.push(st);
               
-              if (visualPointsCount < 100000) { 
+              // Evitamos saturar WebGL guardando todas las emisoras en memoria pero dibujando hasta el máximo permitido
+              if (visualPointsCount < MAX_WEBGL_PLACEMARKS) { 
                 const position = new WorldWind.Position(st.lat, st.lng, 0);
                 const placemark = new WorldWind.Placemark(position, false, placemarkAttributes);
                 stationsLayer.addRenderable(placemark);
                 visualPointsCount++;
               }
             }
+            if (performance.now() - startTime > 12) break; 
           }
-          document.getElementById('top-status-text').innerText = `${masterStations.length.toLocaleString()} radios disponibles`;
-          wwd.redraw();
+          
+          document.getElementById('top-status-text').innerText = `${masterStations.length.toLocaleString()} radios disponibles (${visualPointsCount.toLocaleString()} en globo HD)`;
           
           if (currentIndex < stationsArray.length) {
               requestAnimationFrame(processChunk);
           } else {
+              wwd.redraw();
               if(onComplete) onComplete();
           }
         };
@@ -1059,34 +1206,44 @@
         });
       }
 
+      // ETAPA 1 -> ETAPA 2 -> ETAPA 3
       async init() {
-        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Cargando Argentina...';
-        const globalPromise = this.fetchAPI("/stations/search", { hidebroken: true, limit: 22000, order: 'clickcount' });
-        const arStations = await this.fetchAPI("/stations/search", { countrycode: "AR", hidebroken: true, limit: 8000, order: 'clickcount' });
+        // --- ETAPA 1: ARGENTINA PRIMERO (Sin bloqueos, inmediata) ---
+        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Sintonizando Argentina (Etapa 1/3)...';
+        
+        const arStations = await this.fetchAPI("/stations/search", { 
+          countrycode: "AR", hidebroken: true, limit: 6000, order: 'clickcount' 
+        });
+        
         await this.processAndRender(arStations, false);
+        
+        // Carga automática inicial de la lista de Argentina para que la app sea funcional al instante
+        const arMaster = masterStations.filter(st => st.country === "Argentina" || st.country === "AR");
+        if (arMaster.length > 0 && !currentStation) {
+          regionHeaderTitle.innerHTML = `Región <span>${arMaster.length} emisoras AR <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
+          renderListItems(arMaster.slice(0, 150), "Elige una radio de Argentina para escuchar.");
+        }
 
-        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Analizando América...';
-        const allStations = await globalPromise;
+        // --- ETAPA 2: AMÉRICA LATINA Y NORTEAMÉRICA ---
+        document.getElementById('top-badge').innerHTML = '🇦🇷 Argentina lista; sintonizando América (Etapa 2/3)...';
+        const globalStations = await this.fetchAPI("/stations/search", { 
+          hidebroken: true, limit: 38000, order: 'clickcount' 
+        });
 
         const americasCodes = ['BR','CL','UY','PY','BO','PE','EC','CO','VE','MX','US','CA','CR','PA','DO','GT','HN','SV','NI','CU','PR','HT','JM'];
         const americaStations = [];
         const restStations = [];
 
-        allStations.forEach(st => {
+        globalStations.forEach(st => {
             if (st.countrycode === 'AR') return; 
             if (americasCodes.includes(st.countrycode)) americaStations.push(st);
             else restStations.push(st);
         });
 
-        document.getElementById('top-badge').innerHTML = '🌎 América lista; red global cargando en segundo plano.';
-        document.getElementById('top-status-text').innerText = 'Explora ya mientras terminan de aparecer emisoras mundiales.';
         await this.processAndRender(americaStations, false);
 
-        this.loadGlobalInBackground(restStations);
-      }
-
-      async loadGlobalInBackground(restStations) {
-        document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Completando red mundial...';
+        // --- ETAPA 3: RESTO DEL MUNDO (En segundo plano) ---
+        document.getElementById('top-badge').innerHTML = '🌎 América sintonizada; cargando mundo (Etapa 3/3)...';
         await this.processAndRender(restStations, true);
       }
     }
@@ -1100,7 +1257,8 @@
     function getClosestStation(lat, lng) {
       if (masterStations.length === 0) return null;
       let minDistance = Infinity, closest = null;
-      for (let i = 0; i < masterStations.length; i++) {
+      const len = masterStations.length;
+      for (let i = 0; i < len; i++) {
         const dist = Math.pow(masterStations[i].lat - lat, 2) + Math.pow(masterStations[i].lng - lng, 2);
         if (dist < minDistance) { minDistance = dist; closest = masterStations[i]; }
       }
@@ -1128,7 +1286,7 @@
           const position = pickList.objects[0].position;
           const closest = getClosestStation(position.latitude, position.longitude);
           
-          const searchThreshold = wwd.navigator.range / 100000;
+          const searchThreshold = wwd.navigator.range / 90000;
 
           if (closest && closest.distance < searchThreshold) {
             if (currentStation !== closest.station) {
@@ -1137,12 +1295,12 @@
             } else { crosshair.classList.add('locked'); }
           }
         }
-      }, 300); 
+      }, 200);
     };
 
     canvas.addEventListener('mousedown', handleStartMove); canvas.addEventListener('touchstart', handleStartMove);
     canvas.addEventListener('mouseup', handleStopMove); canvas.addEventListener('touchend', handleStopMove);
-    canvas.addEventListener('wheel', () => { handleStartMove(); clearTimeout(window.wheelTimer); window.wheelTimer = setTimeout(handleStopMove, 300); });
+    canvas.addEventListener('wheel', () => { handleStartMove(); clearTimeout(window.wheelTimer); window.wheelTimer = setTimeout(handleStopMove, 250); });
 
     function flyToStation(lat, lng) { 
       const position = new WorldWind.Position(lat, lng, 1200000); 
@@ -1182,7 +1340,7 @@
       favorites.some(f => f.uuid === station.uuid) ? favBtn.classList.add('active') : favBtn.classList.remove('active');
 
       audioPlayer.src = station.streamUrl;
-      audioPlayer.play().then(() => { isPlaying = true; updatePlayButton(); updateEQVisuals(); })
+      audioPlayer.play().then(() => { isPlaying = true; updatePlayButton(); updateEQVisuals(); initAudioSpectrum(); })
       .catch(e => { document.getElementById('bb-title').innerText = "❌ Frecuencia Caída"; isPlaying = false; updatePlayButton(); updateEQVisuals(); });
       playBtn.disabled = false;
     }
@@ -1199,7 +1357,7 @@
     });
     playBtn.addEventListener('click', () => {
       if (!currentStation) return;
-      isPlaying ? (audioPlayer.pause(), isPlaying = false) : (audioPlayer.play(), isPlaying = true);
+      isPlaying ? (audioPlayer.pause(), isPlaying = false) : (audioPlayer.play(), isPlaying = true, initAudioSpectrum());
       updatePlayButton(); updateEQVisuals();
     });
     volSlider.addEventListener('input', (e) => { audioPlayer.volume = e.target.value; });
@@ -1216,8 +1374,122 @@
     }
 
     // =========================================
-    // 7. FUNCIONES EXTRAS (Timer, IA, Share PRO)
+    // 7. INNOVACIONES STUDIO + ACCIONES
     // =========================================
+    function activateGeoRadar() {
+      if (masterStations.length === 0) return;
+      const pickList = wwd.pickTerrain(new WorldWind.Vec2(canvas.width / 2, canvas.height / 2));
+      const centerLat = pickList.objects.length > 0 ? pickList.objects[0].position.latitude : wwd.navigator.lookAtLocation.latitude;
+      const centerLng = pickList.objects.length > 0 ? pickList.objects[0].position.longitude : wwd.navigator.lookAtLocation.longitude;
+
+      crosshair.classList.add('radar-pulse');
+      setTimeout(() => crosshair.classList.remove('radar-pulse'), 3600);
+
+      const nearStations = masterStations.filter(st => {
+        const dLat = (st.lat - centerLat) * 111;
+        const dLng = (st.lng - centerLng) * 111 * Math.cos(centerLat * (Math.PI / 180));
+        const distanceKm = Math.sqrt(dLat * dLat + dLng * dLng);
+        return distanceKm <= 500;
+      }).slice(0, 200);
+
+      regionHeaderTitle.innerHTML = `Radar Geo-Espacial <span>${nearStations.length} detectadas <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
+      
+      if (nearStations.length > 0) {
+        renderListItems(nearStations, "No hay emisoras alrededor de 500km.");
+        const closest = nearStations[0];
+        flyToStation(closest.lat, closest.lng);
+        lockAndPlayStation(closest, nearStations);
+      } else {
+        radioList.innerHTML = `<p style='color:#666; padding:18px; text-align:center;'>El radar no detectó estaciones a 500km. Desplaza la mira hacia el continente.</p>`;
+      }
+    }
+
+    function initAudioSpectrum() {
+      if (audioCtx) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        analyser = audioCtx.createAnalyser();
+        audioSourceNode = audioCtx.createMediaElementSource(audioPlayer);
+        audioSourceNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        analyser.fftSize = 64;
+        drawSpectrum();
+      } catch (e) {}
+    }
+
+    function toggleSpectrumHUD() {
+      const spCanvas = document.getElementById('spectrum-canvas');
+      const btn = document.getElementById('btn-spectrum');
+      isSpectrumActive = !isSpectrumActive;
+      spCanvas.classList.toggle('active', isSpectrumActive);
+      btn.classList.toggle('active', isSpectrumActive);
+      if (isSpectrumActive && isPlaying) initAudioSpectrum();
+    }
+
+    function drawSpectrum() {
+      const spCanvas = document.getElementById('spectrum-canvas');
+      const sCtx = spCanvas.getContext('2d');
+      spCanvas.width = spCanvas.clientWidth;
+      spCanvas.height = 100;
+
+      const bufferLength = analyser ? analyser.frequencyBinCount : 32;
+      const dataArray = new Uint8Array(bufferLength);
+
+      const renderFrame = () => {
+        requestAnimationFrame(renderFrame);
+        if (!isSpectrumActive) return;
+
+        sCtx.clearRect(0, 0, spCanvas.width, spCanvas.height);
+        
+        if (analyser && isPlaying) {
+          analyser.getByteFrequencyData(dataArray);
+        } else if (isPlaying) {
+          for (let i = 0; i < bufferLength; i++) {
+            dataArray[i] = Math.floor(Math.abs(Math.sin(Date.now() / 200 + i)) * 200);
+          }
+        } else {
+          dataArray.fill(0);
+        }
+
+        const barWidth = (spCanvas.width / bufferLength) * 1.6;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * spCanvas.height;
+          const gradient = sCtx.createLinearGradient(0, spCanvas.height, 0, 0);
+          gradient.addColorStop(0, '#1DB954');
+          gradient.addColorStop(1, '#00F2FE');
+
+          sCtx.fillStyle = gradient;
+          sCtx.fillRect(x, spCanvas.height - barHeight, barWidth - 3, barHeight);
+          x += barWidth;
+        }
+      };
+      renderFrame();
+    }
+
+    function toggleAutoDJCruise() {
+      const cruiseBtn = document.getElementById('btn-cruise');
+      isCruiseMode = !isCruiseMode;
+      cruiseBtn.classList.toggle('active', isCruiseMode);
+
+      if (isCruiseMode) {
+        document.getElementById('top-status-text').innerText = '🛸 Modo Auto-DJ activo: escaneando capitales del mundo...';
+        flyRandomStation();
+        cruiseInterval = setInterval(() => {
+          if (isCruiseMode) {
+            flyRandomStation();
+          } else {
+            clearInterval(cruiseInterval);
+          }
+        }, 15000); 
+      } else {
+        clearInterval(cruiseInterval);
+        document.getElementById('top-status-text').innerText = `${masterStations.length.toLocaleString()} radios disponibles`;
+      }
+    }
+
     function setTimer(minutes) {
         cancelTimer(); sleepTimerMinutes = minutes;
         const btn = document.getElementById('btn-timer'), badge = document.getElementById('timer-badge');
@@ -1250,7 +1522,7 @@
       if (worldStations.length === 0) return;
       const randomIndex = Math.floor(Math.random() * worldStations.length);
       const randomStation = worldStations[randomIndex];
-      document.getElementById('top-status-text').innerText = '✈️ Vuelo mundial: sintonizando frecuencia aleatoria...';
+      if (!isCruiseMode) document.getElementById('top-status-text').innerText = '✈️ Vuelo mundial: sintonizando frecuencia aleatoria...';
       flyToStation(randomStation.lat, randomStation.lng);
       lockAndPlayStation(randomStation, worldStations);
     }
@@ -1275,7 +1547,7 @@
 
     function switchTab(tabId, element) {
       document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active')); element.classList.add('active');
-      flightPanelBox.style.display = tabId === 'explorar' ? 'block' : 'none';
+      flightPanelBox.style.display = tabId === 'explorar' ? 'flex' : 'none';
       if (tabId === 'explorar') currentStation ? loadRegionList(currentStation) : radioList.innerHTML = "<p style='color:#666; padding:18px; text-align:center;'>Sintoniza un punto en el mapa.</p>";
       if (tabId === 'buscar') loadAdvancedSearch();
       if (tabId === 'historial') loadHistoryList();
@@ -1307,7 +1579,7 @@
     }
 
     function loadRegionList(station) {
-      const regionRadios = masterStations.filter(r => r.country === station.country && r.state === station.state).slice(0, 500);
+      const regionRadios = masterStations.filter(r => r.country === station.country && r.state === station.state).slice(0, 2500);
       regionHeaderTitle.innerHTML = `Región <span>${regionRadios.length} emisoras <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
       renderListItems(regionRadios, "No hay emisoras en esta región.");
     }
@@ -1330,7 +1602,7 @@
     }
 
     // =========================================
-    // 8. BUSCADOR PRO POR PAÍS CON TODOS LOS RESULTADOS + FILTRO POR GÉNERO
+    // 8. BUSCADOR PRO POR PAÍS + GÉNEROS
     // =========================================
     function loadAdvancedSearch() {
       regionHeaderTitle.innerHTML = `Buscador Pro <span>Global <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
@@ -1397,7 +1669,7 @@
             return (a.name || '').localeCompare(b.name || '');
         });
 
-        const maxDisplay = selCountry ? 5000 : 800;
+        const maxDisplay = selCountry ? 12000 : 1500;
         const limitedMatches = matches.slice(0, maxDisplay);
 
         if (limitedMatches.length === 0) {
