@@ -90,7 +90,7 @@
     }
 
     /* =========================================
-       3. TOP BAR
+       3. TOP BAR & BOTÓN VOLVER
        ========================================= */
     .top-bar {
       position: absolute; top: 0; left: 0; width: 100%; height: 68px;
@@ -99,6 +99,21 @@
       background: linear-gradient(to bottom, rgba(7, 7, 9, 0.94) 0%, rgba(7, 7, 9, 0.6) 60%, rgba(0, 0, 0, 0) 100%);
     }
     .top-bar > * { pointer-events: auto; }
+    
+    .header-left {
+      display: flex; align-items: center; gap: 16px;
+    }
+    
+    .btn-back {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; padding: 6px 12px; border-radius: 8px; text-decoration: none;
+      font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-back:hover { 
+      background: var(--primary); color: #000; border-color: var(--primary); 
+    }
+    .btn-back svg { width: 16px; height: 16px; fill: currentColor; }
     
     .brand { 
       font-size: 1.38rem; font-weight: 800; letter-spacing: -0.5px; 
@@ -136,10 +151,10 @@
     }
 
     /* =========================================
-       4. BOTÓN FLOTANTE LATERAL
+       4. BOTÓN FLOTANTE LATERAL (HAMBURGUESA)
        ========================================= */
     .toggle-panel-btn-floating {
-      position: absolute; top: 80px; right: 20px; z-index: 60;
+      position: absolute; top: 80px; right: 20px; z-index: 105; /* Elevado para asegurar clickeabilidad en móvil */
       background: rgba(15, 17, 21, 0.95); border: 1.5px solid var(--primary);
       border-radius: 12px; width: 44px; height: 44px; color: #fff;
       display: flex; align-items: center; justify-content: center;
@@ -619,13 +634,15 @@
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     /* =========================================
-       12. DISEÑO RESPONSIVE
+       12. DISEÑO RESPONSIVE (MÓVIL MEJORADO)
        ========================================= */
     @media (max-width: 920px) {
       .top-bar { 
         height: 56px; padding: 0 14px; 
         background: linear-gradient(to bottom, rgba(7,7,9,0.95) 0%, rgba(7,7,9,0.8) 100%);
       } 
+      .header-left { gap: 10px; }
+      .btn-back { padding: 4px 8px; font-size: 0.75rem; }
       .brand { font-size: 1.1rem; }
       .brand .pro-tag { font-size: 0.6rem; padding: 2px 6px; }
       
@@ -636,22 +653,36 @@
       .toggle-panel-btn-floating {
         top: 68px; right: 12px;
         width: 40px; height: 40px;
+        z-index: 105; /* Siempre clicable encima del menú */
       }
       
+      /* PANEL DESLIZABLE NATIVO MEJORADO */
       .right-panel { 
-        width: 88%; max-width: 320px; 
-        right: -100%; top: 60px; 
-        height: calc(100vh - 165px); 
-        border-radius: 16px 0 0 16px; 
+        position: fixed;
+        top: 0; right: 0; bottom: 0;
+        width: 88%; max-width: 340px; 
+        height: 100vh;
+        border-radius: 20px 0 0 20px; 
         background: rgba(10, 11, 14, 0.98); 
         border: 1px solid var(--glass-border);
         box-shadow: -10px 0 40px rgba(0,0,0,0.9);
+        z-index: 100;
+        
+        transform: translateX(110%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity: 1; pointer-events: auto; /* Anula el .hidden de escritorio */
       }
+      
+      .right-panel.hidden {
+        /* Ignora la opacidad en móvil para usar slide-out */
+        opacity: 1; transform: translateX(110%); pointer-events: auto;
+      }
+      
       .right-panel.mobile-active { 
-        right: 0; transform: none; opacity: 1; pointer-events: all; 
+        transform: translateX(0); /* Entra a la pantalla */
       }
 
-      .rp-header { padding: 12px 16px; }
+      .rp-header { padding: 18px 16px 12px; }
       .rp-header h3 { font-size: 1rem; }
       .rp-header p { font-size: 0.75rem; }
       .rp-tabs { padding: 6px; gap: 2px; }
@@ -689,7 +720,7 @@
     }
 
     @media (max-width: 480px) {
-      .right-panel { width: 90%; max-width: 290px; }
+      .right-panel { width: 90%; max-width: 300px; }
       .btn-fav { padding: 5px 10px; font-size: 0.75rem; }
       .controls-wrapper { gap: 10px; }
       .play-pause-btn { width: 44px; height: 44px; }
@@ -761,7 +792,7 @@
         <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg> 
         Compartir Frecuencia
       </h2>
-      <p id="share-modal-text">Copia el enlace de stream directo para enviarlo a tus amigos o integrarlo.</p>
+      <p id="share-modal-text">Copia el enlace para compartir la ubicación exacta y emisora.</p>
       <div class="share-link-box">
         <input type="text" id="share-stream-url" readonly value="" />
         <button class="copy-btn" onclick="copyStreamUrl()">Copiar</button>
@@ -774,9 +805,15 @@
   <canvas id="globeViz"></canvas>
   <canvas id="spectrum-canvas"></canvas>
 
-  <!-- BARRA SUPERIOR -->
+  <!-- BARRA SUPERIOR CON BOTÓN VOLVER -->
   <header class="top-bar">
-    <div class="brand">RadioAR <span>Pro</span> <span class="pro-tag">Studio v4.7</span></div>
+    <div class="header-left">
+      <a href="index.html" class="btn-back" title="Volver al repositorio de Radios">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Volver
+      </a>
+      <div class="brand">RadioAR <span>Pro</span> <span class="pro-tag">Studio v4.7</span></div>
+    </div>
     <div class="status-container">
       <div class="status-badge" id="top-badge"><div class="sync-spinner"></div> Sintonizando Red Global...</div>
       <div class="status-text" id="top-status-text">Cargando estaciones HD...</div>
@@ -785,7 +822,7 @@
 
   <!-- BOTÓN FLOTANTE CON ICONO PARA DESPLAZAR/OCULTAR MENÚ -->
   <button class="toggle-panel-btn-floating" onclick="toggleRightPanel()" title="Desplegar Panel">
-    <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
   </button>
 
   <!-- PANEL DERECHO DE EXPLORACIÓN / BÚSQUEDA (ARRASTRABLE DESDE SU HEADER) -->
@@ -910,7 +947,6 @@
     // =========================================
     WorldWind.configuration.baseUrl = "https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/";
 
-    // Optimización: Ocultar el cargador en 300ms para un arranque instantáneo
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
@@ -938,8 +974,8 @@
     let sleepTimerInterval = null, sleepTimerMinutes = 0;
     let selectedGenreChip = 'Todos';
 
-    // Límite óptimo de marcadores 3D simultáneos para garantizar 60 FPS en WebGL
-    const MAX_WEBGL_PLACEMARKS = 3500;
+    // Aumentamos considerablemente el límite visual de puntos a renderizar
+    const MAX_WEBGL_PLACEMARKS = 15000;
 
     let isCruiseMode = false;
     let cruiseInterval = null;
@@ -979,7 +1015,7 @@
       let startX, startY, initialLeft, initialTop;
 
       const startDrag = (e) => {
-        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button') || window.innerWidth <= 920) return;
         isDragging = true;
         panel.style.transition = 'none';
         
@@ -1039,7 +1075,6 @@
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
     const wwd = new WorldWind.WorldWindow("globeViz");
 
-    // Capas PRO: Estrellas espaciales + Atmósfera + BMNG
     wwd.addLayer(new WorldWind.StarFieldLayer());
     wwd.addLayer(new WorldWind.BMNGLayer());
     wwd.addLayer(new WorldWind.AtmosphereLayer());
@@ -1059,7 +1094,6 @@
     placemarkAttributes.imageSource = new WorldWind.ImageSource(dotCanvas);
     placemarkAttributes.imageScale = 0.55;
 
-    // Centrado preciso en Argentina con zoom óptimo
     wwd.navigator.lookAtLocation.latitude = -34.6037;
     wwd.navigator.lookAtLocation.longitude = -61.3810;
     wwd.navigator.range = 2800000; 
@@ -1072,7 +1106,7 @@
     });
 
     // =========================================
-    // 4. MOTOR ENTERPRISE OPTIMIZADO (POR ETAPAS: ARGENTINA -> AMÉRICA -> MUNDO)
+    // 4. MOTOR ENTERPRISE (POR ETAPAS)
     // =========================================
     class GlobalRadioNetwork {
       constructor() {
@@ -1098,7 +1132,8 @@
       applyJitter(val, isInherited = false) { 
         const num = parseFloat(val);
         if (isNaN(num)) return null; 
-        const spread = isInherited ? 1.5 : 0.3;
+        // Dispersión reducida drásticamente para ubicaciones en ciudades exactas
+        const spread = isInherited ? 0.3 : 0.05; 
         return num + (Math.random() - 0.5) * spread; 
       }
 
@@ -1116,7 +1151,6 @@
               masterSet.add(st.uuid);
               masterStations.push(st);
               
-              // Evitamos saturar WebGL guardando todas las emisoras en memoria pero dibujando hasta el máximo permitido
               if (visualPointsCount < MAX_WEBGL_PLACEMARKS) { 
                 const position = new WorldWind.Position(st.lat, st.lng, 0);
                 const placemark = new WorldWind.Placemark(position, false, placemarkAttributes);
@@ -1206,25 +1240,22 @@
         });
       }
 
-      // ETAPA 1 -> ETAPA 2 -> ETAPA 3
       async init() {
-        // --- ETAPA 1: ARGENTINA PRIMERO (Sin bloqueos, inmediata) ---
         document.getElementById('top-badge').innerHTML = '<div class="sync-spinner"></div> Sintonizando Argentina (Etapa 1/3)...';
-        
         const arStations = await this.fetchAPI("/stations/search", { 
           countrycode: "AR", hidebroken: true, limit: 6000, order: 'clickcount' 
         });
-        
         await this.processAndRender(arStations, false);
         
-        // Carga automática inicial de la lista de Argentina para que la app sea funcional al instante
         const arMaster = masterStations.filter(st => st.country === "Argentina" || st.country === "AR");
-        if (arMaster.length > 0 && !currentStation) {
+        
+        // Verifica si la URL tiene una estacion pre-compartida (Deep Link) para no sobrescribirla
+        const params = new URLSearchParams(window.location.search);
+        if (!params.get('station') && arMaster.length > 0 && !currentStation) {
           regionHeaderTitle.innerHTML = `Región <span>${arMaster.length} emisoras AR <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button></span>`;
           renderListItems(arMaster.slice(0, 150), "Elige una radio de Argentina para escuchar.");
         }
 
-        // --- ETAPA 2: AMÉRICA LATINA Y NORTEAMÉRICA ---
         document.getElementById('top-badge').innerHTML = '🇦🇷 Argentina lista; sintonizando América (Etapa 2/3)...';
         const globalStations = await this.fetchAPI("/stations/search", { 
           hidebroken: true, limit: 38000, order: 'clickcount' 
@@ -1242,7 +1273,6 @@
 
         await this.processAndRender(americaStations, false);
 
-        // --- ETAPA 3: RESTO DEL MUNDO (En segundo plano) ---
         document.getElementById('top-badge').innerHTML = '🌎 América sintonizada; cargando mundo (Etapa 3/3)...';
         await this.processAndRender(restStations, true);
       }
@@ -1252,8 +1282,25 @@
     networkEngine.init();
 
     // =========================================
-    // 5. NAVEGACIÓN Y DETECCIÓN EN MAPA
+    // 5. NAVEGACIÓN Y DETECCIÓN EN MAPA Y LINK COMPARTIDO
     // =========================================
+    
+    // Auto-detección de Radio Compartida mediante Enlace
+    window.sharedStationCheckInterval = setInterval(() => {
+       const params = new URLSearchParams(window.location.search);
+       const sharedUuid = params.get('station');
+       if(sharedUuid && !currentStation) {
+          const st = masterStations.find(s => s.uuid === sharedUuid);
+          if(st) {
+             clearInterval(window.sharedStationCheckInterval);
+             flyToStation(st.lat, st.lng);
+             lockAndPlayStation(st, [st]); 
+          }
+       } else if (currentStation || masterStations.length > 40000) {
+          clearInterval(window.sharedStationCheckInterval);
+       }
+    }, 1000);
+
     function getClosestStation(lat, lng) {
       if (masterStations.length === 0) return null;
       let minDistance = Infinity, closest = null;
@@ -1533,7 +1580,12 @@
         return;
       }
       document.getElementById('share-modal-text').innerText = `${currentStation.name} (${currentStation.country})`;
-      document.getElementById('share-stream-url').value = currentStation.streamUrl;
+      
+      // Crea el link usando la dirección de tu aplicación en lugar de solo el audio
+      const baseUrl = window.location.href.split('?')[0]; 
+      const shareUrl = `${baseUrl}?station=${currentStation.uuid}`;
+      
+      document.getElementById('share-stream-url').value = shareUrl;
       toggleModal('share-modal');
     }
 
@@ -1542,7 +1594,7 @@
       input.select();
       input.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(input.value);
-      alert("Enlace copiado al portapapeles.");
+      alert("Enlace copiado al portapapeles. Al abrirlo, el mapa volará directamente a esta estación.");
     }
 
     function switchTab(tabId, element) {
